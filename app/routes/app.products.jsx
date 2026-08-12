@@ -1,8 +1,12 @@
-import React, { useMemo, useState } from "react";
-import { useLoaderData, useSearchParams } from "react-router";
+import { Suspense, useDeferredValue, useMemo, useState } from "react";
+import { Await, useLoaderData, useNavigation, useSearchParams } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
-import * as XLSX from "xlsx";
+import { getProductCatalog } from "../product-catalog-cache.server";
+import { runWithAnalyticsCache } from "../analytics-cache.server";
+
+/* Loader and Await render props are runtime-validated by React Router. */
+/* eslint-disable react/prop-types */
 
 // Strips a GraphQL GID (or any string) down to its trailing numeric id so it
 // can be matched against the ids ShopifyQL returns, whatever shape those take.
@@ -78,51 +82,6 @@ function humanRange(filterType, start, end) {
     return `${s.toLocaleDateString("en-US", { month: "short", day: "numeric" })} – ${e.toLocaleDateString("en-US", opts)}`;
 }
 
-async function fetchAllProducts(admin) {
-    const products = [];
-    let cursor = null;
-    let hasNextPage = true;
-    let pages = 0;
-
-    while (hasNextPage && pages < 100) {
-        const response = await admin.graphql(
-            `#graphql
-      query GetProductsForAudit($cursor: String) {
-        products(first: 250, after: $cursor, sortKey: TITLE) {
-          edges {
-            cursor
-            node {
-              id
-              title
-              productType
-              tags
-              handle
-              onlineStoreUrl
-              createdAt
-              status
-            }
-          }
-          pageInfo {
-            hasNextPage
-          }
-        }
-      }`,
-            { variables: { cursor } },
-        );
-        const json = await response.json();
-        if (json.errors?.length) {
-            throw new Error(json.errors[0].message);
-        }
-        const edges = json.data?.products?.edges || [];
-        edges.forEach((edge) => products.push(edge.node));
-        hasNextPage = json.data?.products?.pageInfo?.hasNextPage || false;
-        cursor = edges[edges.length - 1]?.cursor || null;
-        pages += 1;
-    }
-
-    return products;
-}
-
 // Runs a ShopifyQL query and normalizes the response into rows of
 // { columnName: value }. Never throws — callers get an `error` string
 // instead so one failing analytics query can't take down the whole page.
@@ -150,10 +109,49 @@ function extractRequestId(response, json) {
 // though they did sell. Always send an explicit LIMIT. The server rejects
 // values above its own ceiling, so keep this comfortably under it.
 const SHOPIFYQL_ROW_LIMIT = 100000;
+const SHOPIFYQL_MAX_ATTEMPTS = 3;
+const SHOPIFYQL_RETRY_BASE_MS = 750;
+const PRODUCT_PAGE_SIZE = 50;
+const STATUS_COLORS = {
+    ACTIVE: { bg: "#e3f1df", fg: "#0d5e27" },
+    DRAFT: { bg: "#fff4e5", fg: "#9c5b00" },
+    ARCHIVED: { bg: "#e4e5e7", fg: "#4a4a4a" },
+};
 
-async function runShopifyQL(admin, query, limit = SHOPIFYQL_ROW_LIMIT) {
+function wait(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchShopInfo(admin) {
+    const response = await admin.graphql(
+        `#graphql
+        query ShopInfoForAudit {
+          shop {
+            currencyCode
+            myshopifyDomain
+            primaryDomain { url }
+          }
+        }`,
+    );
+    const json = await response.json();
+    if (json.errors?.length) throw new Error(json.errors[0].message);
+    return {
+        shopUrl: json.data?.shop?.primaryDomain?.url || "",
+        shopCurrency: json.data?.shop?.currencyCode || "USD",
+        shopDomain: json.data?.shop?.myshopifyDomain || "unknown-shop",
+    };
+}
+
+function isRetryableShopifyQLError(message = "") {
+    return /rate limit|throttl|temporar|timeout|timed out|service unavailable|internal server|502|503|504/i.test(message);
+}
+
+async function runShopifyQL(admin, query, { limit = SHOPIFYQL_ROW_LIMIT, debug = false } = {}) {
     const limitedQuery = /\bLIMIT\b/i.test(query) ? query : `${query} LIMIT ${limit}`;
-    try {
+    const startedAt = Date.now();
+
+    for (let attempt = 1; attempt <= SHOPIFYQL_MAX_ATTEMPTS; attempt += 1) {
+      try {
         const response = await admin.graphql(
             `#graphql
       query RunShopifyQL($query: String!) {
@@ -173,20 +171,23 @@ async function runShopifyQL(admin, query, limit = SHOPIFYQL_ROW_LIMIT) {
         );
         const json = await response.json();
         const requestId = extractRequestId(response, json);
+        const elapsedMs = Date.now() - startedAt;
+        const graphError = json.errors?.[0]?.message || "";
 
-        console.log(`\n========================================`);
-        console.log(`[ShopifyQL Query]: ${limitedQuery}`);
-        console.log(`[x-request-id]: ${requestId}`);
-        console.log(`[HTTP Response JSON]:\n`, JSON.stringify(json, null, 2));
-        console.log(`========================================\n`);
+        if (graphError && isRetryableShopifyQLError(graphError) && attempt < SHOPIFYQL_MAX_ATTEMPTS) {
+            const retryDelayMs = SHOPIFYQL_RETRY_BASE_MS * (2 ** (attempt - 1));
+            console.warn(`[ShopifyQL] temporary failure; retry ${attempt + 1}/${SHOPIFYQL_MAX_ATTEMPTS} in ${retryDelayMs}ms`);
+            await wait(retryDelayMs);
+            continue;
+        }
 
         if (json.errors?.length) {
-            return { rows: [], error: json.errors[0].message, truncated: false, requestId, rawJson: json };
+            return { rows: [], error: graphError, truncated: false, requestId, rawJson: debug ? json : null, elapsedMs, attempts: attempt };
         }
 
         const result = json.data?.shopifyqlQuery;
         if (result?.parseErrors?.length) {
-            return { rows: [], error: result.parseErrors.join("; "), truncated: false, requestId, rawJson: json };
+            return { rows: [], error: result.parseErrors.join("; "), truncated: false, requestId, rawJson: debug ? json : null, elapsedMs, attempts: attempt };
         }
 
         const columns = result?.tableData?.columns || [];
@@ -207,17 +208,30 @@ async function runShopifyQL(admin, query, limit = SHOPIFYQL_ROW_LIMIT) {
 
         // If we came back with exactly the number of rows we asked for, the
         // result set was almost certainly cut short and totals are understated.
-        return { rows, error: null, truncated: rows.length >= limit, requestId, rawJson: json };
-    } catch (err) {
-        console.error(`[ShopifyQL Fetch Error]:`, err);
-        return { rows: [], error: err.message || "ShopifyQL request failed.", truncated: false, requestId: null, rawJson: null };
+        console.info(`[ShopifyQL] ${elapsedMs}ms · ${rows.length} rows · ${attempt} attempt(s) · ${limitedQuery.slice(0, 100)}`);
+        if (debug) console.debug(`[ShopifyQL debug]`, JSON.stringify(json, null, 2));
+        return { rows, error: null, truncated: rows.length >= limit, requestId, rawJson: debug ? json : null, elapsedMs, attempts: attempt };
+      } catch (err) {
+        const message = err?.message || "ShopifyQL request failed.";
+        if (isRetryableShopifyQLError(message) && attempt < SHOPIFYQL_MAX_ATTEMPTS) {
+            const retryDelayMs = SHOPIFYQL_RETRY_BASE_MS * (2 ** (attempt - 1));
+            console.warn(`[ShopifyQL] ${message}; retry ${attempt + 1}/${SHOPIFYQL_MAX_ATTEMPTS} in ${retryDelayMs}ms`);
+            await wait(retryDelayMs);
+            continue;
+        }
+        console.error(`[ShopifyQL Fetch Error]:`, message);
+        return { rows: [], error: message, truncated: false, requestId: null, rawJson: null, elapsedMs: Date.now() - startedAt, attempts: attempt };
+      }
     }
+
+    return { rows: [], error: "ShopifyQL request failed after retries.", truncated: false, requestId: null, rawJson: null, elapsedMs: Date.now() - startedAt, attempts: SHOPIFYQL_MAX_ATTEMPTS };
 }
 
 export const loader = async ({ request }) => {
-    const { admin } = await authenticate.admin(request);
+    const { admin, session } = await authenticate.admin(request);
 
     const url = new URL(request.url);
+    const debug = url.searchParams.get("debug") === "1";
     const filterType = ["day", "week", "month"].includes(url.searchParams.get("filterType"))
         ? url.searchParams.get("filterType")
         : "month";
@@ -238,60 +252,36 @@ export const loader = async ({ request }) => {
     const month = dateParam; // backward compat
     const displayRange = humanRange(filterType, start, end);
 
-    let products = [];
-    let productsError = null;
-    try {
-        products = await fetchAllProducts(admin);
-    } catch (err) {
-        productsError = err.message || "Failed to load products.";
-    }
+    const report = (async () => {
 
-    let shopUrl = "";
-    let shopCurrency = "USD";
-    try {
-        const shopResponse = await admin.graphql(
-            `#graphql
-      query ShopDomainForAudit {
-        shop {
-          currencyCode
-          primaryDomain {
-            url
-          }
-        }
-      }`,
-        );
-        const shopJson = await shopResponse.json();
-        shopUrl = shopJson.data?.shop?.primaryDomain?.url || "";
-        shopCurrency = shopJson.data?.shop?.currencyCode || "USD";
-    } catch {
-        // Non-critical — product URLs just fall back to the handle-only link.
-    }
+    // These requests do not depend on one another, so start them together. Total
+    // waiting time is now close to the slowest request, not the sum of all requests.
+    const [productsResult, shopResult, productPageEngagement, landingSessionTotals, salesTotals, inventoryTotals] = await Promise.all([
+        getProductCatalog(admin, session.shop).then(
+            (catalog) => ({ ...catalog, error: null }),
+            (err) => ({ products: [], error: err?.message || "Failed to load products." }),
+        ),
+        fetchShopInfo(admin).catch(() => ({ shopUrl: "", shopCurrency: "USD", shopDomain: "unknown-shop" })),
+        // This granular response contains opaque session IDs for deduplication.
+        // Keep it in request memory only; do not persist those IDs in analytics cache.
+        runShopifyQL(admin, `FROM web_performance SHOW page_loads WHERE page_type = 'Product' GROUP BY page_path, micro_session_id SINCE ${start} UNTIL ${end}`, { debug }),
+        runWithAnalyticsCache({
+            shop: session.shop, dataset: "product-landing-sessions", rangeStart: start, rangeEnd: end,
+            run: () => runShopifyQL(admin, `FROM sessions SHOW sessions, sessions_with_cart_additions, sessions_that_reached_checkout, sessions_that_completed_checkout, conversion_rate WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`, { debug }),
+        }),
+        runWithAnalyticsCache({
+            shop: session.shop, dataset: "sales", rangeStart: start, rangeEnd: end,
+            run: () => runShopifyQL(admin, `FROM sales SHOW total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`, { debug }),
+        }),
+        runWithAnalyticsCache({
+            shop: session.shop, dataset: "inventory", rangeStart: start, rangeEnd: end,
+            run: () => runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`, { debug }),
+        }),
+    ]);
 
-    // Session totals + add-to-cart + purchase (checkout) sessions, per product.
-    const sessionTotals = await runShopifyQL(
-        admin,
-        `FROM sessions SHOW sessions, sessions_with_cart_additions, sessions_that_reached_checkout, sessions_that_completed_checkout, conversion_rate WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`,
-    );
-
-    // Same session data, broken down by landing page (one-to-many per product).
-    const sessionsByLandingPage = await runShopifyQL(
-        admin,
-        `FROM sessions SHOW sessions GROUP BY landing_page_type, landing_page_path SINCE ${start} UNTIL ${end}`,
-    );
-
-    // Revenue for the month, per product.
-    const salesTotals = await runShopifyQL(
-        admin,
-        `FROM sales SHOW total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`,
-    );
-
-    // Inventory levels at the edges of the selected range, per product. All three
-    // fields are scoped to SINCE/UNTIL, so day / week / month each report their
-    // own opening and closing units rather than a fixed monthly figure.
-    const inventoryTotals = await runShopifyQL(
-        admin,
-        `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`,
-    );
+    const products = productsResult.products;
+    const productsError = productsResult.error;
+    const { shopUrl, shopCurrency } = shopResult;
 
     // Helper: extract the product handle from a landing_page_path like
     // "/products/my-handle" or "/products/my-handle?variant=123".
@@ -301,28 +291,29 @@ export const loader = async ({ request }) => {
         return match ? match[1] : null;
     }
 
-    const landingPageByHandle = {};
-    sessionsByLandingPage.rows.forEach((row) => {
-        const handle = handleFromPath(row.landing_page_path);
+    const pageViewsByHandle = {};
+    const productSessionIdsByHandle = {};
+    productPageEngagement.rows.forEach((row) => {
+        const handle = handleFromPath(row.page_path);
         if (!handle) return;
-        if (!landingPageByHandle[handle]) landingPageByHandle[handle] = [];
-        landingPageByHandle[handle].push({
-            path: row.landing_page_path ?? "Unknown",
-            sessions: Number(row.sessions) || 0,
-        });
+        pageViewsByHandle[handle] = (pageViewsByHandle[handle] || 0) + (Number(row.page_loads) || 0);
+        if (!productSessionIdsByHandle[handle]) productSessionIdsByHandle[handle] = new Set();
+        if (row.micro_session_id !== null && row.micro_session_id !== undefined) {
+            productSessionIdsByHandle[handle].add(String(row.micro_session_id));
+        }
     });
 
     const sessionByHandle = {};
-    sessionTotals.rows.forEach((row) => {
+    landingSessionTotals.rows.forEach((row) => {
         const handle = handleFromPath(row.landing_page_path);
         if (!handle) return;
-        sessionByHandle[handle] = {
-            sessions: Number(row.sessions) || 0,
-            addToCart: Number(row.sessions_with_cart_additions) || 0,
-            reachedCheckout: Number(row.sessions_that_reached_checkout) || 0,
-            purchases: Number(row.sessions_that_completed_checkout) || 0,
-            conversionRate: Number(row.conversion_rate) || 0,
-        };
+        const current = sessionByHandle[handle] || { sessions: 0, addToCart: 0, reachedCheckout: 0, purchases: 0, conversionRate: 0 };
+        current.sessions += Number(row.sessions) || 0;
+        current.addToCart += Number(row.sessions_with_cart_additions) || 0;
+        current.reachedCheckout += Number(row.sessions_that_reached_checkout) || 0;
+        current.purchases += Number(row.sessions_that_completed_checkout) || 0;
+        current.conversionRate = current.sessions > 0 ? current.purchases / current.sessions : 0;
+        sessionByHandle[handle] = current;
     });
 
     const salesByProduct = {};
@@ -355,40 +346,7 @@ export const loader = async ({ request }) => {
             endingInventory: null,
         };
 
-        const prodUrl =
-            product.onlineStoreUrl || (cleanShopUrl && product.handle ? `${cleanShopUrl}/products/${product.handle}` : "");
-
-        const landingPages = (landingPageByHandle[handle] || [])
-            .sort((a, b) => b.sessions - a.sessions)
-            .map((lp) => {
-                let fullUrl = lp.path;
-                if (cleanShopUrl && lp.path !== "Unknown") {
-                    if (lp.path.startsWith("http")) {
-                        fullUrl = lp.path;
-                    } else {
-                        fullUrl = `${cleanShopUrl}${lp.path.startsWith("/") ? "" : "/"}${lp.path}`;
-                    }
-                }
-                const pctNumber = session.sessions > 0 ? (lp.sessions / session.sessions) * 100 : 0;
-                const percentage = pctNumber.toFixed(1);
-
-                const isProductUrl = Boolean(
-                    product.handle &&
-                    (lp.path.includes(`/products/${product.handle}`) || (prodUrl && fullUrl === prodUrl))
-                );
-
-                return {
-                    path: lp.path,
-                    url: fullUrl,
-                    sessions: lp.sessions,
-                    percentage,
-                    isProductUrl,
-                };
-            });
-
-        const productLandingSessions = landingPages
-            .filter((lp) => lp.isProductUrl)
-            .reduce((sum, lp) => sum + lp.sessions, 0);
+        const prodUrl = cleanShopUrl && product.handle ? `${cleanShopUrl}/products/${product.handle}` : "";
 
         return {
             productId: key,
@@ -401,9 +359,9 @@ export const loader = async ({ request }) => {
             firstDayInInventory: inventory.firstDayInInventory,
             startingInventory: inventory.startingInventory,
             endingInventory: inventory.endingInventory,
-            totalSessions: session.sessions,
-            productLandingSessions,
-            sessionsByLandingPage: landingPages,
+            productPageViews: pageViewsByHandle[handle] || 0,
+            productSessions: productSessionIdsByHandle[handle]?.size || 0,
+            landingSessions: session.sessions,
             addToCart: session.addToCart,
             purchases: session.purchases,
             sale: salesByProduct[key] || 0,
@@ -411,8 +369,8 @@ export const loader = async ({ request }) => {
     });
 
     const analyticsQueries = [
-        { label: "Sessions / add to cart / purchases", result: sessionTotals },
-        { label: "Sessions by landing page", result: sessionsByLandingPage },
+        { label: "Product page views / sessions", result: productPageEngagement },
+        { label: "Product landing sessions / add to cart / purchases", result: landingSessionTotals },
         { label: "Sale", result: salesTotals },
         { label: "Inventory (first day / starting / ending)", result: inventoryTotals },
     ];
@@ -429,13 +387,20 @@ export const loader = async ({ request }) => {
     });
 
     const shopifyqlDebug = {
-        sessionTotals: { requestId: sessionTotals.requestId, rowCount: sessionTotals.rows.length, truncated: sessionTotals.truncated, rawJson: sessionTotals.rawJson, error: sessionTotals.error },
-        sessionsByLandingPage: { requestId: sessionsByLandingPage.requestId, rowCount: sessionsByLandingPage.rows.length, truncated: sessionsByLandingPage.truncated, rawJson: sessionsByLandingPage.rawJson, error: sessionsByLandingPage.error },
-        salesTotals: { requestId: salesTotals.requestId, rowCount: salesTotals.rows.length, truncated: salesTotals.truncated, rawJson: salesTotals.rawJson, error: salesTotals.error },
-        inventoryTotals: { requestId: inventoryTotals.requestId, rowCount: inventoryTotals.rows.length, truncated: inventoryTotals.truncated, rawJson: inventoryTotals.rawJson, error: inventoryTotals.error },
+        productPageEngagement: { requestId: productPageEngagement.requestId, rowCount: productPageEngagement.rows.length, truncated: productPageEngagement.truncated, rawJson: productPageEngagement.rawJson, error: productPageEngagement.error, elapsedMs: productPageEngagement.elapsedMs, attempts: productPageEngagement.attempts, cacheStatus: productPageEngagement.cacheStatus },
+        landingSessionTotals: { requestId: landingSessionTotals.requestId, rowCount: landingSessionTotals.rows.length, truncated: landingSessionTotals.truncated, rawJson: landingSessionTotals.rawJson, error: landingSessionTotals.error, elapsedMs: landingSessionTotals.elapsedMs, attempts: landingSessionTotals.attempts, cacheStatus: landingSessionTotals.cacheStatus },
+        salesTotals: { requestId: salesTotals.requestId, rowCount: salesTotals.rows.length, truncated: salesTotals.truncated, rawJson: salesTotals.rawJson, error: salesTotals.error, elapsedMs: salesTotals.elapsedMs, attempts: salesTotals.attempts, cacheStatus: salesTotals.cacheStatus },
+        inventoryTotals: { requestId: inventoryTotals.requestId, rowCount: inventoryTotals.rows.length, truncated: inventoryTotals.truncated, rawJson: inventoryTotals.rawJson, error: inventoryTotals.error, elapsedMs: inventoryTotals.elapsedMs, attempts: inventoryTotals.attempts, cacheStatus: inventoryTotals.cacheStatus },
     };
 
-    return { rows, month, filterType, dateParam, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug };
+    return {
+        rows, shopCurrency, productsError, analyticsErrors, shopifyqlDebug,
+        catalogStatus: productsResult.source || "unavailable",
+        catalogRefreshedAt: productsResult.refreshedAt || null,
+    };
+    })();
+
+    return { month, filterType, dateParam, displayRange, report };
 };
 
 function formatMoney(amount, currency = "USD") {
@@ -463,18 +428,83 @@ function formatDate(value) {
     return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }
 
+function formatDateTime(value) {
+    if (!value) return "—";
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return String(value);
+    return d.toLocaleString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+    });
+}
+
 export default function ProductsAudit() {
-    const { rows, month, filterType, dateParam, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug } = useLoaderData();
+    const loaderData = useLoaderData();
+    const navigation = useNavigation();
+    const isRefreshing = navigation.state !== "idle";
+
+    return (
+        <Suspense fallback={<ProductsAuditLoading displayRange={loaderData.displayRange} />}>
+            <Await
+                resolve={loaderData.report}
+                errorElement={<ProductsAuditLoadError />}
+            >
+                {(report) => (
+                    <ProductsAuditContent
+                        loaderData={{ ...loaderData, ...report }}
+                        isRefreshing={isRefreshing}
+                    />
+                )}
+            </Await>
+        </Suspense>
+    );
+}
+
+function ProductsAuditLoading({ displayRange }) {
+    return (
+        <s-page heading="Product Audit">
+            <style>{`
+                .audit-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 14px; color: #4a4a4a; }
+                .audit-spinner { width: 24px; height: 24px; border: 3px solid #dfe3e8; border-top-color: #005bd3; border-radius: 50%; animation: audit-spin .8s linear infinite; }
+                @keyframes audit-spin { to { transform: rotate(360deg); } }
+            `}</style>
+            <s-section>
+                <div className="audit-loading" role="status" aria-live="polite">
+                    <div className="audit-spinner" />
+                    <div>
+                        <strong>Loading product report…</strong>
+                        <div>Fetching and matching data for {displayRange}.</div>
+                    </div>
+                </div>
+            </s-section>
+        </s-page>
+    );
+}
+
+function ProductsAuditLoadError() {
+    return (
+        <s-page heading="Product Audit">
+            <s-section>
+                <s-banner tone="critical">The product report could not be loaded. Please refresh and try again.</s-banner>
+            </s-section>
+        </s-page>
+    );
+}
+
+function ProductsAuditContent({ loaderData, isRefreshing }) {
+    const { rows, month, filterType, dateParam, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, catalogStatus, catalogRefreshedAt } = loaderData;
     const [searchParams, setSearchParams] = useSearchParams();
     // Every money value on this page is reported in the store's default currency.
     const currency = shopCurrency || "USD";
     const [searchQuery, setSearchQuery] = useState("");
-    const [expandedProductId, setExpandedProductId] = useState(null);
+    const deferredSearchQuery = useDeferredValue(searchQuery);
     const [currentPage, setCurrentPage] = useState(1);
-    const PAGE_SIZE = 250;
 
     const filteredRows = useMemo(() => {
-        const q = searchQuery.trim().toLowerCase();
+        const q = deferredSearchQuery.trim().toLowerCase();
         if (!q) return rows;
         const qNumeric = q.replace(/\D/g, "");
 
@@ -494,24 +524,26 @@ export default function ProductsAudit() {
 
             return false;
         });
-    }, [rows, searchQuery]);
+    }, [rows, deferredSearchQuery]);
 
-    const totalPages = Math.ceil(filteredRows.length / PAGE_SIZE) || 1;
+    const totalPages = Math.ceil(filteredRows.length / PRODUCT_PAGE_SIZE) || 1;
     const safePage = Math.min(Math.max(1, currentPage), totalPages);
 
     const paginatedRows = useMemo(() => {
-        const startIdx = (safePage - 1) * PAGE_SIZE;
-        return filteredRows.slice(startIdx, startIdx + PAGE_SIZE);
+        const startIdx = (safePage - 1) * PRODUCT_PAGE_SIZE;
+        return filteredRows.slice(startIdx, startIdx + PRODUCT_PAGE_SIZE);
     }, [filteredRows, safePage]);
 
     // Summary metrics
     const summaryMetrics = useMemo(() => {
-        const totalSessions = filteredRows.reduce((s, r) => s + (r.totalSessions || 0), 0);
+        const totalPageViews = filteredRows.reduce((s, r) => s + (r.productPageViews || 0), 0);
+        const totalProductSessions = filteredRows.reduce((s, r) => s + (r.productSessions || 0), 0);
+        const totalLandingSessions = filteredRows.reduce((s, r) => s + (r.landingSessions || 0), 0);
         const totalAddToCart = filteredRows.reduce((s, r) => s + (r.addToCart || 0), 0);
         const totalPurchases = filteredRows.reduce((s, r) => s + (r.purchases || 0), 0);
         const totalSale = filteredRows.reduce((s, r) => s + (r.sale || 0), 0);
-        const convRate = totalSessions > 0 ? ((totalPurchases / totalSessions) * 100).toFixed(1) : "0.0";
-        return { totalSessions, totalAddToCart, totalPurchases, totalSale, convRate };
+        const convRate = totalLandingSessions > 0 ? ((totalPurchases / totalLandingSessions) * 100).toFixed(1) : "0.0";
+        return { totalPageViews, totalProductSessions, totalLandingSessions, totalAddToCart, totalPurchases, totalSale, convRate };
     }, [filteredRows]);
 
     const navigate = (newFilterType, newDate) => {
@@ -556,7 +588,10 @@ export default function ProductsAudit() {
         setCurrentPage(1);
     };
 
-    const exportToExcel = () => {
+    const exportToExcel = async () => {
+        // Keep the sizeable spreadsheet library out of the initial page bundle.
+        // It is downloaded only when the merchant actually requests an export.
+        const XLSX = await import("xlsx");
         const exportRows = filteredRows.map((row) => ({
             "Product ID": row.productId,
             "Product Title": row.title,
@@ -568,11 +603,9 @@ export default function ProductsAudit() {
             "First day in inventory": formatDate(row.firstDayInInventory),
             [`Starting inventory (${displayRange})`]: row.startingInventory ?? "",
             [`Ending inventory (${displayRange})`]: row.endingInventory ?? "",
-            "Total sessions on the product page": row.totalSessions,
-            "Product URL Landing Sessions": row.productLandingSessions,
-            "Sessions by landing page": row.sessionsByLandingPage
-                .map((lp) => `${lp.url} (${lp.sessions} sessions, ${lp.percentage}%)`)
-                .join("; "),
+            "Product page views": row.productPageViews,
+            "Product sessions": row.productSessions,
+            "Product landing sessions": row.landingSessions,
             "Add to cart": row.addToCart,
             Purchases: row.purchases,
             [`Sale (${currency})`]: row.sale,
@@ -584,11 +617,11 @@ export default function ProductsAudit() {
         XLSX.writeFile(workbook, `Product_Audit_${month}.xlsx`);
     };
 
-    const startIndex = filteredRows.length === 0 ? 0 : (safePage - 1) * PAGE_SIZE + 1;
-    const endIndex = Math.min(safePage * PAGE_SIZE, filteredRows.length);
+    const startIndex = filteredRows.length === 0 ? 0 : (safePage - 1) * PRODUCT_PAGE_SIZE + 1;
+    const endIndex = Math.min(safePage * PRODUCT_PAGE_SIZE, filteredRows.length);
 
     const renderPagination = () => {
-        if (filteredRows.length <= PAGE_SIZE) return null;
+        if (filteredRows.length <= PRODUCT_PAGE_SIZE) return null;
 
         return (
             <div
@@ -707,9 +740,20 @@ export default function ProductsAudit() {
 
     return (
         <s-page heading="Product Audit">
+            <style>{`
+                .audit-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 14px; color: #4a4a4a; }
+                .audit-spinner { width: 24px; height: 24px; border: 3px solid #dfe3e8; border-top-color: #005bd3; border-radius: 50%; animation: audit-spin .8s linear infinite; }
+                .audit-refreshing { margin-bottom: 16px; padding: 10px 14px; border-radius: 7px; background: #eef4ff; color: #164c8c; font-size: 13px; }
+                .audit-product-row { border-bottom: 1px solid #f1f2f4; transition: background .1s ease; }
+                .audit-product-row.even { background: #fff; }
+                .audit-product-row.odd { background: #fafbfc; }
+                .audit-product-row:hover { background: #eef4fb; }
+                @keyframes audit-spin { to { transform: rotate(360deg); } }
+            `}</style>
             <div slot="primary-action">
                 <button
                     onClick={exportToExcel}
+                    disabled={isRefreshing}
                     style={{
                         backgroundColor: "#107c41",
                         color: "#ffffff",
@@ -718,7 +762,8 @@ export default function ProductsAudit() {
                         padding: "8px 16px",
                         fontSize: "14px",
                         fontWeight: "600",
-                        cursor: "pointer",
+                        cursor: isRefreshing ? "wait" : "pointer",
+                        opacity: isRefreshing ? 0.65 : 1,
                         display: "inline-flex",
                         alignItems: "center",
                         gap: "8px",
@@ -733,6 +778,12 @@ export default function ProductsAudit() {
                     Export to Excel (.xlsx)
                 </button>
             </div>
+
+            {isRefreshing && (
+                <div className="audit-refreshing" role="status" aria-live="polite">
+                    Updating the report for your new selection… Export will be available when it finishes.
+                </div>
+            )}
 
             {productsError && (
                 <s-box padding="base" background="critical" borderRadius="base" style={{ marginBottom: "16px" }}>
@@ -764,6 +815,10 @@ export default function ProductsAudit() {
                         🔍 View ShopifyQL Debug Data
                     </summary>
                     <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "12px", fontSize: "12px" }}>
+                        <div style={{ color: "#4a4a4a" }}>
+                            <strong>Product catalog:</strong> {catalogStatus}
+                            {catalogRefreshedAt ? ` · refreshed ${formatDateTime(catalogRefreshedAt)}` : ""}
+                        </div>
                         {Object.entries(shopifyqlDebug).map(([key, val]) => (
                             <div key={key} style={{ background: "#ffffff", padding: "10px", borderRadius: "6px", border: "1px solid #e1e3e5" }}>
                                 <div style={{ fontWeight: 600, color: "#005bd3", marginBottom: "4px" }}>
@@ -773,6 +828,9 @@ export default function ProductsAudit() {
                                     <strong>x-request-id:</strong> {val.requestId || "N/A"}
                                     {" · "}
                                     <strong>rows:</strong> {val.rowCount ?? 0}
+                                    {" · "}<strong>time:</strong> {val.elapsedMs ?? 0}ms
+                                    {" · "}<strong>attempts:</strong> {val.attempts ?? 1}
+                                    {val.cacheStatus && <>{" · "}<strong>cache:</strong> {val.cacheStatus}</>}
                                     {val.truncated && <span style={{ color: "#b98900" }}> (truncated — hit row limit)</span>}
                                 </div>
                                 <div>
@@ -790,8 +848,16 @@ export default function ProductsAudit() {
             <s-section>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "14px", marginBottom: "8px" }}>
                     <div style={metricCardStyle}>
-                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Total Sessions</span>
-                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalSessions.toLocaleString()}</span>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Page Views</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalPageViews.toLocaleString()}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Sessions</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalProductSessions.toLocaleString()}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Landing Sessions</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalLandingSessions.toLocaleString()}</span>
                     </div>
                     <div style={metricCardStyle}>
                         <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Add to Cart</span>
@@ -873,8 +939,9 @@ export default function ProductsAudit() {
                                         { label: "First Day in Inventory", width: "120px" },
                                         { label: "Starting Inventory", width: "100px" },
                                         { label: "Ending Inventory", width: "100px" },
-                                        { label: "Sessions", width: "76px" },
-                                        { label: "Landing Pages", width: "100px" },
+                                        { label: "Product Page Views", width: "100px" },
+                                        { label: "Product Sessions", width: "100px" },
+                                        { label: "Landing Sessions", width: "100px" },
                                         { label: "Add to Cart", width: "76px" },
                                         { label: "Purchases", width: "76px" },
                                         { label: `Sale (${currency})`, width: "90px" },
@@ -896,27 +963,11 @@ export default function ProductsAudit() {
                             </thead>
                             <tbody>
                                 {paginatedRows.map((row, idx) => {
-                                    const isExpanded = expandedProductId === row.productId;
-                                    const rowNum = (safePage - 1) * PAGE_SIZE + idx + 1;
-                                    const stripe = idx % 2 === 0 ? "#ffffff" : "#fafbfc";
-
-                                    const statusColors = {
-                                        ACTIVE: { bg: "#e3f1df", fg: "#0d5e27" },
-                                        DRAFT: { bg: "#fff4e5", fg: "#9c5b00" },
-                                        ARCHIVED: { bg: "#e4e5e7", fg: "#4a4a4a" },
-                                    };
-                                    const sc = statusColors[row.status] || { bg: "#e4e5e7", fg: "#4a4a4a" };
+                                    const rowNum = (safePage - 1) * PRODUCT_PAGE_SIZE + idx + 1;
+                                    const sc = STATUS_COLORS[row.status] || { bg: "#e4e5e7", fg: "#4a4a4a" };
 
                                     return (
-                                        <React.Fragment key={row.productId}>
-                                            <tr style={{
-                                                borderBottom: "1px solid #f1f2f4",
-                                                background: stripe,
-                                                transition: "background 0.1s ease",
-                                            }}
-                                            onMouseEnter={(e) => e.currentTarget.style.background = "#eef4fb"}
-                                            onMouseLeave={(e) => e.currentTarget.style.background = stripe}
-                                            >
+                                            <tr key={row.productId} className={`audit-product-row ${idx % 2 === 0 ? "even" : "odd"}`}>
                                                 <td style={{ padding: "10px", color: "#8c9196", fontSize: "12px", textAlign: "center" }}>{rowNum}</td>
                                                 <td style={{ padding: "10px", fontFamily: "monospace", fontSize: "12px", color: "#6d7175" }}>{row.productId}</td>
                                                 <td style={{ padding: "10px", fontWeight: 600, color: "#202223", maxWidth: "220px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={row.title}>{row.title}</td>
@@ -956,91 +1007,15 @@ export default function ProductsAudit() {
                                                 <td style={{ padding: "10px", fontSize: "12px", color: "#4a4a4a", whiteSpace: "nowrap" }}>{formatDate(row.firstDayInInventory)}</td>
                                                 <td style={{ padding: "10px", fontWeight: 600, textAlign: "right" }}>{row.startingInventory ?? "—"}</td>
                                                 <td style={{ padding: "10px", fontWeight: 600, textAlign: "right" }}>{row.endingInventory ?? "—"}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.totalSessions > 0 ? "#202223" : "#8c9196" }}>{row.totalSessions}</td>
-                                                <td style={{ padding: "10px" }}>
-                                                    {row.sessionsByLandingPage.length === 0 ? (
-                                                        <span style={{ color: "#8c9196" }}>—</span>
-                                                    ) : (
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => setExpandedProductId(isExpanded ? null : row.productId)}
-                                                            style={{
-                                                                background: isExpanded ? "#202223" : "#f1f2f4",
-                                                                color: isExpanded ? "#ffffff" : "#202223",
-                                                                border: "none",
-                                                                borderRadius: "6px",
-                                                                padding: "4px 10px",
-                                                                fontSize: "12px",
-                                                                fontWeight: 600,
-                                                                cursor: "pointer",
-                                                                transition: "all 0.12s ease",
-                                                            }}
-                                                        >
-                                                            {row.sessionsByLandingPage.length} page{row.sessionsByLandingPage.length === 1 ? "" : "s"} {isExpanded ? "▲" : "▼"}
-                                                        </button>
-                                                    )}
-                                                </td>
+                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.productPageViews > 0 ? "#202223" : "#8c9196" }}>{row.productPageViews}</td>
+                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.productSessions > 0 ? "#202223" : "#8c9196" }}>{row.productSessions}</td>
+                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.landingSessions > 0 ? "#202223" : "#8c9196" }}>{row.landingSessions}</td>
                                                 <td style={{ padding: "10px", textAlign: "right", color: row.addToCart > 0 ? "#202223" : "#8c9196" }}>{row.addToCart}</td>
                                                 <td style={{ padding: "10px", textAlign: "right", color: row.purchases > 0 ? "#202223" : "#8c9196" }}>{row.purchases}</td>
                                                 <td style={{ padding: "10px", fontWeight: 700, textAlign: "right", color: row.sale > 0 ? "#107c41" : "#8c9196" }}>
                                                     {formatMoney(row.sale, currency)}
                                                 </td>
                                             </tr>
-                                            {isExpanded && (
-                                                <tr>
-                                                    <td colSpan="16" style={{ padding: "16px 20px", background: "#f4f6f8", borderBottom: "2px solid #e1e3e5" }}>
-                                                        <div style={{ fontWeight: 700, marginBottom: "10px", fontSize: "13px", color: "#202223" }}>
-                                                            🔗 Landing Pages for <em>{row.title}</em>
-                                                        </div>
-                                                        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px", background: "#ffffff", border: "1px solid #e1e3e5", borderRadius: "8px", overflow: "hidden" }}>
-                                                            <thead>
-                                                                <tr style={{ background: "#f7f8f9", textAlign: "left" }}>
-                                                                    <th style={{ padding: "8px 12px", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.4px", color: "#5c5f62" }}>URL</th>
-                                                                    <th style={{ padding: "8px 12px", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.4px", color: "#5c5f62" }}>Path</th>
-                                                                    <th style={{ padding: "8px 12px", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.4px", color: "#5c5f62" }}>Sessions</th>
-                                                                    <th style={{ padding: "8px 12px", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.4px", color: "#5c5f62" }}>Share</th>
-                                                                    <th style={{ padding: "8px 12px", fontSize: "11px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.4px", color: "#5c5f62" }}>Type</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {row.sessionsByLandingPage.map((lp) => (
-                                                                    <tr key={lp.url + lp.path} style={{ borderBottom: "1px solid #f1f2f4" }}>
-                                                                        <td style={{ padding: "8px 12px", wordBreak: "break-all" }}>
-                                                                            {lp.url && lp.url !== "Unknown" ? (
-                                                                                <a href={lp.url} target="_blank" rel="noreferrer" style={{ color: "#005bd3", textDecoration: "none" }}>
-                                                                                    {lp.url}
-                                                                                </a>
-                                                                            ) : "—"}
-                                                                        </td>
-                                                                        <td style={{ padding: "8px 12px", color: "#6d7175", fontFamily: "monospace", fontSize: "11px" }}>{lp.path}</td>
-                                                                        <td style={{ padding: "8px 12px", fontWeight: 700 }}>{lp.sessions}</td>
-                                                                        <td style={{ padding: "8px 12px" }}>
-                                                                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                                                                                <div style={{ width: "60px", height: "6px", background: "#e1e3e5", borderRadius: "3px", overflow: "hidden" }}>
-                                                                                    <div style={{ width: `${Math.min(100, Number(lp.percentage))}%`, height: "100%", background: "#005bd3", borderRadius: "3px" }} />
-                                                                                </div>
-                                                                                <span style={{ fontSize: "12px", fontWeight: 600 }}>{lp.percentage}%</span>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td style={{ padding: "8px 12px" }}>
-                                                                            {lp.isProductUrl ? (
-                                                                                <span style={{ padding: "3px 8px", borderRadius: "6px", background: "#e3f1df", color: "#0d5e27", fontSize: "10px", fontWeight: 700, textTransform: "uppercase" }}>
-                                                                                    Product
-                                                                                </span>
-                                                                            ) : (
-                                                                                <span style={{ padding: "3px 8px", borderRadius: "6px", background: "#f1f2f4", color: "#6d7175", fontSize: "10px", fontWeight: 600, textTransform: "uppercase" }}>
-                                                                                    Other
-                                                                                </span>
-                                                                            )}
-                                                                        </td>
-                                                                    </tr>
-                                                                ))}
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            )}
-                                        </React.Fragment>
                                     );
                                 })}
                             </tbody>

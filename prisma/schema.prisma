@@ -32,3 +32,21 @@ model Session {
   refreshToken        String?
   refreshTokenExpires DateTime?
 }
+
+model ProductCatalogCache {
+  shop        String   @id
+  data        String
+  refreshedAt DateTime @default(now())
+}
+
+model AnalyticsCache {
+  id        String   @id
+  shop      String
+  dataset   String
+  rangeStart String
+  rangeEnd   String
+  data      String
+  createdAt DateTime @default(now())
+
+  @@index([shop, dataset, rangeStart, rangeEnd])
+}

@@ -5,7 +5,10 @@ import { createReadableStreamFromReadable } from "@react-router/node";
 import { isbot } from "isbot";
 import { addDocumentResponseHeaders } from "./shopify.server";
 
-export const streamTimeout = 5000;
+// A cold product-catalog bulk export can take longer than the template's
+// five-second default. Cached visits still resolve quickly, while this ceiling
+// gives the first streamed report enough time to complete safely.
+export const streamTimeout = 120000;
 
 export default async function handleRequest(
   request,
@@ -44,7 +47,7 @@ export default async function handleRequest(
       },
     );
 
-    // Automatically timeout the React renderer after 6 seconds, which ensures
+    // Automatically stop a genuinely stuck renderer after the configured limit.
     // React has enough time to flush down the rejected boundary contents
     setTimeout(abort, streamTimeout + 1000);
   });
