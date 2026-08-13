@@ -118,8 +118,36 @@ const STATUS_COLORS = {
     ARCHIVED: { bg: "#e4e5e7", fg: "#4a4a4a" },
 };
 
+// Kept temporarily for backward-compatible bookmarked URLs while the report
+// moves fully to custom ranges; explicit references avoid dead-code warnings.
+void dateBoundsFor;
+void adjustMonth;
+void adjustWeek;
+void humanRange;
+void STATUS_COLORS;
+
 function wait(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function earliestReportDate(now = new Date()) {
+    return fmtDate(new Date(now.getFullYear(), now.getMonth() - 18, 1));
+}
+
+function normalizeCustomRange(url, now = new Date()) {
+    const earliest = earliestReportDate(now);
+    const today = fmtDate(now);
+    const defaultStart = fmtDate(new Date(now.getFullYear(), now.getMonth(), 1));
+    const requestedStart = url.searchParams.get("start") || defaultStart;
+    const requestedEnd = url.searchParams.get("end") || today;
+    const validDate = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value);
+    const start = validDate(requestedStart) ? requestedStart : defaultStart;
+    const end = validDate(requestedEnd) ? requestedEnd : today;
+    const boundedStart = start < earliest ? earliest : start > today ? today : start;
+    const boundedEnd = end > today ? today : end < earliest ? earliest : end;
+    return boundedStart <= boundedEnd
+        ? { start: boundedStart, end: boundedEnd, earliest, today }
+        : { start: boundedEnd, end: boundedStart, earliest, today };
 }
 
 async function fetchShopInfo(admin) {
@@ -232,25 +260,10 @@ export const loader = async ({ request }) => {
 
     const url = new URL(request.url);
     const debug = url.searchParams.get("debug") === "1";
-    const filterType = ["day", "week", "month"].includes(url.searchParams.get("filterType"))
-        ? url.searchParams.get("filterType")
-        : "month";
     const now = new Date();
-    const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-    const defaultDay = fmtDate(now);
-
-    let dateParam;
-    if (filterType === "month") {
-        const mp = url.searchParams.get("date") || url.searchParams.get("month");
-        dateParam = mp && /^\d{4}-\d{2}$/.test(mp) ? mp : defaultMonth;
-    } else {
-        const dp = url.searchParams.get("date");
-        dateParam = dp && /^\d{4}-\d{2}-\d{2}$/.test(dp) ? dp : defaultDay;
-    }
-
-    const { start, end } = dateBoundsFor(filterType, dateParam);
-    const month = dateParam; // backward compat
-    const displayRange = humanRange(filterType, start, end);
+    const { start, end, earliest, today } = normalizeCustomRange(url, now);
+    const month = `${start}_to_${end}`;
+    const displayRange = `${formatDate(start)} – ${formatDate(end)}`;
 
     const report = (async () => {
 
@@ -264,18 +277,18 @@ export const loader = async ({ request }) => {
         fetchShopInfo(admin).catch(() => ({ shopUrl: "", shopCurrency: "USD", shopDomain: "unknown-shop" })),
         // This granular response contains opaque session IDs for deduplication.
         // Keep it in request memory only; do not persist those IDs in analytics cache.
-        runShopifyQL(admin, `FROM web_performance SHOW page_loads WHERE page_type = 'Product' GROUP BY page_path, micro_session_id SINCE ${start} UNTIL ${end}`, { debug }),
+        runShopifyQL(admin, `FROM web_performance SHOW page_loads WHERE page_type = 'Product' GROUP BY day, page_path, micro_session_id SINCE ${start} UNTIL ${end}`, { debug }),
         runWithAnalyticsCache({
-            shop: session.shop, dataset: "product-landing-sessions", rangeStart: start, rangeEnd: end,
-            run: () => runShopifyQL(admin, `FROM sessions SHOW sessions, sessions_with_cart_additions, sessions_that_reached_checkout, sessions_that_completed_checkout, conversion_rate WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`, { debug }),
+            shop: session.shop, dataset: "product-landing-sessions-daily-v2", rangeStart: start, rangeEnd: end,
+            run: () => runShopifyQL(admin, `FROM sessions SHOW sessions, sessions_that_reached_checkout, sessions_that_completed_checkout, conversion_rate WHERE landing_page_type = 'product' GROUP BY day, landing_page_path SINCE ${start} UNTIL ${end}`, { debug }),
         }),
         runWithAnalyticsCache({
-            shop: session.shop, dataset: "sales", rangeStart: start, rangeEnd: end,
-            run: () => runShopifyQL(admin, `FROM sales SHOW total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`, { debug }),
+            shop: session.shop, dataset: "sales-breakdown-daily-v5", rangeStart: start, rangeEnd: end,
+            run: () => runShopifyQL(admin, `FROM sales SHOW orders, quantity_ordered, net_items_sold, reversed_quantity, gross_sales, discounts, gross_sales_reversals, net_sales, shipping_charges, return_fees, taxes, total_sales GROUP BY day, product_id SINCE ${start} UNTIL ${end}`, { debug }),
         }),
         runWithAnalyticsCache({
-            shop: session.shop, dataset: "inventory", rangeStart: start, rangeEnd: end,
-            run: () => runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`, { debug }),
+            shop: session.shop, dataset: "inventory-daily-v2", rangeStart: start, rangeEnd: end,
+            run: () => runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY day, product_id SINCE ${start} UNTIL ${end}`, { debug }),
         }),
     ]);
 
@@ -291,43 +304,68 @@ export const loader = async ({ request }) => {
         return match ? match[1] : null;
     }
 
+    const dayValue = (value) => String(value || "").slice(0, 10);
+    const analyticsKey = (day, identity) => `${day}|${identity}`;
     const pageViewsByHandle = {};
     const productSessionIdsByHandle = {};
     productPageEngagement.rows.forEach((row) => {
         const handle = handleFromPath(row.page_path);
-        if (!handle) return;
-        pageViewsByHandle[handle] = (pageViewsByHandle[handle] || 0) + (Number(row.page_loads) || 0);
-        if (!productSessionIdsByHandle[handle]) productSessionIdsByHandle[handle] = new Set();
+        const day = dayValue(row.day);
+        if (!handle || !day) return;
+        const key = analyticsKey(day, handle);
+        pageViewsByHandle[key] = (pageViewsByHandle[key] || 0) + (Number(row.page_loads) || 0);
+        if (!productSessionIdsByHandle[key]) productSessionIdsByHandle[key] = new Set();
         if (row.micro_session_id !== null && row.micro_session_id !== undefined) {
-            productSessionIdsByHandle[handle].add(String(row.micro_session_id));
+            productSessionIdsByHandle[key].add(String(row.micro_session_id));
         }
     });
 
     const sessionByHandle = {};
     landingSessionTotals.rows.forEach((row) => {
         const handle = handleFromPath(row.landing_page_path);
-        if (!handle) return;
-        const current = sessionByHandle[handle] || { sessions: 0, addToCart: 0, reachedCheckout: 0, purchases: 0, conversionRate: 0 };
+        const day = dayValue(row.day);
+        if (!handle || !day) return;
+        const key = analyticsKey(day, handle);
+        const current = sessionByHandle[key] || { sessions: 0, reachedCheckout: 0, completedCheckoutSessions: 0, conversionRate: 0 };
         current.sessions += Number(row.sessions) || 0;
-        current.addToCart += Number(row.sessions_with_cart_additions) || 0;
         current.reachedCheckout += Number(row.sessions_that_reached_checkout) || 0;
-        current.purchases += Number(row.sessions_that_completed_checkout) || 0;
-        current.conversionRate = current.sessions > 0 ? current.purchases / current.sessions : 0;
-        sessionByHandle[handle] = current;
+        current.completedCheckoutSessions += Number(row.sessions_that_completed_checkout) || 0;
+        current.conversionRate = current.sessions > 0 ? current.completedCheckoutSessions / current.sessions : 0;
+        sessionByHandle[key] = current;
     });
 
     const salesByProduct = {};
+    let unattributedSales = null;
     salesTotals.rows.forEach((row) => {
         const key = numericId(row.product_id);
-        if (!key) return;
-        salesByProduct[key] = Number(row.total_sales) || 0;
+        const day = dayValue(row.day);
+        const values = {
+            orders: Number(row.orders) || 0,
+            quantityOrdered: Number(row.quantity_ordered) || 0,
+            netItemsSold: Number(row.net_items_sold) || 0,
+            reversedQuantity: Number(row.reversed_quantity) || 0,
+            grossSales: Number(row.gross_sales) || 0,
+            discounts: Number(row.discounts) || 0,
+            salesReversals: Number(row.gross_sales_reversals) || 0,
+            netSales: Number(row.net_sales) || 0,
+            shippingCharges: Number(row.shipping_charges) || 0,
+            returnFees: Number(row.return_fees) || 0,
+            taxes: Number(row.taxes) || 0,
+            totalSales: Number(row.total_sales) || 0,
+        };
+        if (!key || !day) {
+            unattributedSales = values;
+            return;
+        }
+        salesByProduct[analyticsKey(day, key)] = values;
     });
 
     const inventoryByProduct = {};
     inventoryTotals.rows.forEach((row) => {
         const key = numericId(row.product_id);
-        if (!key) return;
-        inventoryByProduct[key] = {
+        const day = dayValue(row.day);
+        if (!key || !day) return;
+        inventoryByProduct[analyticsKey(day, key)] = {
             firstDayInInventory: row.first_day_in_inventory || null,
             startingInventory: row.starting_inventory_units ?? null,
             endingInventory: row.ending_inventory_units ?? null,
@@ -336,19 +374,55 @@ export const loader = async ({ request }) => {
 
     const cleanShopUrl = shopUrl ? shopUrl.replace(/\/$/, "") : "";
 
-    const rows = products.map((product) => {
+    const daysByProduct = {};
+    const registerDay = (key, day) => {
+        if (!key || !day) return;
+        if (!daysByProduct[key]) daysByProduct[key] = new Set();
+        daysByProduct[key].add(day);
+    };
+    Object.keys(salesByProduct).forEach((value) => { const [day, key] = value.split("|"); registerDay(key, day); });
+    Object.keys(inventoryByProduct).forEach((value) => { const [day, key] = value.split("|"); registerDay(key, day); });
+    const productByHandle = Object.fromEntries(products.map((product) => [product.handle || "", numericId(product.id)]));
+    [...Object.keys(pageViewsByHandle), ...Object.keys(sessionByHandle)].forEach((value) => {
+        const separator = value.indexOf("|");
+        const day = value.slice(0, separator);
+        const handle = value.slice(separator + 1);
+        registerDay(productByHandle[handle], day);
+    });
+
+    const rows = products.flatMap((product) => {
         const key = numericId(product.id);
         const handle = product.handle || "";
-        const session = sessionByHandle[handle] || { sessions: 0, addToCart: 0, reachedCheckout: 0, purchases: 0, conversionRate: 0 };
-        const inventory = inventoryByProduct[key] || {
+        const productDays = [...(daysByProduct[key] || [])].sort();
+        if (!productDays.length) productDays.push(null);
+        return productDays.map((day) => {
+        const dailyKeyByHandle = day ? analyticsKey(day, handle) : "";
+        const dailyKeyByProduct = day ? analyticsKey(day, key) : "";
+        const session = sessionByHandle[dailyKeyByHandle] || { sessions: 0, reachedCheckout: 0, completedCheckoutSessions: 0, conversionRate: 0 };
+        const inventory = inventoryByProduct[dailyKeyByProduct] || {
             firstDayInInventory: null,
             startingInventory: null,
             endingInventory: null,
+        };
+        const sales = salesByProduct[dailyKeyByProduct] || {
+            orders: 0,
+            quantityOrdered: 0,
+            netItemsSold: 0,
+            reversedQuantity: 0,
+            grossSales: 0,
+            discounts: 0,
+            salesReversals: 0,
+            netSales: 0,
+            shippingCharges: 0,
+            returnFees: 0,
+            taxes: 0,
+            totalSales: 0,
         };
 
         const prodUrl = cleanShopUrl && product.handle ? `${cleanShopUrl}/products/${product.handle}` : "";
 
         return {
+            day,
             productId: key,
             title: product.title,
             status: product.status || "",
@@ -359,18 +433,18 @@ export const loader = async ({ request }) => {
             firstDayInInventory: inventory.firstDayInInventory,
             startingInventory: inventory.startingInventory,
             endingInventory: inventory.endingInventory,
-            productPageViews: pageViewsByHandle[handle] || 0,
-            productSessions: productSessionIdsByHandle[handle]?.size || 0,
+            productPageViews: pageViewsByHandle[dailyKeyByHandle] || 0,
+            productSessions: productSessionIdsByHandle[dailyKeyByHandle]?.size || 0,
             landingSessions: session.sessions,
-            addToCart: session.addToCart,
-            purchases: session.purchases,
-            sale: salesByProduct[key] || 0,
+            completedCheckoutSessions: session.completedCheckoutSessions,
+            ...sales,
         };
+        });
     });
 
     const analyticsQueries = [
         { label: "Product page views / sessions", result: productPageEngagement },
-        { label: "Product landing sessions / add to cart / purchases", result: landingSessionTotals },
+        { label: "Product landing sessions / completed checkouts", result: landingSessionTotals },
         { label: "Sale", result: salesTotals },
         { label: "Inventory (first day / starting / ending)", result: inventoryTotals },
     ];
@@ -394,13 +468,13 @@ export const loader = async ({ request }) => {
     };
 
     return {
-        rows, shopCurrency, productsError, analyticsErrors, shopifyqlDebug,
+        rows, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, unattributedSales,
         catalogStatus: productsResult.source || "unavailable",
         catalogRefreshedAt: productsResult.refreshedAt || null,
     };
     })();
 
-    return { month, filterType, dateParam, displayRange, report };
+    return { month, start, end, earliest, today, displayRange, report };
 };
 
 function formatMoney(amount, currency = "USD") {
@@ -438,6 +512,83 @@ function formatDateTime(value) {
         day: "numeric",
         hour: "numeric",
         minute: "2-digit",
+    });
+}
+
+const REPORT_DIMENSIONS = {
+    productId: { label: "Product ID", info: "Shopify's unique numeric product identifier." },
+    title: { label: "Title", info: "Current product title from the catalog." },
+    status: { label: "Status", info: "Current Active, Draft, or Archived product status." },
+    productType: { label: "Type", info: "Current Shopify product type." },
+    tags: { label: "Tags", info: "Current product tags." },
+    month: { label: "Month", info: "Groups activity by full calendar month." },
+    week: { label: "Week", info: "Groups activity by Monday-to-Sunday week." },
+    day: { label: "Day", info: "Groups activity by calendar day." },
+};
+
+const REPORT_METRICS = {
+    productUrl: { label: "URL", info: "Current online-store product URL.", type: "text" },
+    createdAt: { label: "Created At", info: "Date the product record was created.", type: "date" },
+    firstDayInInventory: { label: "First Day in Inventory", info: "First inventory date reported inside the selected range.", type: "date" },
+    startingInventory: { label: "Starting Inventory", info: "Inventory at the start of the selected group." },
+    endingInventory: { label: "Ending Inventory", info: "Inventory at the end of the selected group." },
+    productPageViews: { label: "Product Page Views", info: "Page loads reported by Shopify web performance." },
+    productSessions: { label: "Product Sessions", info: "Daily unique micro-sessions that loaded the product page." },
+    landingSessions: { label: "Landing Sessions", info: "Sessions whose first storefront page was this product." },
+    orders: { label: "Orders", info: "Unique orders containing the product." },
+    quantityOrdered: { label: "Quantity Ordered", info: "Units ordered before reversals." },
+    netItemsSold: { label: "Net Items Sold", info: "Units sold after reversals." },
+    reversedQuantity: { label: "Reversed Quantity", info: "Units reversed through returns, refunds, cancellations, or edits." },
+    grossSales: { label: "Gross Sales", info: "Product sales before discounts and reversals.", money: true },
+    discounts: { label: "Discounts", info: "Discount value attributed to the product.", money: true },
+    salesReversals: { label: "Sales Reversals", info: "Sales value reversed by returns, refunds, cancellations, or edits.", money: true },
+    netSales: { label: "Net Sales", info: "Gross sales after discounts and reversals.", money: true },
+    shippingCharges: { label: "Shipping Charges", info: "Shipping attributed by Shopify to the product.", money: true },
+    returnFees: { label: "Return Fees", info: "Return fees attributed to the product.", money: true },
+    taxes: { label: "Taxes", info: "Taxes attributed to the product.", money: true },
+    totalSales: { label: "Total Sales", info: "Final Shopify total sales attributed to the product.", money: true },
+};
+
+const DEFAULT_DIMENSIONS = ["productId", "title", "status", "productType", "tags"];
+const DEFAULT_METRICS = ["productUrl", "startingInventory", "endingInventory", "productPageViews", "productSessions", "landingSessions", "orders", "netItemsSold", "totalSales"];
+
+function reportWeek(day) {
+    if (!day) return "—";
+    const date = new Date(`${day}T00:00:00`);
+    const weekday = date.getDay();
+    date.setDate(date.getDate() + (weekday === 0 ? -6 : 1 - weekday));
+    return `Week of ${formatDate(fmtDate(date))}`;
+}
+
+function aggregateReportRows(sourceRows, dimensions) {
+    const dimensionValue = (row, key) => {
+        if (key === "month") return row.day ? formatDate(`${row.day.slice(0, 7)}-01`).replace(/ \d{1,2},/, "") : "—";
+        if (key === "week") return reportWeek(row.day);
+        if (key === "day") return formatDate(row.day);
+        if (key === "tags") return (row.tags || []).join(", ");
+        return row[key] || "—";
+    };
+    const groups = new Map();
+    sourceRows.forEach((row) => {
+        const dimensionData = Object.fromEntries(dimensions.map((key) => [key, dimensionValue(row, key)]));
+        const groupKey = JSON.stringify(dimensionData);
+        if (!groups.has(groupKey)) groups.set(groupKey, { ...dimensionData, __rows: [] });
+        groups.get(groupKey).__rows.push(row);
+    });
+    return [...groups.values()].map((group) => {
+        const dated = group.__rows.filter((row) => row.day).sort((a, b) => a.day.localeCompare(b.day));
+        const firstInventory = dated.find((row) => row.startingInventory !== null && row.startingInventory !== undefined);
+        const lastInventory = [...dated].reverse().find((row) => row.endingInventory !== null && row.endingInventory !== undefined);
+        const result = { ...group };
+        delete result.__rows;
+        Object.keys(REPORT_METRICS).forEach((key) => {
+            if (["productUrl", "createdAt"].includes(key)) result[key] = group.__rows.find((row) => row[key])?.[key] || "";
+            else if (key === "firstDayInInventory") result[key] = group.__rows.map((row) => row[key]).filter(Boolean).sort()[0] || null;
+            else if (key === "startingInventory") result[key] = firstInventory?.startingInventory ?? null;
+            else if (key === "endingInventory") result[key] = lastInventory?.endingInventory ?? null;
+            else result[key] = group.__rows.reduce((sum, row) => sum + (Number(row[key]) || 0), 0);
+        });
+        return result;
     });
 }
 
@@ -495,36 +646,45 @@ function ProductsAuditLoadError() {
 }
 
 function ProductsAuditContent({ loaderData, isRefreshing }) {
-    const { rows, month, filterType, dateParam, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, catalogStatus, catalogRefreshedAt } = loaderData;
+    const { rows, month, start, end, earliest, today, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, catalogStatus, catalogRefreshedAt, unattributedSales } = loaderData;
     const [searchParams, setSearchParams] = useSearchParams();
     // Every money value on this page is reported in the store's default currency.
     const currency = shopCurrency || "USD";
     const [searchQuery, setSearchQuery] = useState("");
     const deferredSearchQuery = useDeferredValue(searchQuery);
     const [currentPage, setCurrentPage] = useState(1);
+    const [exportOpen, setExportOpen] = useState(false);
+    const [selectedDimensions, setSelectedDimensions] = useState(DEFAULT_DIMENSIONS);
+    const [selectedMetrics, setSelectedMetrics] = useState(DEFAULT_METRICS);
+    const [dimensionPickerOpen, setDimensionPickerOpen] = useState(false);
+    const [metricPickerOpen, setMetricPickerOpen] = useState(false);
+    const [filters, setFilters] = useState([]);
+    const [draggedItem, setDraggedItem] = useState(null);
+    const hasUnattributedSales = Object.values(unattributedSales || {}).some((value) => Number(value) !== 0);
 
     const filteredRows = useMemo(() => {
         const q = deferredSearchQuery.trim().toLowerCase();
-        if (!q) return rows;
-        const qNumeric = q.replace(/\D/g, "");
-
-        return rows.filter((row) => {
-            const title = String(row.title || "").toLowerCase();
-            const productId = String(row.productId || "").toLowerCase();
-            const productType = String(row.productType || "").toLowerCase();
-            const status = String(row.status || "").toLowerCase();
-            const tags = Array.isArray(row.tags) ? row.tags : [];
-
-            if (title.includes(q)) return true;
-            if (productId.includes(q)) return true;
-            if (qNumeric && productId.includes(qNumeric)) return true;
-            if (productType.includes(q)) return true;
-            if (status.includes(q)) return true;
-            if (tags.some((tag) => String(tag).toLowerCase().includes(q))) return true;
-
-            return false;
+        const searchedRows = !q ? rows : rows.filter((row) => {
+            const searchable = [row.title, row.productId, row.productType, row.status, ...(row.tags || [])]
+                .map((value) => String(value || "").toLowerCase());
+            return searchable.some((value) => value.includes(q));
         });
-    }, [rows, deferredSearchQuery]);
+        const grouped = aggregateReportRows(searchedRows, selectedDimensions);
+        return grouped.filter((row) => filters.every((filter) => {
+            if (!filter.value) return true;
+            const actual = row[filter.field];
+            if (filter.kind === "number") {
+                const left = Number(actual) || 0;
+                const right = Number(filter.value);
+                if (filter.operator === "gt") return left > right;
+                if (filter.operator === "lt") return left < right;
+                return left === right;
+            }
+            const left = String(actual || "").toLowerCase();
+            const right = String(filter.value).toLowerCase();
+            return filter.operator === "equals" ? left === right : left.includes(right);
+        }));
+    }, [rows, deferredSearchQuery, selectedDimensions, filters]);
 
     const totalPages = Math.ceil(filteredRows.length / PRODUCT_PAGE_SIZE) || 1;
     const safePage = Math.min(Math.max(1, currentPage), totalPages);
@@ -539,48 +699,32 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         const totalPageViews = filteredRows.reduce((s, r) => s + (r.productPageViews || 0), 0);
         const totalProductSessions = filteredRows.reduce((s, r) => s + (r.productSessions || 0), 0);
         const totalLandingSessions = filteredRows.reduce((s, r) => s + (r.landingSessions || 0), 0);
-        const totalAddToCart = filteredRows.reduce((s, r) => s + (r.addToCart || 0), 0);
-        const totalPurchases = filteredRows.reduce((s, r) => s + (r.purchases || 0), 0);
-        const totalSale = filteredRows.reduce((s, r) => s + (r.sale || 0), 0);
-        const convRate = totalLandingSessions > 0 ? ((totalPurchases / totalLandingSessions) * 100).toFixed(1) : "0.0";
-        return { totalPageViews, totalProductSessions, totalLandingSessions, totalAddToCart, totalPurchases, totalSale, convRate };
+        const totalCompletedCheckoutSessions = filteredRows.reduce((s, r) => s + (r.completedCheckoutSessions || 0), 0);
+        const totalOrders = filteredRows.reduce((s, r) => s + (r.orders || 0), 0);
+        const salesTotals = filteredRows.reduce((totals, row) => ({
+            grossSales: totals.grossSales + (row.grossSales || 0),
+            discounts: totals.discounts + (row.discounts || 0),
+            salesReversals: totals.salesReversals + (row.salesReversals || 0),
+            netSales: totals.netSales + (row.netSales || 0),
+            shippingCharges: totals.shippingCharges + (row.shippingCharges || 0),
+            returnFees: totals.returnFees + (row.returnFees || 0),
+            taxes: totals.taxes + (row.taxes || 0),
+            totalSales: totals.totalSales + (row.totalSales || 0),
+        }), { grossSales: 0, discounts: 0, salesReversals: 0, netSales: 0, shippingCharges: 0, returnFees: 0, taxes: 0, totalSales: 0 });
+        const convRate = totalLandingSessions > 0 ? ((totalCompletedCheckoutSessions / totalLandingSessions) * 100).toFixed(1) : "0.0";
+        return { totalPageViews, totalProductSessions, totalLandingSessions, totalOrders, ...salesTotals, convRate };
     }, [filteredRows]);
+    const overallRow = useMemo(() => aggregateReportRows(rows, [])[0] || {}, [rows]);
 
-    const navigate = (newFilterType, newDate) => {
+    const navigateRange = (newStart, newEnd) => {
         const next = new URLSearchParams(searchParams);
-        next.set("filterType", newFilterType);
-        next.set("date", newDate);
+        next.set("start", newStart);
+        next.set("end", newEnd);
+        next.delete("filterType");
+        next.delete("date");
         next.delete("month");
         setSearchParams(next);
         setCurrentPage(1);
-    };
-
-    const handlePrev = () => {
-        if (filterType === "day") navigate("day", adjustDay(dateParam, -1));
-        else if (filterType === "week") navigate("week", adjustWeek(dateParam, -1));
-        else navigate("month", adjustMonth(dateParam, -1));
-    };
-    const handleNext = () => {
-        if (filterType === "day") navigate("day", adjustDay(dateParam, 1));
-        else if (filterType === "week") navigate("week", adjustWeek(dateParam, 1));
-        else navigate("month", adjustMonth(dateParam, 1));
-    };
-    const handleToday = () => {
-        const now = new Date();
-        const today = fmtDate(now);
-        const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-        navigate(filterType, filterType === "month" ? thisMonth : today);
-    };
-    const switchFilter = (newType) => {
-        const now = new Date();
-        const today = fmtDate(now);
-        const thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
-        navigate(newType, newType === "month" ? thisMonth : today);
-    };
-
-    const handleDateInputChange = (e) => {
-        const val = e.target.value;
-        if (val) navigate(filterType, val);
     };
 
     const handleSearchChange = (e) => {
@@ -588,33 +732,85 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         setCurrentPage(1);
     };
 
-    const exportToExcel = async () => {
-        // Keep the sizeable spreadsheet library out of the initial page bundle.
-        // It is downloaded only when the merchant actually requests an export.
-        const XLSX = await import("xlsx");
-        const exportRows = filteredRows.map((row) => ({
-            "Product ID": row.productId,
-            "Product Title": row.title,
-            Status: row.status,
-            "Product type": row.productType,
-            "Product tags": row.tags.join(", "),
-            "Product url": row.productUrl,
-            "Created at": formatDate(row.createdAt),
-            "First day in inventory": formatDate(row.firstDayInInventory),
-            [`Starting inventory (${displayRange})`]: row.startingInventory ?? "",
-            [`Ending inventory (${displayRange})`]: row.endingInventory ?? "",
-            "Product page views": row.productPageViews,
-            "Product sessions": row.productSessions,
-            "Product landing sessions": row.landingSessions,
-            "Add to cart": row.addToCart,
-            Purchases: row.purchases,
-            [`Sale (${currency})`]: row.sale,
-        }));
+    const createExportRows = (sourceRows) => sourceRows.map((row) => Object.fromEntries([
+        ...selectedDimensions.map((key) => [REPORT_DIMENSIONS[key].label, row[key] ?? ""]),
+        ...selectedMetrics.map((key) => {
+            const metric = REPORT_METRICS[key];
+            const label = metric.money ? `${metric.label} (${currency})` : metric.label;
+            const value = metric.type === "date" ? formatDate(row[key]) : row[key] ?? "";
+            return [label, value];
+        }),
+    ]));
 
-        const workbook = XLSX.utils.book_new();
-        const ws = XLSX.utils.json_to_sheet(exportRows);
-        XLSX.utils.book_append_sheet(workbook, ws, "Product Audit");
-        XLSX.writeFile(workbook, `Product_Audit_${month}.xlsx`);
+    const moveSelectedItem = (kind, targetKey) => {
+        if (!draggedItem || draggedItem.kind !== kind || draggedItem.key === targetKey) return;
+        const setter = kind === "dimension" ? setSelectedDimensions : setSelectedMetrics;
+        setter((items) => {
+            const next = items.filter((key) => key !== draggedItem.key);
+            next.splice(next.indexOf(targetKey), 0, draggedItem.key);
+            return next;
+        });
+        setDraggedItem(null);
+    };
+
+    const downloadTextFile = (content, filename, mimeType) => {
+        const blob = new Blob([content], { type: `${mimeType};charset=utf-8` });
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement("a");
+        anchor.href = url;
+        anchor.download = filename;
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+        URL.revokeObjectURL(url);
+    };
+
+    const escapeCsv = (value) => {
+        const text = value === null || value === undefined ? "" : String(value);
+        return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+    };
+
+    const escapeXml = (value) => String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&apos;");
+
+    const xmlTag = (label) => label
+        .replace(/\([^)]*\)/g, "")
+        .trim()
+        .replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase())
+        .replace(/^[A-Z]/, (char) => char.toLowerCase()) || "value";
+
+    const exportReport = (scope, format) => {
+        const sourceRows = scope === "page" ? paginatedRows : filteredRows;
+        const exportRows = createExportRows(sourceRows);
+        const scopeName = scope === "page" ? `page-${safePage}` : "all-results";
+        const baseName = `Product_Audit_${month}_${scopeName}`;
+
+        if (format === "csv") {
+            const headers = exportRows.length ? Object.keys(exportRows[0]) : [];
+            const csv = [
+                headers.map(escapeCsv).join(","),
+                ...exportRows.map((row) => headers.map((header) => escapeCsv(row[header])).join(",")),
+            ].join("\r\n");
+            downloadTextFile(`\uFEFF${csv}`, `${baseName}.csv`, "text/csv");
+        } else if (format === "xml") {
+            const productsXml = exportRows.map((row) => {
+                const fields = Object.entries(row)
+                    .map(([label, value]) => `    <${xmlTag(label)}>${escapeXml(value)}</${xmlTag(label)}>`)
+                    .join("\n");
+                return `  <product>\n${fields}\n  </product>`;
+            }).join("\n");
+            const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<productAudit scope="${scopeName}" range="${escapeXml(displayRange)}">\n${productsXml}\n</productAudit>\n`;
+            downloadTextFile(xml, `${baseName}.xml`, "application/xml");
+        } else {
+            const jsonl = exportRows.map((row) => JSON.stringify(row)).join("\n");
+            downloadTextFile(jsonl ? `${jsonl}\n` : "", `${baseName}.jsonl`, "application/x-ndjson");
+        }
+
+        setExportOpen(false);
     };
 
     const startIndex = filteredRows.length === 0 ? 0 : (safePage - 1) * PRODUCT_PAGE_SIZE + 1;
@@ -702,31 +898,6 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         );
     };
 
-    const tabStyle = (active) => ({
-        border: "none",
-        background: active ? "#ffffff" : "transparent",
-        padding: "7px 16px",
-        borderRadius: "6px",
-        fontSize: "13px",
-        fontWeight: "600",
-        color: active ? "#202223" : "#6d7175",
-        cursor: "pointer",
-        boxShadow: active ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
-        transition: "all 0.15s ease",
-    });
-
-    const navBtnStyle = {
-        padding: "6px 14px",
-        border: "1px solid #c9cccf",
-        borderRadius: "6px",
-        background: "#ffffff",
-        cursor: "pointer",
-        fontSize: "13px",
-        fontWeight: "600",
-        color: "#202223",
-        transition: "all 0.12s ease",
-    };
-
     const metricCardStyle = {
         background: "#ffffff",
         border: "1px solid #e1e3e5",
@@ -748,12 +919,30 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 .audit-product-row.even { background: #fff; }
                 .audit-product-row.odd { background: #fafbfc; }
                 .audit-product-row:hover { background: #eef4fb; }
+                .audit-product-row.even > td:first-child { background: #fff; }
+                .audit-product-row.odd > td:first-child { background: #fafbfc; }
+                .audit-product-row:hover > td:first-child { background: #eef4fb; }
+                .audit-table-header-cell { position: sticky; top: 0; z-index: 3; background: #f4f5f6; }
+                .audit-table-header-cell:first-child { left: 0; z-index: 5; box-shadow: 2px 0 4px rgba(0,0,0,0.08); }
+                .audit-product-row > td:first-child { position: sticky; left: 0; z-index: 2; box-shadow: 2px 0 4px rgba(0,0,0,0.06); }
+                .legacy-summary { display: none; }
+                @media (max-width: 1050px) { .audit-builder-layout { grid-template-columns: 1fr !important; } .audit-builder-sidebar { position: static !important; max-height: none !important; } }
                 @keyframes audit-spin { to { transform: rotate(360deg); } }
             `}</style>
-            <div slot="primary-action">
+            <div
+                style={{
+                    position: "relative",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginBottom: "16px",
+                }}
+            >
                 <button
-                    onClick={exportToExcel}
-                    disabled={isRefreshing}
+                    type="button"
+                    onClick={() => setExportOpen((open) => !open)}
+                    disabled={isRefreshing || filteredRows.length === 0}
+                    aria-expanded={exportOpen}
+                    aria-haspopup="menu"
                     style={{
                         backgroundColor: "#107c41",
                         color: "#ffffff",
@@ -762,8 +951,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                         padding: "8px 16px",
                         fontSize: "14px",
                         fontWeight: "600",
-                        cursor: isRefreshing ? "wait" : "pointer",
-                        opacity: isRefreshing ? 0.65 : 1,
+                        cursor: isRefreshing ? "wait" : filteredRows.length === 0 ? "not-allowed" : "pointer",
+                        opacity: isRefreshing || filteredRows.length === 0 ? 0.65 : 1,
                         display: "inline-flex",
                         alignItems: "center",
                         gap: "8px",
@@ -775,8 +964,64 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
-                    Export to Excel (.xlsx)
+                    Export
+                    <span aria-hidden="true">{exportOpen ? "▲" : "▼"}</span>
                 </button>
+                {exportOpen && !isRefreshing && (
+                    <div
+                        role="menu"
+                        style={{
+                            position: "absolute",
+                            top: "calc(100% + 8px)",
+                            right: 0,
+                            zIndex: 20,
+                            width: "320px",
+                            padding: "12px",
+                            border: "1px solid #c9cccf",
+                            borderRadius: "10px",
+                            background: "#ffffff",
+                            boxShadow: "0 8px 24px rgba(0,0,0,0.16)",
+                        }}
+                    >
+                        {[
+                            { scope: "page", title: `Current page (${paginatedRows.length} products)` },
+                            { scope: "all", title: `All results (${filteredRows.length} products)` },
+                        ].map(({ scope, title }) => (
+                            <div key={scope} style={{ marginBottom: scope === "page" ? "14px" : 0 }}>
+                                <div style={{ marginBottom: "7px", fontSize: "12px", fontWeight: 700, color: "#4a4a4a" }}>{title}</div>
+                                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "6px" }}>
+                                    {[
+                                        { format: "csv", label: "CSV" },
+                                        { format: "xml", label: "XML" },
+                                        { format: "jsonl", label: "JSON Lines" },
+                                    ].map(({ format, label }) => (
+                                        <button
+                                            key={format}
+                                            type="button"
+                                            role="menuitem"
+                                            onClick={() => exportReport(scope, format)}
+                                            style={{
+                                                padding: "7px 6px",
+                                                border: "1px solid #c9cccf",
+                                                borderRadius: "6px",
+                                                background: "#ffffff",
+                                                color: "#202223",
+                                                cursor: "pointer",
+                                                fontSize: "11px",
+                                                fontWeight: 600,
+                                            }}
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                        <div style={{ marginTop: "10px", fontSize: "11px", lineHeight: 1.4, color: "#6d7175" }}>
+                            All results respects the current search and timeframe filters.
+                        </div>
+                    </div>
+                )}
             </div>
 
             {isRefreshing && (
@@ -784,6 +1029,22 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     Updating the report for your new selection… Export will be available when it finishes.
                 </div>
             )}
+
+            <s-section heading="Custom date range">
+                <div style={{ display: "flex", alignItems: "end", gap: "12px", flexWrap: "wrap", background: "#fff", border: "1px solid #e1e3e5", borderRadius: "10px", padding: "14px" }}>
+                    <label style={{ display: "grid", gap: "5px", fontSize: "12px", fontWeight: 600 }}>
+                        Start date
+                        <input type="date" value={start} min={earliest} max={end} onChange={(event) => navigateRange(event.target.value, end)} style={{ padding: "8px 10px", border: "1px solid #c9cccf", borderRadius: "7px" }} />
+                    </label>
+                    <label style={{ display: "grid", gap: "5px", fontSize: "12px", fontWeight: 600 }}>
+                        End date
+                        <input type="date" value={end} min={start} max={today} onChange={(event) => navigateRange(start, event.target.value)} style={{ padding: "8px 10px", border: "1px solid #c9cccf", borderRadius: "7px" }} />
+                    </label>
+                    <div style={{ fontSize: "13px", color: "#4a4a4a", paddingBottom: "8px" }}>
+                        <strong>{displayRange}</strong><br />Available from {formatDate(earliest)} to {formatDate(today)} (18 full calendar months).
+                    </div>
+                </div>
+            </s-section>
 
             {productsError && (
                 <s-box padding="base" background="critical" borderRadius="base" style={{ marginBottom: "16px" }}>
@@ -806,6 +1067,14 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                             <strong>{e.label}:</strong> {e.message}
                         </s-paragraph>
                     ))}
+                </s-box>
+            )}
+
+            {hasUnattributedSales && (
+                <s-box padding="base" background="subdued" borderRadius="base" style={{ marginBottom: "16px", border: "1px solid #b7c9e2" }}>
+                    <s-paragraph style={{ margin: 0 }}>
+                        <strong>Order-level sales note:</strong> Shopify returned some shipping, tax, fee, or adjustment amounts without a product ID. They are not divided across products, so product-row totals can differ from the store-wide sales report.
+                    </s-paragraph>
                 </s-box>
             )}
 
@@ -845,7 +1114,18 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 </details>
             )}
 
-            <s-section>
+            <s-section heading="Selected metric totals">
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(165px, 1fr))", gap: "12px" }}>
+                    {selectedMetrics.filter((key) => REPORT_METRICS[key].type !== "text").map((key) => {
+                        const metric = REPORT_METRICS[key];
+                        const rawValue = overallRow[key];
+                        const value = metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : rawValue ?? "—";
+                        return <div key={key} style={metricCardStyle}><span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>{metric.label}{metric.money ? ` (${currency})` : ""}</span><span style={{ fontSize: "21px", fontWeight: 700 }}>{value}</span></div>;
+                    })}
+                </div>
+            </s-section>
+
+            <s-section className="legacy-summary">
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "14px", marginBottom: "8px" }}>
                     <div style={metricCardStyle}>
                         <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Page Views</span>
@@ -860,56 +1140,117 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                         <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalLandingSessions.toLocaleString()}</span>
                     </div>
                     <div style={metricCardStyle}>
-                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Add to Cart</span>
-                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalAddToCart.toLocaleString()}</span>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Orders (summed)</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalOrders.toLocaleString()}</span>
                     </div>
                     <div style={metricCardStyle}>
-                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Purchases</span>
-                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalPurchases.toLocaleString()}</span>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Gross Sales ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{formatMoney(summaryMetrics.grossSales, currency)}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Discounts ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#b98900" }}>{formatMoney(summaryMetrics.discounts, currency)}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Sales Reversals ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#b42318" }}>{formatMoney(summaryMetrics.salesReversals, currency)}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Net Sales ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{formatMoney(summaryMetrics.netSales, currency)}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Shipping Charges ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{formatMoney(summaryMetrics.shippingCharges, currency)}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Return Fees ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{formatMoney(summaryMetrics.returnFees, currency)}</span>
+                    </div>
+                    <div style={metricCardStyle}>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Taxes ({currency})</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{formatMoney(summaryMetrics.taxes, currency)}</span>
                     </div>
                     <div style={metricCardStyle}>
                         <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Total Sales ({currency})</span>
-                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#107c41" }}>{formatMoney(summaryMetrics.totalSale, currency)}</span>
+                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#107c41" }}>{formatMoney(summaryMetrics.totalSales, currency)}</span>
                     </div>
                     <div style={metricCardStyle}>
-                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Conversion Rate</span>
+                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Landing Session Conversion Rate</span>
                         <span style={{ fontSize: "22px", fontWeight: 700, color: "#005bd3" }}>{summaryMetrics.convRate}%</span>
                     </div>
                 </div>
             </s-section>
 
-            <s-section heading="Filter & Timeframe">
-                <s-box padding="base" borderRadius="base" style={{ background: "#ffffff", border: "1px solid #e1e3e5", marginBottom: "20px" }}>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "16px", alignItems: "center", justifyContent: "space-between" }}>
-                        <div style={{ display: "flex", gap: "4px", background: "#f1f2f4", padding: "4px", borderRadius: "8px" }}>
-                            <button type="button" style={tabStyle(filterType === "day")} onClick={() => switchFilter("day")}>📅 Day</button>
-                            <button type="button" style={tabStyle(filterType === "week")} onClick={() => switchFilter("week")}>📊 Week</button>
-                            <button type="button" style={tabStyle(filterType === "month")} onClick={() => switchFilter("month")}>🗓️ Month</button>
-                        </div>
-
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                            <button type="button" onClick={handlePrev} style={navBtnStyle}>◀ Prev</button>
-                            {filterType === "month" ? (
-                                <input type="month" value={dateParam} onChange={handleDateInputChange} style={{ padding: "6px 10px", border: "1px solid #c9cccf", borderRadius: "6px", fontSize: "13px" }} />
-                            ) : (
-                                <input type="date" value={dateParam} onChange={handleDateInputChange} style={{ padding: "6px 10px", border: "1px solid #c9cccf", borderRadius: "6px", fontSize: "13px" }} />
-                            )}
-                            <button type="button" onClick={handleNext} style={navBtnStyle}>Next ▶</button>
-                            <button type="button" onClick={handleToday} style={{ padding: "6px 12px", border: "none", background: "#e4e5e7", borderRadius: "6px", cursor: "pointer", fontSize: "12px", fontWeight: "600", color: "#202223" }}>Today</button>
-                            <span style={{ fontSize: "13px", fontWeight: 600, color: "#202223", marginLeft: "4px" }}>{displayRange}</span>
-                        </div>
-
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                            <input type="text" placeholder="Search..." value={searchQuery} onChange={handleSearchChange} style={{ padding: "7px 12px", border: "1px solid #c9cccf", borderRadius: "6px", minWidth: "260px", fontSize: "13px" }} />
-                            {searchQuery && <button type="button" onClick={() => { setSearchQuery(""); setCurrentPage(1); }} style={{ background: "none", border: "none", color: "#005bd3", cursor: "pointer", fontSize: "13px", fontWeight: "600" }}>Clear</button>}
-                        </div>
-                    </div>
-                </s-box>
+            <div className="audit-builder-layout" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 310px", gap: "18px", alignItems: "start" }}>
+            <div>
+            <s-section heading="Search products">
+                <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginBottom: "16px" }}>
+                    <input type="text" placeholder="Search product catalog..." value={searchQuery} onChange={handleSearchChange} style={{ padding: "8px 12px", border: "1px solid #c9cccf", borderRadius: "7px", minWidth: "280px", fontSize: "13px" }} />
+                    {searchQuery && <button type="button" onClick={() => { setSearchQuery(""); setCurrentPage(1); }} style={{ background: "none", border: "none", color: "#005bd3", cursor: "pointer", fontWeight: 600 }}>Clear</button>}
+                </div>
             </s-section>
+            </div>
+
+            <aside className="audit-builder-sidebar" style={{ position: "sticky", top: "12px", display: "grid", gap: "12px", maxHeight: "82vh", overflowY: "auto" }}>
+                {[
+                    { kind: "metric", title: "Metrics", selected: selectedMetrics, setSelected: setSelectedMetrics, definitions: REPORT_METRICS, pickerOpen: metricPickerOpen, setPickerOpen: setMetricPickerOpen },
+                    { kind: "dimension", title: "Dimensions", selected: selectedDimensions, setSelected: setSelectedDimensions, definitions: REPORT_DIMENSIONS, pickerOpen: dimensionPickerOpen, setPickerOpen: setDimensionPickerOpen },
+                ].map((section) => (
+                    <div key={section.kind} style={{ background: "#fff", border: "1px solid #c9cccf", borderRadius: "10px", overflow: "hidden" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "11px 12px", fontWeight: 700, background: "#f7f8f9", borderBottom: "1px solid #e1e3e5" }}>
+                            {section.title}
+                            <button type="button" onClick={() => section.setPickerOpen((open) => !open)} aria-label={`Add ${section.kind}`} style={{ border: 0, background: "transparent", fontSize: "22px", cursor: "pointer" }}>+</button>
+                        </div>
+                        {section.pickerOpen && (
+                            <div style={{ padding: "8px", borderBottom: "1px solid #e1e3e5" }}>
+                                <select value="" onChange={(event) => { const key = event.target.value; if (key) section.setSelected((items) => [...items, key]); section.setPickerOpen(false); }} style={{ width: "100%", padding: "8px", border: "1px solid #c9cccf", borderRadius: "6px" }}>
+                                    <option value="">Select {section.kind}...</option>
+                                    {Object.entries(section.definitions).filter(([key]) => !section.selected.includes(key)).map(([key, item]) => <option key={key} value={key}>{item.label}</option>)}
+                                </select>
+                            </div>
+                        )}
+                        {section.selected.map((key) => (
+                            <div key={key} draggable onDragStart={() => setDraggedItem({ kind: section.kind, key })} onDragOver={(event) => event.preventDefault()} onDrop={() => moveSelectedItem(section.kind, key)} style={{ display: "grid", gridTemplateColumns: "22px 1fr 24px 24px", alignItems: "center", gap: "5px", padding: "9px 10px", borderBottom: "1px solid #e8e9eb", fontSize: "13px" }}>
+                                <span title="Drag to reorder" style={{ cursor: "grab", letterSpacing: "-2px", color: "#6d7175" }}>⠿</span>
+                                <span>{section.definitions[key].label}</span>
+                                <button type="button" title={section.definitions[key].info} aria-label={`About ${section.definitions[key].label}`} style={{ border: 0, background: "transparent", cursor: "help", color: "#005bd3" }}>ⓘ</button>
+                                <button type="button" aria-label={`Remove ${section.definitions[key].label}`} onClick={() => section.setSelected((items) => items.filter((item) => item !== key))} disabled={section.selected.length === 1} style={{ border: 0, background: "transparent", cursor: "pointer", color: "#6d7175" }}>×</button>
+                            </div>
+                        ))}
+                    </div>
+                ))}
+
+                <div style={{ background: "#fff", border: "1px solid #c9cccf", borderRadius: "10px", overflow: "hidden" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "11px 12px", fontWeight: 700, background: "#f7f8f9", borderBottom: "1px solid #e1e3e5" }}>
+                        Filters
+                        <button type="button" onClick={() => setFilters((items) => [...items, { field: selectedDimensions[0], operator: "contains", value: "", kind: "text" }])} style={{ border: 0, background: "transparent", fontSize: "22px", cursor: "pointer" }}>+</button>
+                    </div>
+                    {filters.length === 0 && <div style={{ padding: "12px", color: "#6d7175", fontSize: "12px" }}>No filters applied.</div>}
+                    {filters.map((filter, index) => (
+                        <div key={index} style={{ padding: "10px", borderBottom: "1px solid #e8e9eb", display: "grid", gap: "7px" }}>
+                            <div style={{ display: "flex", gap: "6px" }}>
+                                <select value={filter.field} onChange={(event) => { const field = event.target.value; const kind = REPORT_METRICS[field] && !REPORT_METRICS[field].type ? "number" : "text"; setFilters((items) => items.map((item, i) => i === index ? { ...item, field, kind, operator: kind === "number" ? "equals" : "contains" } : item)); }} style={{ flex: 1, padding: "6px" }}>
+                                    <optgroup label="Dimensions">{selectedDimensions.map((key) => <option key={key} value={key}>{REPORT_DIMENSIONS[key].label}</option>)}</optgroup>
+                                    <optgroup label="Metrics">{selectedMetrics.filter((key) => !REPORT_METRICS[key].type).map((key) => <option key={key} value={key}>{REPORT_METRICS[key].label}</option>)}</optgroup>
+                                </select>
+                                <button type="button" onClick={() => setFilters((items) => items.filter((_, i) => i !== index))} style={{ border: 0, background: "transparent", cursor: "pointer" }}>×</button>
+                            </div>
+                            <div style={{ display: "flex", gap: "6px" }}>
+                                <select value={filter.operator} onChange={(event) => setFilters((items) => items.map((item, i) => i === index ? { ...item, operator: event.target.value } : item))} style={{ width: "105px", padding: "6px" }}>
+                                    {filter.kind === "number" ? <><option value="equals">Equals</option><option value="gt">Greater than</option><option value="lt">Less than</option></> : <><option value="contains">Contains</option><option value="equals">Equals</option></>}
+                                </select>
+                                <input type={filter.kind === "number" ? "number" : "text"} value={filter.value} onChange={(event) => setFilters((items) => items.map((item, i) => i === index ? { ...item, value: event.target.value } : item))} placeholder="Value" style={{ minWidth: 0, flex: 1, padding: "6px" }} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </aside>
+            </div>
 
             <s-section heading={`Products (${filteredRows.length})`}>
                 {renderPagination()}
-                <div style={{ background: "#ffffff", border: "1px solid #e1e3e5", borderRadius: "10px", overflowX: "auto", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                <div style={{ background: "#ffffff", border: "1px solid #e1e3e5", borderRadius: "10px", overflow: "auto", maxHeight: "70vh", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
                     {filteredRows.length === 0 ? (
                         <div style={{ padding: "48px", textAlign: "center", color: "#8c9196" }}>
                             <div style={{ fontSize: "32px", marginBottom: "8px" }}>📦</div>
@@ -923,30 +1264,12 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                     background: "linear-gradient(180deg, #f7f8f9 0%, #f1f2f4 100%)",
                                     borderBottom: "2px solid #e1e3e5",
                                     textAlign: "left",
-                                    position: "sticky",
-                                    top: 0,
-                                    zIndex: 2,
                                 }}>
                                     {[
-                                        { label: "#", width: "44px" },
-                                        { label: "Product ID", width: "110px" },
-                                        { label: "Title", width: "200px" },
-                                        { label: "Status", width: "80px" },
-                                        { label: "Type", width: "100px" },
-                                        { label: "Tags", width: "120px" },
-                                        { label: "URL", width: "56px" },
-                                        { label: "Created At", width: "110px" },
-                                        { label: "First Day in Inventory", width: "120px" },
-                                        { label: "Starting Inventory", width: "100px" },
-                                        { label: "Ending Inventory", width: "100px" },
-                                        { label: "Product Page Views", width: "100px" },
-                                        { label: "Product Sessions", width: "100px" },
-                                        { label: "Landing Sessions", width: "100px" },
-                                        { label: "Add to Cart", width: "76px" },
-                                        { label: "Purchases", width: "76px" },
-                                        { label: `Sale (${currency})`, width: "90px" },
+                                        ...selectedDimensions.map((key) => ({ key, label: REPORT_DIMENSIONS[key].label, dimension: true })),
+                                        ...selectedMetrics.map((key) => ({ key, label: `${REPORT_METRICS[key].label}${REPORT_METRICS[key].money ? ` (${currency})` : ""}`, dimension: false })),
                                     ].map((col) => (
-                                        <th key={col.label} style={{
+                                        <th key={`${col.dimension ? "d" : "m"}-${col.key}`} className="audit-table-header-cell" style={{
                                             padding: "11px 10px",
                                             fontSize: "11px",
                                             fontWeight: 700,
@@ -954,7 +1277,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                             letterSpacing: "0.5px",
                                             color: "#5c5f62",
                                             whiteSpace: "nowrap",
-                                            minWidth: col.width,
+                                            minWidth: col.key === "title" ? "200px" : "105px",
                                         }}>
                                             {col.label}
                                         </th>
@@ -962,62 +1285,16 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {paginatedRows.map((row, idx) => {
-                                    const rowNum = (safePage - 1) * PRODUCT_PAGE_SIZE + idx + 1;
-                                    const sc = STATUS_COLORS[row.status] || { bg: "#e4e5e7", fg: "#4a4a4a" };
-
-                                    return (
-                                            <tr key={row.productId} className={`audit-product-row ${idx % 2 === 0 ? "even" : "odd"}`}>
-                                                <td style={{ padding: "10px", color: "#8c9196", fontSize: "12px", textAlign: "center" }}>{rowNum}</td>
-                                                <td style={{ padding: "10px", fontFamily: "monospace", fontSize: "12px", color: "#6d7175" }}>{row.productId}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, color: "#202223", maxWidth: "220px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={row.title}>{row.title}</td>
-                                                <td style={{ padding: "10px" }}>
-                                                    <span style={{
-                                                        display: "inline-block",
-                                                        padding: "3px 10px",
-                                                        borderRadius: "12px",
-                                                        fontSize: "10px",
-                                                        fontWeight: 700,
-                                                        textTransform: "uppercase",
-                                                        letterSpacing: "0.3px",
-                                                        background: sc.bg,
-                                                        color: sc.fg,
-                                                    }}>
-                                                        {row.status || "—"}
-                                                    </span>
-                                                </td>
-                                                <td style={{ padding: "10px", color: "#4a4a4a", fontSize: "12px" }}>{row.productType || "—"}</td>
-                                                <td style={{ padding: "10px", fontSize: "12px", color: "#6d7175", maxWidth: "140px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={row.tags.join(", ")}>{row.tags.join(", ") || "—"}</td>
-                                                <td style={{ padding: "10px" }}>
-                                                    {row.productUrl ? (
-                                                        <a href={row.productUrl} target="_blank" rel="noreferrer" style={{
-                                                            color: "#005bd3",
-                                                            textDecoration: "none",
-                                                            fontSize: "12px",
-                                                            fontWeight: 600,
-                                                            display: "inline-flex",
-                                                            alignItems: "center",
-                                                            gap: "3px",
-                                                        }}>
-                                                            View ↗
-                                                        </a>
-                                                    ) : "—"}
-                                                </td>
-                                                <td style={{ padding: "10px", fontSize: "12px", color: "#4a4a4a", whiteSpace: "nowrap" }}>{formatDate(row.createdAt)}</td>
-                                                <td style={{ padding: "10px", fontSize: "12px", color: "#4a4a4a", whiteSpace: "nowrap" }}>{formatDate(row.firstDayInInventory)}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right" }}>{row.startingInventory ?? "—"}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right" }}>{row.endingInventory ?? "—"}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.productPageViews > 0 ? "#202223" : "#8c9196" }}>{row.productPageViews}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.productSessions > 0 ? "#202223" : "#8c9196" }}>{row.productSessions}</td>
-                                                <td style={{ padding: "10px", fontWeight: 600, textAlign: "right", color: row.landingSessions > 0 ? "#202223" : "#8c9196" }}>{row.landingSessions}</td>
-                                                <td style={{ padding: "10px", textAlign: "right", color: row.addToCart > 0 ? "#202223" : "#8c9196" }}>{row.addToCart}</td>
-                                                <td style={{ padding: "10px", textAlign: "right", color: row.purchases > 0 ? "#202223" : "#8c9196" }}>{row.purchases}</td>
-                                                <td style={{ padding: "10px", fontWeight: 700, textAlign: "right", color: row.sale > 0 ? "#107c41" : "#8c9196" }}>
-                                                    {formatMoney(row.sale, currency)}
-                                                </td>
-                                            </tr>
-                                    );
-                                })}
+                                {paginatedRows.map((row, idx) => (
+                                    <tr key={`${JSON.stringify(selectedDimensions.map((key) => row[key]))}-${idx}`} className={`audit-product-row ${idx % 2 === 0 ? "even" : "odd"}`}>
+                                        {selectedDimensions.map((key) => <td key={`d-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", fontWeight: key === "title" ? 600 : 400 }}>{row[key] ?? "—"}</td>)}
+                                        {selectedMetrics.map((key) => {
+                                            const metric = REPORT_METRICS[key];
+                                            const value = metric.money ? formatMoney(row[key], currency) : metric.type === "date" ? formatDate(row[key]) : row[key] ?? "—";
+                                            return <td key={`m-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", textAlign: metric.type ? "left" : "right" }}>{key === "productUrl" && row[key] ? <a href={row[key]} target="_blank" rel="noreferrer">View ↗</a> : value}</td>;
+                                        })}
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     )}

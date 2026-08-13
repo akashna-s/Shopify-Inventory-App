@@ -1,6 +1,6 @@
 # Audit Bot — Product Audit Data Flow
 
-> Ye document `/app/products` page ka complete flow simple Hinglish me explain karta hai: user click se Shopify/database tak aur final table/Excel tak.
+> Ye document `/app/products` page ka complete flow simple Hinglish me explain karta hai: user click se Shopify/database tak aur final table/export tak.
 
 ## Quick mental model
 
@@ -53,7 +53,7 @@ flowchart TD
     U --> V["Create final product rows"]
     V --> W["Stream completed report to browser"]
     W --> X["Search and pagination"]
-    X --> Y["Optional Excel export"]
+    X --> Y["Optional CSV / XML / JSON Lines export"]
 ```
 
 ---
@@ -293,9 +293,22 @@ All query parameters, variant URLs aur campaign extensions handle ke basis par s
 
 Per `product_id`:
 
+- Gross sales
+- Orders containing the product
+- Quantity ordered
+- Net items sold
+- Reversed quantity
+- Discounts
+- Sales reversals
+- Net sales
+- Shipping charges
+- Return fees
+- Taxes
 - Total sales
 
 Join key: numeric Shopify product ID.
+
+Blank `product_id` sale row order-level/unattributed amount represent kar sakti hai. App usko products me forcefully divide nahi karti; report informational warning show karti hai.
 
 ### Inventory query
 
@@ -368,9 +381,9 @@ Har catalog product ke liye final row:
 - Product page views
 - Product sessions
 - Product landing sessions
-- Add to cart
-- Purchases
-- Sales in store currency
+- Orders containing the product
+- Quantity ordered, net items sold and reversed quantity
+- Gross sales, discounts, sales reversals, net sales, shipping charges, return fees, taxes and total sales in store currency
 
 Missing analytics ka default normally zero/null hota hai, taaki ek missing dataset poori table crash na kare.
 
@@ -383,18 +396,20 @@ Browser me:
 - Search deferred so typing freeze na ho
 - CSS hover—JavaScript mouse work nahi
 
-## Step 14 — Excel export
+## Step 14 — Report export
 
-Excel library initial page ke saath download nahi hoti.
+User `Export` menu me pehle scope choose karta hai:
 
-User Export click karta hai:
+- Current page: current pagination page ke maximum 50 products.
+- All results: current date range aur search filter ke all matching products.
 
-1. `xlsx` library dynamically load.
-2. Current filtered rows export objects me convert.
-3. Workbook and `Product Audit` sheet create.
-4. File browser se download.
+Phir format choose karta hai:
 
-Export report load/update ke during disabled hota hai.
+- CSV: spreadsheet-compatible rows.
+- XML: structured `<productAudit>` document.
+- JSON Lines: one JSON product per line.
+
+Browser selected rows ko text format me serialize karke local file download karta hai. Server/Shopify ko export ke liye extra request nahi jati. Export report load/update ke during disabled hota hai.
 
 ---
 
@@ -410,7 +425,7 @@ Export report load/update ke during disabled hota hai.
 | Page loading for long time first visit | Step 6 | Bulk operation status/fallback |
 | Old product details visible | Step 6 | Cache age/background refresh |
 | Old historical analytics | Step 8 | Analytics cache grace/version |
-| Excel unavailable | Steps 4/14 | Report still updating or dynamic import error |
+| Export unavailable | Steps 4/14 | Report still updating or no matching products |
 
 ---
 
@@ -455,4 +470,21 @@ Ye error nahi hai; informational status hai.
 7. Production build run.
 8. One current and one historical range test.
 9. Debug status and retry/cache fields inspect.
-10. Excel export verify.
+10. Current-page and all-results exports in CSV, XML and JSON Lines verify.
+
+Export control Product Audit content ke top-right me render hota hai. `s-page` header slot use nahi hota, because dropdown ko position karne wala normal HTML wrapper us slot me reliably visible nahi tha.
+
+Product table apne `70vh` scroll area ke andar move karti hai. Header row top par aur first `#` column left par sticky rehte hain; top-left cell dono scroll directions me fixed rehta hai.
+
+Product `Orders` sales dataset se `product_id` ke against join hote hain. One order containing multiple products har included product ko one order deta hai. Behavioral sessions/page views Shopify ke reporting pipeline se aate hain aur very recent activity sales ke baad visible ho sakti hai. Exact product-added-to-cart event current ShopifyQL landing-session metric ka part nahi hai.
+
+## Configurable report builder flow
+
+1. Server custom `start`/`end` ko Feb 1-style 18-full-month boundary aur today ke beech validate karta hai.
+2. Web performance, landing sessions, sales aur inventory daily grain par parallel fetch hote hain.
+3. Daily rows product catalog ID/handle se join hoti hain.
+4. User Dimensions add/remove/reorder karta hai; selected combination grouping key banti hai.
+5. Additive metrics sum; inventory earliest/latest snapshot leti hai.
+6. User Metrics add/remove/reorder karta hai; totals, table and export selected metrics follow karte hain.
+7. Right-side Filters grouped report rows ko filter karte hain.
+8. Table 50 grouped rows per page render karti hai; header and first selected dimension sticky hain.

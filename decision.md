@@ -404,3 +404,140 @@ Opaque session ID sirf current server request ki memory me deduplicate hoti hai.
 - 100,000 row limit hit hone par Product Page Views aur Product Sessions incomplete ho sakte hain; existing truncation warning show hogi.
 - Same session me do products dekhe gaye toh each product ko one Product Session milega. Isliye top Product Sessions card per-product counts ka sum hai, unique storewide sessions nahi.
 - Expected ordering generally: Product Page Views >= Product Sessions >= Landing Sessions.
+
+---
+
+## 2026-08-13 — Per-product complete sales breakup add karna
+
+### Decision
+
+Single `Total Sales` product metric ko Shopify ke eight sales components me expand karna:
+
+- Gross Sales
+- Discounts
+- Sales Reversals (`gross_sales_reversals`)
+- Net Sales
+- Shipping Charges
+- Return Fees
+- Taxes
+- Total Sales
+
+Table, summary cards aur Excel export tino me same fields use honge.
+
+### Data source
+
+One ShopifyQL query:
+
+```sql
+FROM sales
+SHOW gross_sales, discounts, gross_sales_reversals, net_sales,
+     shipping_charges, return_fees, taxes, total_sales
+GROUP BY product_id
+```
+
+Shopify ke returned signed amounts unchanged preserve honge. App discounts/reversals ko manually positive/negative convert nahi karegi.
+
+### Cache decision
+
+Historical cache dataset key `sales` se `sales-breakdown-v2` ki gayi. Reason: old cache me sirf `total_sales` tha; old cache reuse hoti toh new fields falsely zero dikhte.
+
+### Attribution limitation
+
+Shipping, tax, fee ya adjustment kabhi order-level event hota hai aur Shopify blank `product_id` row return kar sakta hai. App aise amount ko products par arbitrary divide nahi karti. UI informational note show karti hai, aur product rows sirf Shopify-attributed amounts dikhati hain.
+
+### Consequences
+
+- Wide table me horizontal scrolling increase hogi.
+- Product-row sums Shopify store-wide total se differ kar sakte hain because unattributed/order-level amounts excluded hain.
+- `Total Sales` formula me Shopify ke other applicable components—such as duties/additional fees—ho sakte hain, although separate columns current requested list me nahi hain.
+
+---
+
+## 2026-08-13 — Multi-format Export menu with page/all scope
+
+### Decision
+
+Product Audit ka old Excel-only button replace karke `Export` menu banana.
+
+Scopes:
+
+- Current page: currently displayed page ke maximum 50 products.
+- All results: current timeframe aur search filter ke saare matching products.
+
+Formats:
+
+- CSV (`.csv`)
+- XML (`.xml`)
+- JSON Lines (`.jsonl`)
+
+### Format behavior
+
+- CSV UTF-8 BOM use karti hai, taaki Excel/non-English text ko correctly open kare. Commas, quotes aur line breaks escaped hain.
+- XML special characters escape karti hai and one `<product>` node per result banati hai.
+- JSON Lines one JSON product object per line rakhta hai, jo large files aur machine processing ke liye useful hai.
+
+### Consequences
+
+- Excel `.xlsx` Product Audit export remove ho gaya; CSV Excel me open ho sakti hai but workbook styling/sheets nahi hongi.
+- All results client memory me already-loaded filtered rows se generate hota hai. Very large catalog export browser memory/download time use karega.
+- Report refresh ke time export disabled rahega, so incomplete data download nahi hogi.
+
+### 2026-08-13 visibility correction
+
+Export dropdown ko `s-page` ke `primary-action` slot se hata kar Product Audit content ke top-right me rakha gaya. Shopify page header normal HTML wrapper ko reliable tarike se render nahi kar raha tha, isliye feature code me present hone ke bawajood button screen par hidden tha. Export scope aur file-generation logic unchanged hai.
+
+---
+
+## 2026-08-13 — Product quantity sales metrics
+
+Product-level sales query me teen unit metrics add kiye:
+
+- `Quantity ordered`: customer ne originally kitni units order ki, reversals minus hone se pehle.
+- `Reversed quantity`: refund, cancellation, return ya order edit ke through kitni units reverse hui.
+- `Net items sold`: reversals ke baad final sold units.
+
+In metrics ko existing sales query me hi fetch kiya gaya, isliye separate Shopify request nahi badhi. Sales analytics cache key `sales-breakdown-v3` ki gayi, taaki old cache—jisme quantity fields nahi the—new report me zero values na dikhaye. Metrics table aur all export formats me included hain.
+
+---
+
+## 2026-08-13 — Sticky Product Audit table header and first column
+
+Product table ko maximum `70vh` height ka internal scroll area banaya gaya. Har header cell vertical scroll ke waqt top par sticky hai, aur leftmost row-number (`#`) column horizontal scroll ke waqt left par sticky hai. Top-left header cell dono directions me fixed rehta hai. Frozen column par alternating row aur hover backgrounds preserve kiye gaye, taaki scrolling ke waqt neeche ka content uske through visible na ho.
+
+---
+
+## 2026-08-13 — Purchases replaced by product Orders
+
+Old `Purchases` value `sessions_that_completed_checkout` se aa rahi thi. Woh purchased product ko count nahi karti thi; woh sirf batati thi ki kisi product landing page se start hui session ne checkout complete kiya. Isliye one order containing two products dono product rows par reliably `1` nahi dikha sakta tha.
+
+Sales query me `orders` add karke table/export ka `Purchases` column `Orders` se replace kiya. Ek order me Bangle aur Saree hon toh dono product rows me `Orders = 1`; quantity ordered independently `2` aur `1` ho sakti hai. Sales cache key `sales-breakdown-v4` use hoti hai, taaki old cache missing orders ko zero na banaye.
+
+Old `Add to Cart` ko `Landing Sessions with Cart Additions` rename kiya. Shopify sessions metric sirf batati hai ki product landing page se start hui session me koi item cart hua; ye guarantee nahi karti ki landing product hi add hua. Exact product ATC ko historical ShopifyQL sessions data se derive nahi kiya ja raha. Uske liye future storefront events capture karne wala Web Pixel/database flow separately required hoga.
+
+Summary `Product Orders (summed)` per-product order counts add karta hai. Same order me two products hon toh summary me two product-order occurrences count hongi, although store-level unique order one hai. `Landing Session Conversion Rate` ab bhi completed landing sessions / landing sessions hai and product Orders se calculate nahi hota.
+
+### 2026-08-13 cart-addition removal and reporting timing finding
+
+`Landing Sessions with Cart Additions` ko ShopifyQL query, row mapping, summary, table aur exports se remove kiya, because user ko ye session-level metric required nahi hai and it exact product-added-to-cart count bhi nahi thi.
+
+Observed test me landing session `sessions` schema se aa gayi while Product Page Views/Product Sessions zero rahe. Current view metrics `web_performance` schema ke page loads + `micro_session_id` se aate hain. Ye Core Web Vitals/page-load reporting source general sessions report ke saath same refresh timing guarantee nahi karta; Shopify documentation examples completed day (`endOfDay(-1d)`) use karte hain. Analytics overview normally about one minute me update hota hai, but some report/marketing data up to 24 hours le sakta hai. Current-day zeros ko automatically true zero assume nahi karna chahiye.
+
+---
+
+## 2026-08-13 — Configurable Product Audit report builder
+
+Old Day/Week/Month picker replace karke custom start/end date range use kiya. Earliest selectable date current month se 18 months pehle wale full month ka first day hai. Example: Aug 13, 2026 par earliest Feb 1, 2025; latest Aug 13, 2026. Server URL parameters ko bhi isi boundary me clamp karta hai.
+
+Analytics ShopifyQL queries daily grain par run hoti hain (`GROUP BY day` plus product/path identity). Browser selected Dimensions ke combination se rows group karta hai. Dimension list/order table ke left columns ka order decide karti hai. Available dimensions: Product ID, Title, Status, Type, Tags, Month, Week, Day. Serial-number column remove hai.
+
+Default metrics: URL, Starting Inventory, Ending Inventory, Product Page Views, Product Sessions, Landing Sessions, Orders, Net Items Sold, Total Sales. Other existing metrics `+` picker se add ho sakti hain. Selected items me info tooltip, remove control aur drag/drop reorder hai. Export only currently selected dimensions/metrics and current order use karta hai.
+
+Aggregation rules:
+
+- Additive sales/session/unit metrics selected group ke daily values sum karte hain.
+- Product Sessions daily unique counts add karte hain; cross-midnight same visitor double-count ho sakta hai, per approved daily-unique model.
+- Starting Inventory group ki earliest available daily snapshot hai.
+- Ending Inventory group ki latest available daily snapshot hai.
+- Month full calendar month aur Week Monday-to-Sunday group label use karta hai.
+
+Right-side Filters selected text dimensions par Contains/Equals aur numeric metrics par Equals/Greater than/Less than support karte hain. First version native browser date controls use karta hai; date behavior/range Shopify-style hai but dual-month calendar popup ka exact visual clone nahi hai.
