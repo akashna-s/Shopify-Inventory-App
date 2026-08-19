@@ -541,3 +541,78 @@ Aggregation rules:
 - Month full calendar month aur Week Monday-to-Sunday group label use karta hai.
 
 Right-side Filters selected text dimensions par Contains/Equals aur numeric metrics par Equals/Greater than/Less than support karte hain. First version native browser date controls use karta hai; date behavior/range Shopify-style hai but dual-month calendar popup ka exact visual clone nahi hai.
+## 2026-08-13 — Top report toolbar placement
+
+Custom date range ko Product Audit page heading ke immediately neeche top toolbar me move kiya. Start/end controls and selected range left side hain; Export button same level par right side hai. Separate date-range section remove kiya. Narrow screens par toolbar items wrap karte hain.
+
+## 2026-08-17 — Sortable report columns
+
+Har selected Dimension aur Metric table header me up/down sort arrows add kiye. First click ascending aur second click descending karta hai; active direction dark arrow se identify hoti hai. Sorting complete filtered result set par pagination se pehle apply hoti hai, aur current-page/all-results exports same sorted order preserve karte hain. Text natural/numeric comparison, numeric metrics number comparison, aur date/time dimensions chronological comparison use karte hain. Blank values bottom par rehti hain.
+
+### Arrow design and layout stability correction
+
+Filled triangle characters ko screenshot-style thin outline SVG chevrons se replace kiya. Icon ka fixed 12px slot hai, so active direction change header width alter nahi karti. Table `table-layout: fixed` aur per-column fixed widths use karti hai; sorting se visible row content change hone par browser columns recalculate nahi karta, isliye table/right shift nahi hoti. Long cell/header content ellipsis me contain hota hai.
+
+## 2026-08-17 — Shopify-style two-column report layout
+
+Product Audit content ko desktop par two-column report layout me arrange kiya. Left flexible column me selected metric totals, product search aur products table hain. Right fixed-width column me Metrics, Dimensions aur Filters controls sticky hain, isliye table dekhte waqt report configuration simultaneously visible rehti hai.
+
+Date controls apne existing white card me top-left rehte hain. Export action same top row par hai, lekin date card se bahar apne separate container me render hota hai. Small screens par both report columns ek vertical column me stack hote hain, so narrow embedded Shopify views me content squeeze nahi hota.
+
+### Full-width and zoom-responsive correction
+
+Shopify `s-page` ke centered content width ki wajah se browser ke 100% zoom par report grey workspace ka sirf beech wala hissa use kar rahi thi. Report content ko viewport-aware canvas diya gaya jo available embedded-app width use karta hai while keeping 32px spacing on each side.
+
+Desktop/tablet widths par report builder right column me fixed rehta hai. Uski width viewport ke saath 300–360px ke beech adjust hoti hai aur height visible viewport ke barabar rehti hai; left totals/search/table normal page scroll ke saath move karte hain. Sirf 760px se chhoti mobile width par sidebar neeche stack hota hai. Metric cards available width ke according reflow karte hain, aur very wide view par four cards per row use hote hain so default eight totals generally two rows me fit hote hain.
+
+### Product search section removed
+
+Table ke upar ka separate Product Search section remove kiya gaya because right-side Filters already dimensions aur metrics par filtering provide karte hain. Left column ka visible order ab selected metric totals ke immediately baad products table hai.
+
+### Independent Metrics and Dimensions scrolling
+
+Metrics aur Dimensions ke selected-item lists ko separate vertical scroll areas diye gaye. Section heading aur `+` control list scroll karne par visible rehte hain. Metrics list 310px aur Dimensions list 250px tak expand hoti hai; uske baad each list apna scrollbar show karti hai, so all table-selected columns accessible rehte hain without making the complete sidebar excessively long.
+
+Scrollbar width ko compact 6px style diya gaya. Metrics aur Dimensions list scrollbar gutter consistently preserve karti hain; Filters ko separate 260px maximum-height scroll area mila, jiska scrollbar sirf enough filter rows add hone par visible hota hai. Complete sticky sidebar scrollbar bhi same thin visual style follow karta hai.
+
+### Collapsible whole-sidebar scrolling correction
+
+Nested Metrics, Dimensions aur Filters scrollbars remove kiye gaye because multiple adjacent scroll tracks clean nahi lag rahe the. Har section ab collapsible dropdown hai: heading/chevron click karke complete selected list show ya hide hoti hai. Open section me all selected items render hote hain, aur scrolling sirf complete sticky right column par hoti hai. `+` buttons section heading ke saath independently available rehte hain.
+
+### Shopify-style controls-panel viewport
+
+Right controls column ko Shopify Analytics jaisa separate visible-height panel banaya gaya. Panel height viewport ke according 420–720px ke beech calculate hoti hai, so its scrollbar track and bottom viewport ke andar accessible rehte hain even though panel ShopifyQL debug section ke baad start hota hai. Panel ke right edge par always-present 8px scrollbar complete Metrics, Dimensions aur Filters content ko scroll karta hai; normal page scrollbar independently browser/app ke far-right par rehta hai.
+
+### Full available-height correction
+
+Fixed 420–720px panel restriction remove ki gayi. Browser ab right panel ke current visible top se viewport bottom tak exact available height calculate karta hai. Page scroll par sticky panel top ki taraf move hota hai toh height automatically expand hoti hai. Metrics, Dimensions aur Filters default expanded hain, all selected rows render karte hain, aur only complete right panel ka combined scrollbar use hota hai.
+
+## 2026-08-17 — Metric totals inventory removal and unique Orders
+
+Selected Metric Totals section inventory snapshot cards (`First Day in Inventory`, `Starting Inventory`, `Ending Inventory`) render nahi karta; these metrics table selection and product rows me available rehti hain.
+
+Orders total ab per-product Orders column ka sum nahi hai. Separate cached ShopifyQL query `FROM sales SHOW orders` selected date range par store-level unique orders fetch karti hai. Ek order me multiple products hon toh table me each included product ke against order appear ho sakta hai, but top Orders total us order ko only once count karta hai.
+
+### Result table Summary row
+
+Table header ke immediately neeche sticky Summary row add ki gayi. First selected Dimension cell `Summary` show karti hai, remaining dimension cells blank hain. Numeric metric columns currently filtered resultant rows ka column total show karti hain; money store currency me format hota hai, date metrics earliest displayed date show karti hain, and text URL summary dash show karta hai. Orders summary product rows sum karne ke bajaye selected date range ka store-level unique Orders total use karti hai.
+
+### Expanded filter operators
+
+Numeric metrics support: Is, Is not, Between, Greater than, Less than, Greater than or equal to, and Less than or equal to. Between inclusive hai and two numeric inputs use karta hai.
+
+Text dimensions/metrics support: Is, Is not, Is one of, Is not one of, Contains, Does not contain, Contains one of, Does not contain any of, Starts with, and Ends with. Multi-value operators comma-separated input accept karte hain and comparisons case-insensitive hain. Selected filter field change hone par compatible operator and empty values automatically reset hote hain.
+
+## 2026-08-19 — Product Page Views and Product Sessions discarded
+
+`Product Page Views` and `Product Sessions` metrics removed because Shopify's `web_performance` dataset did not consistently reconcile with product landing sessions and was not considered accurate enough for this audit report. The complete `FROM web_performance ... page_loads ... micro_session_id` request, per-request session-ID Sets, row fields, metric definitions, default selections, totals, filters, table columns and exports were removed.
+
+`Landing Sessions` remains and continues to use the `sessions` schema grouped by day and `landing_page_path`. Removing the uncached `web_performance` request reduces live ShopifyQL work on every date-range load.
+
+## 2026-08-17 — ShopifyQL automatic date-range splitting correction
+
+Earlier implementation had bounded retry only; discussed date-range splitting source code me actually present nahi thi. `attempts: 3` therefore retry show karta tha but final rate-limit error ke baad same range smaller queries me break nahi hoti thi.
+
+All five analytics query paths now whole range first attempt karte hain. Retry exhaustion par retryable error, ya 100,000-row truncation mile toh 2-second pause ke baad date range halves me recursively split hoti hai. Same dataset chunks sequentially run hote hain; separate datasets remain top-level parallel. Successful chunk rows concatenate hote hain because every granular table query day dimension use karti hai; ungrouped unique Orders chunks can be safely summed because each order belongs to one order date. Debug panel combined chunk count show karta hai.
+
+Catalog timestamp analytics execution timestamp nahi hai. Debug label now explicitly separates `catalog last refreshed` from `report generated`. Catalog has six-hour TTL, so a 10:55 AM catalog timestamp at 3:46 PM is expected and still fresh.

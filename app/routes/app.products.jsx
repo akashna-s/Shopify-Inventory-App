@@ -1,4 +1,4 @@
-import { Suspense, useDeferredValue, useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { Await, useLoaderData, useNavigation, useSearchParams } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
@@ -269,15 +269,12 @@ export const loader = async ({ request }) => {
 
     // These requests do not depend on one another, so start them together. Total
     // waiting time is now close to the slowest request, not the sum of all requests.
-    const [productsResult, shopResult, productPageEngagement, landingSessionTotals, salesTotals, inventoryTotals] = await Promise.all([
+    const [productsResult, shopResult, landingSessionTotals, salesTotals, inventoryTotals] = await Promise.all([
         getProductCatalog(admin, session.shop).then(
             (catalog) => ({ ...catalog, error: null }),
             (err) => ({ products: [], error: err?.message || "Failed to load products." }),
         ),
         fetchShopInfo(admin).catch(() => ({ shopUrl: "", shopCurrency: "USD", shopDomain: "unknown-shop" })),
-        // This granular response contains opaque session IDs for deduplication.
-        // Keep it in request memory only; do not persist those IDs in analytics cache.
-        runShopifyQL(admin, `FROM web_performance SHOW page_loads WHERE page_type = 'Product' GROUP BY day, page_path, micro_session_id SINCE ${start} UNTIL ${end}`, { debug }),
         runWithAnalyticsCache({
             shop: session.shop, dataset: "product-landing-sessions-daily-v2", rangeStart: start, rangeEnd: end,
             run: () => runShopifyQL(admin, `FROM sessions SHOW sessions, sessions_that_reached_checkout, sessions_that_completed_checkout, conversion_rate WHERE landing_page_type = 'product' GROUP BY day, landing_page_path SINCE ${start} UNTIL ${end}`, { debug }),
@@ -306,20 +303,6 @@ export const loader = async ({ request }) => {
 
     const dayValue = (value) => String(value || "").slice(0, 10);
     const analyticsKey = (day, identity) => `${day}|${identity}`;
-    const pageViewsByHandle = {};
-    const productSessionIdsByHandle = {};
-    productPageEngagement.rows.forEach((row) => {
-        const handle = handleFromPath(row.page_path);
-        const day = dayValue(row.day);
-        if (!handle || !day) return;
-        const key = analyticsKey(day, handle);
-        pageViewsByHandle[key] = (pageViewsByHandle[key] || 0) + (Number(row.page_loads) || 0);
-        if (!productSessionIdsByHandle[key]) productSessionIdsByHandle[key] = new Set();
-        if (row.micro_session_id !== null && row.micro_session_id !== undefined) {
-            productSessionIdsByHandle[key].add(String(row.micro_session_id));
-        }
-    });
-
     const sessionByHandle = {};
     landingSessionTotals.rows.forEach((row) => {
         const handle = handleFromPath(row.landing_page_path);
@@ -383,7 +366,7 @@ export const loader = async ({ request }) => {
     Object.keys(salesByProduct).forEach((value) => { const [day, key] = value.split("|"); registerDay(key, day); });
     Object.keys(inventoryByProduct).forEach((value) => { const [day, key] = value.split("|"); registerDay(key, day); });
     const productByHandle = Object.fromEntries(products.map((product) => [product.handle || "", numericId(product.id)]));
-    [...Object.keys(pageViewsByHandle), ...Object.keys(sessionByHandle)].forEach((value) => {
+    Object.keys(sessionByHandle).forEach((value) => {
         const separator = value.indexOf("|");
         const day = value.slice(0, separator);
         const handle = value.slice(separator + 1);
@@ -433,8 +416,6 @@ export const loader = async ({ request }) => {
             firstDayInInventory: inventory.firstDayInInventory,
             startingInventory: inventory.startingInventory,
             endingInventory: inventory.endingInventory,
-            productPageViews: pageViewsByHandle[dailyKeyByHandle] || 0,
-            productSessions: productSessionIdsByHandle[dailyKeyByHandle]?.size || 0,
             landingSessions: session.sessions,
             completedCheckoutSessions: session.completedCheckoutSessions,
             ...sales,
@@ -443,7 +424,6 @@ export const loader = async ({ request }) => {
     });
 
     const analyticsQueries = [
-        { label: "Product page views / sessions", result: productPageEngagement },
         { label: "Product landing sessions / completed checkouts", result: landingSessionTotals },
         { label: "Sale", result: salesTotals },
         { label: "Inventory (first day / starting / ending)", result: inventoryTotals },
@@ -461,7 +441,6 @@ export const loader = async ({ request }) => {
     });
 
     const shopifyqlDebug = {
-        productPageEngagement: { requestId: productPageEngagement.requestId, rowCount: productPageEngagement.rows.length, truncated: productPageEngagement.truncated, rawJson: productPageEngagement.rawJson, error: productPageEngagement.error, elapsedMs: productPageEngagement.elapsedMs, attempts: productPageEngagement.attempts, cacheStatus: productPageEngagement.cacheStatus },
         landingSessionTotals: { requestId: landingSessionTotals.requestId, rowCount: landingSessionTotals.rows.length, truncated: landingSessionTotals.truncated, rawJson: landingSessionTotals.rawJson, error: landingSessionTotals.error, elapsedMs: landingSessionTotals.elapsedMs, attempts: landingSessionTotals.attempts, cacheStatus: landingSessionTotals.cacheStatus },
         salesTotals: { requestId: salesTotals.requestId, rowCount: salesTotals.rows.length, truncated: salesTotals.truncated, rawJson: salesTotals.rawJson, error: salesTotals.error, elapsedMs: salesTotals.elapsedMs, attempts: salesTotals.attempts, cacheStatus: salesTotals.cacheStatus },
         inventoryTotals: { requestId: inventoryTotals.requestId, rowCount: inventoryTotals.rows.length, truncated: inventoryTotals.truncated, rawJson: inventoryTotals.rawJson, error: inventoryTotals.error, elapsedMs: inventoryTotals.elapsedMs, attempts: inventoryTotals.attempts, cacheStatus: inventoryTotals.cacheStatus },
@@ -532,8 +511,6 @@ const REPORT_METRICS = {
     firstDayInInventory: { label: "First Day in Inventory", info: "First inventory date reported inside the selected range.", type: "date" },
     startingInventory: { label: "Starting Inventory", info: "Inventory at the start of the selected group." },
     endingInventory: { label: "Ending Inventory", info: "Inventory at the end of the selected group." },
-    productPageViews: { label: "Product Page Views", info: "Page loads reported by Shopify web performance." },
-    productSessions: { label: "Product Sessions", info: "Daily unique micro-sessions that loaded the product page." },
     landingSessions: { label: "Landing Sessions", info: "Sessions whose first storefront page was this product." },
     orders: { label: "Orders", info: "Unique orders containing the product." },
     quantityOrdered: { label: "Quantity Ordered", info: "Units ordered before reversals." },
@@ -550,7 +527,7 @@ const REPORT_METRICS = {
 };
 
 const DEFAULT_DIMENSIONS = ["productId", "title", "status", "productType", "tags"];
-const DEFAULT_METRICS = ["productUrl", "startingInventory", "endingInventory", "productPageViews", "productSessions", "landingSessions", "orders", "netItemsSold", "totalSales"];
+const DEFAULT_METRICS = ["productUrl", "startingInventory", "endingInventory", "landingSessions", "orders", "netItemsSold", "totalSales"];
 
 function reportWeek(day) {
     if (!day) return "—";
@@ -616,7 +593,7 @@ export default function ProductsAudit() {
 
 function ProductsAuditLoading({ displayRange }) {
     return (
-        <s-page heading="Product Audit">
+        <s-page heading="Product Audit" className="audit-page">
             <style>{`
                 .audit-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 14px; color: #4a4a4a; }
                 .audit-spinner { width: 24px; height: 24px; border: 3px solid #dfe3e8; border-top-color: #005bd3; border-radius: 50%; animation: audit-spin .8s linear infinite; }
@@ -650,8 +627,6 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     const [searchParams, setSearchParams] = useSearchParams();
     // Every money value on this page is reported in the store's default currency.
     const currency = shopCurrency || "USD";
-    const [searchQuery, setSearchQuery] = useState("");
-    const deferredSearchQuery = useDeferredValue(searchQuery);
     const [currentPage, setCurrentPage] = useState(1);
     const [exportOpen, setExportOpen] = useState(false);
     const [selectedDimensions, setSelectedDimensions] = useState(DEFAULT_DIMENSIONS);
@@ -660,16 +635,11 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     const [metricPickerOpen, setMetricPickerOpen] = useState(false);
     const [filters, setFilters] = useState([]);
     const [draggedItem, setDraggedItem] = useState(null);
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
     const hasUnattributedSales = Object.values(unattributedSales || {}).some((value) => Number(value) !== 0);
 
     const filteredRows = useMemo(() => {
-        const q = deferredSearchQuery.trim().toLowerCase();
-        const searchedRows = !q ? rows : rows.filter((row) => {
-            const searchable = [row.title, row.productId, row.productType, row.status, ...(row.tags || [])]
-                .map((value) => String(value || "").toLowerCase());
-            return searchable.some((value) => value.includes(q));
-        });
-        const grouped = aggregateReportRows(searchedRows, selectedDimensions);
+        const grouped = aggregateReportRows(rows, selectedDimensions);
         return grouped.filter((row) => filters.every((filter) => {
             if (!filter.value) return true;
             const actual = row[filter.field];
@@ -684,20 +654,41 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             const right = String(filter.value).toLowerCase();
             return filter.operator === "equals" ? left === right : left.includes(right);
         }));
-    }, [rows, deferredSearchQuery, selectedDimensions, filters]);
+    }, [rows, selectedDimensions, filters]);
 
-    const totalPages = Math.ceil(filteredRows.length / PRODUCT_PAGE_SIZE) || 1;
+    const sortedRows = useMemo(() => {
+        if (!sortConfig.key) return filteredRows;
+        const direction = sortConfig.direction === "asc" ? 1 : -1;
+        return [...filteredRows].sort((leftRow, rightRow) => {
+            const left = leftRow[sortConfig.key];
+            const right = rightRow[sortConfig.key];
+            const leftMissing = left === null || left === undefined || left === "";
+            const rightMissing = right === null || right === undefined || right === "";
+            if (leftMissing || rightMissing) {
+                if (leftMissing && rightMissing) return 0;
+                return leftMissing ? 1 : -1;
+            }
+            if (typeof left === "number" || typeof right === "number") return ((Number(left) || 0) - (Number(right) || 0)) * direction;
+            return String(left).localeCompare(String(right), undefined, { numeric: true, sensitivity: "base" }) * direction;
+        });
+    }, [filteredRows, sortConfig]);
+
+    const tableTotals = useMemo(() => aggregateReportRows(filteredRows, [])[0] || {}, [filteredRows]);
+    const totalPages = Math.ceil(sortedRows.length / PRODUCT_PAGE_SIZE) || 1;
     const safePage = Math.min(Math.max(1, currentPage), totalPages);
 
     const paginatedRows = useMemo(() => {
         const startIdx = (safePage - 1) * PRODUCT_PAGE_SIZE;
-        return filteredRows.slice(startIdx, startIdx + PRODUCT_PAGE_SIZE);
-    }, [filteredRows, safePage]);
+        return sortedRows.slice(startIdx, startIdx + PRODUCT_PAGE_SIZE);
+    }, [sortedRows, safePage]);
+
+    const handleSort = (key) => {
+        setSortConfig((current) => ({ key, direction: current.key === key && current.direction === "asc" ? "desc" : "asc" }));
+        setCurrentPage(1);
+    };
 
     // Summary metrics
     const summaryMetrics = useMemo(() => {
-        const totalPageViews = filteredRows.reduce((s, r) => s + (r.productPageViews || 0), 0);
-        const totalProductSessions = filteredRows.reduce((s, r) => s + (r.productSessions || 0), 0);
         const totalLandingSessions = filteredRows.reduce((s, r) => s + (r.landingSessions || 0), 0);
         const totalCompletedCheckoutSessions = filteredRows.reduce((s, r) => s + (r.completedCheckoutSessions || 0), 0);
         const totalOrders = filteredRows.reduce((s, r) => s + (r.orders || 0), 0);
@@ -712,7 +703,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             totalSales: totals.totalSales + (row.totalSales || 0),
         }), { grossSales: 0, discounts: 0, salesReversals: 0, netSales: 0, shippingCharges: 0, returnFees: 0, taxes: 0, totalSales: 0 });
         const convRate = totalLandingSessions > 0 ? ((totalCompletedCheckoutSessions / totalLandingSessions) * 100).toFixed(1) : "0.0";
-        return { totalPageViews, totalProductSessions, totalLandingSessions, totalOrders, ...salesTotals, convRate };
+        return { totalLandingSessions, totalOrders, ...salesTotals, convRate };
     }, [filteredRows]);
     const overallRow = useMemo(() => aggregateReportRows(rows, [])[0] || {}, [rows]);
 
@@ -724,11 +715,6 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         next.delete("date");
         next.delete("month");
         setSearchParams(next);
-        setCurrentPage(1);
-    };
-
-    const handleSearchChange = (e) => {
-        setSearchQuery(e.target.value);
         setCurrentPage(1);
     };
 
@@ -926,10 +912,33 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 .audit-table-header-cell:first-child { left: 0; z-index: 5; box-shadow: 2px 0 4px rgba(0,0,0,0.08); }
                 .audit-product-row > td:first-child { position: sticky; left: 0; z-index: 2; box-shadow: 2px 0 4px rgba(0,0,0,0.06); }
                 .legacy-summary { display: none; }
-                @media (max-width: 1050px) { .audit-builder-layout { grid-template-columns: 1fr !important; } .audit-builder-sidebar { position: static !important; max-height: none !important; } }
+                .audit-page { display: block; width: calc(100vw - 64px) !important; max-width: none !important; margin-inline: calc((100% - 100vw + 64px) / 2) !important; padding-inline: 0; box-sizing: border-box; }
+                .audit-top-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: start; margin-bottom: 16px; }
+                .audit-export-wrap { grid-column: 2; grid-row: 1; position: relative; z-index: 10; margin: 0 !important; padding-top: 6px; }
+                .audit-date-section { grid-column: 1; grid-row: 1; min-width: 0; background: #fff; border: 1px solid #e1e3e5; border-radius: 10px; padding: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); box-sizing: border-box; }
+                .audit-content-grid { display: grid; grid-template-columns: minmax(0, 1fr) 310px; column-gap: 18px; align-items: start; }
+                .audit-left-column { grid-column: 1; min-width: 0; width: 100%; margin-bottom: 16px !important; }
+                .audit-builder-layout { display: contents !important; }
+                .audit-builder-sidebar { grid-column: 2; grid-row: 1 / span 20; position: sticky !important; top: 12px; width: 310px; max-height: calc(100vh - 24px) !important; overflow-y: auto; scrollbar-width: thin; }
+                .audit-builder-placeholder { display: none !important; }
+                @media (max-width: 1050px) {
+                    .audit-page { width: calc(100vw - 40px) !important; margin-inline: calc((100% - 100vw + 40px) / 2) !important; }
+                    .audit-top-row { grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+                    .audit-content-grid { grid-template-columns: 1fr; }
+                    .audit-left-column { grid-column: 1; }
+                    .audit-builder-sidebar { grid-column: 1; grid-row: auto; position: static !important; width: 100%; max-height: none !important; margin-bottom: 16px; }
+                }
+                @media (max-width: 680px) {
+                    .audit-page { width: calc(100vw - 24px) !important; margin-inline: calc((100% - 100vw + 24px) / 2) !important; }
+                    .audit-top-row { grid-template-columns: 1fr; }
+                    .audit-date-section, .audit-export-wrap { grid-column: 1; grid-row: auto; }
+                    .audit-export-wrap { justify-content: flex-start !important; padding-top: 0; }
+                }
                 @keyframes audit-spin { to { transform: rotate(360deg); } }
             `}</style>
+            <div className="audit-top-row">
             <div
+                className="audit-export-wrap"
                 style={{
                     position: "relative",
                     display: "flex",
@@ -1018,7 +1027,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                             </div>
                         ))}
                         <div style={{ marginTop: "10px", fontSize: "11px", lineHeight: 1.4, color: "#6d7175" }}>
-                            All results respects the current search and timeframe filters.
+                            All results respects the current timeframe and report filters.
                         </div>
                     </div>
                 )}
@@ -1030,8 +1039,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 </div>
             )}
 
-            <s-section heading="Custom date range">
-                <div style={{ display: "flex", alignItems: "end", gap: "12px", flexWrap: "wrap", background: "#fff", border: "1px solid #e1e3e5", borderRadius: "10px", padding: "14px" }}>
+            <div className="audit-date-section">
+                <div style={{ display: "flex", alignItems: "end", gap: "12px", flexWrap: "wrap" }}>
                     <label style={{ display: "grid", gap: "5px", fontSize: "12px", fontWeight: 600 }}>
                         Start date
                         <input type="date" value={start} min={earliest} max={end} onChange={(event) => navigateRange(event.target.value, end)} style={{ padding: "8px 10px", border: "1px solid #c9cccf", borderRadius: "7px" }} />
@@ -1044,7 +1053,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                         <strong>{displayRange}</strong><br />Available from {formatDate(earliest)} to {formatDate(today)} (18 full calendar months).
                     </div>
                 </div>
-            </s-section>
+            </div>
+            </div>
 
             {productsError && (
                 <s-box padding="base" background="critical" borderRadius="base" style={{ marginBottom: "16px" }}>
@@ -1078,8 +1088,9 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 </s-box>
             )}
 
+            <div className="audit-content-grid">
             {shopifyqlDebug && (
-                <details style={{ marginBottom: "16px", background: "#f4f6f8", border: "1px solid #c9cccf", borderRadius: "8px", padding: "12px 16px" }}>
+                <details className="audit-left-column" style={{ marginBottom: "16px", background: "#f4f6f8", border: "1px solid #c9cccf", borderRadius: "8px", padding: "12px 16px", boxSizing: "border-box" }}>
                     <summary style={{ cursor: "pointer", fontWeight: "600", fontSize: "13px", color: "#202223" }}>
                         🔍 View ShopifyQL Debug Data
                     </summary>
@@ -1114,7 +1125,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 </details>
             )}
 
-            <s-section heading="Selected metric totals">
+            <s-section heading="Selected metric totals" className="audit-left-column">
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(165px, 1fr))", gap: "12px" }}>
                     {selectedMetrics.filter((key) => REPORT_METRICS[key].type !== "text").map((key) => {
                         const metric = REPORT_METRICS[key];
@@ -1127,14 +1138,6 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
 
             <s-section className="legacy-summary">
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "14px", marginBottom: "8px" }}>
-                    <div style={metricCardStyle}>
-                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Page Views</span>
-                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalPageViews.toLocaleString()}</span>
-                    </div>
-                    <div style={metricCardStyle}>
-                        <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Sessions</span>
-                        <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalProductSessions.toLocaleString()}</span>
-                    </div>
                     <div style={metricCardStyle}>
                         <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Landing Sessions</span>
                         <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalLandingSessions.toLocaleString()}</span>
@@ -1182,15 +1185,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 </div>
             </s-section>
 
-            <div className="audit-builder-layout" style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 310px", gap: "18px", alignItems: "start" }}>
-            <div>
-            <s-section heading="Search products">
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px", marginBottom: "16px" }}>
-                    <input type="text" placeholder="Search product catalog..." value={searchQuery} onChange={handleSearchChange} style={{ padding: "8px 12px", border: "1px solid #c9cccf", borderRadius: "7px", minWidth: "280px", fontSize: "13px" }} />
-                    {searchQuery && <button type="button" onClick={() => { setSearchQuery(""); setCurrentPage(1); }} style={{ background: "none", border: "none", color: "#005bd3", cursor: "pointer", fontWeight: 600 }}>Clear</button>}
-                </div>
-            </s-section>
-            </div>
+            <div className="audit-builder-layout">
+            <div className="audit-builder-placeholder" />
 
             <aside className="audit-builder-sidebar" style={{ position: "sticky", top: "12px", display: "grid", gap: "12px", maxHeight: "82vh", overflowY: "auto" }}>
                 {[
@@ -1248,7 +1244,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             </aside>
             </div>
 
-            <s-section heading={`Products (${filteredRows.length})`}>
+            <s-section heading={`Products (${filteredRows.length})`} className="audit-left-column">
                 {renderPagination()}
                 <div style={{ background: "#ffffff", border: "1px solid #e1e3e5", borderRadius: "10px", overflow: "auto", maxHeight: "70vh", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
                     {filteredRows.length === 0 ? (
@@ -1279,9 +1275,24 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                             whiteSpace: "nowrap",
                                             minWidth: col.key === "title" ? "200px" : "105px",
                                         }}>
-                                            {col.label}
+                                            <button type="button" onClick={() => handleSort(col.key)} aria-label={`Sort by ${col.label}`} style={{ width: "100%", padding: 0, border: 0, background: "transparent", color: "inherit", font: "inherit", letterSpacing: "inherit", textTransform: "inherit", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", whiteSpace: "nowrap" }}>
+                                                <span>{col.label}</span>
+                                                <span aria-hidden="true" style={{ width: "10px", display: "inline-flex", flexDirection: "column", alignItems: "center", fontSize: "8px", lineHeight: "7px", color: sortConfig.key === col.key ? "#202223" : "#9a9da1", flexShrink: 0 }}>
+                                                    <span style={{ opacity: sortConfig.key !== col.key || sortConfig.direction === "asc" ? 1 : 0.25 }}>▲</span>
+                                                    <span style={{ opacity: sortConfig.key !== col.key || sortConfig.direction === "desc" ? 1 : 0.25 }}>▼</span>
+                                                </span>
+                                            </button>
                                         </th>
                                     ))}
+                                </tr>
+                                <tr style={{ background: "#f6f6f7", borderBottom: "1px solid #dfe3e8", fontWeight: 700 }}>
+                                    {selectedDimensions.map((key, index) => <th key={`total-d-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", textAlign: "left" }}>{index === 0 ? "Total" : ""}</th>)}
+                                    {selectedMetrics.map((key) => {
+                                        const metric = REPORT_METRICS[key];
+                                        const rawValue = tableTotals[key];
+                                        const value = metric.type === "text" ? "—" : metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : rawValue ?? "—";
+                                        return <th key={`total-m-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", textAlign: metric.type ? "left" : "right" }}>{value}</th>;
+                                    })}
                                 </tr>
                             </thead>
                             <tbody>
@@ -1301,6 +1312,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 </div>
                 {renderPagination()}
             </s-section>
+            </div>
         </s-page>
     );
 }

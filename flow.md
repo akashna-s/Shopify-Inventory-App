@@ -243,31 +243,9 @@ Error ya incomplete/truncated result save nahi hota.
 
 ## Step 9 — ShopifyQL queries
 
-### Product page views query
+### Discarded product page engagement query
 
-`web_performance` dataset se rows `page_path` aur `micro_session_id` ke combination par grouped milti hain. Sirf `page_type = 'Product'` rows li jati hain.
-
-Meaning:
-
-```text
-Product page selected period me kitni baar load/view hui
-```
-
-Ek customer session me same product page 3 baar load kare toh 3 page views ho sakte hain.
-
-Join key: `/products/{handle}` URL se product handle.
-
-### Product sessions calculation
-
-Same query ke opaque `micro_session_id` values har product ke liye temporary `Set` me add hote hain. Set duplicate value ko ek hi baar rakhta hai.
-
-```text
-Product + session ABC + 3 page loads
-→ Page Views = 3
-→ Product Sessions = Set(ABC).size = 1
-```
-
-Same session different product dekhe toh dono products ke against separately count hoti hai. Individual session IDs final table/Excel me nahi dikhte aur database analytics cache me save nahi hote; request complete hote hi memory se discard ho jate hain.
+`web_performance.page_loads` and `micro_session_id` are no longer queried or calculated. Product Page Views and Product Sessions are unavailable in the report because their source did not provide sufficiently consistent data. This removes one live, uncached ShopifyQL request from every report load.
 
 ### Product landing sessions query
 
@@ -488,3 +466,49 @@ Product `Orders` sales dataset se `product_id` ke against join hote hain. One or
 6. User Metrics add/remove/reorder karta hai; totals, table and export selected metrics follow karte hain.
 7. Right-side Filters grouped report rows ko filter karte hain.
 8. Table 50 grouped rows per page render karti hai; header and first selected dimension sticky hain.
+Top report toolbar page heading ke just neeche custom start/end range left aur Export action right par render karti hai.
+
+Header sort selection filtered grouped rows par pagination se pehle apply hoti hai. Sorted rows table pages aur export dono ko feed karti hain.
+
+Table fixed column widths and fixed-layout rendering use karti hai, so sorting visible row values badalne par horizontal layout shift nahi hota. Header chevrons fixed-width SVG slot me render hote hain.
+
+## Product Audit page placement
+
+1. Page heading ke neeche top row me date-range card left aur separate Export control right render hote hain.
+2. Main report area desktop par two columns me render hota hai.
+3. Left column ka order: selected metric totals, pagination aur products table. Filtering right-side Filters panel se hoti hai.
+4. Right column: Metrics, Dimensions aur Filters; scrolling ke waqt desktop par sticky rehta hai.
+5. Sirf mobile screen width 760px se kam ho toh right controls table ke saath single-column flow me stack ho jaate hain.
+
+Responsive correction: report canvas embedded viewport ki available grey width use karta hai. Sidebar 300–360px responsive width aur viewport-height sticky scroll area use karti hai. Left report remaining width leta hai; metric totals reflow hote hain aur wide tables apne internal horizontal scroll me rehte hain. Sidebar ab sirf mobile widths below 760px par stack hoti hai.
+
+Metrics and Dimensions selected lists independently scroll karti hain. Their headers and add controls list ke bahar fixed rehte hain; selected-item order continues to control resultant table column order.
+
+Filters rows bhi independent list me render hoti hain. Multiple filters 260px list height cross karein toh thin internal scrollbar activate hota hai; Filters heading and add button visible rehte hain.
+
+Current sidebar behavior: Metrics, Dimensions aur Filters headings collapsible dropdown controls hain. Open section all selected rows show karta hai; no nested list scrollbar is used. Complete right sidebar single thin scrollbar se move hoti hai.
+
+Right controls panel has its own viewport-aware 420–720px height and outer scrollbar. Page scroll moves left report content independently; sidebar scroll reveals every selected metric, dimension and filter inside the open collapsible sections.
+
+Current height flow: browser panel ka live top position measure karta hai, viewport bottom tak remaining pixels calculate karta hai, and that exact value right controls height banti hai. Resize aur page scroll par value recalculate hoti hai. All three sections start expanded and one combined panel scrollbar reveals their complete selected contents.
+
+## Unique Orders total flow
+
+1. Product sales breakdown continues to group by day and product ID for table rows.
+2. A parallel cached `FROM sales SHOW orders` query fetches the selected range's store-level unique order count without product grouping.
+3. Top Selected Metric Totals uses this unique value for Orders; it never sums product-row Orders.
+4. Inventory metrics remain selectable in the table but are excluded from top total cards because inventory snapshots are not meaningful additive totals.
+
+5. Table header ke below Summary row selected result columns summarize karti hai. Numeric columns filtered rows sum karti hain, date columns earliest displayed value leti hain, text columns dash show karti hain, and Orders dedicated unique order total use karta hai.
+
+6. Filter field type operator list decide karta hai: numeric metrics comparison/range operators use karte hain; text fields equality, membership, contains, prefix and suffix operators use karte hain. Multi-value text input commas par split hota hai before case-insensitive matching.
+
+## Automatic ShopifyQL range recovery
+
+1. Requested date range first one ShopifyQL request me runs.
+2. Temporary rate limit gets up to three exponential-backoff attempts.
+3. Retry still fails, or response exactly 100,000 rows hits, then system pauses two seconds.
+4. Date range two inclusive halves me splits.
+5. Left and right chunks sequentially run; any failing/truncated chunk recursively splits again down to one day.
+6. Successful daily-grain rows concatenate and feed normal product joining.
+7. Debug `chunks` recovery request count shows; `catalog last refreshed` and `report generated` separate timestamps are displayed.
