@@ -616,3 +616,8 @@ Earlier implementation had bounded retry only; discussed date-range splitting so
 All five analytics query paths now whole range first attempt karte hain. Retry exhaustion par retryable error, ya 100,000-row truncation mile toh 2-second pause ke baad date range halves me recursively split hoti hai. Same dataset chunks sequentially run hote hain; separate datasets remain top-level parallel. Successful chunk rows concatenate hote hain because every granular table query day dimension use karti hai; ungrouped unique Orders chunks can be safely summed because each order belongs to one order date. Debug panel combined chunk count show karta hai.
 
 Catalog timestamp analytics execution timestamp nahi hai. Debug label now explicitly separates `catalog last refreshed` from `report generated`. Catalog has six-hour TTL, so a 10:55 AM catalog timestamp at 3:46 PM is expected and still fresh.
+## 2026-08-20 — Selected totals: unique orders and no inventory cards
+
+The Selected metric totals area excludes First Day in Inventory, Starting Inventory, and Ending Inventory even when those metrics are selected for the table. Inventory remains available in the report itself.
+
+The Orders card must not sum per-product order counts because one order containing multiple products would be counted once for each product. A separate ungrouped `FROM sales SHOW orders` query supplies the selected range's store-wide unique order total. The table keeps product-level order values. The aggregate table row label is `Summary`.

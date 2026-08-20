@@ -512,3 +512,9 @@ Current height flow: browser panel ka live top position measure karta hai, viewp
 5. Left and right chunks sequentially run; any failing/truncated chunk recursively splits again down to one day.
 6. Successful daily-grain rows concatenate and feed normal product joining.
 7. Debug `chunks` recovery request count shows; `catalog last refreshed` and `report generated` separate timestamps are displayed.
+## Selected metric totals (updated 2026-08-20)
+
+1. Product-level sales query continues to build the product rows and table Summary values.
+2. A separate cached `FROM sales SHOW orders` query runs without product grouping.
+3. Shopify's returned `orders` value is shown in the Selected metric totals Orders card, preventing duplicate counting when one order contains multiple products.
+4. Inventory metrics are skipped only while rendering the Selected metric totals cards; they remain selectable and visible in the table.
