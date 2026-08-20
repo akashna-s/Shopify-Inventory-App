@@ -518,3 +518,17 @@ Current height flow: browser panel ka live top position measure karta hai, viewp
 2. A separate cached `FROM sales SHOW orders` query runs without product grouping.
 3. Shopify's returned `orders` value is shown in the Selected metric totals Orders card, preventing duplicate counting when one order contains multiple products.
 4. Inventory metrics are skipped only while rendering the Selected metric totals cards; they remain selectable and visible in the table.
+## New Arrival Analysis page (created 2026-08-20)
+
+Navigation currently opens `/app/new-arrivals` inside the existing authenticated app layout. No loader, Shopify query, cohort calculation, or external integration runs yet.
+# New Arrival Analysis flow (2026-08-20)
+
+1. Authenticate the Shopify admin request.
+2. Resolve the requested month range (15 months by default, maximum latest 18 months, current month through yesterday).
+3. Load the product catalog and shop currency.
+4. For every selected month, fetch product inventory, product sales, and total store sales. Finished months are read from cache when available; temporary failures retry automatically.
+5. Join analytics rows to the catalog by numeric Shopify Product ID and attach current title and Product Type.
+6. Determine each product's launch month using the Python rule: first positive starting inventory, ending inventory, or sales month.
+7. Calculate Overall and Product Type cohort matrices, including SKU, inventory, sales, and denominator percentages.
+8. Calculate the product-level Cohort Details rows.
+9. Render either the New Arrival Analysis tab or the paginated Cohort Details tab.

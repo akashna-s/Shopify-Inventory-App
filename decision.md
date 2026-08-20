@@ -621,3 +621,14 @@ Catalog timestamp analytics execution timestamp nahi hai. Debug label now explic
 The Selected metric totals area excludes First Day in Inventory, Starting Inventory, and Ending Inventory even when those metrics are selected for the table. Inventory remains available in the report itself.
 
 The Orders card must not sum per-product order counts because one order containing multiple products would be counted once for each product. A separate ungrouped `FROM sales SHOW orders` query supplies the selected range's store-wide unique order total. The table keeps product-level order values. The aggregate table row label is `Summary`.
+## 2026-08-20 — New Arrival Analysis placeholder page
+
+A new authenticated embedded-app page is available at `/app/new-arrivals`. It is intentionally blank apart from the `New Arrival Analysis` page heading. The Python cohort repository remains separate while its requirements are reviewed before any logic is ported into the Shopify app.
+# 2026-08-20 — New Arrival Analysis port
+
+- The Python `cohort_engine.py` behavior is the source of truth; the older workbook script is not used for calculations.
+- Default range is 15 calendar months including the current month. The current month ends at yesterday; selection is limited to the latest 18 calendar months.
+- Shopify analytics is fetched one month at a time. Each month runs inventory, product sales, and store-total sales together; only two months are processed concurrently to reduce rate-limit pressure.
+- Completed months use the existing analytics cache. Temporary Shopify failures retry three times with increasing pauses.
+- Launch month remains the first month in the available input where starting inventory, ending inventory, or sales is positive.
+- Cohort Details is paginated at 50 rows in the browser to avoid rendering thousands of wide rows at once. Calculations still use the full fetched dataset.
