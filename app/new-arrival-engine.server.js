@@ -20,10 +20,13 @@ function buildRecords(sourceRows) {
       month: String(row.month || "").slice(0, 7),
       type: String(row.productType || "").trim() || "Others",
       title: String(row.title || "").trim(),
+      url: String(row.productUrl || "").trim(),
       startRaw: number(row.startingInventory),
       start: Math.max(0, number(row.startingInventory)),
       end: Math.max(0, number(row.endingInventory)),
       sales: Math.max(0, number(row.totalSales)),
+      landingSessions: Math.max(0, number(row.landingSessions)),
+      orders: Math.max(0, number(row.orders)),
     }))
     .filter((row) => row.pid && /^\d{4}-\d{2}$/.test(row.month))
     .map((row) => ({ ...row, active: row.startRaw > 0 || row.end > 0 || row.sales > 0 }));
@@ -39,11 +42,15 @@ function aggregateProductMonths(records) {
       start: 0,
       end: 0,
       sales: 0,
+      landingSessions: 0,
+      orders: 0,
       active: false,
     };
     current.start += row.start;
     current.end += row.end;
     current.sales += row.sales;
+    current.landingSessions += row.landingSessions;
+    current.orders += row.orders;
     current.active ||= row.active;
     groups.set(key, current);
   }
@@ -53,11 +60,13 @@ function aggregateProductMonths(records) {
 function buildProductMaps(records, aggregated) {
   const launch = new Map();
   const titles = new Map();
+  const urls = new Map();
   const types = new Map();
   const lookup = new Map();
 
   for (const row of records) {
     if (row.title && !titles.has(row.pid)) titles.set(row.pid, row.title);
+    if (row.url && !urls.has(row.pid)) urls.set(row.pid, row.url);
     if (!types.has(row.pid)) types.set(row.pid, new Set());
     types.get(row.pid).add(row.type);
   }
@@ -69,6 +78,7 @@ function buildProductMaps(records, aggregated) {
   return {
     launch,
     titles,
+    urls,
     types: new Map([...types].map(([pid, values]) => [pid, [...values].sort()])),
     lookup,
   };
@@ -95,7 +105,7 @@ function calculateMatrix(pids, months, productMaps, monthlyStoreSales, denominat
   const launchCounts = Object.fromEntries(months.map((month) => [month, 0]));
   const cube = Object.fromEntries(months.map((cohort) => [
     cohort,
-    Object.fromEntries(months.map((month) => [month, { active: 0, inventory: 0, sales: 0 }])),
+    Object.fromEntries(months.map((month) => [month, { active: 0, inventory: 0, sales: 0, landingSessions: 0 }])),
   ]));
 
   for (const pid of allowed) {
@@ -109,11 +119,12 @@ function calculateMatrix(pids, months, productMaps, monthlyStoreSales, denominat
       if (!row?.active) continue;
       cube[cohort][month].active += 1;
       cube[cohort][month].sales += row.sales;
+      cube[cohort][month].landingSessions += row.landingSessions;
       cube[cohort][month].inventory += month === cohort ? row.end : row.start;
     }
   }
 
-  const grandRaw = Object.fromEntries(months.map((month) => [month, { active: 0, inventory: 0, sales: 0 }]));
+  const grandRaw = Object.fromEntries(months.map((month) => [month, { active: 0, inventory: 0, sales: 0, landingSessions: 0 }]));
   const rows = months.map((cohort) => {
     const launched = launchCounts[cohort];
     const values = {};
@@ -126,6 +137,7 @@ function calculateMatrix(pids, months, productMaps, monthlyStoreSales, denominat
       grandRaw[month].active += raw.active;
       grandRaw[month].inventory += raw.inventory;
       grandRaw[month].sales += raw.sales;
+      grandRaw[month].landingSessions += raw.landingSessions;
       values[month] = {
         naSkus: raw.active,
         naSkuRate: launched ? raw.active / launched : 0,
@@ -134,6 +146,7 @@ function calculateMatrix(pids, months, productMaps, monthlyStoreSales, denominat
         naInventoryRate: denominators.inventory[month] ? raw.inventory / denominators.inventory[month] : 0,
         naSales: raw.sales,
         naSalesRate: monthlyStoreSales[month] ? raw.sales / monthlyStoreSales[month] : 0,
+        landingSessions: raw.landingSessions,
       };
     }
     return { cohort, label: `${monthLabel(cohort)} NA`, values };
@@ -152,6 +165,7 @@ function calculateMatrix(pids, months, productMaps, monthlyStoreSales, denominat
       naInventoryRate: denominators.inventory[month] ? raw.inventory / denominators.inventory[month] : 0,
       naSales: raw.sales,
       naSalesRate: monthlyStoreSales[month] ? raw.sales / monthlyStoreSales[month] : 0,
+      landingSessions: raw.landingSessions,
     };
   }
   return { rows, grand, launchCounts };
@@ -206,11 +220,14 @@ export function generateNewArrivalReport(sourceRows, months, monthlyStoreSales) 
           startingInventory: row?.start || 0,
           endingInventory: row?.end || 0,
           sales,
+          landingSessions: row?.landingSessions || 0,
+          orders: row?.orders || 0,
+          conversionRate: row?.landingSessions ? (row.orders || 0) / row.landingSessions : 0,
           typeSalesRate: typeTotal ? sales / typeTotal : 0,
           totalSalesRate: monthlyStoreSales[month] ? sales / monthlyStoreSales[month] : 0,
         };
       }
-      details.push({ cohort, title: productMaps.titles.get(pid) || "", productId: pid, productType: type, values });
+      details.push({ cohort, title: productMaps.titles.get(pid) || `Product ${pid}`, productId: pid, productType: type, productUrl: productMaps.urls.get(pid) || "", values });
     }
   }
   details.sort((a, b) => a.cohort.localeCompare(b.cohort) || a.productType.localeCompare(b.productType) || a.title.localeCompare(b.title) || a.productId.localeCompare(b.productId));
