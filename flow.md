@@ -532,3 +532,42 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 7. Calculate Overall and Product Type cohort matrices, including SKU, inventory, sales, and denominator percentages.
 8. Calculate the product-level Cohort Details rows.
 9. Render either the New Arrival Analysis tab or the paginated Cohort Details tab.
+# Public acquisition and in-app activation flow (2026-08-31)
+
+1. A public visitor sees the product outcome, interface preview, core operator advantages, and workflow.
+2. The primary calls to action move the visitor to the Shopify domain form.
+3. Submitting the store domain continues through the existing secure Shopify authentication route.
+4. An authenticated merchant lands in the Command Center with store connection status and three report paths.
+5. The activation checklist directs a new merchant to Product Audit first, then New Arrival Analysis.
+6. The operator playbook explains a concrete first workflow: compare ending inventory with sales and landing sessions to identify at-risk stock.
+7. Report routes retain their existing data loading, caching, and calculation behavior; the redesigned home does not prefetch heavy analytics.
+# New Arrival report interaction flow (2026-08-31)
+
+1. The loader fetches the same monthly inventory, sales, store sales, and landing-session datasets through the existing cache.
+2. Product catalog metadata adds title, handle, Product Type, URL, and optional thumbnail without changing analytics totals.
+3. The Analysis tab can display all metrics or a sales, inventory, or traffic subset without another server request.
+4. The Cohort Details tab searches and filters the complete loaded result, then sorts it, then paginates it into 50-row pages.
+5. Density changes only table spacing. Export serializes the full filtered result in CSV, JSON Lines, or XML.
+6. Sticky headers remain inside the single table scroll container. Product, Type, and Launch Cohort stay frozen while month blocks scroll horizontally.
+## 2026-08-31 — Metric explanation flow
+
+1. User opens New Arrival Analysis; report data and table state work as before.
+2. The `Calculation Logic & Formulas` button opens an isolated 480px methodology drawer.
+3. The drawer explains cohort assignment, cohort lifespan, matrix metrics, and product-detail formulas without triggering data requests.
+4. Hovering or focusing a metric's `ⓘ` icon opens a fixed-position tooltip rendered outside the table scroll container.
+5. Closing the drawer or tooltip leaves the selected tab, filters, sorting, pagination, focus mode, and density unchanged.
+## 2026-08-31 — New Arrival sales calculation
+
+1. Fetch product-level `total_sales` grouped by product for each reporting month.
+2. Sum product `total_sales` for all products belonging to a cohort to calculate `NA sales`.
+3. Fetch store-level `total_sales` for the same month.
+4. Calculate `NA Sales % = cohort total_sales / store total_sales × 100`.
+## 2026-08-31 — New Arrival dimension flow
+
+1. Read `classification` (`type` by default) and `interval` (`month` by default) from the report URL.
+2. Build either calendar-month periods or Monday–Sunday week periods within the selected dates.
+3. Fetch and cache inventory, Total Sales, orders, store Total Sales, and landing sessions for each period.
+4. Attach Shopify Product Type and all Shopify product tags to every product-period record.
+5. Calculate Overall from unique Product IDs, ensuring a multi-tag product is counted once.
+6. Build category matrices from Product Type or Product Tag membership. In tag mode, one Product ID can contribute to multiple tag matrices.
+7. Render and export the matrix and detail tables using the selected classification and period labels.

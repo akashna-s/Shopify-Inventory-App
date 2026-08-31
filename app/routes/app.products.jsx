@@ -605,6 +605,13 @@ function ProductsAuditLoading({ displayRange }) {
                 .audit-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 14px; color: #4a4a4a; }
                 .audit-spinner { width: 24px; height: 24px; border: 3px solid #dfe3e8; border-top-color: #005bd3; border-radius: 50%; animation: audit-spin .8s linear infinite; }
                 @keyframes audit-spin { to { transform: rotate(360deg); } }
+                .audit-date-section, .audit-builder-sidebar { border-color: #e1e3e5; box-shadow: 0 1px 0 rgba(0,0,0,0.05); }
+                .audit-table-header-cell { background: #f7f7f8 !important; border-right: 1px solid #e8ebef; border-bottom: 2px solid #d2d5d8; color: #303030 !important; }
+                .audit-product-row.even { background: #fff; }
+                .audit-product-row.odd { background: #fafafb; }
+                .audit-product-row:hover, .audit-product-row:hover > td:first-child { background: #edf2f7 !important; }
+                .audit-product-row > td { border-right: 1px solid #e8ebef; color: #303030; font-weight: 500; }
+                .audit-builder-sidebar { scrollbar-color: #b5b7ba transparent; scrollbar-width: thin; }
             `}</style>
             <s-section>
                 <div className="audit-loading" role="status" aria-live="polite">
@@ -1252,11 +1259,11 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                 </div>
                             ))}
                         </div>
-            </aside>
-            </div>
+                    </aside>
+                </div>
 
-            <div className="audit-section-spacer" aria-hidden="true" />
-            <s-section heading={`Products (${filteredRows.length})`} className="audit-left-column">
+                <div className="audit-section-spacer" aria-hidden="true" />
+                <s-section heading={`Products (${filteredRows.length})`} className="audit-left-column">
                     {renderPagination()}
                     <div style={{ background: "#ffffff", border: "1px solid #e1e3e5", borderRadius: "10px", overflow: "auto", maxHeight: "70vh", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
                         {filteredRows.length === 0 ? (

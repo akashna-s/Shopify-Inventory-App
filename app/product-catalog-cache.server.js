@@ -22,7 +22,7 @@ async function fetchProductsWithPagination(admin) {
         products(first: 250, after: $cursor, sortKey: TITLE) {
           edges {
             cursor
-            node { id title productType tags handle createdAt status }
+            node { id title productType tags handle createdAt status featuredImage { url altText } }
           }
           pageInfo { hasNextPage }
         }
@@ -44,7 +44,7 @@ async function fetchProductsWithBulkOperation(admin) {
   const bulkQuery = `{
     products {
       edges {
-        node { id title productType tags handle createdAt status }
+        node { id title productType tags handle createdAt status featuredImage { url altText } }
       }
     }
   }`;

@@ -632,3 +632,37 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Completed months use the existing analytics cache. Temporary Shopify failures retry three times with increasing pauses.
 - Launch month remains the first month in the available input where starting inventory, ending inventory, or sales is positive.
 - Cohort Details is paginated at 50 rows in the browser to avoid rendering thousands of wide rows at once. Calculations still use the full fetched dataset.
+# 2026-08-31 — Conversion-focused landing page and command center
+
+- Replaced the Shopify starter landing page with a purpose-built Audit Bot acquisition experience focused on inventory risk, product demand, cohort quality, and fast Shopify connection.
+- Avoided fabricated logos, testimonials, customer counts, and financial claims. Dashboard values are clearly part of a product interface preview rather than claimed merchant results.
+- Kept Shopify domain authentication as the primary conversion action and removed unnecessary navigation and form friction.
+- Replaced the embedded template home and its product-creation mutation with a read-only command center. Home now routes merchants to Product Audit, New Arrival Analysis, and Order Details.
+- Day-1 activation is structured around running the first product audit and reviewing the first new-arrival cohort.
+- Used route-scoped CSS and no new UI dependencies to preserve application performance and avoid affecting analytics routes.
+# 2026-08-31 — Polaris light data-visibility refactor
+
+- New Arrival focus modes are client-side views over the same loader result, so switching views causes no Shopify queries or cache writes.
+- Cohort Details search, product type, stock status, and launch cohort filters run before pagination; sorting and export therefore apply to all matching products.
+- Frozen product context was reduced to Product, Type, and Launch Cohort (approximately 405px). Product ID moved beneath the title and the title itself links to Shopify.
+- Product thumbnails and handles are presentation metadata only. Existing analytics calculations and cache datasets remain unchanged.
+- Export supports CSV, JSON Lines, and XML from the currently filtered Cohort Details result.
+- Product Audit retained all existing report-builder behavior and received only Polaris light table-token overrides.
+## 2026-08-31 — In-context cohort methodology
+
+- Added calculation guidance directly to New Arrival Analysis instead of creating another route.
+- The calculation drawer owns its open state, so opening or closing it does not reset table search, filters, sorting, pagination, focus mode, or density.
+- Metric definitions and formulas now live beside `MATRIX_METRICS` and `DETAIL_METRICS`, keeping table labels, tooltips, and methodology tied to the same configuration.
+- Header tooltips render through a document portal with fixed positioning so table overflow and sticky headers cannot clip them.
+## 2026-08-31 — New Arrival sales basis
+
+- `NA sales` uses Shopify `total_sales`, not gross sales.
+- `NA Sales %` is cohort `total_sales` divided by store `total_sales` for the same month.
+- The existing ShopifyQL queries and engine already used `total_sales`; the in-context definitions were corrected to match the calculation.
+## 2026-08-31 — New Arrival classification and time dimensions
+
+- New Arrival Analysis defaults to Product Type classification and Month grouping.
+- Product Tag classification counts each product once in Overall, but includes a multi-tag product once in every tag category it carries.
+- Week grouping uses Monday–Sunday periods. The first and last week are clamped to the selected custom dates.
+- Products already active before the selected range are assigned to the first selected period, matching the existing monthly boundary rule.
+- Weekly analytics are cached separately per week to preserve accurate starting and ending inventory and avoid mixing monthly and weekly cache entries.
