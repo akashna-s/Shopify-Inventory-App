@@ -148,6 +148,7 @@ function calculateMatrix(
   productMaps,
   monthlyStoreSales,
   denominators,
+  sparseCohorts = false,
 ) {
   const allowed = new Set(pids.filter((pid) => productMaps.launch.has(pid)));
   const launchCounts = Object.fromEntries(months.map((month) => [month, 0]));
@@ -186,7 +187,10 @@ function calculateMatrix(
       { active: 0, inventory: 0, sales: 0, landingSessions: 0, orders: 0 },
     ]),
   );
-  const rows = months.map((cohort) => {
+  const cohortPeriods = sparseCohorts
+    ? months.filter((cohort) => launchCounts[cohort] > 0)
+    : months;
+  const rows = cohortPeriods.map((cohort) => {
     const launched = launchCounts[cohort];
     const values = {};
     for (const month of months) {
@@ -258,12 +262,30 @@ export function generateNewArrivalReport(
   months,
   monthlyStoreSales,
   classification = "type",
+  options = {},
 ) {
   const records = buildRecords(sourceRows);
   const aggregated = aggregateProductMonths(records);
   const productMaps = buildProductMaps(records, aggregated);
   const denominators = brandDenominators(productMaps, months);
   const allPids = [...productMaps.lookup.keys()];
+  const categoryMap =
+    classification === "tag" ? productMaps.tags : productMaps.types;
+  if (options.categoryOnly) {
+    const pids = [...categoryMap]
+      .filter(([, categories]) => categories.includes(options.categoryOnly))
+      .map(([pid]) => pid);
+    return {
+      type: options.categoryOnly,
+      matrix: calculateMatrix(
+        pids,
+        months,
+        productMaps,
+        monthlyStoreSales,
+        denominators,
+      ),
+    };
+  }
   const overall = calculateMatrix(
     allPids,
     months,
@@ -273,8 +295,6 @@ export function generateNewArrivalReport(
   );
 
   const lastMonth = months.at(-1);
-  const categoryMap =
-    classification === "tag" ? productMaps.tags : productMaps.types;
   const typeSales = new Map();
   for (const [pid, types] of categoryMap) {
     const sales = productMaps.lookup.get(pid)?.get(lastMonth)?.sales || 0;
@@ -286,15 +306,17 @@ export function generateNewArrivalReport(
   );
   const byProductType = productTypes.map((type) => ({
     type,
-    matrix: calculateMatrix(
-      [...categoryMap]
-        .filter(([, types]) => types.includes(type))
-        .map(([pid]) => pid),
-      months,
-      productMaps,
-      monthlyStoreSales,
-      denominators,
-    ),
+    matrix: options.deferCategories
+      ? null
+      : calculateMatrix(
+          [...categoryMap]
+            .filter(([, types]) => types.includes(type))
+            .map(([pid]) => pid),
+          months,
+          productMaps,
+          monthlyStoreSales,
+          denominators,
+        ),
   }));
 
   const typeTotals = new Map();

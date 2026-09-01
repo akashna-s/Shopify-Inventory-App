@@ -101,11 +101,11 @@ UI selection ko exact `start` aur `end` dates me convert kiya jata hai.
 
 Examples:
 
-| Selection | Start | End |
-|---|---:|---:|
-| Day: Aug 12 | 2026-08-12 | 2026-08-12 |
-| Week containing Aug 12 | Monday | Sunday |
-| Month: Aug 2026 | 2026-08-01 | 2026-08-31 |
+| Selection              |      Start |        End |
+| ---------------------- | ---------: | ---------: |
+| Day: Aug 12            | 2026-08-12 | 2026-08-12 |
+| Week containing Aug 12 |     Monday |     Sunday |
+| Month: Aug 2026        | 2026-08-01 | 2026-08-31 |
 
 Ye dates sessions, sales aur inventory ShopifyQL queries me jati hain.
 
@@ -393,17 +393,17 @@ Browser selected rows ko text format me serialize karke local file download kart
 
 ## Error location guide
 
-| Visible symptom | Likely stage | First check |
-|---|---|---|
-| Authentication/login error | Step 2 | Shopify session and token |
-| Products blank, analytics rows present | Step 6 | Catalog status, Prisma client/cache table |
-| Sales zero for some products | Steps 9–11 | Row limit, product ID mapping, selected dates |
-| Sessions zero but sales present | Steps 9–11 | Product handle and landing-page path |
-| Inventory blank | Step 9 | Inventory query and Shopify tracking |
-| Page loading for long time first visit | Step 6 | Bulk operation status/fallback |
-| Old product details visible | Step 6 | Cache age/background refresh |
-| Old historical analytics | Step 8 | Analytics cache grace/version |
-| Export unavailable | Steps 4/14 | Report still updating or no matching products |
+| Visible symptom                        | Likely stage | First check                                   |
+| -------------------------------------- | ------------ | --------------------------------------------- |
+| Authentication/login error             | Step 2       | Shopify session and token                     |
+| Products blank, analytics rows present | Step 6       | Catalog status, Prisma client/cache table     |
+| Sales zero for some products           | Steps 9–11   | Row limit, product ID mapping, selected dates |
+| Sessions zero but sales present        | Steps 9–11   | Product handle and landing-page path          |
+| Inventory blank                        | Step 9       | Inventory query and Shopify tracking          |
+| Page loading for long time first visit | Step 6       | Bulk operation status/fallback                |
+| Old product details visible            | Step 6       | Cache age/background refresh                  |
+| Old historical analytics               | Step 8       | Analytics cache grace/version                 |
+| Export unavailable                     | Steps 4/14   | Report still updating or no matching products |
 
 ---
 
@@ -466,7 +466,7 @@ Product `Orders` sales dataset se `product_id` ke against join hote hain. One or
 6. User Metrics add/remove/reorder karta hai; totals, table and export selected metrics follow karte hain.
 7. Right-side Filters grouped report rows ko filter karte hain.
 8. Table 50 grouped rows per page render karti hai; header and first selected dimension sticky hain.
-Top report toolbar page heading ke just neeche custom start/end range left aur Export action right par render karti hai.
+   Top report toolbar page heading ke just neeche custom start/end range left aur Export action right par render karti hai.
 
 Header sort selection filtered grouped rows par pagination se pehle apply hoti hai. Sorted rows table pages aur export dono ko feed karti hain.
 
@@ -512,15 +512,18 @@ Current height flow: browser panel ka live top position measure karta hai, viewp
 5. Left and right chunks sequentially run; any failing/truncated chunk recursively splits again down to one day.
 6. Successful daily-grain rows concatenate and feed normal product joining.
 7. Debug `chunks` recovery request count shows; `catalog last refreshed` and `report generated` separate timestamps are displayed.
+
 ## Selected metric totals (updated 2026-08-20)
 
 1. Product-level sales query continues to build the product rows and table Summary values.
 2. A separate cached `FROM sales SHOW orders` query runs without product grouping.
 3. Shopify's returned `orders` value is shown in the Selected metric totals Orders card, preventing duplicate counting when one order contains multiple products.
 4. Inventory metrics are skipped only while rendering the Selected metric totals cards; they remain selectable and visible in the table.
+
 ## New Arrival Analysis page (created 2026-08-20)
 
 Navigation currently opens `/app/new-arrivals` inside the existing authenticated app layout. No loader, Shopify query, cohort calculation, or external integration runs yet.
+
 # New Arrival Analysis flow (2026-08-20)
 
 1. Authenticate the Shopify admin request.
@@ -532,6 +535,7 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 7. Calculate Overall and Product Type cohort matrices, including SKU, inventory, sales, and denominator percentages.
 8. Calculate the product-level Cohort Details rows.
 9. Render either the New Arrival Analysis tab or the paginated Cohort Details tab.
+
 # Public acquisition and in-app activation flow (2026-08-31)
 
 1. A public visitor sees the product outcome, interface preview, core operator advantages, and workflow.
@@ -541,6 +545,7 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 5. The activation checklist directs a new merchant to Product Audit first, then New Arrival Analysis.
 6. The operator playbook explains a concrete first workflow: compare ending inventory with sales and landing sessions to identify at-risk stock.
 7. Report routes retain their existing data loading, caching, and calculation behavior; the redesigned home does not prefetch heavy analytics.
+
 # New Arrival report interaction flow (2026-08-31)
 
 1. The loader fetches the same monthly inventory, sales, store sales, and landing-session datasets through the existing cache.
@@ -549,6 +554,7 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 4. The Cohort Details tab searches and filters the complete loaded result, then sorts it, then paginates it into 50-row pages.
 5. Density changes only table spacing. Export serializes the full filtered result in CSV, JSON Lines, or XML.
 6. Sticky headers remain inside the single table scroll container. Product, Type, and Launch Cohort stay frozen while month blocks scroll horizontally.
+
 ## 2026-08-31 — Metric explanation flow
 
 1. User opens New Arrival Analysis; report data and table state work as before.
@@ -556,12 +562,14 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 3. The drawer explains cohort assignment, cohort lifespan, matrix metrics, and product-detail formulas without triggering data requests.
 4. Hovering or focusing a metric's `ⓘ` icon opens a fixed-position tooltip rendered outside the table scroll container.
 5. Closing the drawer or tooltip leaves the selected tab, filters, sorting, pagination, focus mode, and density unchanged.
+
 ## 2026-08-31 — New Arrival sales calculation
 
 1. Fetch product-level `total_sales` grouped by product for each reporting month.
 2. Sum product `total_sales` for all products belonging to a cohort to calculate `NA sales`.
 3. Fetch store-level `total_sales` for the same month.
 4. Calculate `NA Sales % = cohort total_sales / store total_sales × 100`.
+
 ## 2026-08-31 — New Arrival dimension flow
 
 1. Read `classification` (`type` by default) and `interval` (`month` by default) from the report URL.
@@ -571,3 +579,59 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 5. Calculate Overall from unique Product IDs, ensuring a multi-tag product is counted once.
 6. Build category matrices from Product Type or Product Tag membership. In tag mode, one Product ID can contribute to multiple tag matrices.
 7. Render and export the matrix and detail tables using the selected classification and period labels.
+
+## 2026-09-01 — Product Tag matrix rendering flow
+
+1. Load all valid product tags from the cached Shopify product catalog.
+2. Calculate Overall from unique Product IDs.
+3. Calculate each tag matrix using every Product ID carrying that tag.
+4. Omit empty launch-cohort rows from tag/category matrices while retaining all real period values.
+5. Render only the Overall table initially; a collapsed tag table is created in the browser only when that tag section is opened.
+
+## 2026-09-01 — Staged tag preparation flow
+
+1. Initial Product Tag request calculates Overall once and returns the ordered tag list without full tag matrices.
+2. The browser displays Overall and all tag names in collapsed form.
+3. A two-request queue prepares the first 20 tags in the background.
+4. Intersection Observer prioritizes tags approaching the viewport; hover, keyboard focus, and opening also request a tag immediately.
+5. A single-tag loader response rebuilds that matrix from analytics cache and includes all selected cohort rows.
+6. The table DOM is mounted only when its tag section is expanded.
+7. Export requests the complete category report on demand, then produces the selected file format.
+
+## 2026-09-01 — Final click-only category flow
+
+1. Initial report returns Overall, Cohort Details, and ordered Product Type or Product Tag names with category matrices deferred.
+2. All category names render in collapsed form without background requests.
+3. Opening one category sends a lightweight `categoryOnly` request for that category.
+4. The response includes every selected cohort row, including cohorts with no category activity.
+5. The loaded matrix remains available in that component for instant close/reopen behavior.
+6. Rapid multi-category clicks are protected by a maximum two-request queue.
+7. Export separately requests the full report and includes all categories, whether opened on screen or not.
+
+## 2026-09-01 — Custom matrix-column flow
+
+1. Initialize the report with all matrix metric keys selected in their default order.
+2. The Custom Columns dropdown lists every metric with a checkbox and drag handle.
+3. Toggling a checkbox immediately updates visible matrix columns.
+4. Dragging a metric changes the shared ordered metric-key list.
+5. Overall, subsequently loaded categories, and exported files consume the same selected ordered list.
+6. Reset restores all metrics and the original order.
+
+## 2026-09-01 — Loading-state flow
+
+1. Date, classification, and Month/Week changes enter React Router's pending navigation state.
+2. Keep custom dates, quick ranges, classification, grouping, and calculation-logic controls visible.
+3. Replace debug information, report tabs, and results below the controls with the report loader.
+4. On loader completion, React Router swaps in the new report atomically.
+5. Metric changes show a loader in place of matrix results during the local column update.
+6. Cohort Detail search/filter changes show a loader in place of the detail table during filtering.
+
+## 2026-09-01 — Weekly grouped-query flow
+
+1. Switching to Week sets the start to Monday five completed weeks ago and the end to yesterday; quick presets use the same rule for 5, 8, or 12 weeks.
+2. Generate every Monday-start weekly period that intersects the selected range.
+3. Divide those periods into groups of at most seven weeks.
+4. Process groups one after another. Within each group, run four parallel ShopifyQL queries grouped by `week`: inventory, product sales/orders, store sales, and landing sessions.
+5. Split each grouped response back into individual weekly records using its Shopify week value.
+6. If a group reaches 100,000 rows, divide that group into two smaller groups and repeat until it fits or reaches one week.
+7. Feed the resulting weekly records into the same cohort engine, then render the report with the applied start/end dates synchronized in both the date summary and date fields.

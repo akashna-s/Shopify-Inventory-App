@@ -1,6 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Form, useLoaderData } from "react-router";
+import {
+  Form,
+  Link,
+  useFetcher,
+  useLoaderData,
+  useNavigation,
+} from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
 import { getProductCatalog } from "../product-catalog-cache.server";
@@ -13,6 +19,28 @@ import styles from "../styles/new-arrivals.css?url";
 /* eslint-disable react/prop-types */
 
 const PAGE_SIZE = 50;
+const categoryLoadQueue = [];
+let activeCategoryLoads = 0;
+function runCategoryQueue() {
+  while (activeCategoryLoads < 2 && categoryLoadQueue.length) {
+    const item = categoryLoadQueue.shift();
+    if (item.cancelled) continue;
+    activeCategoryLoads += 1;
+    item.start(() => {
+      activeCategoryLoads = Math.max(0, activeCategoryLoads - 1);
+      runCategoryQueue();
+    });
+  }
+}
+function enqueueCategoryLoad(start, priority = false) {
+  const item = { start, cancelled: false };
+  if (priority) categoryLoadQueue.unshift(item);
+  else categoryLoadQueue.push(item);
+  runCategoryQueue();
+  return () => {
+    item.cancelled = true;
+  };
+}
 const MATRIX_METRICS = [
   [
     "naSkus",
@@ -161,21 +189,91 @@ const DETAIL_METRICS = [
     "traffic",
   ],
 ];
-const FOCUS_MODES = {
-  all: { label: "All metrics", keys: MATRIX_METRICS.map(([key]) => key) },
-  sales: {
-    label: "💰 Sales & revenue",
-    keys: ["naSales", "naSalesRate", "orders"],
-  },
-  inventory: {
-    label: "📦 Inventory & sell-through",
-    keys: ["naInventory", "naInventoryRate", "naSkus"],
-  },
-  traffic: {
-    label: "⚡ Traffic & conversion",
-    keys: ["landingSessions", "orders", "conversionRate"],
-  },
-};
+function CustomMetricSelector({
+  order,
+  selected,
+  onToggle,
+  onMove,
+  onSelectAll,
+  onResetOrder,
+}) {
+  const [draggedKey, setDraggedKey] = useState("");
+  const metricByKey = new Map(
+    MATRIX_METRICS.map((metric) => [metric[0], metric]),
+  );
+  return (
+    <details className="column-selector">
+      <summary>
+        <span className="column-selector-icon" aria-hidden="true">
+          ▥
+        </span>
+        <span className="column-selector-title">Customise columns</span>
+        <span className="column-selector-count">
+          {selected.size}/{MATRIX_METRICS.length}
+        </span>
+        <span className="column-selector-chevron" aria-hidden="true">
+          ⌄
+        </span>
+      </summary>
+      <div className="column-selector-menu">
+        <div className="column-selector-heading">
+          <div>
+            <strong>Customise columns</strong>
+            <small>Choose what appears in the cohort matrix</small>
+          </div>
+        </div>
+        <div className="column-selector-actions">
+          <button type="button" onClick={onSelectAll}>
+            Select all
+          </button>
+          <button type="button" onClick={onResetOrder}>
+            Reset order
+          </button>
+        </div>
+        <div className="column-selector-list">
+          {order.map((key) => {
+            const metric = metricByKey.get(key);
+            if (!metric) return null;
+            const checked = selected.has(key);
+            return (
+              <div
+                className={`column-selector-row ${draggedKey === key ? "dragging" : ""}`}
+                draggable
+                key={key}
+                onDragStart={() => setDraggedKey(key)}
+                onDragEnd={() => setDraggedKey("")}
+                onDragOver={(event) => event.preventDefault()}
+                onDrop={() => {
+                  if (draggedKey && draggedKey !== key) onMove(draggedKey, key);
+                  setDraggedKey("");
+                }}
+              >
+                <span className="drag-handle" aria-hidden="true">
+                  ⠿
+                </span>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={checked}
+                    disabled={checked && selected.size === 1}
+                    onChange={() => onToggle(key)}
+                  />
+                  <span>{metric[1]}</span>
+                </label>
+              </div>
+            );
+          })}
+        </div>
+        <div className="column-selector-footer">
+          <span className="drag-handle" aria-hidden="true">
+            ⠿
+          </span>
+          Drag rows to change the table order
+        </div>
+      </div>
+    </details>
+  );
+}
 
 function MetricTooltip({ name, definition, formula, tone = "inventory" }) {
   const [position, setPosition] = useState(null);
@@ -434,7 +532,16 @@ function normalizeRange(url, now = new Date()) {
   const currentMonth = monthString(yesterdayDate);
   const earliestMonth = shiftMonth(currentMonth, -17);
   const earliest = `${earliestMonth}-01`;
-  const defaultStart = `${shiftMonth(currentMonth, -14)}-01`;
+  const classification =
+    url.searchParams.get("classification") === "tag" ? "tag" : "type";
+  const interval =
+    url.searchParams.get("interval") === "week" ? "week" : "month";
+  const currentWeekStart = new Date(`${startOfWeek(yesterday)}T00:00:00`);
+  currentWeekStart.setDate(currentWeekStart.getDate() - 5 * 7);
+  const defaultStart =
+    interval === "week"
+      ? dateString(currentWeekStart)
+      : `${shiftMonth(currentMonth, -14)}-01`;
   const valid = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value || "");
   let start = valid(url.searchParams.get("start"))
     ? url.searchParams.get("start")
@@ -445,10 +552,6 @@ function normalizeRange(url, now = new Date()) {
   start = start < earliest ? earliest : start > yesterday ? yesterday : start;
   end = end > yesterday ? yesterday : end < earliest ? earliest : end;
   if (start > end) [start, end] = [end, start];
-  const classification =
-    url.searchParams.get("classification") === "tag" ? "tag" : "type";
-  const interval =
-    url.searchParams.get("interval") === "week" ? "week" : "month";
   return {
     start,
     end,
@@ -542,9 +645,116 @@ async function fetchPeriod(
   return { period, inventory, sales, storeSales, landingSessions };
 }
 
+function splitIntoChunks(values, size = 7) {
+  const chunks = [];
+  for (let index = 0; index < values.length; index += size)
+    chunks.push(values.slice(index, index + size));
+  return chunks;
+}
+
+function weekKey(value) {
+  const match = String(value || "").match(/\d{4}-\d{2}-\d{2}/);
+  return match ? startOfWeek(match[0]) : "";
+}
+
+function sliceWeeklyResult(result, period, chunkStart, chunkEnd) {
+  return {
+    ...result,
+    chunkStart,
+    chunkEnd,
+    chunkRows: (result.rows || []).length,
+    rows: (result.rows || []).filter((row) => weekKey(row.week) === period),
+  };
+}
+
+async function fetchWeekChunk(
+  admin,
+  shop,
+  periods,
+  yesterday,
+  selectedStart,
+  selectedEnd,
+) {
+  const first = periods[0];
+  const last = periods.at(-1);
+  const start = first < selectedStart ? selectedStart : first;
+  const naturalEnd = weekBounds(last, yesterday).end;
+  const end = naturalEnd > selectedEnd ? selectedEnd : naturalEnd;
+  const cached = (dataset, query) =>
+    runWithAnalyticsCache({
+      shop,
+      dataset: `new-arrival-week-chunk-v1-${dataset}`,
+      rangeStart: start,
+      rangeEnd: end,
+      run: () => runShopifyQL(admin, query),
+    });
+  const [inventory, sales, storeSales, landingSessions] = await Promise.all([
+    cached(
+      "inventory",
+      `FROM inventory SHOW starting_inventory_units, ending_inventory_units GROUP BY week, product_id, product_title SINCE ${start} UNTIL ${end}`,
+    ),
+    cached(
+      "product-sales",
+      `FROM sales SHOW total_sales, orders GROUP BY week, product_id, product_title SINCE ${start} UNTIL ${end}`,
+    ),
+    cached(
+      "store-sales",
+      `FROM sales SHOW total_sales GROUP BY week SINCE ${start} UNTIL ${end}`,
+    ),
+    cached(
+      "landing-sessions",
+      `FROM sessions SHOW sessions WHERE landing_page_type = 'product' GROUP BY week, landing_page_path SINCE ${start} UNTIL ${end}`,
+    ),
+  ]);
+  const datasets = [inventory, sales, storeSales, landingSessions];
+  if (periods.length > 1 && datasets.some((result) => result.truncated)) {
+    const middle = Math.ceil(periods.length / 2);
+    const halves = [periods.slice(0, middle), periods.slice(middle)];
+    const splitResults = [];
+    for (const half of halves)
+      splitResults.push(
+        ...(await fetchWeekChunk(
+          admin,
+          shop,
+          half,
+          yesterday,
+          selectedStart,
+          selectedEnd,
+        )),
+      );
+    return splitResults;
+  }
+  return periods.map((period) => ({
+    period,
+    inventory: sliceWeeklyResult(inventory, period, first, end),
+    sales: sliceWeeklyResult(sales, period, first, end),
+    storeSales: sliceWeeklyResult(storeSales, period, first, end),
+    landingSessions: sliceWeeklyResult(landingSessions, period, first, end),
+  }));
+}
+
+async function fetchWeeklyPeriods(admin, shop, periods, range) {
+  const output = [];
+  for (const chunk of splitIntoChunks(periods, 7))
+    output.push(
+      ...(await fetchWeekChunk(
+        admin,
+        shop,
+        chunk,
+        range.yesterday,
+        range.start,
+        range.end,
+      )),
+    );
+  return output;
+}
+
 export const loader = async ({ request }) => {
   const { admin, session } = await authenticate.admin(request);
-  const range = normalizeRange(new URL(request.url));
+  const requestUrl = new URL(request.url);
+  const range = normalizeRange(requestUrl);
+  const categoryOnly = requestUrl.searchParams.get("categoryOnly") || "";
+  const exportAll = requestUrl.searchParams.get("exportAll") === "1";
   const months =
     range.interval === "week"
       ? weeksBetween(range.start, range.end)
@@ -569,20 +779,24 @@ export const loader = async ({ request }) => {
         "",
       ),
     }));
+  const analyticsPromise =
+    range.interval === "week"
+      ? fetchWeeklyPeriods(admin, session.shop, months, range)
+      : mapConcurrent(months, 2, (period) =>
+          fetchPeriod(
+            admin,
+            session.shop,
+            period,
+            range.interval,
+            range.yesterday,
+            range.start,
+            range.end,
+          ),
+        );
   const [catalog, shopInfo, monthly] = await Promise.all([
     getProductCatalog(admin, session.shop),
     shopPromise,
-    mapConcurrent(months, 2, (period) =>
-      fetchPeriod(
-        admin,
-        session.shop,
-        period,
-        range.interval,
-        range.yesterday,
-        range.start,
-        range.end,
-      ),
-    ),
+    analyticsPromise,
   ]);
   const catalogById = new Map(
     catalog.products.map((product) => [numericId(product.id), product]),
@@ -688,29 +902,41 @@ export const loader = async ({ request }) => {
       ["Store sales", result.storeSales],
       ["Landing sessions", result.landingSessions],
     ]) {
-      if (query.error)
-        warnings.push(`${result.period} ${label}: ${query.error}`);
-      if (query.truncated)
+      const showChunkStatus =
+        !query.chunkStart || query.chunkStart === result.period;
+      const periodLabel = query.chunkStart
+        ? `${query.chunkStart} to ${query.chunkEnd}`
+        : result.period;
+      if (showChunkStatus && query.error)
+        warnings.push(`${periodLabel} ${label}: ${query.error}`);
+      if (showChunkStatus && query.truncated)
         warnings.push(
-          `${result.period} ${label}: reached the 100,000-row limit.`,
+          `${periodLabel} ${label}: reached the 100,000-row limit.`,
         );
-      debug.push({
-        month: result.period,
-        label,
-        rows: query.rows.length,
-        cache: query.cacheStatus || "live",
-        attempts: query.attempts || 1,
-        time: query.elapsedMs || 0,
-      });
+      if (showChunkStatus)
+        debug.push({
+          month: periodLabel,
+          label,
+          rows: query.chunkRows ?? query.rows.length,
+          cache: query.cacheStatus || "live",
+          attempts: query.attempts || 1,
+          time: query.elapsedMs || 0,
+        });
     }
   }
+  const report = generateNewArrivalReport(
+    sourceRows,
+    months,
+    monthlyStoreSales,
+    range.classification,
+    {
+      categoryOnly,
+      deferCategories: !categoryOnly && !exportAll,
+    },
+  );
+  if (categoryOnly) return { category: report };
   return {
-    report: generateNewArrivalReport(
-      sourceRows,
-      months,
-      monthlyStoreSales,
-      range.classification,
-    ),
+    report,
     currency: shopInfo.currency,
     range,
     warnings: [...new Set(warnings)],
@@ -755,6 +981,18 @@ function MetricValue({ type, value, currency }) {
   return display(value, type, currency);
 }
 
+function LoadingState({ title = "Updating report", compact = false }) {
+  return (
+    <div className={`report-loading ${compact ? "compact" : ""}`} role="status">
+      <span className="report-loading-spinner" aria-hidden="true" />
+      <div>
+        <strong>{title}</strong>
+        <small>Please wait while the latest view is prepared.</small>
+      </div>
+    </div>
+  );
+}
+
 function Matrix({
   title,
   matrix,
@@ -765,7 +1003,11 @@ function Matrix({
   density,
   classificationLabel,
   interval,
+  initiallyExpanded = false,
 }) {
+  const [isExpanded, setIsExpanded] = useState(
+    !collapsible || initiallyExpanded,
+  );
   const table = (
     <div className="na-scroll matrix-scroll">
       <table className={`na-table matrix-table density-${density}`}>
@@ -850,12 +1092,16 @@ function Matrix({
     </div>
   );
   return collapsible ? (
-    <details className="na-card type-card">
+    <details
+      className="na-card type-card"
+      open={isExpanded}
+      onToggle={(event) => setIsExpanded(event.currentTarget.open)}
+    >
       <summary>
         <span>{title}</span>
         <small>{classificationLabel} cohort</small>
       </summary>
-      {table}
+      {isExpanded && table}
     </details>
   ) : (
     <section className="na-card matrix-card">
@@ -870,6 +1116,94 @@ function Matrix({
       </div>
       {table}
     </section>
+  );
+}
+
+function LazyCategoryMatrix({
+  title,
+  loadUrl,
+  months,
+  currency,
+  metrics,
+  density,
+  classificationLabel,
+  interval,
+}) {
+  const fetcher = useFetcher();
+  const requestedRef = useRef(false);
+  const releaseRef = useRef(null);
+  const cancelQueuedRef = useRef(null);
+  const [wasOpened, setWasOpened] = useState(false);
+  const matrix = fetcher.data?.category?.matrix;
+  const request = useCallback(
+    (priority = true) => {
+      if (requestedRef.current) return;
+      requestedRef.current = true;
+      cancelQueuedRef.current = enqueueCategoryLoad((release) => {
+        releaseRef.current = release;
+        fetcher.load(loadUrl);
+      }, priority);
+    },
+    [fetcher, loadUrl],
+  );
+
+  useEffect(() => {
+    if (fetcher.state !== "idle" || !releaseRef.current) return;
+    const release = releaseRef.current;
+    releaseRef.current = null;
+    release();
+  }, [fetcher.state]);
+
+  useEffect(
+    () => () => {
+      cancelQueuedRef.current?.();
+      if (releaseRef.current) {
+        const release = releaseRef.current;
+        releaseRef.current = null;
+        release();
+      }
+    },
+    [],
+  );
+
+  if (matrix)
+    return (
+      <Matrix
+        title={title}
+        matrix={matrix}
+        months={months}
+        currency={currency}
+        metrics={metrics}
+        density={density}
+        collapsible
+        classificationLabel={classificationLabel}
+        interval={interval}
+        initiallyExpanded={wasOpened}
+      />
+    );
+
+  return (
+    <details
+      className="na-card type-card pending-category"
+      onToggle={(event) => {
+        if (event.currentTarget.open) {
+          setWasOpened(true);
+          request();
+        }
+      }}
+    >
+      <summary>
+        <span>{title}</span>
+        <small>
+          {fetcher.state === "loading"
+            ? "Loading cohort…"
+            : `${classificationLabel} cohort`}
+        </small>
+      </summary>
+      <div className="category-loading-row">
+        <span /> Preparing {title} cohort data…
+      </div>
+    </details>
   );
 }
 
@@ -973,31 +1307,43 @@ function exportDetails(rows, months, currency, format) {
   downloadExport(content, format, "new-arrival-cohort-details");
 }
 
+function analysisSections(report) {
+  return [
+    { title: "Overall", matrix: report.overall },
+    ...report.byProductType.map(({ type, matrix }) => ({
+      title: type,
+      matrix,
+    })),
+  ];
+}
+
 function exportAnalysis(sections, months, metrics, currency, format) {
-  const exportedSections = sections.map(({ title, matrix }) => {
-    const groupHeader = [
-      "NA Cohort",
-      ...months.flatMap((month) => [
-        monthLabel(month),
-        ...Array(metrics.length - 1).fill(""),
-      ]),
-    ];
-    const metricHeader = [
-      "NA Cohort",
-      ...months.flatMap(() => metrics.map(([, label]) => label)),
-    ];
-    const valueCells = (values) =>
-      months.flatMap((month) =>
-        metrics.map(([key, , type]) =>
-          values[month] ? display(values[month][key], type, currency) : "—",
-        ),
-      );
-    const rows = [
-      ["Summary", ...valueCells(matrix.grand)],
-      ...matrix.rows.map((row) => [row.label, ...valueCells(row.values)]),
-    ];
-    return { title, groupHeader, metricHeader, rows };
-  });
+  const exportedSections = sections
+    .filter(({ matrix }) => matrix)
+    .map(({ title, matrix }) => {
+      const groupHeader = [
+        "NA Cohort",
+        ...months.flatMap((month) => [
+          monthLabel(month),
+          ...Array(metrics.length - 1).fill(""),
+        ]),
+      ];
+      const metricHeader = [
+        "NA Cohort",
+        ...months.flatMap(() => metrics.map(([, label]) => label)),
+      ];
+      const valueCells = (values) =>
+        months.flatMap((month) =>
+          metrics.map(([key, , type]) =>
+            values[month] ? display(values[month][key], type, currency) : "—",
+          ),
+        );
+      const rows = [
+        ["Summary", ...valueCells(matrix.grand)],
+        ...matrix.rows.map((row) => [row.label, ...valueCells(row.values)]),
+      ];
+      return { title, groupHeader, metricHeader, rows };
+    });
   let content;
   if (format === "csv") {
     content = exportedSections
@@ -1062,8 +1408,16 @@ function Details({
   const [typeFilter, setTypeFilter] = useState("all");
   const [stockFilter, setStockFilter] = useState("all");
   const [cohortFilter, setCohortFilter] = useState("all");
+  const [isFiltering, setIsFiltering] = useState(false);
+  const filterTimer = useRef(null);
   const [sort, setSort] = useState({ month: "", key: "", direction: "asc" });
   const latestMonth = months.at(-1);
+  const markFilterUpdate = () => {
+    window.clearTimeout(filterTimer.current);
+    setIsFiltering(true);
+    filterTimer.current = window.setTimeout(() => setIsFiltering(false), 220);
+  };
+  useEffect(() => () => window.clearTimeout(filterTimer.current), []);
   const types = useMemo(
     () => [...new Set(rows.map((row) => row.productType))].sort(),
     [rows],
@@ -1173,6 +1527,7 @@ function Details({
           <input
             value={query}
             onChange={(event) => {
+              markFilterUpdate();
               setQuery(event.target.value);
               setPage(1);
             }}
@@ -1182,6 +1537,7 @@ function Details({
         <select
           value={typeFilter}
           onChange={(event) => {
+            markFilterUpdate();
             setTypeFilter(event.target.value);
             setPage(1);
           }}
@@ -1194,6 +1550,7 @@ function Details({
         <select
           value={stockFilter}
           onChange={(event) => {
+            markFilterUpdate();
             setStockFilter(event.target.value);
             setPage(1);
           }}
@@ -1206,6 +1563,7 @@ function Details({
         <select
           value={cohortFilter}
           onChange={(event) => {
+            markFilterUpdate();
             setCohortFilter(event.target.value);
             setPage(1);
           }}
@@ -1220,140 +1578,149 @@ function Details({
           ))}
         </select>
       </div>
-      <div className="na-scroll detail-scroll">
-        <table className={`na-table detail density-${density}`}>
-          <thead>
-            <tr>
-              <th rowSpan="2">Product</th>
-              <th rowSpan="2">{classificationLabel}</th>
-              <th rowSpan="2">Launch cohort</th>
-              {months.map((month) => (
-                <th
-                  className="month-group"
-                  key={month}
-                  colSpan={DETAIL_METRICS.length}
-                >
-                  <span>{monthLabel(month)}</span>
-                </th>
-              ))}
-            </tr>
-            <tr>
-              {months.flatMap((month) =>
-                DETAIL_METRICS.map(
-                  ([key, label, , definition, formula, tone], index) => (
+      {isFiltering ? (
+        <LoadingState title="Applying filters" compact />
+      ) : (
+        <>
+          <div className="na-scroll detail-scroll">
+            <table className={`na-table detail density-${density}`}>
+              <thead>
+                <tr>
+                  <th rowSpan="2">Product</th>
+                  <th rowSpan="2">{classificationLabel}</th>
+                  <th rowSpan="2">Launch cohort</th>
+                  {months.map((month) => (
                     <th
-                      className={
-                        index === DETAIL_METRICS.length - 1 ? "month-end" : ""
-                      }
-                      key={`${month}-${label}`}
+                      className="month-group"
+                      key={month}
+                      colSpan={DETAIL_METRICS.length}
                     >
-                      <button
-                        className="sort-button"
-                        onClick={() => toggleSort(month, key)}
-                      >
-                        {label}
-                        <span>
-                          {sort.month === month && sort.key === key
-                            ? sort.direction === "asc"
-                              ? "↑"
-                              : "↓"
-                            : "↕"}
-                        </span>
-                        <MetricTooltip
-                          name={label}
-                          definition={definition}
-                          formula={formula}
-                          tone={tone}
-                        />
-                      </button>
+                      <span>{monthLabel(month)}</span>
                     </th>
-                  ),
-                ),
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {visible.map((row, rowIndex) => (
-              <tr
-                className={rowIndex % 2 ? "row-odd" : "row-even"}
-                key={`${row.productId}-${row.productType}`}
-              >
-                <td>
-                  <div className="product-cell">
-                    {row.imageUrl ? (
-                      <img src={row.imageUrl} alt="" />
-                    ) : (
-                      <span className="image-placeholder">◇</span>
-                    )}
-                    <div>
-                      <a
-                        href={row.productUrl || undefined}
-                        target="_blank"
-                        rel="noreferrer"
-                        title={row.title}
-                      >
-                        {row.title}
-                      </a>
-                      <small>Product ID {row.productId}</small>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <span className="type-badge">{row.productType}</span>
-                </td>
-                <td>
-                  <span className="cohort-badge">
-                    {monthLabel(row.cohort)} NA
-                  </span>
-                </td>
-                {months.flatMap((month) =>
-                  DETAIL_METRICS.map(([key, , type], index) => (
-                    <td
-                      className={`${heatClass(key, row.values[month]?.[key])} ${index === DETAIL_METRICS.length - 1 ? "month-end" : ""}`}
-                      key={`${month}-${key}`}
-                    >
-                      {row.values[month] ? (
-                        key === "endingInventory" &&
-                        Number(row.values[month][key]) === 0 ? (
-                          <span className="oos-pill">0 · OOS</span>
+                  ))}
+                </tr>
+                <tr>
+                  {months.flatMap((month) =>
+                    DETAIL_METRICS.map(
+                      ([key, label, , definition, formula, tone], index) => (
+                        <th
+                          className={
+                            index === DETAIL_METRICS.length - 1
+                              ? "month-end"
+                              : ""
+                          }
+                          key={`${month}-${label}`}
+                        >
+                          <button
+                            className="sort-button"
+                            onClick={() => toggleSort(month, key)}
+                          >
+                            {label}
+                            <span>
+                              {sort.month === month && sort.key === key
+                                ? sort.direction === "asc"
+                                  ? "↑"
+                                  : "↓"
+                                : "↕"}
+                            </span>
+                            <MetricTooltip
+                              name={label}
+                              definition={definition}
+                              formula={formula}
+                              tone={tone}
+                            />
+                          </button>
+                        </th>
+                      ),
+                    ),
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {visible.map((row, rowIndex) => (
+                  <tr
+                    className={rowIndex % 2 ? "row-odd" : "row-even"}
+                    key={`${row.productId}-${row.productType}`}
+                  >
+                    <td>
+                      <div className="product-cell">
+                        {row.imageUrl ? (
+                          <img src={row.imageUrl} alt="" />
                         ) : (
-                          display(row.values[month][key], type, currency)
-                        )
-                      ) : (
-                        "—"
-                      )}
+                          <span className="image-placeholder">◇</span>
+                        )}
+                        <div>
+                          <a
+                            href={row.productUrl || undefined}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={row.title}
+                          >
+                            {row.title}
+                          </a>
+                          <small>Product ID {row.productId}</small>
+                        </div>
+                      </div>
                     </td>
-                  )),
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="pagination">
-        <span>
-          Showing {(safePage - 1) * PAGE_SIZE + (filteredRows.length ? 1 : 0)}–
-          {Math.min(safePage * PAGE_SIZE, filteredRows.length)} of{" "}
-          {filteredRows.length.toLocaleString()}
-        </span>
-        <div>
-          <button
-            disabled={safePage === 1}
-            onClick={() => setPage(safePage - 1)}
-          >
-            Previous
-          </button>
-          <span>
-            Page {safePage} of {pages}
-          </span>
-          <button
-            disabled={safePage === pages}
-            onClick={() => setPage(safePage + 1)}
-          >
-            Next
-          </button>
-        </div>
-      </div>
+                    <td>
+                      <span className="type-badge">{row.productType}</span>
+                    </td>
+                    <td>
+                      <span className="cohort-badge">
+                        {monthLabel(row.cohort)} NA
+                      </span>
+                    </td>
+                    {months.flatMap((month) =>
+                      DETAIL_METRICS.map(([key, , type], index) => (
+                        <td
+                          className={`${heatClass(key, row.values[month]?.[key])} ${index === DETAIL_METRICS.length - 1 ? "month-end" : ""}`}
+                          key={`${month}-${key}`}
+                        >
+                          {row.values[month] ? (
+                            key === "endingInventory" &&
+                            Number(row.values[month][key]) === 0 ? (
+                              <span className="oos-pill">0 · OOS</span>
+                            ) : (
+                              display(row.values[month][key], type, currency)
+                            )
+                          ) : (
+                            "—"
+                          )}
+                        </td>
+                      )),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="pagination">
+            <span>
+              Showing{" "}
+              {(safePage - 1) * PAGE_SIZE + (filteredRows.length ? 1 : 0)}–
+              {Math.min(safePage * PAGE_SIZE, filteredRows.length)} of{" "}
+              {filteredRows.length.toLocaleString()}
+            </span>
+            <div>
+              <button
+                disabled={safePage === 1}
+                onClick={() => setPage(safePage - 1)}
+              >
+                Previous
+              </button>
+              <span>
+                Page {safePage} of {pages}
+              </span>
+              <button
+                disabled={safePage === pages}
+                onClick={() => setPage(safePage + 1)}
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }
@@ -1368,20 +1735,81 @@ export default function NewArrivalAnalysisPage() {
     catalogSource,
     catalogRefreshedAt,
   } = useLoaderData();
+  const navigation = useNavigation();
+  const isNavigating = navigation.state !== "idle";
   const [tab, setTab] = useState("analysis");
-  const [focus, setFocus] = useState("all");
   const [density, setDensity] = useState("comfortable");
+  const [isMetricUpdating, setIsMetricUpdating] = useState(false);
+  const metricUpdateTimer = useRef(null);
+  const defaultMetricOrder = MATRIX_METRICS.map(([key]) => key);
+  const [metricOrder, setMetricOrder] = useState(defaultMetricOrder);
+  const [selectedMetricKeys, setSelectedMetricKeys] = useState(
+    () => new Set(defaultMetricOrder),
+  );
+  const analysisExportFetcher = useFetcher();
+  const [pendingAnalysisExport, setPendingAnalysisExport] = useState("");
   const classificationLabel =
     range.classification === "tag" ? "Product tag" : "Product type";
-  const metrics = MATRIX_METRICS.filter(([key]) =>
-    FOCUS_MODES[focus].keys.includes(key),
+  const metricByKey = new Map(
+    MATRIX_METRICS.map((metric) => [metric[0], metric]),
   );
-  const quickRanges = [
-    [3, "Last 3 months"],
-    [6, "Last 6 months"],
-    [12, "Last 12 months"],
-  ];
+  const metrics = metricOrder
+    .filter((key) => selectedMetricKeys.has(key))
+    .map((key) => metricByKey.get(key));
+  const runMetricUpdate = (update) => {
+    window.clearTimeout(metricUpdateTimer.current);
+    setIsMetricUpdating(true);
+    metricUpdateTimer.current = window.setTimeout(() => {
+      update();
+      metricUpdateTimer.current = window.setTimeout(
+        () => setIsMetricUpdating(false),
+        120,
+      );
+    }, 60);
+  };
+  useEffect(() => () => window.clearTimeout(metricUpdateTimer.current), []);
+  const toggleMetric = (key) =>
+    runMetricUpdate(() =>
+      setSelectedMetricKeys((current) => {
+        const next = new Set(current);
+        if (next.has(key)) {
+          if (next.size === 1) return current;
+          next.delete(key);
+        } else next.add(key);
+        return next;
+      }),
+    );
+  const moveMetric = (source, target) =>
+    runMetricUpdate(() =>
+      setMetricOrder((current) => {
+        const next = current.filter((key) => key !== source);
+        next.splice(next.indexOf(target), 0, source);
+        return next;
+      }),
+    );
+  const selectAllMetrics = () =>
+    runMetricUpdate(() => setSelectedMetricKeys(new Set(defaultMetricOrder)));
+  const resetMetricOrder = () =>
+    runMetricUpdate(() => setMetricOrder(defaultMetricOrder));
+  const quickRanges =
+    range.interval === "week"
+      ? [
+          [5, "Last 5 weeks"],
+          [8, "Last 8 weeks"],
+          [12, "Last 12 weeks"],
+        ]
+      : [
+          [3, "Last 3 months"],
+          [6, "Last 6 months"],
+          [12, "Last 12 months"],
+        ];
+  const weeklyPresetStart = (count) => {
+    const currentWeek = new Date(`${startOfWeek(range.yesterday)}T00:00:00`);
+    currentWeek.setDate(currentWeek.getDate() - count * 7);
+    return dateString(currentWeek);
+  };
   const presetStart = (count) => {
+    if (range.interval === "week") return weeklyPresetStart(count);
     const end = new Date(`${range.end}T00:00:00`);
     return dateString(
       new Date(end.getFullYear(), end.getMonth() - (count - 1), 1),
@@ -1394,6 +1822,22 @@ export default function NewArrivalAnalysisPage() {
     interval = range.interval,
   } = {}) =>
     `?start=${start}&end=${end}&classification=${classification}&interval=${interval}`;
+  useEffect(() => {
+    const exportedReport = analysisExportFetcher.data?.report;
+    if (!pendingAnalysisExport || !exportedReport) return;
+    exportAnalysis(
+      analysisSections(exportedReport),
+      exportedReport.months,
+      metrics,
+      currency,
+      pendingAnalysisExport,
+    );
+    setPendingAnalysisExport("");
+  }, [analysisExportFetcher.data, currency, metrics, pendingAnalysisExport]);
+  const runAnalysisExport = (format) => {
+    setPendingAnalysisExport(format);
+    analysisExportFetcher.load(`${reportUrl()}&exportAll=1`);
+  };
   const humanDate = (value) =>
     new Date(`${value}T00:00:00`).toLocaleDateString("en-US", {
       month: "short",
@@ -1414,7 +1858,11 @@ export default function NewArrivalAnalysisPage() {
                 Available from {humanDate(range.earliest)} through yesterday
               </small>
             </div>
-            <Form method="get" className="range-form">
+            <Form
+              key={`${range.start}-${range.end}`}
+              method="get"
+              className="range-form"
+            >
               <input
                 type="hidden"
                 name="classification"
@@ -1451,167 +1899,177 @@ export default function NewArrivalAnalysisPage() {
           </div>
           <div className="quick-ranges">
             {quickRanges.map(([count, label]) => (
-              <a key={count} href={reportUrl({ start: presetStart(count) })}>
+              <Link
+                key={count}
+                to={reportUrl({
+                  start: presetStart(count),
+                  end: range.interval === "week" ? range.yesterday : range.end,
+                })}
+              >
                 {label}
-              </a>
+              </Link>
             ))}
-            <a href={reportUrl({ start: `${range.end.slice(0, 4)}-01-01` })}>
-              Year-to-date
-            </a>
+            {range.interval === "month" && (
+              <Link to={reportUrl({ start: `${range.end.slice(0, 4)}-01-01` })}>
+                Year-to-date
+              </Link>
+            )}
             <div className="report-segment-groups">
               <div className="report-segment">
                 <span>Classify by</span>
-                <a
+                <Link
                   className={range.classification === "type" ? "selected" : ""}
-                  href={reportUrl({ classification: "type" })}
+                  to={reportUrl({ classification: "type" })}
                 >
                   Product type
-                </a>
-                <a
+                </Link>
+                <Link
                   className={range.classification === "tag" ? "selected" : ""}
-                  href={reportUrl({ classification: "tag" })}
+                  to={reportUrl({ classification: "tag" })}
                 >
                   Product tag
-                </a>
+                </Link>
               </div>
               <div className="report-segment">
                 <span>Group by</span>
-                <a
+                <Link
                   className={range.interval === "month" ? "selected" : ""}
-                  href={reportUrl({ interval: "month" })}
+                  to={reportUrl({ interval: "month" })}
                 >
                   Month
-                </a>
-                <a
+                </Link>
+                <Link
                   className={range.interval === "week" ? "selected" : ""}
-                  href={reportUrl({ interval: "week" })}
+                  to={reportUrl({
+                    interval: "week",
+                    start: weeklyPresetStart(5),
+                    end: range.yesterday,
+                  })}
                 >
                   Week
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </section>
-        {warnings.length > 0 && (
-          <section className="warning">
-            <strong>Some data may be incomplete:</strong>
-            {warnings.map((warning) => (
-              <div key={warning}>{warning}</div>
-            ))}
-          </section>
-        )}
-        <details className="debug">
-          <summary>View data freshness</summary>
-          <p>
-            Product catalog: {catalogSource} · refreshed{" "}
-            {new Date(catalogRefreshedAt).toLocaleString()}
-          </p>
-          {debug.map((item) => (
-            <div key={`${item.month}-${item.label}`}>
-              {item.month} · {item.label}: {item.rows} rows · {item.cache} ·{" "}
-              {item.attempts} attempt(s) · {item.time}ms
-            </div>
-          ))}
-        </details>
-        <div className="view-bar">
-          <div className="tabs">
-            <button
-              className={tab === "analysis" ? "active" : ""}
-              onClick={() => setTab("analysis")}
-            >
-              New Arrival Analysis
-            </button>
-            <button
-              className={tab === "details" ? "active" : ""}
-              onClick={() => setTab("details")}
-            >
-              Cohort Details
-            </button>
-          </div>
-          {tab === "analysis" && (
-            <div className="analysis-controls">
-              <div className="focus-toggle">
-                {Object.entries(FOCUS_MODES).map(([key, value]) => (
-                  <button
-                    key={key}
-                    className={focus === key ? "selected" : ""}
-                    onClick={() => setFocus(key)}
-                  >
-                    {value.label}
-                  </button>
-                ))}
-              </div>
-              <details className="export-menu">
-                <summary>⇩ Export</summary>
-                <div>
-                  {[
-                    ["csv", "CSV"],
-                    ["jsonl", "JSON Lines"],
-                    ["xml", "XML"],
-                  ].map(([format, label]) => (
-                    <button
-                      key={format}
-                      onClick={() =>
-                        exportAnalysis(
-                          [
-                            { title: "Overall", matrix: report.overall },
-                            ...report.byProductType.map(({ type, matrix }) => ({
-                              title: type,
-                              matrix,
-                            })),
-                          ],
-                          report.months,
-                          metrics,
-                          currency,
-                          format,
-                        )
-                      }
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </details>
-            </div>
-          )}
-        </div>
-        {tab === "analysis" ? (
+        {isNavigating ? (
+          <LoadingState title="Loading selected report" />
+        ) : (
           <>
-            <Matrix
-              title="Overall"
-              matrix={report.overall}
-              months={report.months}
-              currency={currency}
-              metrics={metrics}
-              density={density}
-              classificationLabel={classificationLabel}
-              interval={range.interval}
-            />
-            {report.byProductType.map(({ type, matrix }) => (
-              <Matrix
-                key={type}
-                title={type}
-                matrix={matrix}
+            {warnings.length > 0 && (
+              <section className="warning">
+                <strong>Some data may be incomplete:</strong>
+                {warnings.map((warning) => (
+                  <div key={warning}>{warning}</div>
+                ))}
+              </section>
+            )}
+            <details className="debug">
+              <summary>View data freshness</summary>
+              <p>
+                Product catalog: {catalogSource} · refreshed{" "}
+                {new Date(catalogRefreshedAt).toLocaleString()}
+              </p>
+              {debug.map((item) => (
+                <div key={`${item.month}-${item.label}`}>
+                  {item.month} · {item.label}: {item.rows} rows · {item.cache} ·{" "}
+                  {item.attempts} attempt(s) · {item.time}ms
+                </div>
+              ))}
+            </details>
+            <div className="view-bar">
+              <div className="tabs">
+                <button
+                  className={tab === "analysis" ? "active" : ""}
+                  onClick={() => setTab("analysis")}
+                >
+                  New Arrival Analysis
+                </button>
+                <button
+                  className={tab === "details" ? "active" : ""}
+                  onClick={() => setTab("details")}
+                >
+                  Cohort Details
+                </button>
+              </div>
+              {tab === "analysis" && (
+                <div className="analysis-controls">
+                  <CustomMetricSelector
+                    order={metricOrder}
+                    selected={selectedMetricKeys}
+                    onToggle={toggleMetric}
+                    onMove={moveMetric}
+                    onSelectAll={selectAllMetrics}
+                    onResetOrder={resetMetricOrder}
+                  />
+                  <details className="export-menu">
+                    <summary>⇩ Export</summary>
+                    <div>
+                      {[
+                        ["csv", "CSV"],
+                        ["jsonl", "JSON Lines"],
+                        ["xml", "XML"],
+                      ].map(([format, label]) => (
+                        <button
+                          key={format}
+                          disabled={
+                            analysisExportFetcher.state === "loading" ||
+                            analysisExportFetcher.state === "submitting"
+                          }
+                          onClick={() => runAnalysisExport(format)}
+                        >
+                          {pendingAnalysisExport === format
+                            ? "Preparing…"
+                            : label}
+                        </button>
+                      ))}
+                    </div>
+                  </details>
+                </div>
+              )}
+            </div>
+            {tab === "analysis" ? (
+              isMetricUpdating ? (
+                <LoadingState title="Updating visible columns" />
+              ) : (
+                <>
+                  <Matrix
+                    title="Overall"
+                    matrix={report.overall}
+                    months={report.months}
+                    currency={currency}
+                    metrics={metrics}
+                    density={density}
+                    classificationLabel={classificationLabel}
+                    interval={range.interval}
+                  />
+                  {report.byProductType.map(({ type }) => (
+                    <LazyCategoryMatrix
+                      key={type}
+                      title={type}
+                      loadUrl={`${reportUrl()}&categoryOnly=${encodeURIComponent(type)}`}
+                      months={report.months}
+                      currency={currency}
+                      metrics={metrics}
+                      density={density}
+                      classificationLabel={classificationLabel}
+                      interval={range.interval}
+                    />
+                  ))}
+                </>
+              )
+            ) : (
+              <Details
+                rows={report.details}
                 months={report.months}
                 currency={currency}
-                metrics={metrics}
                 density={density}
-                collapsible
+                setDensity={setDensity}
                 classificationLabel={classificationLabel}
                 interval={range.interval}
               />
-            ))}
+            )}
           </>
-        ) : (
-          <Details
-            rows={report.details}
-            months={report.months}
-            currency={currency}
-            density={density}
-            setDensity={setDensity}
-            classificationLabel={classificationLabel}
-            interval={range.interval}
-          />
         )}
       </div>
     </s-page>

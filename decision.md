@@ -541,6 +541,7 @@ Aggregation rules:
 - Month full calendar month aur Week Monday-to-Sunday group label use karta hai.
 
 Right-side Filters selected text dimensions par Contains/Equals aur numeric metrics par Equals/Greater than/Less than support karte hain. First version native browser date controls use karta hai; date behavior/range Shopify-style hai but dual-month calendar popup ka exact visual clone nahi hai.
+
 ## 2026-08-13 — Top report toolbar placement
 
 Custom date range ko Product Audit page heading ke immediately neeche top toolbar me move kiya. Start/end controls and selected range left side hain; Export button same level par right side hai. Separate date-range section remove kiya. Narrow screens par toolbar items wrap karte hain.
@@ -616,14 +617,17 @@ Earlier implementation had bounded retry only; discussed date-range splitting so
 All five analytics query paths now whole range first attempt karte hain. Retry exhaustion par retryable error, ya 100,000-row truncation mile toh 2-second pause ke baad date range halves me recursively split hoti hai. Same dataset chunks sequentially run hote hain; separate datasets remain top-level parallel. Successful chunk rows concatenate hote hain because every granular table query day dimension use karti hai; ungrouped unique Orders chunks can be safely summed because each order belongs to one order date. Debug panel combined chunk count show karta hai.
 
 Catalog timestamp analytics execution timestamp nahi hai. Debug label now explicitly separates `catalog last refreshed` from `report generated`. Catalog has six-hour TTL, so a 10:55 AM catalog timestamp at 3:46 PM is expected and still fresh.
+
 ## 2026-08-20 — Selected totals: unique orders and no inventory cards
 
 The Selected metric totals area excludes First Day in Inventory, Starting Inventory, and Ending Inventory even when those metrics are selected for the table. Inventory remains available in the report itself.
 
 The Orders card must not sum per-product order counts because one order containing multiple products would be counted once for each product. A separate ungrouped `FROM sales SHOW orders` query supplies the selected range's store-wide unique order total. The table keeps product-level order values. The aggregate table row label is `Summary`.
+
 ## 2026-08-20 — New Arrival Analysis placeholder page
 
 A new authenticated embedded-app page is available at `/app/new-arrivals`. It is intentionally blank apart from the `New Arrival Analysis` page heading. The Python cohort repository remains separate while its requirements are reviewed before any logic is ported into the Shopify app.
+
 # 2026-08-20 — New Arrival Analysis port
 
 - The Python `cohort_engine.py` behavior is the source of truth; the older workbook script is not used for calculations.
@@ -632,6 +636,7 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Completed months use the existing analytics cache. Temporary Shopify failures retry three times with increasing pauses.
 - Launch month remains the first month in the available input where starting inventory, ending inventory, or sales is positive.
 - Cohort Details is paginated at 50 rows in the browser to avoid rendering thousands of wide rows at once. Calculations still use the full fetched dataset.
+
 # 2026-08-31 — Conversion-focused landing page and command center
 
 - Replaced the Shopify starter landing page with a purpose-built Audit Bot acquisition experience focused on inventory risk, product demand, cohort quality, and fast Shopify connection.
@@ -640,6 +645,7 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Replaced the embedded template home and its product-creation mutation with a read-only command center. Home now routes merchants to Product Audit, New Arrival Analysis, and Order Details.
 - Day-1 activation is structured around running the first product audit and reviewing the first new-arrival cohort.
 - Used route-scoped CSS and no new UI dependencies to preserve application performance and avoid affecting analytics routes.
+
 # 2026-08-31 — Polaris light data-visibility refactor
 
 - New Arrival focus modes are client-side views over the same loader result, so switching views causes no Shopify queries or cache writes.
@@ -648,17 +654,20 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Product thumbnails and handles are presentation metadata only. Existing analytics calculations and cache datasets remain unchanged.
 - Export supports CSV, JSON Lines, and XML from the currently filtered Cohort Details result.
 - Product Audit retained all existing report-builder behavior and received only Polaris light table-token overrides.
+
 ## 2026-08-31 — In-context cohort methodology
 
 - Added calculation guidance directly to New Arrival Analysis instead of creating another route.
 - The calculation drawer owns its open state, so opening or closing it does not reset table search, filters, sorting, pagination, focus mode, or density.
 - Metric definitions and formulas now live beside `MATRIX_METRICS` and `DETAIL_METRICS`, keeping table labels, tooltips, and methodology tied to the same configuration.
 - Header tooltips render through a document portal with fixed positioning so table overflow and sticky headers cannot clip them.
+
 ## 2026-08-31 — New Arrival sales basis
 
 - `NA sales` uses Shopify `total_sales`, not gross sales.
 - `NA Sales %` is cohort `total_sales` divided by store `total_sales` for the same month.
 - The existing ShopifyQL queries and engine already used `total_sales`; the in-context definitions were corrected to match the calculation.
+
 ## 2026-08-31 — New Arrival classification and time dimensions
 
 - New Arrival Analysis defaults to Product Type classification and Month grouping.
@@ -666,3 +675,49 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Week grouping uses Monday–Sunday periods. The first and last week are clamped to the selected custom dates.
 - Products already active before the selected range are assigned to the first selected period, matching the existing monthly boundary rule.
 - Weekly analytics are cached separately per week to preserve accurate starting and ending inventory and avoid mixing monthly and weekly cache entries.
+
+## 2026-09-01 — Product Tag classification performance fix
+
+- Shopify tag data was present and valid; the failure was caused by rendering every hidden tag matrix and returning empty cohort rows for all 385 tags.
+- Collapsed classification matrices now mount their table only when the user expands them.
+- Category matrices return only cohort rows that actually launched products. Overall remains complete across every selected period.
+- On the current store, this reduced the tag report payload from 12.34 MB to 5.28 MB and report generation from about 1.7 seconds to about 0.77 seconds without removing real tag data.
+
+## 2026-09-01 — Staged Product Tag loading with complete cohorts
+
+- Product Tag mode initially returns Overall, tag names, and Cohort Details; individual tag matrices are requested separately from cached analytics.
+- The first 20 tags are prepared in a staggered background queue, with at most two tag requests running simultaneously.
+- Tags near the viewport, hovered, focused, or opened are prioritized. Other tags remain unloaded until required.
+- Every loaded tag matrix includes every selected cohort row, including cohorts with no activity, to keep comparisons aligned.
+- Full tag exports intentionally request all matrices only when Export is clicked; normal page loading remains staged.
+
+## 2026-09-01 — Final category loading policy: click only
+
+- Supersedes the earlier first-20, viewport, and hover preparation strategy.
+- Both Product Type and Product Tag modes initially load Overall plus collapsed category names only.
+- A category matrix is requested only when its section is opened. Closing and reopening uses the fetcher's in-page cached data.
+- No hover, focus, viewport, or automatic background request can accidentally load categories while scrolling.
+- Export remains independent: clicking Export requests all category matrices through `exportAll=1` and produces a complete report.
+
+## 2026-09-01 — Custom New Arrival matrix columns
+
+- Removed the Sales & Revenue, Inventory & Sell-Through, and Traffic & Conversion metric presets.
+- Added one Custom Columns selector containing every matrix metric; all are selected by default.
+- Users can show/hide metrics and drag the six-dot handle to reorder them. At least one metric remains selected to keep the matrix valid.
+- The selected metric set and order apply consistently to Overall, click-loaded category matrices, and exports.
+
+## 2026-09-01 — Explicit report processing states
+
+- Date presets/forms and classification/interval controls now use React Router navigation, allowing the UI to detect pending report requests.
+- During report navigation, the complete control card remains visible while stale content below it is replaced by a loading state.
+- Matrix metric selection/reordering and Cohort Details filters show localized loaders while their affected view recalculates.
+- Loaders do not clear the user's selected controls; they only replace the stale result region.
+
+## 2026-09-01 — Weekly grouped fetching and presets
+
+- Weekly analytics are requested in seven-week chunks instead of issuing four ShopifyQL requests for every individual week.
+- Each chunk runs inventory, product sales/orders, store sales, and landing sessions together, grouped by ShopifyQL `week`; the returned rows are then separated into Monday–Sunday periods in the app.
+- Chunks run sequentially to reduce Shopify rate-limit pressure. The four datasets inside one chunk still run in parallel for speed.
+- If a grouped chunk reaches Shopify's 100,000-row result limit, only that chunk is automatically divided into smaller week groups and retried.
+- Week mode defaults to the last five completed weeks plus the current week through yesterday. Presets provide 5, 8, or 12 completed weeks plus the current week.
+- Switching to Week intentionally applies its default weekly range. The visible date inputs remount from the loader's accepted range so they cannot retain stale monthly dates.
