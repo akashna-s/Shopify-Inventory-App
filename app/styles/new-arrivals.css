@@ -735,8 +735,15 @@
 }
 .summary th,
 .summary td {
+  position: sticky;
+  top: 78px;
+  z-index: 3;
   font-weight: 700;
   background: #f3f4f5 !important;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.06);
+}
+.summary .first {
+  z-index: 7;
 }
 .row-even > th,
 .row-even > td {
@@ -784,6 +791,10 @@
 .density-compact thead tr:nth-child(2) th {
   top: 30px;
   min-width: 104px;
+}
+.density-compact .summary th,
+.density-compact .summary td {
+  top: 60px;
 }
 .density-compact .month-group {
   padding: 3px 5px !important;

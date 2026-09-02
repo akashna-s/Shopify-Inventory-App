@@ -721,3 +721,9 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - If a grouped chunk reaches Shopify's 100,000-row result limit, only that chunk is automatically divided into smaller week groups and retried.
 - Week mode defaults to the last five completed weeks plus the current week through yesterday. Presets provide 5, 8, or 12 completed weeks plus the current week.
 - Switching to Week intentionally applies its default weekly range. The visible date inputs remount from the loader's accepted range so they cannot retain stale monthly dates.
+
+## 2026-09-02 — Frozen New Arrival matrix summary
+
+- The New Arrival Analysis matrix keeps both header rows and the Summary row fixed during vertical scrolling.
+- Sticky offsets differ between Comfortable and Compact density so the Summary row sits directly beneath the headers without overlap.
+- The Cohort column remains horizontally frozen, including where it intersects the sticky Summary row.

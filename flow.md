@@ -635,3 +635,10 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 5. Split each grouped response back into individual weekly records using its Shopify week value.
 6. If a group reaches 100,000 rows, divide that group into two smaller groups and repeat until it fits or reaches one week.
 7. Feed the resulting weekly records into the same cohort engine, then render the report with the applied start/end dates synchronized in both the date summary and date fields.
+
+## 2026-09-02 — New Arrival matrix scrolling
+
+1. Keep the month-group header at the top of the matrix scroll container.
+2. Keep the metric-header row directly below it.
+3. Keep the Summary row directly below both header rows while cohort rows scroll underneath.
+4. Apply density-specific offsets and preserve the frozen Cohort column at every sticky-row intersection.
