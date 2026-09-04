@@ -1412,6 +1412,9 @@ function Details({
   const filterTimer = useRef(null);
   const [sort, setSort] = useState({ month: "", key: "", direction: "asc" });
   const latestMonth = months.at(-1);
+  const detailMetricWidth = density === "compact" ? 86 : 104;
+  const detailTableWidth =
+    405 + months.length * DETAIL_METRICS.length * detailMetricWidth;
   const markFilterUpdate = () => {
     window.clearTimeout(filterTimer.current);
     setIsFiltering(true);
@@ -1582,8 +1585,24 @@ function Details({
         <LoadingState title="Applying filters" compact />
       ) : (
         <>
-          <div className="na-scroll detail-scroll">
-            <table className={`na-table detail density-${density}`}>
+          <div className={`na-scroll detail-scroll density-${density}`}>
+            <table
+              className={`na-table detail density-${density}`}
+              style={{ width: `${detailTableWidth}px` }}
+            >
+              <colgroup>
+                <col className="detail-col-product" />
+                <col className="detail-col-type" />
+                <col className="detail-col-cohort" />
+                {months.flatMap((month) =>
+                  DETAIL_METRICS.map(([key]) => (
+                    <col
+                      className={`detail-col-metric detail-col-${key}`}
+                      key={`${month}-${key}`}
+                    />
+                  )),
+                )}
+              </colgroup>
               <thead>
                 <tr>
                   <th rowSpan="2">Product</th>

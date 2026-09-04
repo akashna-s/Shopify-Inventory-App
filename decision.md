@@ -727,3 +727,33 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - The New Arrival Analysis matrix keeps both header rows and the Summary row fixed during vertical scrolling.
 - Sticky offsets differ between Comfortable and Compact density so the Summary row sits directly beneath the headers without overlap.
 - The Cohort column remains horizontally frozen, including where it intersects the sticky Summary row.
+
+## 2026-09-04 — Uniform Cohort Details columns
+
+- Cohort Details now defines its table columns explicitly through a `colgroup` instead of allowing browser content-based sizing.
+- Every repeated monthly metric column uses the same width, so the same metric and neighboring metrics remain aligned across all month blocks.
+- Product, classification, and launch-cohort columns retain their existing frozen widths.
+- The table uses fixed layout and an exact width calculated from the number of periods, preventing `colspan` headers or spare container space from redistributing individual columns.
+- Monthly metrics use 104px in Comfortable mode and 86px in Compact mode to display more report columns at once.
+
+## 2026-09-04 — Continuous grouped-header separator
+
+- Product, classification, and launch cohort retain semantic table headers, but their visual header is rendered as one dedicated opaque overlay above the frozen 405px region.
+- The overlay uses browser-native `position: sticky` on both axes. JavaScript scroll-position synchronization was removed because fast scroll events could render one frame late and make the header jump before catching up.
+- Product, classification, and launch cohort are visually merged across both header rows, with their labels vertically centered to match the approved reference.
+- The Month-to-Metric divider intentionally starts after the 405px frozen region and is rendered as its own native sticky layer, so it stays visible while the month section scrolls vertically.
+- The merged frozen overlay keeps only its lower header-to-body divider and sits above both data cells and adjacent headers.
+- A negative bottom margin overlays the header on the table without adding blank vertical space; Comfortable and Compact modes use matching 84px and 68px values.
+
+## 2026-09-04 — Stable single header divider
+
+- Removed the separate sticky Month-to-Metric divider because it duplicated the table header border and the two layers changed paint position independently while scrolling.
+- The month header cells now own one inset divider, so the same line remains visible before, during, and after vertical scrolling.
+- Comfortable and Compact modes now define their month-row, metric-row, and combined header heights through shared CSS variables. This prevents one-pixel offset changes between the frozen overlay and native table headers.
+
+## 2026-09-04 — Native frozen headers replace overlay
+
+- The remaining scroll movement came from the frozen-column header overlay entering its sticky state independently from the table.
+- Removed the overlay and negative-margin positioning completely.
+- Product, classification, and launch cohort now use their real two-row table header cells. Those cells are sticky on both axes, opaque, and layered above scrolling month headers and body cells.
+- All header cells and separator lines now share the table's coordinate system, eliminating the separate layer that could shift during sticky activation.

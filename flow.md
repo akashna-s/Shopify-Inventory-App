@@ -642,3 +642,35 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 2. Keep the metric-header row directly below it.
 3. Keep the Summary row directly below both header rows while cohort rows scroll underneath.
 4. Apply density-specific offsets and preserve the frozen Cohort column at every sticky-row intersection.
+
+## 2026-09-04 — Cohort Details column sizing
+
+1. Define the three frozen context columns and every repeated month metric in the table's `colgroup`.
+2. Select the shared metric width from the active density: 86px Compact or 104px Comfortable.
+3. Calculate the complete table width from the three frozen columns plus `period count × metrics per period × metric width`.
+4. Use fixed table layout so grouped month headers, cell content, and available screen space cannot resize an individual column.
+5. Repeat the same column definition for every month, keeping month blocks visually aligned while scrolling.
+
+## 2026-09-04 — Grouped-header separator
+
+1. Keep Product, classification, and launch cohort as semantic two-row table headers with visually hidden labels.
+2. Render a dedicated 405px merged visual header overlay with all three labels vertically centered across the full header height.
+3. Draw the Month-to-Metric separator only across the scrolling month region, beginning after the frozen 405px area.
+4. Keep that separator in an independent native sticky layer so scrolling rows cannot cover it.
+5. Lock the overlay natively with `position: sticky; top: 0; left: 0` so browser compositing keeps it fixed during fast scrolling.
+6. Use a density-matched negative margin to let the table occupy the same starting position beneath the overlay.
+7. Keep the overlay above sticky body cells and all scrolling month headers.
+
+## 2026-09-04 — Stable header painting flow
+
+1. Select the density-specific month and metric header heights once on the table scroll container.
+2. Use those same values for the native sticky rows and the merged frozen-column header.
+3. Render the Month-to-Metric separator as an inset line inside each sticky month header cell.
+4. Do not introduce a second sticky divider layer, preventing duplicate lines and scroll-transition movement.
+
+## 2026-09-04 — Native two-axis header flow
+
+1. Render Product, classification, and Launch cohort as real `rowSpan=2` header cells.
+2. Freeze those cells vertically at `top: 0` and horizontally using their existing column offsets.
+3. Keep the frozen header cells above month headers and table data through a dedicated z-index layer.
+4. Let the browser position every header and divider within one table layout, without overlay transforms or negative margins.
