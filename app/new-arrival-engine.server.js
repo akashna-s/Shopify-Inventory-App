@@ -267,6 +267,14 @@ export function generateNewArrivalReport(
   const records = buildRecords(sourceRows);
   const aggregated = aggregateProductMonths(records);
   const productMaps = buildProductMaps(records, aggregated);
+  const firstCohort = months[0];
+  for (const pid of options.firstCohortProductIds || []) {
+    const cleanPid = cleanProductId(pid);
+    // A lookback match only carries a product into the first cohort when that
+    // product is also active somewhere inside the selected report range.
+    if (firstCohort && productMaps.launch.has(cleanPid))
+      productMaps.launch.set(cleanPid, firstCohort);
+  }
   const denominators = brandDenominators(productMaps, months);
   const allPids = [...productMaps.lookup.keys()];
   const categoryMap =

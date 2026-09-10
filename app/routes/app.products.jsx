@@ -4,6 +4,8 @@ import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
 import { getProductCatalog } from "../product-catalog-cache.server";
 import { runWithAnalyticsCache } from "../analytics-cache.server";
+import DateRangePicker from "../components/DateRangePicker";
+import dateRangeStyles from "../styles/date-range-picker.css?url";
 
 /* Loader and Await render props are runtime-validated by React Router. */
 /* eslint-disable react/prop-types */
@@ -145,9 +147,7 @@ function normalizeCustomRange(url, now = new Date()) {
     const end = validDate(requestedEnd) ? requestedEnd : today;
     const boundedStart = start < earliest ? earliest : start > today ? today : start;
     const boundedEnd = end > today ? today : end < earliest ? earliest : end;
-    return boundedStart <= boundedEnd
-        ? { start: boundedStart, end: boundedEnd, earliest, today }
-        : { start: boundedEnd, end: boundedStart, earliest, today };
+    return boundedStart <= boundedEnd ? { start: boundedStart, end: boundedEnd, earliest, today } : { start: boundedEnd, end: boundedStart, earliest, today };
 }
 
 async function fetchShopInfo(admin) {
@@ -203,19 +203,35 @@ async function runShopifyQL(admin, query, { limit = SHOPIFYQL_ROW_LIMIT, debug =
             const graphError = json.errors?.[0]?.message || "";
 
             if (graphError && isRetryableShopifyQLError(graphError) && attempt < SHOPIFYQL_MAX_ATTEMPTS) {
-                const retryDelayMs = SHOPIFYQL_RETRY_BASE_MS * (2 ** (attempt - 1));
+                const retryDelayMs = SHOPIFYQL_RETRY_BASE_MS * 2 ** (attempt - 1);
                 console.warn(`[ShopifyQL] temporary failure; retry ${attempt + 1}/${SHOPIFYQL_MAX_ATTEMPTS} in ${retryDelayMs}ms`);
                 await wait(retryDelayMs);
                 continue;
             }
 
             if (json.errors?.length) {
-                return { rows: [], error: graphError, truncated: false, requestId, rawJson: debug ? json : null, elapsedMs, attempts: attempt };
+                return {
+                    rows: [],
+                    error: graphError,
+                    truncated: false,
+                    requestId,
+                    rawJson: debug ? json : null,
+                    elapsedMs,
+                    attempts: attempt,
+                };
             }
 
             const result = json.data?.shopifyqlQuery;
             if (result?.parseErrors?.length) {
-                return { rows: [], error: result.parseErrors.join("; "), truncated: false, requestId, rawJson: debug ? json : null, elapsedMs, attempts: attempt };
+                return {
+                    rows: [],
+                    error: result.parseErrors.join("; "),
+                    truncated: false,
+                    requestId,
+                    rawJson: debug ? json : null,
+                    elapsedMs,
+                    attempts: attempt,
+                };
             }
 
             const columns = result?.tableData?.columns || [];
@@ -238,21 +254,45 @@ async function runShopifyQL(admin, query, { limit = SHOPIFYQL_ROW_LIMIT, debug =
             // result set was almost certainly cut short and totals are understated.
             console.info(`[ShopifyQL] ${elapsedMs}ms · ${rows.length} rows · ${attempt} attempt(s) · ${limitedQuery.slice(0, 100)}`);
             if (debug) console.debug(`[ShopifyQL debug]`, JSON.stringify(json, null, 2));
-            return { rows, error: null, truncated: rows.length >= limit, requestId, rawJson: debug ? json : null, elapsedMs, attempts: attempt };
+            return {
+                rows,
+                error: null,
+                truncated: rows.length >= limit,
+                requestId,
+                rawJson: debug ? json : null,
+                elapsedMs,
+                attempts: attempt,
+            };
         } catch (err) {
             const message = err?.message || "ShopifyQL request failed.";
             if (isRetryableShopifyQLError(message) && attempt < SHOPIFYQL_MAX_ATTEMPTS) {
-                const retryDelayMs = SHOPIFYQL_RETRY_BASE_MS * (2 ** (attempt - 1));
+                const retryDelayMs = SHOPIFYQL_RETRY_BASE_MS * 2 ** (attempt - 1);
                 console.warn(`[ShopifyQL] ${message}; retry ${attempt + 1}/${SHOPIFYQL_MAX_ATTEMPTS} in ${retryDelayMs}ms`);
                 await wait(retryDelayMs);
                 continue;
             }
             console.error(`[ShopifyQL Fetch Error]:`, message);
-            return { rows: [], error: message, truncated: false, requestId: null, rawJson: null, elapsedMs: Date.now() - startedAt, attempts: attempt };
+            return {
+                rows: [],
+                error: message,
+                truncated: false,
+                requestId: null,
+                rawJson: null,
+                elapsedMs: Date.now() - startedAt,
+                attempts: attempt,
+            };
         }
     }
 
-    return { rows: [], error: "ShopifyQL request failed after retries.", truncated: false, requestId: null, rawJson: null, elapsedMs: Date.now() - startedAt, attempts: SHOPIFYQL_MAX_ATTEMPTS };
+    return {
+        rows: [],
+        error: "ShopifyQL request failed after retries.",
+        truncated: false,
+        requestId: null,
+        rawJson: null,
+        elapsedMs: Date.now() - startedAt,
+        attempts: SHOPIFYQL_MAX_ATTEMPTS,
+    };
 }
 
 export const loader = async ({ request }) => {
@@ -266,29 +306,47 @@ export const loader = async ({ request }) => {
     const displayRange = `${formatDate(start)} – ${formatDate(end)}`;
 
     const report = (async () => {
-
         // These requests do not depend on one another, so start them together. Total
         // waiting time is now close to the slowest request, not the sum of all requests.
         const [productsResult, shopResult, landingSessionTotals, salesTotals, salesOrderTotal, inventoryTotals] = await Promise.all([
             getProductCatalog(admin, session.shop).then(
                 (catalog) => ({ ...catalog, error: null }),
-                (err) => ({ products: [], error: err?.message || "Failed to load products." }),
+                (err) => ({
+                    products: [],
+                    error: err?.message || "Failed to load products.",
+                }),
             ),
-            fetchShopInfo(admin).catch(() => ({ shopUrl: "", shopCurrency: "USD", shopDomain: "unknown-shop" })),
+            fetchShopInfo(admin).catch(() => ({
+                shopUrl: "",
+                shopCurrency: "USD",
+                shopDomain: "unknown-shop",
+            })),
             runWithAnalyticsCache({
-                shop: session.shop, dataset: "product-landing-sessions-daily-v2", rangeStart: start, rangeEnd: end,
+                shop: session.shop,
+                dataset: "product-landing-sessions-daily-v2",
+                rangeStart: start,
+                rangeEnd: end,
                 run: () => runShopifyQL(admin, `FROM sessions SHOW sessions, sessions_that_reached_checkout, sessions_that_completed_checkout, conversion_rate WHERE landing_page_type = 'product' GROUP BY day, landing_page_path SINCE ${start} UNTIL ${end}`, { debug }),
             }),
             runWithAnalyticsCache({
-                shop: session.shop, dataset: "sales-breakdown-daily-v5", rangeStart: start, rangeEnd: end,
+                shop: session.shop,
+                dataset: "sales-breakdown-daily-v5",
+                rangeStart: start,
+                rangeEnd: end,
                 run: () => runShopifyQL(admin, `FROM sales SHOW orders, quantity_ordered, net_items_sold, reversed_quantity, gross_sales, discounts, gross_sales_reversals, net_sales, shipping_charges, return_fees, taxes, total_sales GROUP BY day, product_id SINCE ${start} UNTIL ${end}`, { debug }),
             }),
             runWithAnalyticsCache({
-                shop: session.shop, dataset: "sales-unique-orders-v1", rangeStart: start, rangeEnd: end,
+                shop: session.shop,
+                dataset: "sales-unique-orders-v1",
+                rangeStart: start,
+                rangeEnd: end,
                 run: () => runShopifyQL(admin, `FROM sales SHOW orders SINCE ${start} UNTIL ${end}`, { debug }),
             }),
             runWithAnalyticsCache({
-                shop: session.shop, dataset: "inventory-daily-v2", rangeStart: start, rangeEnd: end,
+                shop: session.shop,
+                dataset: "inventory-daily-v2",
+                rangeStart: start,
+                rangeEnd: end,
                 run: () => runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY day, product_id SINCE ${start} UNTIL ${end}`, { debug }),
             }),
         ]);
@@ -313,7 +371,12 @@ export const loader = async ({ request }) => {
             const day = dayValue(row.day);
             if (!handle || !day) return;
             const key = analyticsKey(day, handle);
-            const current = sessionByHandle[key] || { sessions: 0, reachedCheckout: 0, completedCheckoutSessions: 0, conversionRate: 0 };
+            const current = sessionByHandle[key] || {
+                sessions: 0,
+                reachedCheckout: 0,
+                completedCheckoutSessions: 0,
+                conversionRate: 0,
+            };
             current.sessions += Number(row.sessions) || 0;
             current.reachedCheckout += Number(row.sessions_that_reached_checkout) || 0;
             current.completedCheckoutSessions += Number(row.sessions_that_completed_checkout) || 0;
@@ -367,8 +430,14 @@ export const loader = async ({ request }) => {
             if (!daysByProduct[key]) daysByProduct[key] = new Set();
             daysByProduct[key].add(day);
         };
-        Object.keys(salesByProduct).forEach((value) => { const [day, key] = value.split("|"); registerDay(key, day); });
-        Object.keys(inventoryByProduct).forEach((value) => { const [day, key] = value.split("|"); registerDay(key, day); });
+        Object.keys(salesByProduct).forEach((value) => {
+            const [day, key] = value.split("|");
+            registerDay(key, day);
+        });
+        Object.keys(inventoryByProduct).forEach((value) => {
+            const [day, key] = value.split("|");
+            registerDay(key, day);
+        });
         const productByHandle = Object.fromEntries(products.map((product) => [product.handle || "", numericId(product.id)]));
         Object.keys(sessionByHandle).forEach((value) => {
             const separator = value.indexOf("|");
@@ -385,7 +454,12 @@ export const loader = async ({ request }) => {
             return productDays.map((day) => {
                 const dailyKeyByHandle = day ? analyticsKey(day, handle) : "";
                 const dailyKeyByProduct = day ? analyticsKey(day, key) : "";
-                const session = sessionByHandle[dailyKeyByHandle] || { sessions: 0, reachedCheckout: 0, completedCheckoutSessions: 0, conversionRate: 0 };
+                const session = sessionByHandle[dailyKeyByHandle] || {
+                    sessions: 0,
+                    reachedCheckout: 0,
+                    completedCheckoutSessions: 0,
+                    conversionRate: 0,
+                };
                 const inventory = inventoryByProduct[dailyKeyByProduct] || {
                     firstDayInInventory: null,
                     startingInventory: null,
@@ -428,32 +502,81 @@ export const loader = async ({ request }) => {
         });
 
         const analyticsQueries = [
-            { label: "Product landing sessions / completed checkouts", result: landingSessionTotals },
+            {
+                label: "Product landing sessions / completed checkouts",
+                result: landingSessionTotals,
+            },
             { label: "Sale", result: salesTotals },
             { label: "Unique order total", result: salesOrderTotal },
-            { label: "Inventory (first day / starting / ending)", result: inventoryTotals },
+            {
+                label: "Inventory (first day / starting / ending)",
+                result: inventoryTotals,
+            },
         ];
 
         const analyticsErrors = analyticsQueries.flatMap(({ label, result }) => {
             if (result.error) return [{ label, message: result.error }];
             if (result.truncated) {
-                return [{
-                    label,
-                    message: `Result set hit the ${SHOPIFYQL_ROW_LIMIT.toLocaleString()}-row limit, so some products may be missing or understated.`,
-                }];
+                return [
+                    {
+                        label,
+                        message: `Result set hit the ${SHOPIFYQL_ROW_LIMIT.toLocaleString()}-row limit, so some products may be missing or understated.`,
+                    },
+                ];
             }
             return [];
         });
 
         const shopifyqlDebug = {
-            landingSessionTotals: { requestId: landingSessionTotals.requestId, rowCount: landingSessionTotals.rows.length, truncated: landingSessionTotals.truncated, rawJson: landingSessionTotals.rawJson, error: landingSessionTotals.error, elapsedMs: landingSessionTotals.elapsedMs, attempts: landingSessionTotals.attempts, cacheStatus: landingSessionTotals.cacheStatus },
-            salesTotals: { requestId: salesTotals.requestId, rowCount: salesTotals.rows.length, truncated: salesTotals.truncated, rawJson: salesTotals.rawJson, error: salesTotals.error, elapsedMs: salesTotals.elapsedMs, attempts: salesTotals.attempts, cacheStatus: salesTotals.cacheStatus },
-            salesOrderTotal: { requestId: salesOrderTotal.requestId, rowCount: salesOrderTotal.rows.length, truncated: salesOrderTotal.truncated, rawJson: salesOrderTotal.rawJson, error: salesOrderTotal.error, elapsedMs: salesOrderTotal.elapsedMs, attempts: salesOrderTotal.attempts, cacheStatus: salesOrderTotal.cacheStatus },
-            inventoryTotals: { requestId: inventoryTotals.requestId, rowCount: inventoryTotals.rows.length, truncated: inventoryTotals.truncated, rawJson: inventoryTotals.rawJson, error: inventoryTotals.error, elapsedMs: inventoryTotals.elapsedMs, attempts: inventoryTotals.attempts, cacheStatus: inventoryTotals.cacheStatus },
+            landingSessionTotals: {
+                requestId: landingSessionTotals.requestId,
+                rowCount: landingSessionTotals.rows.length,
+                truncated: landingSessionTotals.truncated,
+                rawJson: landingSessionTotals.rawJson,
+                error: landingSessionTotals.error,
+                elapsedMs: landingSessionTotals.elapsedMs,
+                attempts: landingSessionTotals.attempts,
+                cacheStatus: landingSessionTotals.cacheStatus,
+            },
+            salesTotals: {
+                requestId: salesTotals.requestId,
+                rowCount: salesTotals.rows.length,
+                truncated: salesTotals.truncated,
+                rawJson: salesTotals.rawJson,
+                error: salesTotals.error,
+                elapsedMs: salesTotals.elapsedMs,
+                attempts: salesTotals.attempts,
+                cacheStatus: salesTotals.cacheStatus,
+            },
+            salesOrderTotal: {
+                requestId: salesOrderTotal.requestId,
+                rowCount: salesOrderTotal.rows.length,
+                truncated: salesOrderTotal.truncated,
+                rawJson: salesOrderTotal.rawJson,
+                error: salesOrderTotal.error,
+                elapsedMs: salesOrderTotal.elapsedMs,
+                attempts: salesOrderTotal.attempts,
+                cacheStatus: salesOrderTotal.cacheStatus,
+            },
+            inventoryTotals: {
+                requestId: inventoryTotals.requestId,
+                rowCount: inventoryTotals.rows.length,
+                truncated: inventoryTotals.truncated,
+                rawJson: inventoryTotals.rawJson,
+                error: inventoryTotals.error,
+                elapsedMs: inventoryTotals.elapsedMs,
+                attempts: inventoryTotals.attempts,
+                cacheStatus: inventoryTotals.cacheStatus,
+            },
         };
 
         return {
-            rows, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, unattributedSales,
+            rows,
+            shopCurrency,
+            productsError,
+            analyticsErrors,
+            shopifyqlDebug,
+            unattributedSales,
             uniqueOrderTotal: Number(salesOrderTotal.rows[0]?.orders) || 0,
             catalogStatus: productsResult.source || "unavailable",
             catalogRefreshedAt: productsResult.refreshedAt || null,
@@ -485,7 +608,11 @@ function formatDate(value) {
     // pin them to local time instead.
     const d = /^\d{4}-\d{2}-\d{2}$/.test(value) ? new Date(`${value}T00:00:00`) : new Date(value);
     if (isNaN(d.getTime())) return String(value);
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+    return d.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
 }
 
 function formatDateTime(value) {
@@ -502,9 +629,15 @@ function formatDateTime(value) {
 }
 
 const REPORT_DIMENSIONS = {
-    productId: { label: "Product ID", info: "Shopify's unique numeric product identifier." },
+    productId: {
+        label: "Product ID",
+        info: "Shopify's unique numeric product identifier.",
+    },
     title: { label: "Title", info: "Current product title from the catalog." },
-    status: { label: "Status", info: "Current Active, Draft, or Archived product status." },
+    status: {
+        label: "Status",
+        info: "Current Active, Draft, or Archived product status.",
+    },
     productType: { label: "Type", info: "Current Shopify product type." },
     tags: { label: "Tags", info: "Current product tags." },
     month: { label: "Month", info: "Groups activity by full calendar month." },
@@ -513,24 +646,86 @@ const REPORT_DIMENSIONS = {
 };
 
 const REPORT_METRICS = {
-    productUrl: { label: "URL", info: "Current online-store product URL.", type: "text" },
-    createdAt: { label: "Created At", info: "Date the product record was created.", type: "date" },
-    firstDayInInventory: { label: "First Day in Inventory", info: "First inventory date reported inside the selected range.", type: "date" },
-    startingInventory: { label: "Starting Inventory", info: "Inventory at the start of the selected group." },
-    endingInventory: { label: "Ending Inventory", info: "Inventory at the end of the selected group." },
-    landingSessions: { label: "Landing Sessions", info: "Sessions whose first storefront page was this product." },
+    productUrl: {
+        label: "URL",
+        info: "Current online-store product URL.",
+        type: "text",
+    },
+    createdAt: {
+        label: "Created At",
+        info: "Date the product record was created.",
+        type: "date",
+    },
+    firstDayInInventory: {
+        label: "First Day in Inventory",
+        info: "First inventory date reported inside the selected range.",
+        type: "date",
+    },
+    startingInventory: {
+        label: "Starting Inventory",
+        info: "Inventory at the start of the selected group.",
+    },
+    endingInventory: {
+        label: "Ending Inventory",
+        info: "Inventory at the end of the selected group.",
+    },
+    landingSessions: {
+        label: "Landing Sessions",
+        info: "Sessions whose first storefront page was this product.",
+    },
     orders: { label: "Orders", info: "Unique orders containing the product." },
-    quantityOrdered: { label: "Quantity Ordered", info: "Units ordered before reversals." },
-    netItemsSold: { label: "Net Items Sold", info: "Units sold after reversals." },
-    reversedQuantity: { label: "Reversed Quantity", info: "Units reversed through returns, refunds, cancellations, or edits." },
-    grossSales: { label: "Gross Sales", info: "Product sales before discounts and reversals.", money: true },
-    discounts: { label: "Discounts", info: "Discount value attributed to the product.", money: true },
-    salesReversals: { label: "Sales Reversals", info: "Sales value reversed by returns, refunds, cancellations, or edits.", money: true },
-    netSales: { label: "Net Sales", info: "Gross sales after discounts and reversals.", money: true },
-    shippingCharges: { label: "Shipping Charges", info: "Shipping attributed by Shopify to the product.", money: true },
-    returnFees: { label: "Return Fees", info: "Return fees attributed to the product.", money: true },
-    taxes: { label: "Taxes", info: "Taxes attributed to the product.", money: true },
-    totalSales: { label: "Total Sales", info: "Final Shopify total sales attributed to the product.", money: true },
+    quantityOrdered: {
+        label: "Quantity Ordered",
+        info: "Units ordered before reversals.",
+    },
+    netItemsSold: {
+        label: "Net Items Sold",
+        info: "Units sold after reversals.",
+    },
+    reversedQuantity: {
+        label: "Reversed Quantity",
+        info: "Units reversed through returns, refunds, cancellations, or edits.",
+    },
+    grossSales: {
+        label: "Gross Sales",
+        info: "Product sales before discounts and reversals.",
+        money: true,
+    },
+    discounts: {
+        label: "Discounts",
+        info: "Discount value attributed to the product.",
+        money: true,
+    },
+    salesReversals: {
+        label: "Sales Reversals",
+        info: "Sales value reversed by returns, refunds, cancellations, or edits.",
+        money: true,
+    },
+    netSales: {
+        label: "Net Sales",
+        info: "Gross sales after discounts and reversals.",
+        money: true,
+    },
+    shippingCharges: {
+        label: "Shipping Charges",
+        info: "Shipping attributed by Shopify to the product.",
+        money: true,
+    },
+    returnFees: {
+        label: "Return Fees",
+        info: "Return fees attributed to the product.",
+        money: true,
+    },
+    taxes: {
+        label: "Taxes",
+        info: "Taxes attributed to the product.",
+        money: true,
+    },
+    totalSales: {
+        label: "Total Sales",
+        info: "Final Shopify total sales attributed to the product.",
+        money: true,
+    },
 };
 
 const DEFAULT_DIMENSIONS = ["productId", "title", "status", "productType", "tags"];
@@ -567,7 +762,12 @@ function aggregateReportRows(sourceRows, dimensions) {
         delete result.__rows;
         Object.keys(REPORT_METRICS).forEach((key) => {
             if (["productUrl", "createdAt"].includes(key)) result[key] = group.__rows.find((row) => row[key])?.[key] || "";
-            else if (key === "firstDayInInventory") result[key] = group.__rows.map((row) => row[key]).filter(Boolean).sort()[0] || null;
+            else if (key === "firstDayInInventory")
+                result[key] =
+                    group.__rows
+                        .map((row) => row[key])
+                        .filter(Boolean)
+                        .sort()[0] || null;
             else if (key === "startingInventory") result[key] = firstInventory?.startingInventory ?? null;
             else if (key === "endingInventory") result[key] = lastInventory?.endingInventory ?? null;
             else result[key] = group.__rows.reduce((sum, row) => sum + (Number(row[key]) || 0), 0);
@@ -583,16 +783,8 @@ export default function ProductsAudit() {
 
     return (
         <Suspense fallback={<ProductsAuditLoading displayRange={loaderData.displayRange} />}>
-            <Await
-                resolve={loaderData.report}
-                errorElement={<ProductsAuditLoadError />}
-            >
-                {(report) => (
-                    <ProductsAuditContent
-                        loaderData={{ ...loaderData, ...report }}
-                        isRefreshing={isRefreshing}
-                    />
-                )}
+            <Await resolve={loaderData.report} errorElement={<ProductsAuditLoadError />}>
+                {(report) => <ProductsAuditContent loaderData={{ ...loaderData, ...report }} isRefreshing={isRefreshing} />}
             </Await>
         </Suspense>
     );
@@ -654,20 +846,22 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
 
     const filteredRows = useMemo(() => {
         const grouped = aggregateReportRows(rows, selectedDimensions);
-        return grouped.filter((row) => filters.every((filter) => {
-            if (!filter.value) return true;
-            const actual = row[filter.field];
-            if (filter.kind === "number") {
-                const left = Number(actual) || 0;
-                const right = Number(filter.value);
-                if (filter.operator === "gt") return left > right;
-                if (filter.operator === "lt") return left < right;
-                return left === right;
-            }
-            const left = String(actual || "").toLowerCase();
-            const right = String(filter.value).toLowerCase();
-            return filter.operator === "equals" ? left === right : left.includes(right);
-        }));
+        return grouped.filter((row) =>
+            filters.every((filter) => {
+                if (!filter.value) return true;
+                const actual = row[filter.field];
+                if (filter.kind === "number") {
+                    const left = Number(actual) || 0;
+                    const right = Number(filter.value);
+                    if (filter.operator === "gt") return left > right;
+                    if (filter.operator === "lt") return left < right;
+                    return left === right;
+                }
+                const left = String(actual || "").toLowerCase();
+                const right = String(filter.value).toLowerCase();
+                return filter.operator === "equals" ? left === right : left.includes(right);
+            }),
+        );
     }, [rows, selectedDimensions, filters]);
 
     const sortedRows = useMemo(() => {
@@ -683,7 +877,12 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 return leftMissing ? 1 : -1;
             }
             if (typeof left === "number" || typeof right === "number") return ((Number(left) || 0) - (Number(right) || 0)) * direction;
-            return String(left).localeCompare(String(right), undefined, { numeric: true, sensitivity: "base" }) * direction;
+            return (
+                String(left).localeCompare(String(right), undefined, {
+                    numeric: true,
+                    sensitivity: "base",
+                }) * direction
+            );
         });
     }, [filteredRows, sortConfig]);
 
@@ -697,7 +896,10 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     }, [sortedRows, safePage]);
 
     const handleSort = (key) => {
-        setSortConfig((current) => ({ key, direction: current.key === key && current.direction === "asc" ? "desc" : "asc" }));
+        setSortConfig((current) => ({
+            key,
+            direction: current.key === key && current.direction === "asc" ? "desc" : "asc",
+        }));
         setCurrentPage(1);
     };
 
@@ -706,16 +908,28 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         const totalLandingSessions = filteredRows.reduce((s, r) => s + (r.landingSessions || 0), 0);
         const totalCompletedCheckoutSessions = filteredRows.reduce((s, r) => s + (r.completedCheckoutSessions || 0), 0);
         const totalOrders = filteredRows.reduce((s, r) => s + (r.orders || 0), 0);
-        const salesTotals = filteredRows.reduce((totals, row) => ({
-            grossSales: totals.grossSales + (row.grossSales || 0),
-            discounts: totals.discounts + (row.discounts || 0),
-            salesReversals: totals.salesReversals + (row.salesReversals || 0),
-            netSales: totals.netSales + (row.netSales || 0),
-            shippingCharges: totals.shippingCharges + (row.shippingCharges || 0),
-            returnFees: totals.returnFees + (row.returnFees || 0),
-            taxes: totals.taxes + (row.taxes || 0),
-            totalSales: totals.totalSales + (row.totalSales || 0),
-        }), { grossSales: 0, discounts: 0, salesReversals: 0, netSales: 0, shippingCharges: 0, returnFees: 0, taxes: 0, totalSales: 0 });
+        const salesTotals = filteredRows.reduce(
+            (totals, row) => ({
+                grossSales: totals.grossSales + (row.grossSales || 0),
+                discounts: totals.discounts + (row.discounts || 0),
+                salesReversals: totals.salesReversals + (row.salesReversals || 0),
+                netSales: totals.netSales + (row.netSales || 0),
+                shippingCharges: totals.shippingCharges + (row.shippingCharges || 0),
+                returnFees: totals.returnFees + (row.returnFees || 0),
+                taxes: totals.taxes + (row.taxes || 0),
+                totalSales: totals.totalSales + (row.totalSales || 0),
+            }),
+            {
+                grossSales: 0,
+                discounts: 0,
+                salesReversals: 0,
+                netSales: 0,
+                shippingCharges: 0,
+                returnFees: 0,
+                taxes: 0,
+                totalSales: 0,
+            },
+        );
         const convRate = totalLandingSessions > 0 ? ((totalCompletedCheckoutSessions / totalLandingSessions) * 100).toFixed(1) : "0.0";
         return { totalLandingSessions, totalOrders, ...salesTotals, convRate };
     }, [filteredRows]);
@@ -732,15 +946,18 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         setCurrentPage(1);
     };
 
-    const createExportRows = (sourceRows) => sourceRows.map((row) => Object.fromEntries([
-        ...selectedDimensions.map((key) => [REPORT_DIMENSIONS[key].label, row[key] ?? ""]),
-        ...selectedMetrics.map((key) => {
-            const metric = REPORT_METRICS[key];
-            const label = metric.money ? `${metric.label} (${currency})` : metric.label;
-            const value = metric.type === "date" ? formatDate(row[key]) : row[key] ?? "";
-            return [label, value];
-        }),
-    ]));
+    const createExportRows = (sourceRows) =>
+        sourceRows.map((row) =>
+            Object.fromEntries([
+                ...selectedDimensions.map((key) => [REPORT_DIMENSIONS[key].label, row[key] ?? ""]),
+                ...selectedMetrics.map((key) => {
+                    const metric = REPORT_METRICS[key];
+                    const label = metric.money ? `${metric.label} (${currency})` : metric.label;
+                    const value = metric.type === "date" ? formatDate(row[key]) : (row[key] ?? "");
+                    return [label, value];
+                }),
+            ]),
+        );
 
     const moveSelectedItem = (kind, targetKey) => {
         if (!draggedItem || draggedItem.kind !== kind || draggedItem.key === targetKey) return;
@@ -770,18 +987,20 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         return /[",\r\n]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
     };
 
-    const escapeXml = (value) => String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&apos;");
+    const escapeXml = (value) =>
+        String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&apos;");
 
-    const xmlTag = (label) => label
-        .replace(/\([^)]*\)/g, "")
-        .trim()
-        .replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase())
-        .replace(/^[A-Z]/, (char) => char.toLowerCase()) || "value";
+    const xmlTag = (label) =>
+        label
+            .replace(/\([^)]*\)/g, "")
+            .trim()
+            .replace(/[^a-zA-Z0-9]+(.)/g, (_, char) => char.toUpperCase())
+            .replace(/^[A-Z]/, (char) => char.toLowerCase()) || "value";
 
     const exportReport = (scope, format) => {
         const sourceRows = scope === "page" ? paginatedRows : filteredRows;
@@ -791,18 +1010,17 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
 
         if (format === "csv") {
             const headers = exportRows.length ? Object.keys(exportRows[0]) : [];
-            const csv = [
-                headers.map(escapeCsv).join(","),
-                ...exportRows.map((row) => headers.map((header) => escapeCsv(row[header])).join(",")),
-            ].join("\r\n");
+            const csv = [headers.map(escapeCsv).join(","), ...exportRows.map((row) => headers.map((header) => escapeCsv(row[header])).join(","))].join("\r\n");
             downloadTextFile(`\uFEFF${csv}`, `${baseName}.csv`, "text/csv");
         } else if (format === "xml") {
-            const productsXml = exportRows.map((row) => {
-                const fields = Object.entries(row)
-                    .map(([label, value]) => `    <${xmlTag(label)}>${escapeXml(value)}</${xmlTag(label)}>`)
-                    .join("\n");
-                return `  <product>\n${fields}\n  </product>`;
-            }).join("\n");
+            const productsXml = exportRows
+                .map((row) => {
+                    const fields = Object.entries(row)
+                        .map(([label, value]) => `    <${xmlTag(label)}>${escapeXml(value)}</${xmlTag(label)}>`)
+                        .join("\n");
+                    return `  <product>\n${fields}\n  </product>`;
+                })
+                .join("\n");
             const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<productAudit scope="${scopeName}" range="${escapeXml(displayRange)}">\n${productsXml}\n</productAudit>\n`;
             downloadTextFile(xml, `${baseName}.xml`, "application/xml");
         } else {
@@ -835,8 +1053,11 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 }}
             >
                 <div style={{ fontSize: "13px", color: "#6d7175" }}>
-                    Showing <strong>{startIndex}–{endIndex}</strong> of <strong>{filteredRows.length}</strong> products
-                    (Page <strong>{safePage}</strong> of <strong>{totalPages}</strong>)
+                    Showing{" "}
+                    <strong>
+                        {startIndex}–{endIndex}
+                    </strong>{" "}
+                    of <strong>{filteredRows.length}</strong> products (Page <strong>{safePage}</strong> of <strong>{totalPages}</strong>)
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                     <button
@@ -1011,12 +1232,33 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                             }}
                         >
                             {[
-                                { scope: "page", title: `Current page (${paginatedRows.length} products)` },
-                                { scope: "all", title: `All results (${filteredRows.length} products)` },
+                                {
+                                    scope: "page",
+                                    title: `Current page (${paginatedRows.length} products)`,
+                                },
+                                {
+                                    scope: "all",
+                                    title: `All results (${filteredRows.length} products)`,
+                                },
                             ].map(({ scope, title }) => (
                                 <div key={scope} style={{ marginBottom: scope === "page" ? "14px" : 0 }}>
-                                    <div style={{ marginBottom: "7px", fontSize: "12px", fontWeight: 700, color: "#4a4a4a" }}>{title}</div>
-                                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "6px" }}>
+                                    <div
+                                        style={{
+                                            marginBottom: "7px",
+                                            fontSize: "12px",
+                                            fontWeight: 700,
+                                            color: "#4a4a4a",
+                                        }}
+                                    >
+                                        {title}
+                                    </div>
+                                    <div
+                                        style={{
+                                            display: "grid",
+                                            gridTemplateColumns: "repeat(3, 1fr)",
+                                            gap: "6px",
+                                        }}
+                                    >
                                         {[
                                             { format: "csv", label: "CSV" },
                                             { format: "xml", label: "XML" },
@@ -1044,7 +1286,14 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                     </div>
                                 </div>
                             ))}
-                            <div style={{ marginTop: "10px", fontSize: "11px", lineHeight: 1.4, color: "#6d7175" }}>
+                            <div
+                                style={{
+                                    marginTop: "10px",
+                                    fontSize: "11px",
+                                    lineHeight: 1.4,
+                                    color: "#6d7175",
+                                }}
+                            >
                                 All results respects the current timeframe and report filters.
                             </div>
                         </div>
@@ -1058,17 +1307,25 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 )}
 
                 <div className="audit-date-section">
-                    <div style={{ display: "flex", alignItems: "end", gap: "12px", flexWrap: "wrap" }}>
-                        <label style={{ display: "grid", gap: "5px", fontSize: "12px", fontWeight: 600 }}>
-                            Start date
-                            <input type="date" value={start} min={earliest} max={end} onChange={(event) => navigateRange(event.target.value, end)} style={{ padding: "8px 10px", border: "1px solid #c9cccf", borderRadius: "7px" }} />
-                        </label>
-                        <label style={{ display: "grid", gap: "5px", fontSize: "12px", fontWeight: 600 }}>
-                            End date
-                            <input type="date" value={end} min={start} max={today} onChange={(event) => navigateRange(start, event.target.value)} style={{ padding: "8px 10px", border: "1px solid #c9cccf", borderRadius: "7px" }} />
-                        </label>
-                        <div style={{ fontSize: "13px", color: "#4a4a4a", paddingBottom: "8px" }}>
-                            <strong>{displayRange}</strong><br />Available from {formatDate(earliest)} to {formatDate(today)} (18 full calendar months).
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "14px",
+                            flexWrap: "wrap",
+                        }}
+                    >
+                        <DateRangePicker start={start} end={end} min={earliest} max={today} disabled={isRefreshing} onApply={navigateRange} />
+                        <div
+                            style={{
+                                fontSize: "13px",
+                                color: "#4a4a4a",
+                                paddingBottom: "8px",
+                            }}
+                        >
+                            <strong>{displayRange}</strong>
+                            <br />
+                            Available from {formatDate(earliest)} to {formatDate(today)} (18 full calendar months).
                         </div>
                     </div>
                 </div>
@@ -1081,15 +1338,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             )}
 
             {analyticsErrors.length > 0 && (
-                <s-box
-                    padding="base"
-                    background="subdued"
-                    borderRadius="base"
-                    style={{ marginBottom: "16px", border: "1px solid #e1e3e5" }}
-                >
-                    <s-paragraph style={{ margin: "0 0 8px 0", fontWeight: 600 }}>
-                        ⚠️ Some analytics data could not be loaded or is incomplete:
-                    </s-paragraph>
+                <s-box padding="base" background="subdued" borderRadius="base" style={{ marginBottom: "16px", border: "1px solid #e1e3e5" }}>
+                    <s-paragraph style={{ margin: "0 0 8px 0", fontWeight: 600 }}>⚠️ Some analytics data could not be loaded or is incomplete:</s-paragraph>
                     {analyticsErrors.map((e) => (
                         <s-paragraph key={e.label} style={{ margin: "0 0 4px 0", fontSize: "13px" }}>
                             <strong>{e.label}:</strong> {e.message}
@@ -1108,32 +1358,93 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
 
             <div className="audit-content-grid">
                 {shopifyqlDebug && (
-                    <details className="audit-left-column" style={{ marginBottom: "16px", background: "#f4f6f8", border: "1px solid #c9cccf", borderRadius: "8px", padding: "12px 16px", boxSizing: "border-box" }}>
-                        <summary style={{ cursor: "pointer", fontWeight: "600", fontSize: "13px", color: "#202223" }}>
+                    <details
+                        className="audit-left-column"
+                        style={{
+                            marginBottom: "16px",
+                            background: "#f4f6f8",
+                            border: "1px solid #c9cccf",
+                            borderRadius: "8px",
+                            padding: "12px 16px",
+                            boxSizing: "border-box",
+                        }}
+                    >
+                        <summary
+                            style={{
+                                cursor: "pointer",
+                                fontWeight: "600",
+                                fontSize: "13px",
+                                color: "#202223",
+                            }}
+                        >
                             🔍 View ShopifyQL Debug Data
                         </summary>
-                        <div style={{ marginTop: "12px", display: "flex", flexDirection: "column", gap: "12px", fontSize: "12px" }}>
+                        <div
+                            style={{
+                                marginTop: "12px",
+                                display: "flex",
+                                flexDirection: "column",
+                                gap: "12px",
+                                fontSize: "12px",
+                            }}
+                        >
                             <div style={{ color: "#4a4a4a" }}>
                                 <strong>Product catalog:</strong> {catalogStatus}
                                 {catalogRefreshedAt ? ` · refreshed ${formatDateTime(catalogRefreshedAt)}` : ""}
                             </div>
                             {Object.entries(shopifyqlDebug).map(([key, val]) => (
-                                <div key={key} style={{ background: "#ffffff", padding: "10px", borderRadius: "6px", border: "1px solid #e1e3e5" }}>
-                                    <div style={{ fontWeight: 600, color: "#005bd3", marginBottom: "4px" }}>
+                                <div
+                                    key={key}
+                                    style={{
+                                        background: "#ffffff",
+                                        padding: "10px",
+                                        borderRadius: "6px",
+                                        border: "1px solid #e1e3e5",
+                                    }}
+                                >
+                                    <div
+                                        style={{
+                                            fontWeight: 600,
+                                            color: "#005bd3",
+                                            marginBottom: "4px",
+                                        }}
+                                    >
                                         Query: {key}
                                     </div>
-                                    <div style={{ fontFamily: "monospace", color: "#202223", marginBottom: "6px" }}>
+                                    <div
+                                        style={{
+                                            fontFamily: "monospace",
+                                            color: "#202223",
+                                            marginBottom: "6px",
+                                        }}
+                                    >
                                         <strong>x-request-id:</strong> {val.requestId || "N/A"}
                                         {" · "}
                                         <strong>rows:</strong> {val.rowCount ?? 0}
-                                        {" · "}<strong>time:</strong> {val.elapsedMs ?? 0}ms
-                                        {" · "}<strong>attempts:</strong> {val.attempts ?? 1}
-                                        {val.cacheStatus && <>{" · "}<strong>cache:</strong> {val.cacheStatus}</>}
+                                        {" · "}
+                                        <strong>time:</strong> {val.elapsedMs ?? 0}ms
+                                        {" · "}
+                                        <strong>attempts:</strong> {val.attempts ?? 1}
+                                        {val.cacheStatus && (
+                                            <>
+                                                {" · "}
+                                                <strong>cache:</strong> {val.cacheStatus}
+                                            </>
+                                        )}
                                         {val.truncated && <span style={{ color: "#b98900" }}> (truncated — hit row limit)</span>}
                                     </div>
                                     <div>
                                         <strong>HTTP Response JSON:</strong>
-                                        <pre style={{ background: "#f8f9fa", padding: "8px", borderRadius: "4px", overflowX: "auto", margin: "4px 0 0 0", fontSize: "11px" }}>
+                                        <pre
+                                            style={{
+                                                background: "#f8f9fa",
+                                                padding: "8px",
+                                                borderRadius: "4px",
+                                                overflowX: "auto",
+                                                margin: "4px 0 0 0",
+                                                fontSize: "11px",
+                                            }}
+                                        >
                                             <code>{JSON.stringify(val.rawJson, null, 2)}</code>
                                         </pre>
                                     </div>
@@ -1144,18 +1455,47 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 )}
 
                 <s-section heading="Selected metric totals" className="audit-left-column audit-summary-section">
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(165px, 1fr))", gap: "12px" }}>
-                        {selectedMetrics.filter((key) => REPORT_METRICS[key].type !== "text" && !["firstDayInInventory", "startingInventory", "endingInventory"].includes(key)).map((key) => {
-                            const metric = REPORT_METRICS[key];
-                            const rawValue = key === "orders" ? uniqueOrderTotal : overallRow[key];
-                            const value = metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : rawValue ?? "—";
-                            return <div key={key} style={metricCardStyle}><span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>{metric.label}{metric.money ? ` (${currency})` : ""}</span><span style={{ fontSize: "21px", fontWeight: 700 }}>{value}</span></div>;
-                        })}
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(165px, 1fr))",
+                            gap: "12px",
+                        }}
+                    >
+                        {selectedMetrics
+                            .filter((key) => REPORT_METRICS[key].type !== "text" && !["firstDayInInventory", "startingInventory", "endingInventory"].includes(key))
+                            .map((key) => {
+                                const metric = REPORT_METRICS[key];
+                                const rawValue = key === "orders" ? uniqueOrderTotal : overallRow[key];
+                                const value = metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : (rawValue ?? "—");
+                                return (
+                                    <div key={key} style={metricCardStyle}>
+                                        <span
+                                            style={{
+                                                fontSize: "12px",
+                                                color: "#6d7175",
+                                                fontWeight: 500,
+                                            }}
+                                        >
+                                            {metric.label}
+                                            {metric.money ? ` (${currency})` : ""}
+                                        </span>
+                                        <span style={{ fontSize: "21px", fontWeight: 700 }}>{value}</span>
+                                    </div>
+                                );
+                            })}
                     </div>
                 </s-section>
 
                 <s-section className="legacy-summary">
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "14px", marginBottom: "8px" }}>
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
+                            gap: "14px",
+                            marginBottom: "8px",
+                        }}
+                    >
                         <div style={metricCardStyle}>
                             <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Landing Sessions</span>
                             <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalLandingSessions.toLocaleString()}</span>
@@ -1206,55 +1546,294 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 <div className="audit-builder-layout">
                     <div className="audit-builder-placeholder" />
 
-                    <aside className="audit-builder-sidebar" style={{ position: "sticky", top: "12px", display: "grid", gap: "12px", maxHeight: "82vh", overflowY: "auto" }}>
+                    <aside
+                        className="audit-builder-sidebar"
+                        style={{
+                            position: "sticky",
+                            top: "12px",
+                            display: "grid",
+                            gap: "12px",
+                            maxHeight: "82vh",
+                            overflowY: "auto",
+                        }}
+                    >
                         {[
-                            { kind: "metric", title: "Metrics", selected: selectedMetrics, setSelected: setSelectedMetrics, definitions: REPORT_METRICS, pickerOpen: metricPickerOpen, setPickerOpen: setMetricPickerOpen },
-                            { kind: "dimension", title: "Dimensions", selected: selectedDimensions, setSelected: setSelectedDimensions, definitions: REPORT_DIMENSIONS, pickerOpen: dimensionPickerOpen, setPickerOpen: setDimensionPickerOpen },
+                            {
+                                kind: "metric",
+                                title: "Metrics",
+                                selected: selectedMetrics,
+                                setSelected: setSelectedMetrics,
+                                definitions: REPORT_METRICS,
+                                pickerOpen: metricPickerOpen,
+                                setPickerOpen: setMetricPickerOpen,
+                            },
+                            {
+                                kind: "dimension",
+                                title: "Dimensions",
+                                selected: selectedDimensions,
+                                setSelected: setSelectedDimensions,
+                                definitions: REPORT_DIMENSIONS,
+                                pickerOpen: dimensionPickerOpen,
+                                setPickerOpen: setDimensionPickerOpen,
+                            },
                         ].map((section) => (
-                            <div key={section.kind} style={{ background: "#fff", border: "1px solid #c9cccf", borderRadius: "10px", overflow: "hidden" }}>
-                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "11px 12px", fontWeight: 700, background: "#f7f8f9", borderBottom: "1px solid #e1e3e5" }}>
+                            <div
+                                key={section.kind}
+                                style={{
+                                    background: "#fff",
+                                    border: "1px solid #c9cccf",
+                                    borderRadius: "10px",
+                                    overflow: "hidden",
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        alignItems: "center",
+                                        padding: "11px 12px",
+                                        fontWeight: 700,
+                                        background: "#f7f8f9",
+                                        borderBottom: "1px solid #e1e3e5",
+                                    }}
+                                >
                                     {section.title}
-                                    <button type="button" onClick={() => section.setPickerOpen((open) => !open)} aria-label={`Add ${section.kind}`} style={{ border: 0, background: "transparent", fontSize: "22px", cursor: "pointer" }}>+</button>
+                                    <button
+                                        type="button"
+                                        onClick={() => section.setPickerOpen((open) => !open)}
+                                        aria-label={`Add ${section.kind}`}
+                                        style={{
+                                            border: 0,
+                                            background: "transparent",
+                                            fontSize: "22px",
+                                            cursor: "pointer",
+                                        }}
+                                    >
+                                        +
+                                    </button>
                                 </div>
                                 {section.pickerOpen && (
-                                    <div style={{ padding: "8px", borderBottom: "1px solid #e1e3e5" }}>
-                                        <select value="" onChange={(event) => { const key = event.target.value; if (key) section.setSelected((items) => [...items, key]); section.setPickerOpen(false); }} style={{ width: "100%", padding: "8px", border: "1px solid #c9cccf", borderRadius: "6px" }}>
+                                    <div
+                                        style={{
+                                            padding: "8px",
+                                            borderBottom: "1px solid #e1e3e5",
+                                        }}
+                                    >
+                                        <select
+                                            value=""
+                                            onChange={(event) => {
+                                                const key = event.target.value;
+                                                if (key) section.setSelected((items) => [...items, key]);
+                                                section.setPickerOpen(false);
+                                            }}
+                                            style={{
+                                                width: "100%",
+                                                padding: "8px",
+                                                border: "1px solid #c9cccf",
+                                                borderRadius: "6px",
+                                            }}
+                                        >
                                             <option value="">Select {section.kind}...</option>
-                                            {Object.entries(section.definitions).filter(([key]) => !section.selected.includes(key)).map(([key, item]) => <option key={key} value={key}>{item.label}</option>)}
+                                            {Object.entries(section.definitions)
+                                                .filter(([key]) => !section.selected.includes(key))
+                                                .map(([key, item]) => (
+                                                    <option key={key} value={key}>
+                                                        {item.label}
+                                                    </option>
+                                                ))}
                                         </select>
                                     </div>
                                 )}
                                 {section.selected.map((key) => (
-                                    <div key={key} draggable onDragStart={() => setDraggedItem({ kind: section.kind, key })} onDragOver={(event) => event.preventDefault()} onDrop={() => moveSelectedItem(section.kind, key)} style={{ display: "grid", gridTemplateColumns: "22px 1fr 24px 24px", alignItems: "center", gap: "5px", padding: "9px 10px", borderBottom: "1px solid #e8e9eb", fontSize: "13px" }}>
-                                        <span title="Drag to reorder" style={{ cursor: "grab", letterSpacing: "-2px", color: "#6d7175" }}>⠿</span>
+                                    <div
+                                        key={key}
+                                        draggable
+                                        onDragStart={() => setDraggedItem({ kind: section.kind, key })}
+                                        onDragOver={(event) => event.preventDefault()}
+                                        onDrop={() => moveSelectedItem(section.kind, key)}
+                                        style={{
+                                            display: "grid",
+                                            gridTemplateColumns: "22px 1fr 24px 24px",
+                                            alignItems: "center",
+                                            gap: "5px",
+                                            padding: "9px 10px",
+                                            borderBottom: "1px solid #e8e9eb",
+                                            fontSize: "13px",
+                                        }}
+                                    >
+                                        <span
+                                            title="Drag to reorder"
+                                            style={{
+                                                cursor: "grab",
+                                                letterSpacing: "-2px",
+                                                color: "#6d7175",
+                                            }}
+                                        >
+                                            ⠿
+                                        </span>
                                         <span>{section.definitions[key].label}</span>
-                                        <button type="button" title={section.definitions[key].info} aria-label={`About ${section.definitions[key].label}`} style={{ border: 0, background: "transparent", cursor: "help", color: "#005bd3" }}>ⓘ</button>
-                                        <button type="button" aria-label={`Remove ${section.definitions[key].label}`} onClick={() => section.setSelected((items) => items.filter((item) => item !== key))} disabled={section.selected.length === 1} style={{ border: 0, background: "transparent", cursor: "pointer", color: "#6d7175" }}>×</button>
+                                        <button
+                                            type="button"
+                                            title={section.definitions[key].info}
+                                            aria-label={`About ${section.definitions[key].label}`}
+                                            style={{
+                                                border: 0,
+                                                background: "transparent",
+                                                cursor: "help",
+                                                color: "#005bd3",
+                                            }}
+                                        >
+                                            ⓘ
+                                        </button>
+                                        <button
+                                            type="button"
+                                            aria-label={`Remove ${section.definitions[key].label}`}
+                                            onClick={() => section.setSelected((items) => items.filter((item) => item !== key))}
+                                            disabled={section.selected.length === 1}
+                                            style={{
+                                                border: 0,
+                                                background: "transparent",
+                                                cursor: "pointer",
+                                                color: "#6d7175",
+                                            }}
+                                        >
+                                            ×
+                                        </button>
                                     </div>
                                 ))}
                             </div>
                         ))}
 
-                        <div style={{ background: "#fff", border: "1px solid #c9cccf", borderRadius: "10px", overflow: "hidden" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "11px 12px", fontWeight: 700, background: "#f7f8f9", borderBottom: "1px solid #e1e3e5" }}>
+                        <div
+                            style={{
+                                background: "#fff",
+                                border: "1px solid #c9cccf",
+                                borderRadius: "10px",
+                                overflow: "hidden",
+                            }}
+                        >
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    alignItems: "center",
+                                    padding: "11px 12px",
+                                    fontWeight: 700,
+                                    background: "#f7f8f9",
+                                    borderBottom: "1px solid #e1e3e5",
+                                }}
+                            >
                                 Filters
-                                <button type="button" onClick={() => setFilters((items) => [...items, { field: selectedDimensions[0], operator: "contains", value: "", kind: "text" }])} style={{ border: 0, background: "transparent", fontSize: "22px", cursor: "pointer" }}>+</button>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setFilters((items) => [
+                                            ...items,
+                                            {
+                                                field: selectedDimensions[0],
+                                                operator: "contains",
+                                                value: "",
+                                                kind: "text",
+                                            },
+                                        ])
+                                    }
+                                    style={{
+                                        border: 0,
+                                        background: "transparent",
+                                        fontSize: "22px",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    +
+                                </button>
                             </div>
-                            {filters.length === 0 && <div style={{ padding: "12px", color: "#6d7175", fontSize: "12px" }}>No filters applied.</div>}
+                            {filters.length === 0 && (
+                                <div
+                                    style={{
+                                        padding: "12px",
+                                        color: "#6d7175",
+                                        fontSize: "12px",
+                                    }}
+                                >
+                                    No filters applied.
+                                </div>
+                            )}
                             {filters.map((filter, index) => (
-                                <div key={index} style={{ padding: "10px", borderBottom: "1px solid #e8e9eb", display: "grid", gap: "7px" }}>
+                                <div
+                                    key={index}
+                                    style={{
+                                        padding: "10px",
+                                        borderBottom: "1px solid #e8e9eb",
+                                        display: "grid",
+                                        gap: "7px",
+                                    }}
+                                >
                                     <div style={{ display: "flex", gap: "6px" }}>
-                                        <select value={filter.field} onChange={(event) => { const field = event.target.value; const kind = REPORT_METRICS[field] && !REPORT_METRICS[field].type ? "number" : "text"; setFilters((items) => items.map((item, i) => i === index ? { ...item, field, kind, operator: kind === "number" ? "equals" : "contains" } : item)); }} style={{ flex: 1, padding: "6px" }}>
-                                            <optgroup label="Dimensions">{selectedDimensions.map((key) => <option key={key} value={key}>{REPORT_DIMENSIONS[key].label}</option>)}</optgroup>
-                                            <optgroup label="Metrics">{selectedMetrics.filter((key) => !REPORT_METRICS[key].type).map((key) => <option key={key} value={key}>{REPORT_METRICS[key].label}</option>)}</optgroup>
+                                        <select
+                                            value={filter.field}
+                                            onChange={(event) => {
+                                                const field = event.target.value;
+                                                const kind = REPORT_METRICS[field] && !REPORT_METRICS[field].type ? "number" : "text";
+                                                setFilters((items) =>
+                                                    items.map((item, i) =>
+                                                        i === index
+                                                            ? {
+                                                                  ...item,
+                                                                  field,
+                                                                  kind,
+                                                                  operator: kind === "number" ? "equals" : "contains",
+                                                              }
+                                                            : item,
+                                                    ),
+                                                );
+                                            }}
+                                            style={{ flex: 1, padding: "6px" }}
+                                        >
+                                            <optgroup label="Dimensions">
+                                                {selectedDimensions.map((key) => (
+                                                    <option key={key} value={key}>
+                                                        {REPORT_DIMENSIONS[key].label}
+                                                    </option>
+                                                ))}
+                                            </optgroup>
+                                            <optgroup label="Metrics">
+                                                {selectedMetrics
+                                                    .filter((key) => !REPORT_METRICS[key].type)
+                                                    .map((key) => (
+                                                        <option key={key} value={key}>
+                                                            {REPORT_METRICS[key].label}
+                                                        </option>
+                                                    ))}
+                                            </optgroup>
                                         </select>
-                                        <button type="button" onClick={() => setFilters((items) => items.filter((_, i) => i !== index))} style={{ border: 0, background: "transparent", cursor: "pointer" }}>×</button>
+                                        <button
+                                            type="button"
+                                            onClick={() => setFilters((items) => items.filter((_, i) => i !== index))}
+                                            style={{
+                                                border: 0,
+                                                background: "transparent",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            ×
+                                        </button>
                                     </div>
                                     <div style={{ display: "flex", gap: "6px" }}>
-                                        <select value={filter.operator} onChange={(event) => setFilters((items) => items.map((item, i) => i === index ? { ...item, operator: event.target.value } : item))} style={{ width: "105px", padding: "6px" }}>
-                                            {filter.kind === "number" ? <><option value="equals">Equals</option><option value="gt">Greater than</option><option value="lt">Less than</option></> : <><option value="contains">Contains</option><option value="equals">Equals</option></>}
+                                        <select value={filter.operator} onChange={(event) => setFilters((items) => items.map((item, i) => (i === index ? { ...item, operator: event.target.value } : item)))} style={{ width: "105px", padding: "6px" }}>
+                                            {filter.kind === "number" ? (
+                                                <>
+                                                    <option value="equals">Equals</option>
+                                                    <option value="gt">Greater than</option>
+                                                    <option value="lt">Less than</option>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <option value="contains">Contains</option>
+                                                    <option value="equals">Equals</option>
+                                                </>
+                                            )}
                                         </select>
-                                        <input type={filter.kind === "number" ? "number" : "text"} value={filter.value} onChange={(event) => setFilters((items) => items.map((item, i) => i === index ? { ...item, value: event.target.value } : item))} placeholder="Value" style={{ minWidth: 0, flex: 1, padding: "6px" }} />
+                                        <input type={filter.kind === "number" ? "number" : "text"} value={filter.value} onChange={(event) => setFilters((items) => items.map((item, i) => (i === index ? { ...item, value: event.target.value } : item)))} placeholder="Value" style={{ minWidth: 0, flex: 1, padding: "6px" }} />
                                     </div>
                                 </div>
                             ))}
@@ -1265,63 +1844,198 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 <div className="audit-section-spacer" aria-hidden="true" />
                 <s-section heading={`Products (${filteredRows.length})`} className="audit-left-column">
                     {renderPagination()}
-                    <div style={{ background: "#ffffff", border: "1px solid #e1e3e5", borderRadius: "10px", overflow: "auto", maxHeight: "70vh", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                    <div
+                        style={{
+                            background: "#ffffff",
+                            border: "1px solid #e1e3e5",
+                            borderRadius: "10px",
+                            overflow: "auto",
+                            maxHeight: "70vh",
+                            boxShadow: "0 1px 4px rgba(0,0,0,0.06)",
+                        }}
+                    >
                         {filteredRows.length === 0 ? (
-                            <div style={{ padding: "48px", textAlign: "center", color: "#8c9196" }}>
+                            <div
+                                style={{
+                                    padding: "48px",
+                                    textAlign: "center",
+                                    color: "#8c9196",
+                                }}
+                            >
                                 <div style={{ fontSize: "32px", marginBottom: "8px" }}>📦</div>
                                 <div style={{ fontSize: "15px", fontWeight: 600 }}>No products found</div>
                                 <div style={{ fontSize: "13px", marginTop: "4px" }}>Try adjusting your search or timeframe filters.</div>
                             </div>
                         ) : (
-                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+                            <table
+                                style={{
+                                    width: "100%",
+                                    borderCollapse: "collapse",
+                                    fontSize: "13px",
+                                }}
+                            >
                                 <thead>
-                                    <tr style={{
-                                        background: "linear-gradient(180deg, #f7f8f9 0%, #f1f2f4 100%)",
-                                        borderBottom: "2px solid #e1e3e5",
-                                        textAlign: "left",
-                                    }}>
+                                    <tr
+                                        style={{
+                                            background: "linear-gradient(180deg, #f7f8f9 0%, #f1f2f4 100%)",
+                                            borderBottom: "2px solid #e1e3e5",
+                                            textAlign: "left",
+                                        }}
+                                    >
                                         {[
-                                            ...selectedDimensions.map((key) => ({ key, label: REPORT_DIMENSIONS[key].label, dimension: true })),
-                                            ...selectedMetrics.map((key) => ({ key, label: `${REPORT_METRICS[key].label}${REPORT_METRICS[key].money ? ` (${currency})` : ""}`, dimension: false })),
+                                            ...selectedDimensions.map((key) => ({
+                                                key,
+                                                label: REPORT_DIMENSIONS[key].label,
+                                                dimension: true,
+                                            })),
+                                            ...selectedMetrics.map((key) => ({
+                                                key,
+                                                label: `${REPORT_METRICS[key].label}${REPORT_METRICS[key].money ? ` (${currency})` : ""}`,
+                                                dimension: false,
+                                            })),
                                         ].map((col) => (
-                                            <th key={`${col.dimension ? "d" : "m"}-${col.key}`} className="audit-table-header-cell" style={{
-                                                padding: "11px 10px",
-                                                fontSize: "11px",
-                                                fontWeight: 700,
-                                                textTransform: "uppercase",
-                                                letterSpacing: "0.5px",
-                                                color: "#5c5f62",
-                                                whiteSpace: "nowrap",
-                                                minWidth: col.key === "title" ? "200px" : "105px",
-                                            }}>
-                                                <button type="button" onClick={() => handleSort(col.key)} aria-label={`Sort by ${col.label}`} style={{ width: "100%", padding: 0, border: 0, background: "transparent", color: "inherit", font: "inherit", letterSpacing: "inherit", textTransform: "inherit", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px", whiteSpace: "nowrap" }}>
+                                            <th
+                                                key={`${col.dimension ? "d" : "m"}-${col.key}`}
+                                                className="audit-table-header-cell"
+                                                style={{
+                                                    padding: "11px 10px",
+                                                    fontSize: "11px",
+                                                    fontWeight: 700,
+                                                    textTransform: "uppercase",
+                                                    letterSpacing: "0.5px",
+                                                    color: "#5c5f62",
+                                                    whiteSpace: "nowrap",
+                                                    minWidth: col.key === "title" ? "200px" : "105px",
+                                                }}
+                                            >
+                                                <button
+                                                    type="button"
+                                                    onClick={() => handleSort(col.key)}
+                                                    aria-label={`Sort by ${col.label}`}
+                                                    style={{
+                                                        width: "100%",
+                                                        padding: 0,
+                                                        border: 0,
+                                                        background: "transparent",
+                                                        color: "inherit",
+                                                        font: "inherit",
+                                                        letterSpacing: "inherit",
+                                                        textTransform: "inherit",
+                                                        cursor: "pointer",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "space-between",
+                                                        gap: "8px",
+                                                        whiteSpace: "nowrap",
+                                                    }}
+                                                >
                                                     <span>{col.label}</span>
-                                                    <span aria-hidden="true" style={{ width: "10px", display: "inline-flex", flexDirection: "column", alignItems: "center", fontSize: "8px", lineHeight: "7px", color: sortConfig.key === col.key ? "#202223" : "#9a9da1", flexShrink: 0 }}>
-                                                        <span style={{ opacity: sortConfig.key !== col.key || sortConfig.direction === "asc" ? 1 : 0.25 }}>▲</span>
-                                                        <span style={{ opacity: sortConfig.key !== col.key || sortConfig.direction === "desc" ? 1 : 0.25 }}>▼</span>
+                                                    <span
+                                                        aria-hidden="true"
+                                                        style={{
+                                                            width: "10px",
+                                                            display: "inline-flex",
+                                                            flexDirection: "column",
+                                                            alignItems: "center",
+                                                            fontSize: "8px",
+                                                            lineHeight: "7px",
+                                                            color: sortConfig.key === col.key ? "#202223" : "#9a9da1",
+                                                            flexShrink: 0,
+                                                        }}
+                                                    >
+                                                        <span
+                                                            style={{
+                                                                opacity: sortConfig.key !== col.key || sortConfig.direction === "asc" ? 1 : 0.25,
+                                                            }}
+                                                        >
+                                                            ▲
+                                                        </span>
+                                                        <span
+                                                            style={{
+                                                                opacity: sortConfig.key !== col.key || sortConfig.direction === "desc" ? 1 : 0.25,
+                                                            }}
+                                                        >
+                                                            ▼
+                                                        </span>
                                                     </span>
                                                 </button>
                                             </th>
                                         ))}
                                     </tr>
-                                    <tr style={{ background: "#f6f6f7", borderBottom: "1px solid #dfe3e8", fontWeight: 700 }}>
-                                        {selectedDimensions.map((key, index) => <th key={`total-d-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", textAlign: "left" }}>{index === 0 ? "Summary" : ""}</th>)}
+                                    <tr
+                                        style={{
+                                            background: "#f6f6f7",
+                                            borderBottom: "1px solid #dfe3e8",
+                                            fontWeight: 700,
+                                        }}
+                                    >
+                                        {selectedDimensions.map((key, index) => (
+                                            <th
+                                                key={`total-d-${key}`}
+                                                style={{
+                                                    padding: "10px",
+                                                    whiteSpace: "nowrap",
+                                                    textAlign: "left",
+                                                }}
+                                            >
+                                                {index === 0 ? "Summary" : ""}
+                                            </th>
+                                        ))}
                                         {selectedMetrics.map((key) => {
                                             const metric = REPORT_METRICS[key];
                                             const rawValue = tableTotals[key];
-                                            const value = metric.type === "text" ? "—" : metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : rawValue ?? "—";
-                                            return <th key={`total-m-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", textAlign: metric.type ? "left" : "right" }}>{value}</th>;
+                                            const value = metric.type === "text" ? "—" : metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : (rawValue ?? "—");
+                                            return (
+                                                <th
+                                                    key={`total-m-${key}`}
+                                                    style={{
+                                                        padding: "10px",
+                                                        whiteSpace: "nowrap",
+                                                        textAlign: metric.type ? "left" : "right",
+                                                    }}
+                                                >
+                                                    {value}
+                                                </th>
+                                            );
                                         })}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {paginatedRows.map((row, idx) => (
                                         <tr key={`${JSON.stringify(selectedDimensions.map((key) => row[key]))}-${idx}`} className={`audit-product-row ${idx % 2 === 0 ? "even" : "odd"}`}>
-                                            {selectedDimensions.map((key) => <td key={`d-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", fontWeight: key === "title" ? 600 : 400 }}>{row[key] ?? "—"}</td>)}
+                                            {selectedDimensions.map((key) => (
+                                                <td
+                                                    key={`d-${key}`}
+                                                    style={{
+                                                        padding: "10px",
+                                                        whiteSpace: "nowrap",
+                                                        fontWeight: key === "title" ? 600 : 400,
+                                                    }}
+                                                >
+                                                    {row[key] ?? "—"}
+                                                </td>
+                                            ))}
                                             {selectedMetrics.map((key) => {
                                                 const metric = REPORT_METRICS[key];
-                                                const value = metric.money ? formatMoney(row[key], currency) : metric.type === "date" ? formatDate(row[key]) : row[key] ?? "—";
-                                                return <td key={`m-${key}`} style={{ padding: "10px", whiteSpace: "nowrap", textAlign: metric.type ? "left" : "right" }}>{key === "productUrl" && row[key] ? <a href={row[key]} target="_blank" rel="noreferrer">View ↗</a> : value}</td>;
+                                                const value = metric.money ? formatMoney(row[key], currency) : metric.type === "date" ? formatDate(row[key]) : (row[key] ?? "—");
+                                                return (
+                                                    <td
+                                                        key={`m-${key}`}
+                                                        style={{
+                                                            padding: "10px",
+                                                            whiteSpace: "nowrap",
+                                                            textAlign: metric.type ? "left" : "right",
+                                                        }}
+                                                    >
+                                                        {key === "productUrl" && row[key] ? (
+                                                            <a href={row[key]} target="_blank" rel="noreferrer">
+                                                                View ↗
+                                                            </a>
+                                                        ) : (
+                                                            value
+                                                        )}
+                                                    </td>
+                                                );
                                             })}
                                         </tr>
                                     ))}
@@ -1343,3 +2057,5 @@ export function ErrorBoundary() {
 export const headers = (headersArgs) => {
     return boundary.headers(headersArgs);
 };
+
+export const links = () => [{ rel: "stylesheet", href: dateRangeStyles }];

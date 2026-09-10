@@ -757,3 +757,35 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Removed the overlay and negative-margin positioning completely.
 - Product, classification, and launch cohort now use their real two-row table header cells. Those cells are sticky on both axes, opaque, and layered above scrolling month headers and body cells.
 - All header cells and separator lines now share the table's coordinate system, eliminating the separate layer that could shift during sticky activation.
+
+## 2026-09-10 — First-cohort retrospective activity rule
+
+- Cohort assignment still uses the earliest displayed period with starting inventory, ending inventory, or Shopify Total Sales greater than zero.
+- The first displayed cohort additionally checks a retrospective window beginning on the first day two complete calendar months before the selected start month and ending one day before the selected start date. For a report beginning August 15, the window is June 1 through August 14.
+- A retrospective match moves a product into the first displayed cohort only if that product is also active somewhere inside the selected report range. Products active only before the range remain excluded.
+- The same two-calendar-month rule applies to Month and Week grouping. In Week grouping, matched products are assigned to the first displayed weekly cohort.
+- A carried product may be inactive in the first displayed period. Its cohort launch count still includes it, while that period's active SKU count does not; therefore first-cohort NA SKU % can correctly be below 100%.
+- Cohort assignment does not use Shopify `first_day_in_inventory`, so the displayed cohort can differ from the product's original inventory date.
+
+## 2026-09-10 — Calculation drawer FAQs
+
+- Added a collapsible FAQ section inside Calculation Logic & Formulas so methodology answers remain available without creating another page or overcrowding the drawer.
+- FAQs explain a below-100% first-cohort NA SKU %, delayed cohort assignment for older products, and the denominator difference between NA SKU % and NA SKU % (Total).
+- Additional answers clarify that lookback-only products remain excluded and that Month and Week views use the same calendar-month lookback rule.
+- The FAQ also explains that Product Type/Tag summary and cohort contribution percentages retain store-wide denominators; they are not percentages within the selected category and therefore need not total 100%.
+
+## 2026-09-10 — Shared single-window date range picker
+
+- Replaced separate native Start date and End date inputs on Product Audit and New Arrival Analysis with one shared Shopify-style range control.
+- Opening the control creates a local draft range. Calendar selections do not change URL parameters or reload report data until Apply is clicked; Cancel, outside click, and Escape discard the draft.
+- Month and Year selectors provide direct navigation before choosing an exact day, while arrow controls support adjacent-month movement.
+- Each report retains its existing minimum and maximum date constraints. New Arrival Analysis also retains its interval-aware quick-range presets.
+- Both pages use the same reusable component and scoped stylesheet so range interaction remains consistent.
+
+## 2026-09-10 — Dual-calendar date range interaction
+
+- Revised the shared range window to show two coordinated calendars: a dedicated Start date calendar on the left and End date calendar on the right.
+- Each calendar displays its own selected value, preventing ambiguity about which boundary a date click changes.
+- Clicking a calendar's Month/Year heading starts a guided Year → Month → Date selection flow. Outer arrows continue to support quick adjacent-month navigation.
+- Start and end selections remain drafts inside the shared window and are still committed together only through Apply.
+- On narrow screens the two calendars stack vertically inside a scrollable dialog while preserving the same selection behavior.

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  Form,
   Link,
   useFetcher,
   useLoaderData,
+  useNavigate,
   useNavigation,
 } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
@@ -13,7 +13,9 @@ import { getProductCatalog } from "../product-catalog-cache.server";
 import { runWithAnalyticsCache } from "../analytics-cache.server";
 import { runShopifyQL } from "../shopifyql.server";
 import { generateNewArrivalReport } from "../new-arrival-engine.server";
+import DateRangePicker from "../components/DateRangePicker";
 import styles from "../styles/new-arrivals.css?url";
+import dateRangeStyles from "../styles/date-range-picker.css?url";
 
 /* Loader data and local table component props are runtime-validated by React Router. */
 /* eslint-disable react/prop-types */
@@ -347,6 +349,12 @@ function CohortLogicDrawer({ interval, classification }) {
       {formula && <code>Formula: {formula}</code>}
     </article>
   );
+  const faq = (question, answer) => (
+    <details className="logic-faq" key={question}>
+      <summary>{question}</summary>
+      <p>{answer}</p>
+    </details>
+  );
 
   return (
     <>
@@ -398,8 +406,13 @@ function CohortLogicDrawer({ interval, classification }) {
                   {metric(
                     "inventory",
                     `Launch ${periodName === "week" ? "Week" : "Month"}`,
-                    `The earliest ${periodName} where a product showed active inventory or sales. Products active before the selected range are assigned to the first selected ${periodName}.`,
+                    `Normally, this is the earliest ${periodName} inside the selected range where a product showed active inventory or sales. For the first selected ${periodName}, the report also looks back from the first day two complete calendar months before the selected start through the day immediately before it. A product found in that lookback window is carried into the first cohort only when it also becomes active somewhere inside the selected range. It can therefore belong to the first cohort even when it is inactive during that first displayed period, so the first cohort's NA SKU % may be below 100%.`,
                     "startingInventory > 0 OR endingInventory > 0 OR totalSales > 0",
+                  )}
+                  {metric(
+                    "inventory",
+                    "Cohort Date vs. First Inventory Date",
+                    "Cohorts are assigned from inventory and Total Sales activity visible in the report periods plus the limited first-cohort lookback. The calculation does not use Shopify's first_day_in_inventory metric. A product may therefore have been stocked much earlier than the cohort shown, especially after a long out-of-stock gap.",
                   )}
                   {metric(
                     "traffic",
@@ -442,6 +455,34 @@ function CohortLogicDrawer({ interval, classification }) {
                     "Conversion Rate (CR %)",
                     "The share of landing sessions that produced an order containing the product.",
                     "Orders / Landing sessions × 100",
+                  )}
+                </section>
+                <section>
+                  <span className="logic-section-number">04</span>
+                  <h3>Frequently Asked Questions</h3>
+                  {faq(
+                    "Why can the first cohort's NA SKU % be below 100%?",
+                    `The first cohort can include a product that was active during the lookback window and becomes active again later in the selected range, even if it is inactive in the first displayed ${periodName}. That product counts as a launched cohort SKU, but not as an active SKU in the first period. The percentage therefore reflects actual activity and may be below 100%.`,
+                  )}
+                  {faq(
+                    "Why can a product launched earlier appear in a much later cohort?",
+                    `The report does not use the product's original creation date or Shopify's first_day_in_inventory. It assigns the cohort from inventory or Total Sales activity visible inside the selected range, with only a limited lookback for the first cohort. For example, a product originally stocked in April 2025 can appear in an October 2026 cohort if its earlier activity falls outside the lookback and October 2026 is its first qualifying ${periodName} in the selected data.`,
+                  )}
+                  {faq(
+                    "What is the difference between NA SKU % and NA SKU % (Total)?",
+                    "NA SKU % measures retention within one launch cohort: active cohort SKUs in the period divided by all SKUs assigned to that cohort. NA SKU % (Total) measures catalog share: active SKUs from that cohort divided by all active store SKUs in the same period.",
+                  )}
+                  {faq(
+                    "Why are NA Inventory % and NA Sales % not 100% in a Product Type or Product Tag summary?",
+                    "A category summary includes inventory and Total Sales only from products in that Product Type or Tag, while its percentage denominator remains the entire store for the same period. NA Inventory % is category cohort inventory divided by total store inventory, and NA Sales % is category cohort Total Sales divided by total store Total Sales. Each cohort row uses the same store-wide denominator but includes only that cohort's products within the selected category. The percentages therefore show each category or cohort's contribution to the whole store, rather than its share within itself, and are not expected to equal 100%.",
+                  )}
+                  {faq(
+                    "Does activity before the selected range always place a product in the first cohort?",
+                    "No. Only activity in the defined first-cohort lookback window is considered, and the product must also become active somewhere inside the selected range. A product active only before the range is not added to any displayed cohort.",
+                  )}
+                  {faq(
+                    "Does the first-cohort lookback work the same way in Month and Week views?",
+                    "Yes. Both views check the same two-complete-calendar-month lookback plus any days before the selected start within its month. In Week view, a matching product is assigned to the first displayed weekly cohort.",
                   )}
                 </section>
               </div>
@@ -645,6 +686,51 @@ async function fetchPeriod(
   return { period, inventory, sales, storeSales, landingSessions };
 }
 
+function firstCohortLookbackBounds(selectedStart) {
+  const startMonth = selectedStart.slice(0, 7);
+  const endDate = new Date(`${selectedStart}T00:00:00`);
+  endDate.setDate(endDate.getDate() - 1);
+  return {
+    start: `${shiftMonth(startMonth, -2)}-01`,
+    end: dateString(endDate),
+  };
+}
+
+async function fetchFirstCohortLookback(admin, shop, selectedStart) {
+  const { start, end } = firstCohortLookbackBounds(selectedStart);
+  const cached = (dataset, query) =>
+    runWithAnalyticsCache({
+      shop,
+      dataset: `new-arrival-first-cohort-lookback-v1-${dataset}`,
+      rangeStart: start,
+      rangeEnd: end,
+      run: () => runShopifyQL(admin, query),
+    });
+  const [inventory, sales] = await Promise.all([
+    cached(
+      "inventory",
+      `FROM inventory SHOW starting_inventory_units, ending_inventory_units GROUP BY month, product_id SINCE ${start} UNTIL ${end}`,
+    ),
+    cached(
+      "sales",
+      `FROM sales SHOW total_sales GROUP BY month, product_id SINCE ${start} UNTIL ${end}`,
+    ),
+  ]);
+  const activeProductIds = new Set();
+  for (const row of inventory.rows || []) {
+    if (
+      numberFrom(row, "starting_inventory_units") > 0 ||
+      numberFrom(row, "ending_inventory_units") > 0
+    )
+      activeProductIds.add(numericId(row.product_id));
+  }
+  for (const row of sales.rows || []) {
+    if (numberFrom(row, "total_sales") > 0)
+      activeProductIds.add(numericId(row.product_id));
+  }
+  return { start, end, inventory, sales, activeProductIds };
+}
+
 function splitIntoChunks(values, size = 7) {
   const chunks = [];
   for (let index = 0; index < values.length; index += size)
@@ -793,10 +879,16 @@ export const loader = async ({ request }) => {
             range.end,
           ),
         );
-  const [catalog, shopInfo, monthly] = await Promise.all([
+  const lookbackPromise = fetchFirstCohortLookback(
+    admin,
+    session.shop,
+    range.start,
+  );
+  const [catalog, shopInfo, monthly, firstCohortLookback] = await Promise.all([
     getProductCatalog(admin, session.shop),
     shopPromise,
     analyticsPromise,
+    lookbackPromise,
   ]);
   const catalogById = new Map(
     catalog.products.map((product) => [numericId(product.id), product]),
@@ -830,6 +922,27 @@ export const loader = async ({ request }) => {
   const monthlyStoreSales = {};
   const warnings = [];
   const debug = [];
+  for (const [label, query] of [
+    ["First cohort lookback inventory", firstCohortLookback.inventory],
+    ["First cohort lookback sales", firstCohortLookback.sales],
+  ]) {
+    if (query.error)
+      warnings.push(
+        `${firstCohortLookback.start} to ${firstCohortLookback.end} ${label}: ${query.error}`,
+      );
+    if (query.truncated)
+      warnings.push(
+        `${firstCohortLookback.start} to ${firstCohortLookback.end} ${label}: reached the 100,000-row limit.`,
+      );
+    debug.push({
+      month: `${firstCohortLookback.start} to ${firstCohortLookback.end}`,
+      label,
+      rows: query.rows?.length || 0,
+      cache: query.cacheStatus || "live",
+      attempts: query.attempts || 1,
+      time: query.elapsedMs || 0,
+    });
+  }
   for (const result of monthly) {
     const inventoryById = new Map(
       result.inventory.rows.map((row) => [numericId(row.product_id), row]),
@@ -932,6 +1045,7 @@ export const loader = async ({ request }) => {
     {
       categoryOnly,
       deferCategories: !categoryOnly && !exportAll,
+      firstCohortProductIds: firstCohortLookback.activeProductIds,
     },
   );
   if (categoryOnly) return { category: report };
@@ -1755,6 +1869,7 @@ export default function NewArrivalAnalysisPage() {
     catalogRefreshedAt,
   } = useLoaderData();
   const navigation = useNavigation();
+  const navigate = useNavigate();
   const isNavigating = navigation.state !== "idle";
   const [tab, setTab] = useState("analysis");
   const [density, setDensity] = useState("comfortable");
@@ -1877,40 +1992,14 @@ export default function NewArrivalAnalysisPage() {
                 Available from {humanDate(range.earliest)} through yesterday
               </small>
             </div>
-            <Form
-              key={`${range.start}-${range.end}`}
-              method="get"
-              className="range-form"
-            >
-              <input
-                type="hidden"
-                name="classification"
-                value={range.classification}
-              />
-              <input type="hidden" name="interval" value={range.interval} />
-              <label>
-                Start date
-                <input
-                  type="date"
-                  name="start"
-                  defaultValue={range.start}
-                  min={range.earliest}
-                  max={range.yesterday}
-                />
-              </label>
-              <span>→</span>
-              <label>
-                End date
-                <input
-                  type="date"
-                  name="end"
-                  defaultValue={range.end}
-                  min={range.earliest}
-                  max={range.yesterday}
-                />
-              </label>
-              <button type="submit">Apply</button>
-            </Form>
+            <DateRangePicker
+              start={range.start}
+              end={range.end}
+              min={range.earliest}
+              max={range.yesterday}
+              disabled={isNavigating}
+              onApply={(start, end) => navigate(reportUrl({ start, end }))}
+            />
             <CohortLogicDrawer
               interval={range.interval}
               classification={range.classification}
@@ -2095,5 +2184,8 @@ export default function NewArrivalAnalysisPage() {
   );
 }
 
-export const links = () => [{ rel: "stylesheet", href: styles }];
+export const links = () => [
+  { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: dateRangeStyles },
+];
 export const headers = (headersArgs) => boundary.headers(headersArgs);

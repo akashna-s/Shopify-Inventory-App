@@ -674,3 +674,37 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 2. Freeze those cells vertically at `top: 0` and horizontally using their existing column offsets.
 3. Keep the frozen header cells above month headers and table data through a dedicated z-index layer.
 4. Let the browser position every header and divider within one table layout, without overlay transforms or negative margins.
+
+## 2026-09-10 — First-cohort lookback flow
+
+1. Preserve the user's exact selected start and end dates for displayed report periods.
+2. Build a separate retrospective range from the first day two complete months before the selected start month through the day before the selected start.
+3. Fetch product-level inventory and Total Sales activity for that range through the analytics cache.
+4. Identify products with starting inventory, ending inventory, or Total Sales greater than zero in the retrospective range.
+5. Build normal cohorts from activity inside the selected range.
+6. For retrospective matches that also have selected-range activity, replace their calculated launch period with the first displayed cohort.
+7. Leave all later cohort assignment and metric calculations unchanged.
+
+## 2026-09-10 — Methodology FAQ flow
+
+1. Open Calculation Logic & Formulas from the report controls.
+2. Scroll to Frequently Asked Questions.
+3. Expand only the relevant question to see its plain-language answer.
+4. Keep all FAQ state local to the drawer so table filters, sorting, density, and pagination remain unchanged.
+
+## 2026-09-10 — Date range selection flow
+
+1. Click the single displayed date range to open one calendar window.
+2. Use Month and Year selectors or previous/next arrows to navigate.
+3. Select the start date, then select the end date; both values remain local draft state.
+4. Use Cancel, outside click, or Escape to close without changing the report.
+5. Click Apply to write both dates together to the report URL.
+6. Let the existing route loader and loading UI refresh the report once for the completed range.
+
+## 2026-09-10 — Dual-calendar drill-down flow
+
+1. Open the shared range control to see separate Start date and End date calendars.
+2. Use the left calendar exclusively to set the start boundary and the right calendar to set the end boundary.
+3. Click a period heading to choose a year, then a month, then an exact date; alternatively use the outer month arrows.
+4. If a new start exceeds the draft end, align the end to that date; if a new end precedes the draft start, align the start to that date.
+5. Keep all changes local until Apply submits both boundaries together.

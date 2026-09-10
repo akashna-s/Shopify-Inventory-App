@@ -284,6 +284,51 @@
   line-height: 1.4;
   white-space: normal;
 }
+.logic-faq {
+  border: 1px solid #e1e3e5;
+  border-radius: 8px;
+  background: #fff;
+}
+.logic-faq + .logic-faq {
+  margin-top: 8px;
+}
+.logic-faq summary {
+  position: relative;
+  padding: 12px 36px 12px 12px;
+  color: #303030;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.4;
+  list-style: none;
+  cursor: pointer;
+}
+.logic-faq summary::-webkit-details-marker {
+  display: none;
+}
+.logic-faq summary::after {
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  content: "+";
+  color: #616161;
+  font-size: 16px;
+  font-weight: 500;
+  transform: translateY(-50%);
+}
+.logic-faq[open] summary::after {
+  content: "−";
+}
+.logic-faq[open] summary {
+  border-bottom: 1px solid #e8ebef;
+  background: #f7f7f8;
+}
+.logic-faq p {
+  margin: 0;
+  padding: 12px;
+  color: #616161;
+  font-size: 12px;
+  line-height: 1.5;
+}
 .logic-badge {
   display: inline-flex;
   padding: 3px 7px;
