@@ -50,8 +50,8 @@
   top: calc(100% + 8px);
   right: 0;
   z-index: 200;
-  width: 760px;
-  max-width: min(760px, calc(100vw - 32px));
+  width: 620px;
+  max-width: min(620px, calc(100vw - 32px));
   overflow: hidden;
   border: 1px solid #d2d5d8;
   border-radius: 12px;
@@ -64,7 +64,7 @@
 }
 .report-calendar-panel {
   min-width: 0;
-  padding: 14px 12px 12px;
+  padding: 11px 10px 8px;
 }
 .report-calendar-panel + .report-calendar-panel {
   border-left: 1px solid #e1e3e5;
@@ -72,7 +72,7 @@
 .report-calendar-panel-label {
   display: grid;
   gap: 2px;
-  padding: 8px 11px;
+  padding: 6px 9px;
   border: 1px solid #d2d5d8;
   border-radius: 7px;
   background: #f7f7f8;
@@ -87,33 +87,42 @@
   font-size: 12px;
 }
 .report-calendar-toolbar {
-  display: grid;
-  grid-template-columns: 34px 1fr 34px;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 0 7px;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 2px 4px;
 }
-.report-calendar-toolbar > button:not(.report-calendar-period) {
-  width: 32px;
-  height: 32px;
+.report-calendar-navigation {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.report-calendar-navigation button {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
   border: 1px solid transparent;
-  border-radius: 7px;
+  border-radius: 6px;
   background: transparent;
   color: #303030;
-  font-size: 22px;
+  font-size: 19px;
+  line-height: 1;
   cursor: pointer;
 }
+.report-calendar-navigation button:hover,
 .report-calendar-toolbar > button:hover {
   background: #f1f2f4;
 }
 .report-calendar-toolbar .report-calendar-period {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 7px;
+  justify-content: flex-start;
+  gap: 5px;
   width: auto;
-  height: 32px;
-  padding: 0 10px;
+  height: 28px;
+  padding: 0 7px;
   border: 0;
   border-radius: 7px;
   background: transparent;
@@ -121,6 +130,14 @@
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+}
+.report-calendar-period-chevron {
+  display: inline-flex;
+  align-items: center;
+  color: #616161;
+  font-size: 10px;
+  line-height: 1;
+  transform: translateY(1px);
 }
 .report-calendar-weekdays,
 .report-calendar-grid {
@@ -129,7 +146,7 @@
   padding: 0;
 }
 .report-calendar-weekdays span {
-  padding: 7px 0;
+  padding: 5px 0;
   color: #737373;
   font-size: 9px;
   font-weight: 700;
@@ -137,11 +154,11 @@
   text-transform: uppercase;
 }
 .report-calendar-grid {
-  padding-bottom: 12px;
+  padding-bottom: 7px;
 }
 .report-calendar-grid button {
   position: relative;
-  height: 38px;
+  height: 30px;
   border: 0;
   background: transparent;
   color: #303030;
@@ -150,7 +167,7 @@
 }
 .report-calendar-grid button::after {
   position: absolute;
-  inset: 4px;
+  inset: 2px 4px;
   z-index: -1;
   border-radius: 7px;
   content: "";
@@ -181,8 +198,8 @@
   display: grid;
   align-content: start;
   gap: 7px;
-  min-height: 266px;
-  padding: 12px 4px 4px;
+  min-height: 210px;
+  padding: 8px 4px 3px;
 }
 .report-calendar-years {
   grid-template-columns: repeat(3, 1fr);
@@ -192,7 +209,7 @@
 }
 .report-calendar-years button,
 .report-calendar-months button {
-  height: 42px;
+  height: 34px;
   border: 1px solid transparent;
   border-radius: 7px;
   background: transparent;

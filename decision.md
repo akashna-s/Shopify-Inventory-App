@@ -789,3 +789,25 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Clicking a calendar's Month/Year heading starts a guided Year → Month → Date selection flow. Outer arrows continue to support quick adjacent-month navigation.
 - Start and end selections remain drafts inside the shared window and are still committed together only through Apply.
 - On narrow screens the two calendars stack vertically inside a scrollable dialog while preserving the same selection behavior.
+# 2026-09-11 - Compact dual-calendar navigation
+
+- Each Start and End calendar now has its own paired previous/next month controls beside the month label.
+- The shared picker was reduced in width and row height so it fits report screens without dominating the table.
+- Weekday labels use single-letter initials to match the supplied report UI reference.
+# 2026-09-11 - Quick-range semantics and lookback query
+
+- Monthly quick ranges mean the requested number of previous complete calendar months plus the current partial month. For example, Last 12 months on Sep 11, 2026 covers Sep 1, 2025 through Sep 10, 2026.
+- First-cohort lookback queries aggregate directly by product because cohort assignment only needs to know whether each product was active anywhere in that lookback window; month-level grouping was unnecessary and caused the inventory query to fail.
+# 2026-09-11 - Simplified first-cohort explanation
+
+- Replaced the technical lookback sentence in Calculation Logic with a plain-language explanation and an Aug 15 example covering Jun 1 through Aug 14.
+- Clarified that lookback activity alone is insufficient: the product must also become active somewhere within the selected report range.
+# 2026-09-11 - Calculation dictionary clarity
+
+- Both report dictionaries now render from the exact matrix and cohort-detail metric definitions used by the table headers.
+- CR % is described as a directional landing-session indicator, not an exact product conversion rate, because sessions that began elsewhere are outside its denominator.
+- The drawer states the precise first-cohort lookback window and includes examples for ranges starting on the first or a later day of a month.
+# 2026-09-11 - Calculation drawer section navigation
+
+- The four top-level calculation sections are collapsed by default and use accessible native disclosure controls.
+- Expanding or collapsing a section changes only the drawer presentation and does not reset report filters, sorting, or loaded data.

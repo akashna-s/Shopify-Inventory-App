@@ -13,7 +13,7 @@ const firstOfMonth = (value) => {
 const MONTHS = Array.from({ length: 12 }, (_, month) =>
   new Date(2024, month, 1).toLocaleDateString("en-US", { month: "short" }),
 );
-const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
 function readable(value) {
   return asDate(value).toLocaleDateString("en-US", {
@@ -58,8 +58,8 @@ function CalendarPanel({
   rangeEnd,
   onChange,
   onViewChange,
-  previous,
-  next,
+  onPrevious,
+  onNext,
 }) {
   const [mode, setMode] = useState("date");
   const days = useMemo(() => calendarDays(viewDate), [viewDate]);
@@ -88,13 +88,6 @@ function CalendarPanel({
         <strong>{readable(value)}</strong>
       </div>
       <div className="report-calendar-toolbar">
-        {previous ? (
-          <button type="button" aria-label="Previous month" onClick={previous}>
-            ‹
-          </button>
-        ) : (
-          <span />
-        )}
         <button
           type="button"
           className="report-calendar-period"
@@ -106,15 +99,26 @@ function CalendarPanel({
             : mode === "month"
               ? `${viewDate.getFullYear()} · Select month`
               : `${MONTHS[viewDate.getMonth()]} ${viewDate.getFullYear()}`}
-          <span aria-hidden="true">⌄</span>
+          <span className="report-calendar-period-chevron" aria-hidden="true">
+            ▾
+          </span>
         </button>
-        {next ? (
-          <button type="button" aria-label="Next month" onClick={next}>
+        <div className="report-calendar-navigation">
+          <button
+            type="button"
+            aria-label={`Previous month in ${label}`}
+            onClick={onPrevious}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            aria-label={`Next month in ${label}`}
+            onClick={onNext}
+          >
             ›
           </button>
-        ) : (
-          <span />
-        )}
+        </div>
       </div>
 
       {mode === "year" ? (
@@ -285,7 +289,8 @@ export default function DateRangePicker({
               max={max}
               rangeStart={draftStart}
               rangeEnd={draftEnd}
-              previous={() => moveStartMonth(-1)}
+              onPrevious={() => moveStartMonth(-1)}
+              onNext={() => moveStartMonth(1)}
               onViewChange={setStartView}
               onChange={(value) => {
                 setDraftStart(value);
@@ -303,7 +308,8 @@ export default function DateRangePicker({
               max={max}
               rangeStart={draftStart}
               rangeEnd={draftEnd}
-              next={() => moveEndMonth(1)}
+              onPrevious={() => moveEndMonth(-1)}
+              onNext={() => moveEndMonth(1)}
               onViewChange={setEndView}
               onChange={(value) => {
                 setDraftEnd(value);

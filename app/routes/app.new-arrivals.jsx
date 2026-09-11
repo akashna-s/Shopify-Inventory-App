@@ -120,7 +120,7 @@ const MATRIX_METRICS = [
     "conversionRate",
     "CR %",
     "percent",
-    "Landing-session conversion rate for this cohort.",
+    "A directional conversion indicator for the cohort: orders divided by landing sessions. It is not the exact product conversion rate because it counts only sessions that started on a product page, not sessions that reached the product later. Use it to compare cohort performance and guide business or marketing decisions.",
     "Orders / Landing sessions × 100",
     "traffic",
   ],
@@ -186,7 +186,7 @@ const DETAIL_METRICS = [
     "conversionRate",
     "CR %",
     "percent",
-    "Percentage of product landing sessions that resulted in an order containing the product.",
+    "A directional conversion indicator for this product: orders containing the product divided by sessions that started on its product page. It is not the exact product conversion rate because sessions that reached the product after landing elsewhere are not counted. Use it to compare products and guide business or marketing decisions.",
     "Orders / Landing sessions × 100",
     "traffic",
   ],
@@ -400,13 +400,16 @@ function CohortLogicDrawer({ interval, classification }) {
                 </button>
               </header>
               <div className="logic-drawer-content">
-                <section>
-                  <span className="logic-section-number">01</span>
-                  <h3>The Core Mental Model</h3>
+                <details className="logic-main-section">
+                  <summary>
+                    <span className="logic-section-number">01</span>
+                    <h3>The Core Mental Model</h3>
+                  </summary>
+                  <div className="logic-main-section-content">
                   {metric(
                     "inventory",
                     `Launch ${periodName === "week" ? "Week" : "Month"}`,
-                    `Normally, this is the earliest ${periodName} inside the selected range where a product showed active inventory or sales. For the first selected ${periodName}, the report also looks back from the first day two complete calendar months before the selected start through the day immediately before it. A product found in that lookback window is carried into the first cohort only when it also becomes active somewhere inside the selected range. It can therefore belong to the first cohort even when it is inactive during that first displayed period, so the first cohort's NA SKU % may be below 100%.`,
+                    `The report normally places a product in the first ${periodName} where it has inventory or Total Sales. The first cohort gets one extra check: the report looks for product activity during the two full calendar months before the selected start month, plus any earlier days in the selected start month. For example, if the range starts on August 15, the extra check covers June 1 to August 14. If a product was active during that earlier period and becomes active again anywhere inside the selected range, it is placed in the first displayed ${periodName} cohort. If it never becomes active inside the selected range, it is not included. Because a carried-over product may have no activity in the first displayed ${periodName} itself, the first cohort's NA SKU % can be below 100%.`,
                     "startingInventory > 0 OR endingInventory > 0 OR totalSales > 0",
                   )}
                   {metric(
@@ -426,40 +429,38 @@ function CohortLogicDrawer({ interval, classification }) {
                       ? "Overall counts every product once. Tag breakdowns include a multi-tag product once in each tag it carries."
                       : "Products are grouped by their Shopify Product Type. Overall counts every product once.",
                   )}
-                </section>
-                <section>
-                  <span className="logic-section-number">02</span>
-                  <h3>Matrix Metrics Dictionary</h3>
-                  {MATRIX_METRICS.slice(0, 8).map(
+                  </div>
+                </details>
+                <details className="logic-main-section">
+                  <summary>
+                    <span className="logic-section-number">02</span>
+                    <h3>New Arrival Analysis Metrics Dictionary</h3>
+                  </summary>
+                  <div className="logic-main-section-content">
+                  {MATRIX_METRICS.map(
                     ([, name, , definition, formula, tone]) =>
                       metric(tone, name, definition, formula),
                   )}
-                </section>
-                <section>
-                  <span className="logic-section-number">03</span>
-                  <h3>Product Detail Table Metrics</h3>
-                  {metric(
-                    "inventory",
-                    "Starting vs. Ending Inventory",
-                    "Unit counts at day 1 versus the final day of the calendar month.",
-                    "Period-start units compared with period-end units",
+                  </div>
+                </details>
+                <details className="logic-main-section">
+                  <summary>
+                    <span className="logic-section-number">03</span>
+                    <h3>Cohort Details Metrics Dictionary</h3>
+                  </summary>
+                  <div className="logic-main-section-content">
+                  {DETAIL_METRICS.map(
+                    ([, name, , definition, formula, tone]) =>
+                      metric(tone, name, definition, formula),
                   )}
-                  {metric(
-                    "inventory",
-                    "Sell-Through %",
-                    "The share of available units sold during the period.",
-                    "Sales units / (Starting inventory + Restocks) × 100",
-                  )}
-                  {metric(
-                    "traffic",
-                    "Conversion Rate (CR %)",
-                    "The share of landing sessions that produced an order containing the product.",
-                    "Orders / Landing sessions × 100",
-                  )}
-                </section>
-                <section>
-                  <span className="logic-section-number">04</span>
-                  <h3>Frequently Asked Questions</h3>
+                  </div>
+                </details>
+                <details className="logic-main-section">
+                  <summary>
+                    <span className="logic-section-number">04</span>
+                    <h3>Frequently Asked Questions</h3>
+                  </summary>
+                  <div className="logic-main-section-content">
                   {faq(
                     "Why can the first cohort's NA SKU % be below 100%?",
                     `The first cohort can include a product that was active during the lookback window and becomes active again later in the selected range, even if it is inactive in the first displayed ${periodName}. That product counts as a launched cohort SKU, but not as an active SKU in the first period. The percentage therefore reflects actual activity and may be below 100%.`,
@@ -478,13 +479,18 @@ function CohortLogicDrawer({ interval, classification }) {
                   )}
                   {faq(
                     "Does activity before the selected range always place a product in the first cohort?",
-                    "No. Only activity in the defined first-cohort lookback window is considered, and the product must also become active somewhere inside the selected range. A product active only before the range is not added to any displayed cohort.",
+                    "No. The lookback starts on the first day of the month two complete calendar months before the selected start, and ends one day before the selected start. For example, if the report starts on August 15, the lookback is June 1 to August 14. A product found in this period is placed in the first cohort only if it also becomes active somewhere inside the selected range. A product active only before the range is not added to any displayed cohort.",
+                  )}
+                  {faq(
+                    "What is the first-cohort lookback period?",
+                    "It includes the two complete calendar months before the selected start month, plus any earlier days in the selected start month. For example, when the selected range starts on August 15, the report checks June 1 through August 14. When it starts on August 1, it checks June 1 through July 31. The same calendar lookback is used in both Month and Week views.",
                   )}
                   {faq(
                     "Does the first-cohort lookback work the same way in Month and Week views?",
                     "Yes. Both views check the same two-complete-calendar-month lookback plus any days before the selected start within its month. In Week view, a matching product is assigned to the first displayed weekly cohort.",
                   )}
-                </section>
+                  </div>
+                </details>
               </div>
             </aside>
           </div>,
@@ -701,7 +707,7 @@ async function fetchFirstCohortLookback(admin, shop, selectedStart) {
   const cached = (dataset, query) =>
     runWithAnalyticsCache({
       shop,
-      dataset: `new-arrival-first-cohort-lookback-v1-${dataset}`,
+      dataset: `new-arrival-first-cohort-lookback-v2-${dataset}`,
       rangeStart: start,
       rangeEnd: end,
       run: () => runShopifyQL(admin, query),
@@ -709,11 +715,11 @@ async function fetchFirstCohortLookback(admin, shop, selectedStart) {
   const [inventory, sales] = await Promise.all([
     cached(
       "inventory",
-      `FROM inventory SHOW starting_inventory_units, ending_inventory_units GROUP BY month, product_id SINCE ${start} UNTIL ${end}`,
+      `FROM inventory SHOW starting_inventory_units, ending_inventory_units GROUP BY product_id, product_title SINCE ${start} UNTIL ${end}`,
     ),
     cached(
       "sales",
-      `FROM sales SHOW total_sales GROUP BY month, product_id SINCE ${start} UNTIL ${end}`,
+      `FROM sales SHOW total_sales GROUP BY product_id, product_title SINCE ${start} UNTIL ${end}`,
     ),
   ]);
   const activeProductIds = new Set();
@@ -869,16 +875,16 @@ export const loader = async ({ request }) => {
     range.interval === "week"
       ? fetchWeeklyPeriods(admin, session.shop, months, range)
       : mapConcurrent(months, 2, (period) =>
-          fetchPeriod(
-            admin,
-            session.shop,
-            period,
-            range.interval,
-            range.yesterday,
-            range.start,
-            range.end,
-          ),
-        );
+        fetchPeriod(
+          admin,
+          session.shop,
+          period,
+          range.interval,
+          range.yesterday,
+          range.start,
+          range.end,
+        ),
+      );
   const lookbackPromise = fetchFirstCohortLookback(
     admin,
     session.shop,
@@ -1497,11 +1503,11 @@ function exportAnalysis(sections, months, metrics, currency, format) {
                 `<column group="${xmlEscape(section.groupHeader[index])}" metric="${xmlEscape(metric)}"/>`,
             )
             .join("")}</columns><rows>${section.rows
-            .map(
-              (row) =>
-                `<row>${row.map((value) => `<cell>${xmlEscape(value)}</cell>`).join("")}</row>`,
-            )
-            .join("")}</rows></section>`,
+              .map(
+                (row) =>
+                  `<row>${row.map((value) => `<cell>${xmlEscape(value)}</cell>`).join("")}</row>`,
+              )
+              .join("")}</rows></section>`,
       )
       .join("")}</report>`;
   }
@@ -1561,7 +1567,7 @@ function Details({
       (a, b) =>
         ((Number(a.values[sort.month]?.[sort.key]) || 0) -
           (Number(b.values[sort.month]?.[sort.key]) || 0)) *
-          (sort.direction === "asc" ? 1 : -1) ||
+        (sort.direction === "asc" ? 1 : -1) ||
         a.productId.localeCompare(b.productId),
     );
   }, [filteredRows, sort]);
@@ -1571,8 +1577,8 @@ function Details({
       key,
       direction:
         current.month === month &&
-        current.key === key &&
-        current.direction === "asc"
+          current.key === key &&
+          current.direction === "asc"
           ? "desc"
           : "asc",
     }));
@@ -1811,7 +1817,7 @@ function Details({
                         >
                           {row.values[month] ? (
                             key === "endingInventory" &&
-                            Number(row.values[month][key]) === 0 ? (
+                              Number(row.values[month][key]) === 0 ? (
                               <span className="oos-pill">0 · OOS</span>
                             ) : (
                               display(row.values[month][key], type, currency)
@@ -1928,15 +1934,15 @@ export default function NewArrivalAnalysisPage() {
   const quickRanges =
     range.interval === "week"
       ? [
-          [5, "Last 5 weeks"],
-          [8, "Last 8 weeks"],
-          [12, "Last 12 weeks"],
-        ]
+        [5, "Last 5 weeks"],
+        [8, "Last 8 weeks"],
+        [12, "Last 12 weeks"],
+      ]
       : [
-          [3, "Last 3 months"],
-          [6, "Last 6 months"],
-          [12, "Last 12 months"],
-        ];
+        [3, "Last 3 months"],
+        [6, "Last 6 months"],
+        [12, "Last 12 months"],
+      ];
   const weeklyPresetStart = (count) => {
     const currentWeek = new Date(`${startOfWeek(range.yesterday)}T00:00:00`);
     currentWeek.setDate(currentWeek.getDate() - count * 7);
@@ -1946,7 +1952,7 @@ export default function NewArrivalAnalysisPage() {
     if (range.interval === "week") return weeklyPresetStart(count);
     const end = new Date(`${range.end}T00:00:00`);
     return dateString(
-      new Date(end.getFullYear(), end.getMonth() - (count - 1), 1),
+      new Date(end.getFullYear(), end.getMonth() - count, 1),
     );
   };
   const reportUrl = ({

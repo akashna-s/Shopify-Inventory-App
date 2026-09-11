@@ -708,3 +708,27 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 3. Click a period heading to choose a year, then a month, then an exact date; alternatively use the outer month arrows.
 4. If a new start exceeds the draft end, align the end to that date; if a new end precedes the draft start, align the start to that date.
 5. Keep all changes local until Apply submits both boundaries together.
+# 2026-09-11 - Date picker interaction
+
+1. Open the shared date-range picker from either report page.
+2. Navigate the Start and End calendars independently with the paired arrows beside each month heading.
+3. Click the aligned month heading to choose year, then month, then date.
+4. Confirm both draft dates with Apply; closing or cancelling leaves the report range unchanged.
+# 2026-09-11 - Monthly quick ranges
+
+1. Use yesterday as the report end date.
+2. For Last N months, move back N calendar months and use that month's first day.
+3. Include the current partial month, so the output contains N previous calendar months plus the current month.
+4. Fetch first-cohort lookback activity grouped by product and carry matching products into the first displayed cohort under the existing eligibility rules.
+# 2026-09-11 - Calculation drawer reference flow
+
+1. Open Calculation Logic & Formulas.
+2. Use New Arrival Analysis Metrics Dictionary for matrix-column definitions.
+3. Use Cohort Details Metrics Dictionary for every metric shown in the product-level table.
+4. Read CR % as orders divided by landing sessions and use it directionally, since it excludes sessions that began elsewhere.
+5. Use the lookback FAQ to translate the selected start date into its exact pre-range checking window.
+# 2026-09-11 - Calculation drawer accordion
+
+1. Open Calculation Logic & Formulas to see the four section headings.
+2. Select a heading to expand only the reference content needed.
+3. Select the same heading again to collapse it; other report state remains unchanged.
