@@ -41,7 +41,7 @@ export default function PublicLandingPage() {
       <div id="product" className={styles.productFrame}>
         <div className={styles.windowBar}><div className={styles.dots}><i /><i /><i /></div><span>auditbot.app / command-center</span><div className={styles.liveBadge}><i /> LIVE</div></div>
         <div className={styles.dashboard}>
-          <aside className={styles.mockSidebar}><div className={styles.mockLogo}><BrandMark /> Audit Bot</div>{["Overview", "Product audit", "New arrivals", "Order details"].map((item, index) => <div key={item} className={index === 1 ? styles.mockActive : ""}><span className={styles.sideGlyph} />{item}</div>)}</aside>
+          <aside className={styles.mockSidebar}><div className={styles.mockLogo}><BrandMark /> Audit Bot</div>{["Overview", "Product audit", "New arrivals"].map((item, index) => <div key={item} className={index === 1 ? styles.mockActive : ""}><span className={styles.sideGlyph} />{item}</div>)}</aside>
           <div className={styles.mockMain}>
             <div className={styles.mockHeader}><div><small>PRODUCT INTELLIGENCE</small><h3>Inventory Command Center</h3></div><button>Export report</button></div>
             <div className={styles.metricGrid}><article><small>NET SALES</small><strong>₹38.9L</strong><em>↗ 18.4%</em></article><article><small>LANDING SESSIONS</small><strong>142,806</strong><em>↗ 11.2%</em></article><article><small>AT-RISK STOCK</small><strong>287 SKUs</strong><em className={styles.risk}>₹12.4L exposed</em></article><article><small>NEW ARRIVAL CR</small><strong>3.82%</strong><em>↗ 0.6%</em></article></div>

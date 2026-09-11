@@ -19,7 +19,6 @@ function Arrow() {
 const reports = [
   { href: "/app/products", label: "PRODUCT INTELLIGENCE", title: "Run a product audit", copy: "Find inventory, demand, conversion, and revenue signals against every Product ID.", accent: "violet", metric: "01" },
   { href: "/app/new-arrivals", label: "COHORT ANALYSIS", title: "Review new arrivals", copy: "See which launches sustain sales and sessions after their first month in market.", accent: "cyan", metric: "02" },
-  { href: "/app/order-details", label: "ORDER EXPLORER", title: "Inspect order details", copy: "Trace product-level order performance without rebuilding another spreadsheet.", accent: "emerald", metric: "03" },
 ];
 
 export default function CommandCenter() {

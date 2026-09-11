@@ -732,3 +732,32 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 1. Open Calculation Logic & Formulas to see the four section headings.
 2. Select a heading to expand only the reference content needed.
 3. Select the same heading again to collapse it; other report state remains unchanged.
+# 2026-09-11 - Cohort Details filters
+
+1. Search by product title, handle, or Product ID.
+2. Optionally narrow results by Product Type/Tag and Launch Cohort.
+3. Stock status is no longer calculated or applied as a table filter.
+# 2026-09-11 - Report navigation after Order Details removal
+
+1. Home links to Product Audit and New Arrival Analysis.
+2. Opening either report runs only that report's own catalog and analytics queries.
+3. The former `/app/order-details` route and its `orders(first: 250)` GraphQL request no longer exist.
+# 2026-09-11 - Product Audit inventory chunk flow
+
+1. Divide the selected date range into consecutive seven-day inventory ranges.
+2. Fetch at most two ranges simultaneously; each request retains automatic retry behavior.
+3. If a range reaches 100,000 rows, divide that range in half and fetch its smaller ranges.
+4. Merge all daily product rows into the same inventory dataset used by the existing Product Audit calculations.
+5. Cache each successful range separately and warn only when a one-day range remains truncated or a chunk fails.
+# 2026-09-11 - Product Audit date-change feedback
+
+1. Select Start and End dates using the shared dual-calendar picker.
+2. Apply the draft range to begin React Router navigation.
+3. Keep the date header visible, disable date/export controls, and replace the old report content with a loader.
+4. Render debug data, totals, filters, and the product table only after the new range finishes loading.
+# 2026-09-11 - Product Audit dimension-change flow
+
+1. User adds, removes, or reorders a dimension.
+2. Paint the report loader before changing the active dimension list.
+3. Stream through each source row once, updating its group totals and inventory boundaries without storing per-group raw-row arrays.
+4. Reuse the completed grouped result for filtering, sorting, totals, and pagination, then reveal the report.

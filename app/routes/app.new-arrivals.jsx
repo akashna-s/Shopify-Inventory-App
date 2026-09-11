@@ -1526,12 +1526,10 @@ function Details({
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
   const [typeFilter, setTypeFilter] = useState("all");
-  const [stockFilter, setStockFilter] = useState("all");
   const [cohortFilter, setCohortFilter] = useState("all");
   const [isFiltering, setIsFiltering] = useState(false);
   const filterTimer = useRef(null);
   const [sort, setSort] = useState({ month: "", key: "", direction: "asc" });
-  const latestMonth = months.at(-1);
   const detailMetricWidth = density === "compact" ? 86 : 104;
   const detailTableWidth =
     405 + months.length * DETAIL_METRICS.length * detailMetricWidth;
@@ -1550,16 +1548,13 @@ function Details({
       rows.filter((row) => {
         const search =
           `${row.title} ${row.handle} ${row.productId}`.toLowerCase();
-        const ending = Number(row.values[latestMonth]?.endingInventory) || 0;
-        const stock = ending === 0 ? "oos" : ending <= 5 ? "low" : "in";
         return (
           (!query || search.includes(query.toLowerCase())) &&
           (typeFilter === "all" || row.productType === typeFilter) &&
-          (stockFilter === "all" || stock === stockFilter) &&
           (cohortFilter === "all" || row.cohort === cohortFilter)
         );
       }),
-    [rows, query, typeFilter, stockFilter, cohortFilter, latestMonth],
+    [rows, query, typeFilter, cohortFilter],
   );
   const sortedRows = useMemo(() => {
     if (!sort.key) return filteredRows;
@@ -1669,19 +1664,6 @@ function Details({
           {types.map((type) => (
             <option key={type}>{type}</option>
           ))}
-        </select>
-        <select
-          value={stockFilter}
-          onChange={(event) => {
-            markFilterUpdate();
-            setStockFilter(event.target.value);
-            setPage(1);
-          }}
-        >
-          <option value="all">All stock statuses</option>
-          <option value="in">In stock</option>
-          <option value="low">Low stock</option>
-          <option value="oos">Out of stock</option>
         </select>
         <select
           value={cohortFilter}

@@ -295,6 +295,84 @@ async function runShopifyQL(admin, query, { limit = SHOPIFYQL_ROW_LIMIT, debug =
     };
 }
 
+function inventoryDateChunks(start, end, daysPerChunk = 7) {
+    const chunks = [];
+    let cursor = new Date(`${start}T00:00:00`);
+    const finalDate = new Date(`${end}T00:00:00`);
+    while (cursor <= finalDate) {
+        const chunkStart = fmtDate(cursor);
+        const chunkEndDate = new Date(cursor);
+        chunkEndDate.setDate(chunkEndDate.getDate() + daysPerChunk - 1);
+        if (chunkEndDate > finalDate) chunkEndDate.setTime(finalDate.getTime());
+        chunks.push({ start: chunkStart, end: fmtDate(chunkEndDate) });
+        cursor = new Date(chunkEndDate);
+        cursor.setDate(cursor.getDate() + 1);
+    }
+    return chunks;
+}
+
+function combineInventoryChunkResults(results) {
+    const failures = results.filter((result) => result.error);
+    const requestIds = results.map((result) => result.requestId).filter(Boolean);
+    const cacheStates = new Set(results.map((result) => result.cacheStatus).filter(Boolean));
+    return {
+        rows: results.flatMap((result) => result.rows || []),
+        error: failures.length
+            ? `${failures.length} inventory chunk${failures.length === 1 ? "" : "s"} failed: ${[...new Set(failures.map((result) => result.error))].join("; ")}`
+            : null,
+        truncated: results.some((result) => result.truncated),
+        requestId: requestIds.join(", ") || null,
+        rawJson: results.some((result) => result.rawJson)
+            ? results.map((result) => result.rawJson).filter(Boolean)
+            : null,
+        elapsedMs: Math.max(0, ...results.map((result) => Number(result.elapsedMs) || 0)),
+        attempts: results.reduce((total, result) => total + (Number(result.attempts) || 0), 0),
+        cacheStatus: cacheStates.size === 1 ? [...cacheStates][0] : cacheStates.size ? "mixed" : null,
+        chunkCount: results.length,
+    };
+}
+
+async function fetchInventoryChunk(admin, shop, start, end, debug) {
+    const result = await runWithAnalyticsCache({
+        shop,
+        dataset: "inventory-daily-chunk-v3",
+        rangeStart: start,
+        rangeEnd: end,
+        run: () => runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY day, product_id SINCE ${start} UNTIL ${end}`, { debug }),
+    });
+
+    // A very large catalog can still exceed the cap in seven days. Split only
+    // that chunk again until Shopify returns a complete result or one day is left.
+    if (!result.truncated || start === end) return result;
+    const startDate = new Date(`${start}T00:00:00`);
+    const endDate = new Date(`${end}T00:00:00`);
+    const midpoint = new Date(startDate);
+    midpoint.setDate(midpoint.getDate() + Math.floor((endDate - startDate) / 172800000));
+    const rightStart = new Date(midpoint);
+    rightStart.setDate(rightStart.getDate() + 1);
+    const children = [
+        await fetchInventoryChunk(admin, shop, start, fmtDate(midpoint), debug),
+        await fetchInventoryChunk(admin, shop, fmtDate(rightStart), end, debug),
+    ];
+    return combineInventoryChunkResults(children);
+}
+
+async function fetchInventoryInChunks(admin, shop, start, end, debug) {
+    const chunks = inventoryDateChunks(start, end);
+    const results = new Array(chunks.length);
+    let nextIndex = 0;
+    const worker = async () => {
+        while (nextIndex < chunks.length) {
+            const index = nextIndex;
+            nextIndex += 1;
+            const chunk = chunks[index];
+            results[index] = await fetchInventoryChunk(admin, shop, chunk.start, chunk.end, debug);
+        }
+    };
+    await Promise.all(Array.from({ length: Math.min(2, chunks.length) }, worker));
+    return combineInventoryChunkResults(results);
+}
+
 export const loader = async ({ request }) => {
     const { admin, session } = await authenticate.admin(request);
 
@@ -342,13 +420,7 @@ export const loader = async ({ request }) => {
                 rangeEnd: end,
                 run: () => runShopifyQL(admin, `FROM sales SHOW orders SINCE ${start} UNTIL ${end}`, { debug }),
             }),
-            runWithAnalyticsCache({
-                shop: session.shop,
-                dataset: "inventory-daily-v2",
-                rangeStart: start,
-                rangeEnd: end,
-                run: () => runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY day, product_id SINCE ${start} UNTIL ${end}`, { debug }),
-            }),
+            fetchInventoryInChunks(admin, session.shop, start, end, debug),
         ]);
 
         const products = productsResult.products;
@@ -567,6 +639,7 @@ export const loader = async ({ request }) => {
                 elapsedMs: inventoryTotals.elapsedMs,
                 attempts: inventoryTotals.attempts,
                 cacheStatus: inventoryTotals.cacheStatus,
+                chunkCount: inventoryTotals.chunkCount,
             },
         };
 
@@ -740,38 +813,64 @@ function reportWeek(day) {
 }
 
 function aggregateReportRows(sourceRows, dimensions) {
+    const calendarLabels = new Map();
+    const cachedCalendarLabel = (key, create) => {
+        if (!calendarLabels.has(key)) calendarLabels.set(key, create());
+        return calendarLabels.get(key);
+    };
     const dimensionValue = (row, key) => {
-        if (key === "month") return row.day ? formatDate(`${row.day.slice(0, 7)}-01`).replace(/ \d{1,2},/, "") : "—";
-        if (key === "week") return reportWeek(row.day);
-        if (key === "day") return formatDate(row.day);
+        if (key === "month") {
+            if (!row.day) return "—";
+            const month = row.day.slice(0, 7);
+            return cachedCalendarLabel(`month:${month}`, () => formatDate(`${month}-01`).replace(/ \d{1,2},/, ""));
+        }
+        if (key === "week") return cachedCalendarLabel(`week:${row.day || ""}`, () => reportWeek(row.day));
+        if (key === "day") return cachedCalendarLabel(`day:${row.day || ""}`, () => formatDate(row.day));
         if (key === "tags") return (row.tags || []).join(", ");
         return row[key] || "—";
     };
     const groups = new Map();
-    sourceRows.forEach((row) => {
-        const dimensionData = Object.fromEntries(dimensions.map((key) => [key, dimensionValue(row, key)]));
-        const groupKey = JSON.stringify(dimensionData);
-        if (!groups.has(groupKey)) groups.set(groupKey, { ...dimensionData, __rows: [] });
-        groups.get(groupKey).__rows.push(row);
-    });
+    const summedMetrics = Object.keys(REPORT_METRICS).filter(
+        (key) => !["productUrl", "createdAt", "firstDayInInventory", "startingInventory", "endingInventory"].includes(key),
+    );
+
+    for (const row of sourceRows) {
+        const dimensionValues = dimensions.map((key) => dimensionValue(row, key));
+        const groupKey = JSON.stringify(dimensionValues);
+        let group = groups.get(groupKey);
+        if (!group) {
+            group = Object.fromEntries(dimensions.map((key, index) => [key, dimensionValues[index]]));
+            group.productUrl = "";
+            group.createdAt = "";
+            group.firstDayInInventory = null;
+            group.startingInventory = null;
+            group.endingInventory = null;
+            group.__firstInventoryDay = null;
+            group.__lastInventoryDay = null;
+            for (const key of summedMetrics) group[key] = 0;
+            groups.set(groupKey, group);
+        }
+
+        if (!group.productUrl && row.productUrl) group.productUrl = row.productUrl;
+        if (!group.createdAt && row.createdAt) group.createdAt = row.createdAt;
+        if (row.firstDayInInventory && (!group.firstDayInInventory || row.firstDayInInventory < group.firstDayInInventory)) {
+            group.firstDayInInventory = row.firstDayInInventory;
+        }
+        if (row.day && row.startingInventory !== null && row.startingInventory !== undefined && (!group.__firstInventoryDay || row.day < group.__firstInventoryDay)) {
+            group.__firstInventoryDay = row.day;
+            group.startingInventory = row.startingInventory;
+        }
+        if (row.day && row.endingInventory !== null && row.endingInventory !== undefined && (!group.__lastInventoryDay || row.day > group.__lastInventoryDay)) {
+            group.__lastInventoryDay = row.day;
+            group.endingInventory = row.endingInventory;
+        }
+        for (const key of summedMetrics) group[key] += Number(row[key]) || 0;
+    }
+
     return [...groups.values()].map((group) => {
-        const dated = group.__rows.filter((row) => row.day).sort((a, b) => a.day.localeCompare(b.day));
-        const firstInventory = dated.find((row) => row.startingInventory !== null && row.startingInventory !== undefined);
-        const lastInventory = [...dated].reverse().find((row) => row.endingInventory !== null && row.endingInventory !== undefined);
         const result = { ...group };
-        delete result.__rows;
-        Object.keys(REPORT_METRICS).forEach((key) => {
-            if (["productUrl", "createdAt"].includes(key)) result[key] = group.__rows.find((row) => row[key])?.[key] || "";
-            else if (key === "firstDayInInventory")
-                result[key] =
-                    group.__rows
-                        .map((row) => row[key])
-                        .filter(Boolean)
-                        .sort()[0] || null;
-            else if (key === "startingInventory") result[key] = firstInventory?.startingInventory ?? null;
-            else if (key === "endingInventory") result[key] = lastInventory?.endingInventory ?? null;
-            else result[key] = group.__rows.reduce((sum, row) => sum + (Number(row[key]) || 0), 0);
-        });
+        delete result.__firstInventoryDay;
+        delete result.__lastInventoryDay;
         return result;
     });
 }
@@ -842,6 +941,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     const [filters, setFilters] = useState([]);
     const [draggedItem, setDraggedItem] = useState(null);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+    const [isRebuilding, setIsRebuilding] = useState(false);
+    const isReportBusy = isRefreshing || isRebuilding;
     const hasUnattributedSales = Object.values(unattributedSales || {}).some((value) => Number(value) !== 0);
 
     const filteredRows = useMemo(() => {
@@ -946,6 +1047,17 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         setCurrentPage(1);
     };
 
+    const updateDimensions = (updater) => {
+        setIsRebuilding(true);
+        // Let React paint the loading state before the CPU-intensive regrouping.
+        window.requestAnimationFrame(() => {
+            window.setTimeout(() => {
+                setSelectedDimensions(updater);
+                window.requestAnimationFrame(() => setIsRebuilding(false));
+            }, 0);
+        });
+    };
+
     const createExportRows = (sourceRows) =>
         sourceRows.map((row) =>
             Object.fromEntries([
@@ -961,7 +1073,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
 
     const moveSelectedItem = (kind, targetKey) => {
         if (!draggedItem || draggedItem.kind !== kind || draggedItem.key === targetKey) return;
-        const setter = kind === "dimension" ? setSelectedDimensions : setSelectedMetrics;
+        const setter = kind === "dimension" ? updateDimensions : setSelectedMetrics;
         setter((items) => {
             const next = items.filter((key) => key !== draggedItem.key);
             next.splice(next.indexOf(targetKey), 0, draggedItem.key);
@@ -1135,7 +1247,12 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             <style>{`
                 .audit-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 14px; color: #4a4a4a; }
                 .audit-spinner { width: 24px; height: 24px; border: 3px solid #dfe3e8; border-top-color: #005bd3; border-radius: 50%; animation: audit-spin .8s linear infinite; }
-                .audit-refreshing { margin-bottom: 16px; padding: 10px 14px; border-radius: 7px; background: #eef4ff; color: #164c8c; font-size: 13px; }
+                .audit-date-control { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-width: 0; }
+                .audit-date-copy { display: grid; gap: 4px; min-width: 0; color: #303030; }
+                .audit-date-copy > span { color: #616161; font-size: 10px; font-weight: 700; letter-spacing: .08em; }
+                .audit-date-copy > strong { font-size: 16px; line-height: 1.25; }
+                .audit-date-copy > small { color: #616161; font-size: 11px; }
+                .audit-navigation-loading { display: flex; width: calc(100vw - 64px); min-height: 300px; margin-left: calc((100% - 100vw + 64px) / 2); align-items: center; justify-content: center; border: 1px solid #e1e3e5; border-radius: 10px; background: #fff; box-sizing: border-box; }
                 .audit-product-row { border-bottom: 1px solid #f1f2f4; transition: background .1s ease; }
                 .audit-product-row.even { background: #fff; }
                 .audit-product-row.odd { background: #fafbfc; }
@@ -1165,6 +1282,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     .audit-content-grid { grid-template-columns: 1fr; }
                     .audit-left-column { grid-column: 1; }
                     .audit-builder-sidebar { grid-column: 1; grid-row: auto; position: static !important; width: 100%; max-height: none !important; margin-bottom: 16px; }
+                    .audit-navigation-loading { width: calc(100vw - 40px); margin-left: calc((100% - 100vw + 40px) / 2); }
                 }
                 @media (max-width: 680px) {
                     .audit-page { width: calc(100vw - 24px) !important; margin-inline: calc((100% - 100vw + 24px) / 2) !important; }
@@ -1172,6 +1290,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     .audit-top-row, .audit-content-grid { width: calc(100vw - 24px); margin-left: calc((100% - 100vw + 24px) / 2); }
                     .audit-date-section, .audit-export-wrap { grid-column: 1; grid-row: auto; }
                     .audit-export-wrap { justify-content: flex-start !important; padding-top: 0; }
+                    .audit-date-control { align-items: stretch; flex-direction: column; }
+                    .audit-navigation-loading { width: calc(100vw - 24px); margin-left: calc((100% - 100vw + 24px) / 2); }
                 }
                 @keyframes audit-spin { to { transform: rotate(360deg); } }
             `}</style>
@@ -1188,7 +1308,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     <button
                         type="button"
                         onClick={() => setExportOpen((open) => !open)}
-                        disabled={isRefreshing || filteredRows.length === 0}
+                        disabled={isReportBusy || filteredRows.length === 0}
                         aria-expanded={exportOpen}
                         aria-haspopup="menu"
                         style={{
@@ -1199,8 +1319,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                             padding: "8px 16px",
                             fontSize: "14px",
                             fontWeight: "600",
-                            cursor: isRefreshing ? "wait" : filteredRows.length === 0 ? "not-allowed" : "pointer",
-                            opacity: isRefreshing || filteredRows.length === 0 ? 0.65 : 1,
+                            cursor: isReportBusy ? "wait" : filteredRows.length === 0 ? "not-allowed" : "pointer",
+                            opacity: isReportBusy || filteredRows.length === 0 ? 0.65 : 1,
                             display: "inline-flex",
                             alignItems: "center",
                             gap: "8px",
@@ -1215,7 +1335,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                         Export
                         <span aria-hidden="true">{exportOpen ? "▲" : "▼"}</span>
                     </button>
-                    {exportOpen && !isRefreshing && (
+                    {exportOpen && !isReportBusy && (
                         <div
                             role="menu"
                             style={{
@@ -1300,37 +1420,32 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     )}
                 </div>
 
-                {isRefreshing && (
-                    <div className="audit-refreshing" role="status" aria-live="polite">
-                        Updating the report for your new selection… Export will be available when it finishes.
-                    </div>
-                )}
-
                 <div className="audit-date-section">
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "14px",
-                            flexWrap: "wrap",
-                        }}
-                    >
-                        <DateRangePicker start={start} end={end} min={earliest} max={today} disabled={isRefreshing} onApply={navigateRange} />
-                        <div
-                            style={{
-                                fontSize: "13px",
-                                color: "#4a4a4a",
-                                paddingBottom: "8px",
-                            }}
-                        >
+                    <div className="audit-date-control">
+                        <div className="audit-date-copy">
+                            <span>CUSTOM DATE RANGE</span>
                             <strong>{displayRange}</strong>
-                            <br />
-                            Available from {formatDate(earliest)} to {formatDate(today)} (18 full calendar months).
+                            <small>
+                                Available from {formatDate(earliest)} through {formatDate(today)} (18 full calendar months).
+                            </small>
                         </div>
+                        <DateRangePicker start={start} end={end} min={earliest} max={today} disabled={isReportBusy} onApply={navigateRange} />
                     </div>
                 </div>
             </div>
 
+            {isReportBusy ? (
+                <div className="audit-navigation-loading" role="status" aria-live="polite">
+                    <div className="audit-loading">
+                        <div className="audit-spinner" aria-hidden="true" />
+                        <div>
+                            <strong>Loading selected report…</strong>
+                            <div>Fetching and matching data for the new date range.</div>
+                        </div>
+                    </div>
+                </div>
+            ) : (
+                <>
             {productsError && (
                 <s-box padding="base" background="critical" borderRadius="base" style={{ marginBottom: "16px" }}>
                     <s-paragraph style={{ margin: 0 }}>⚠️ Failed to load products: {productsError}</s-paragraph>
@@ -1571,7 +1686,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                 kind: "dimension",
                                 title: "Dimensions",
                                 selected: selectedDimensions,
-                                setSelected: setSelectedDimensions,
+                                setSelected: updateDimensions,
                                 definitions: REPORT_DIMENSIONS,
                                 pickerOpen: dimensionPickerOpen,
                                 setPickerOpen: setDimensionPickerOpen,
@@ -2046,6 +2161,8 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     {renderPagination()}
                 </s-section>
             </div>
+                </>
+            )}
         </s-page>
     );
 }

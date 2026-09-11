@@ -811,3 +811,27 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 
 - The four top-level calculation sections are collapsed by default and use accessible native disclosure controls.
 - Expanding or collapsing a section changes only the drawer presentation and does not reset report filters, sorting, or loaded data.
+# 2026-09-11 - Remove stock-status filter
+
+- Removed the Cohort Details stock-status filter because it was not required.
+- Search, product type/tag, and launch cohort filters remain available.
+# 2026-09-11 - Remove Order Details report
+
+- Removed the standalone Order Details route, its navigation links, and its dedicated Shopify Admin GraphQL orders loader.
+- Product-level Orders metrics in Product Audit and New Arrival Analysis remain because they are independent report calculations.
+- Removed the exclusively-used SheetJS dependency to reduce installed and bundled code.
+# 2026-09-11 - Chunk Product Audit inventory snapshots
+
+- Product Audit inventory is fetched in non-overlapping seven-day chunks with at most two chunks in flight at once.
+- Any chunk that still reaches ShopifyQL's 100,000-row cap is recursively split into smaller date ranges, down to a single day.
+- Complete chunks are cached independently, allowing future overlapping report ranges to reuse existing inventory snapshots.
+# 2026-09-11 - Align Product Audit date UX and navigation loading
+
+- Product Audit now uses the New Arrival control hierarchy: date-range summary on the left and the shared dual-calendar trigger on the right.
+- During date navigation, the prior report body is removed and replaced by a dedicated loading card while the date control remains visible and disabled.
+- Export remains disabled until the new report resolves, preventing stale-range downloads.
+# 2026-09-11 - Prevent Product Audit dimension regrouping freezes
+
+- Replaced group arrays, per-group date sorting, and repeated per-metric reductions with one streaming aggregation pass.
+- Dimension changes paint a loading state before applying the new grouping and keep the report body hidden until the computed result is ready.
+- Date and export controls use the same busy state during both route loading and local dimension regrouping.
