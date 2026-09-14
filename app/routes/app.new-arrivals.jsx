@@ -1514,6 +1514,157 @@ function exportAnalysis(sections, months, metrics, currency, format) {
   downloadExport(content, format, "new-arrival-analysis");
 }
 
+const EXCEL_COLORS = {
+  dark: "FF303030", teal: "FF7FB3BD", green: "FFC6E0B4",
+  blue: "FFA9C7F5", orange: "FFFFC875", header: "FFD9EAD3",
+  total: "FFE1E3E5", white: "FFFFFFFF", border: "FF7A7A7A",
+};
+
+function styleExcelCell(cell, { fill, bold = false, color = "FF202223", alignment = "center" } = {}) {
+  cell.font = { name: "Arial", size: 10, bold, color: { argb: color } };
+  cell.alignment = { horizontal: alignment, vertical: "middle", wrapText: true };
+  cell.border = Object.fromEntries(
+    ["top", "left", "bottom", "right"].map((side) => [side, { style: "thin", color: { argb: EXCEL_COLORS.border } }]),
+  );
+  if (fill) cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: fill } };
+}
+
+function applyExcelNumberFormat(cell, type, currency) {
+  if (type === "percent") cell.numFmt = "0.00%";
+  else if (type === "currency") cell.numFmt = `[$${currency}]#,##0.00`;
+  else cell.numFmt = "#,##0";
+}
+
+function addAnalysisSection(sheet, section, months, metrics, currency, interval, startRow) {
+  const totalColumns = 1 + months.length * metrics.length;
+  sheet.mergeCells(startRow, 1, startRow, totalColumns);
+  const titleCell = sheet.getCell(startRow, 1);
+  titleCell.value = section.title === "Overall" ? "OVERALL ANALYSIS" : section.title.toUpperCase();
+  styleExcelCell(titleCell, { fill: EXCEL_COLORS.dark, bold: true, color: EXCEL_COLORS.white, alignment: "left" });
+  sheet.getRow(startRow).height = 22;
+
+  const groupRow = sheet.getRow(startRow + 1);
+  groupRow.getCell(1).value = interval === "week" ? "WOW Metric" : "MOM Metric";
+  styleExcelCell(groupRow.getCell(1), { bold: true });
+  months.forEach((period, periodIndex) => {
+    const firstColumn = 2 + periodIndex * metrics.length;
+    sheet.mergeCells(startRow + 1, firstColumn, startRow + 1, firstColumn + metrics.length - 1);
+    const cell = groupRow.getCell(firstColumn);
+    cell.value = monthLabel(period);
+    styleExcelCell(cell, { fill: periodIndex % 2 ? EXCEL_COLORS.blue : EXCEL_COLORS.green, bold: true });
+  });
+
+  const metricRow = sheet.getRow(startRow + 2);
+  metricRow.getCell(1).value = "NA Cohorts";
+  styleExcelCell(metricRow.getCell(1), { fill: EXCEL_COLORS.header, bold: true });
+  months.forEach((period, periodIndex) => metrics.forEach(([, label], metricIndex) => {
+    const cell = metricRow.getCell(2 + periodIndex * metrics.length + metricIndex);
+    cell.value = label;
+    styleExcelCell(cell, { fill: EXCEL_COLORS.header, bold: true });
+  }));
+  metricRow.height = 30;
+
+  let rowNumber = startRow + 3;
+  for (const cohortRow of section.matrix.rows) {
+    const row = sheet.getRow(rowNumber);
+    row.getCell(1).value = cohortRow.label;
+    styleExcelCell(row.getCell(1), { bold: true, alignment: "left" });
+    months.forEach((period, periodIndex) => metrics.forEach(([key, , type], metricIndex) => {
+      const cell = row.getCell(2 + periodIndex * metrics.length + metricIndex);
+      cell.value = cohortRow.values[period] ? Number(cohortRow.values[period][key]) || 0 : null;
+      styleExcelCell(cell);
+      applyExcelNumberFormat(cell, type, currency);
+    }));
+    rowNumber += 1;
+  }
+
+  const totalRow = sheet.getRow(rowNumber);
+  totalRow.getCell(1).value = "Grand Total";
+  styleExcelCell(totalRow.getCell(1), { fill: EXCEL_COLORS.total, bold: true });
+  months.forEach((period, periodIndex) => metrics.forEach(([key, , type], metricIndex) => {
+    const cell = totalRow.getCell(2 + periodIndex * metrics.length + metricIndex);
+    cell.value = Number(section.matrix.grand[period]?.[key]) || 0;
+    styleExcelCell(cell, { fill: EXCEL_COLORS.total, bold: true });
+    applyExcelNumberFormat(cell, type, currency);
+  }));
+  return rowNumber + 2;
+}
+
+async function exportCombinedWorkbook(report, metrics, currency, range, classificationLabel) {
+  const ExcelJSModule = await import("exceljs");
+  const ExcelJS = ExcelJSModule.default || ExcelJSModule;
+  const workbook = new ExcelJS.Workbook();
+  workbook.creator = "Audit Bot";
+  workbook.created = new Date();
+
+  const analysisSheet = workbook.addWorksheet("New Arrival Analysis", { views: [{ state: "frozen", xSplit: 1, ySplit: 3 }] });
+  let nextSectionRow = 1;
+  for (const section of analysisSections(report).filter(({ matrix }) => matrix)) {
+    nextSectionRow = addAnalysisSection(
+      analysisSheet,
+      { ...section, title: section.title === "Overall" ? "Overall" : `${classificationLabel}: ${section.title}` },
+      report.months, metrics, currency, range.interval, nextSectionRow,
+    );
+  }
+  analysisSheet.getColumn(1).width = 24;
+  for (let column = 2; column <= 1 + report.months.length * metrics.length; column += 1) analysisSheet.getColumn(column).width = 15;
+
+  const fixedHeaders = ["NA Cohort", "Product Title", "Product ID", classificationLabel, "Product URL"];
+  const detailsSheet = workbook.addWorksheet("Cohort Details", { views: [{ state: "frozen", xSplit: fixedHeaders.length, ySplit: 2 }] });
+  detailsSheet.mergeCells(1, 1, 1, fixedHeaders.length);
+  detailsSheet.getCell(1, 1).value = "Product Details";
+  styleExcelCell(detailsSheet.getCell(1, 1), { fill: EXCEL_COLORS.teal, bold: true });
+  report.months.forEach((period, periodIndex) => {
+    const firstColumn = fixedHeaders.length + 1 + periodIndex * DETAIL_METRICS.length;
+    detailsSheet.mergeCells(1, firstColumn, 1, firstColumn + DETAIL_METRICS.length - 1);
+    const cell = detailsSheet.getCell(1, firstColumn);
+    cell.value = monthLabel(period);
+    styleExcelCell(cell, { fill: EXCEL_COLORS.orange, bold: true });
+  });
+  fixedHeaders.forEach((label, index) => {
+    const cell = detailsSheet.getCell(2, index + 1);
+    cell.value = label;
+    styleExcelCell(cell, { fill: EXCEL_COLORS.teal, bold: true });
+  });
+  report.months.forEach((period, periodIndex) => DETAIL_METRICS.forEach(([, label], metricIndex) => {
+    const cell = detailsSheet.getCell(2, fixedHeaders.length + 1 + periodIndex * DETAIL_METRICS.length + metricIndex);
+    cell.value = label;
+    styleExcelCell(cell, { fill: EXCEL_COLORS.orange, bold: true });
+  }));
+
+  report.details.forEach((detail, detailIndex) => {
+    const row = detailsSheet.getRow(detailIndex + 3);
+    const fixedValues = [`${monthLabel(detail.cohort)} NA`, detail.title, detail.productId, detail.productType, detail.productUrl || ""];
+    fixedValues.forEach((value, index) => {
+      const cell = row.getCell(index + 1);
+      cell.value = value;
+      styleExcelCell(cell, { alignment: index === 1 || index === 4 ? "left" : "center" });
+      if (index === 4 && value) {
+        cell.value = { text: "View product", hyperlink: value };
+        cell.font = { ...cell.font, color: { argb: "FF005BD3" }, underline: true };
+      }
+    });
+    report.months.forEach((period, periodIndex) => DETAIL_METRICS.forEach(([key, , type], metricIndex) => {
+      const cell = row.getCell(fixedHeaders.length + 1 + periodIndex * DETAIL_METRICS.length + metricIndex);
+      cell.value = detail.values[period] ? Number(detail.values[period][key]) || 0 : null;
+      styleExcelCell(cell);
+      applyExcelNumberFormat(cell, type, currency);
+    }));
+  });
+  const totalDetailColumns = fixedHeaders.length + report.months.length * DETAIL_METRICS.length;
+  detailsSheet.autoFilter = { from: { row: 2, column: 1 }, to: { row: 2, column: totalDetailColumns } };
+  [16, 42, 18, 20, 18].forEach((width, index) => { detailsSheet.getColumn(index + 1).width = width; });
+  for (let column = fixedHeaders.length + 1; column <= totalDetailColumns; column += 1) detailsSheet.getColumn(column).width = 16;
+
+  const buffer = await workbook.xlsx.writeBuffer();
+  const url = URL.createObjectURL(new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }));
+  const anchor = document.createElement("a");
+  anchor.href = url;
+  anchor.download = `new-arrival-report-${range.start}-to-${range.end}.xlsx`;
+  anchor.click();
+  URL.revokeObjectURL(url);
+}
+
 function Details({
   rows,
   months,
@@ -1522,6 +1673,8 @@ function Details({
   setDensity,
   classificationLabel,
   interval,
+  onExportWorkbook,
+  exportBusy,
 }) {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
@@ -1614,6 +1767,9 @@ function Details({
           <details className="export-menu">
             <summary>⇩ Export</summary>
             <div>
+              <button disabled={exportBusy} onClick={onExportWorkbook}>
+                {exportBusy ? "Preparing workbook…" : "Excel workbook (both reports)"}
+              </button>
               <button
                 onClick={() =>
                   exportDetails(filteredRows, months, currency, "csv")
@@ -1870,6 +2026,7 @@ export default function NewArrivalAnalysisPage() {
   );
   const analysisExportFetcher = useFetcher();
   const [pendingAnalysisExport, setPendingAnalysisExport] = useState("");
+  const [isWorkbookBuilding, setIsWorkbookBuilding] = useState(false);
   const classificationLabel =
     range.classification === "tag" ? "Product tag" : "Product type";
   const metricByKey = new Map(
@@ -1946,7 +2103,36 @@ export default function NewArrivalAnalysisPage() {
     `?start=${start}&end=${end}&classification=${classification}&interval=${interval}`;
   useEffect(() => {
     const exportedReport = analysisExportFetcher.data?.report;
-    if (!pendingAnalysisExport || !exportedReport) return;
+    const exportedRange = analysisExportFetcher.data?.range;
+    const matchesCurrentReport =
+      exportedRange?.start === range.start &&
+      exportedRange?.end === range.end &&
+      exportedRange?.interval === range.interval &&
+      exportedRange?.classification === range.classification;
+    if (
+      !pendingAnalysisExport ||
+      !exportedReport ||
+      analysisExportFetcher.state !== "idle" ||
+      !matchesCurrentReport
+    )
+      return;
+    if (pendingAnalysisExport === "xlsx") {
+      setPendingAnalysisExport("");
+      setIsWorkbookBuilding(true);
+      exportCombinedWorkbook(
+        exportedReport,
+        metrics,
+        currency,
+        range,
+        classificationLabel,
+      )
+        .catch((error) => {
+          console.error("Workbook export failed", error);
+          window.alert("The Excel workbook could not be created. Please try again.");
+        })
+        .finally(() => setIsWorkbookBuilding(false));
+      return;
+    }
     exportAnalysis(
       analysisSections(exportedReport),
       exportedReport.months,
@@ -1955,7 +2141,7 @@ export default function NewArrivalAnalysisPage() {
       pendingAnalysisExport,
     );
     setPendingAnalysisExport("");
-  }, [analysisExportFetcher.data, currency, metrics, pendingAnalysisExport]);
+  }, [analysisExportFetcher.data, analysisExportFetcher.state, classificationLabel, currency, metrics, pendingAnalysisExport, range]);
   const runAnalysisExport = (format) => {
     setPendingAnalysisExport(format);
     analysisExportFetcher.load(`${reportUrl()}&exportAll=1`);
@@ -2102,6 +2288,7 @@ export default function NewArrivalAnalysisPage() {
                     <summary>⇩ Export</summary>
                     <div>
                       {[
+                        ["xlsx", "Excel workbook (both reports)"],
                         ["csv", "CSV"],
                         ["jsonl", "JSON Lines"],
                         ["xml", "XML"],
@@ -2109,12 +2296,14 @@ export default function NewArrivalAnalysisPage() {
                         <button
                           key={format}
                           disabled={
+                            isWorkbookBuilding ||
                             analysisExportFetcher.state === "loading" ||
                             analysisExportFetcher.state === "submitting"
                           }
                           onClick={() => runAnalysisExport(format)}
                         >
-                          {pendingAnalysisExport === format
+                          {pendingAnalysisExport === format ||
+                          (format === "xlsx" && isWorkbookBuilding)
                             ? "Preparing…"
                             : label}
                         </button>
@@ -2163,6 +2352,12 @@ export default function NewArrivalAnalysisPage() {
                 setDensity={setDensity}
                 classificationLabel={classificationLabel}
                 interval={range.interval}
+                onExportWorkbook={() => runAnalysisExport("xlsx")}
+                exportBusy={
+                  isWorkbookBuilding ||
+                  analysisExportFetcher.state === "loading" ||
+                  analysisExportFetcher.state === "submitting"
+                }
               />
             )}
           </>

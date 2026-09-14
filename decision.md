@@ -835,3 +835,17 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Replaced group arrays, per-group date sorting, and repeated per-metric reductions with one streaming aggregation pass.
 - Dimension changes paint a loading state before applying the new grouping and keep the report body hidden until the computed result is ready.
 - Date and export controls use the same busy state during both route loading and local dimension regrouping.
+
+# 2026-09-14 - Product Audit pending range and inventory throttle recovery
+
+- During route navigation, the date card now reads the pending URL range instead of retaining the previous loader range.
+- Inventory chunk requests are lightly paced; cached chunks are not delayed.
+- After ordinary query retries, only rate-limited inventory chunks are retried in two sequential recovery passes with longer shared cooldowns. Successful chunks are preserved and are not fetched again.
+
+# 2026-09-14 - Unified New Arrival Excel workbook export
+
+- Added a styled `.xlsx` export containing both `New Arrival Analysis` and `Cohort Details` worksheets.
+- The analysis sheet exports Overall followed by every Product Type/Tag classification, including categories not opened in the UI, with merged period headers, metric headers and Grand Total rows.
+- The details sheet exports product identity fields followed by merged month/week metric blocks, hyperlinks product URLs, and freezes the identity columns/header rows.
+- ExcelJS is dynamically imported only when workbook export is requested, keeping the large spreadsheet library out of the normal page-load bundle.
+- Existing CSV, JSON Lines and XML section exports remain available for backward compatibility.

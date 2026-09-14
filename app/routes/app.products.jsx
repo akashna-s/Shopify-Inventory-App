@@ -367,9 +367,34 @@ async function fetchInventoryInChunks(admin, shop, start, end, debug) {
             nextIndex += 1;
             const chunk = chunks[index];
             results[index] = await fetchInventoryChunk(admin, shop, chunk.start, chunk.end, debug);
+            // Avoid turning a long report into a sustained burst of ShopifyQL
+            // requests. Cached chunks return immediately, while live requests get
+            // a small gap that lets Shopify's throttle budget recover.
+            if (results[index]?.cacheStatus !== "hit") await wait(350);
         }
     };
     await Promise.all(Array.from({ length: Math.min(2, chunks.length) }, worker));
+
+    // An individual query already retries short failures. If Shopify throttles a
+    // larger batch, wait for the shared budget to recover and replay only the
+    // failed chunks, sequentially. Successful chunks stay cached and are not run
+    // again. Two recovery passes keep the request bounded while handling longer
+    // throttle windows much more reliably.
+    for (let recoveryPass = 1; recoveryPass <= 2; recoveryPass += 1) {
+        const failedIndexes = results
+            .map((result, index) => ({ result, index }))
+            .filter(({ result }) => result?.error && isRetryableShopifyQLError(result.error))
+            .map(({ index }) => index);
+        if (!failedIndexes.length) break;
+
+        await wait(recoveryPass * 5000);
+        for (const index of failedIndexes) {
+            const chunk = chunks[index];
+            results[index] = await fetchInventoryChunk(admin, shop, chunk.start, chunk.end, debug);
+            await wait(750);
+        }
+    }
+
     return combineInventoryChunkResults(results);
 }
 
@@ -943,6 +968,11 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
     const [isRebuilding, setIsRebuilding] = useState(false);
     const isReportBusy = isRefreshing || isRebuilding;
+    const pendingSearch = useNavigation().location?.search;
+    const pendingParams = pendingSearch ? new URLSearchParams(pendingSearch) : null;
+    const visibleStart = pendingParams?.get("start") || start;
+    const visibleEnd = pendingParams?.get("end") || end;
+    const visibleDisplayRange = isRefreshing ? `${formatDate(visibleStart)} – ${formatDate(visibleEnd)}` : displayRange;
     const hasUnattributedSales = Object.values(unattributedSales || {}).some((value) => Number(value) !== 0);
 
     const filteredRows = useMemo(() => {
@@ -1424,12 +1454,12 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                     <div className="audit-date-control">
                         <div className="audit-date-copy">
                             <span>CUSTOM DATE RANGE</span>
-                            <strong>{displayRange}</strong>
+                            <strong>{visibleDisplayRange}</strong>
                             <small>
                                 Available from {formatDate(earliest)} through {formatDate(today)} (18 full calendar months).
                             </small>
                         </div>
-                        <DateRangePicker start={start} end={end} min={earliest} max={today} disabled={isReportBusy} onApply={navigateRange} />
+                        <DateRangePicker start={visibleStart} end={visibleEnd} min={earliest} max={today} disabled={isReportBusy} onApply={navigateRange} />
                     </div>
                 </div>
             </div>

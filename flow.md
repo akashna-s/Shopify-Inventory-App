@@ -761,3 +761,21 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 2. Paint the report loader before changing the active dimension list.
 3. Stream through each source row once, updating its group totals and inventory boundaries without storing per-group raw-row arrays.
 4. Reuse the completed grouped result for filtering, sorting, totals, and pagination, then reveal the report.
+
+# 2026-09-14 - Product Audit range loading and throttle recovery
+
+1. User applies a new date range and React Router starts navigation with the new `start` and `end` URL values.
+2. The visible date card immediately uses those pending URL values while the previous report body is replaced by the loader.
+3. Inventory runs in seven-day chunks with a small gap between live ShopifyQL requests.
+4. Each chunk first uses the normal per-query automatic retries.
+5. If Shopify still rate-limits part of the batch, wait for its shared request budget to recover and retry only failed chunks sequentially.
+6. Merge successful and recovered chunks, then display the new report. Show an incomplete-data warning only for chunks that still fail after both recovery passes.
+
+# 2026-09-14 - New Arrival combined workbook export
+
+1. User selects `Excel workbook (both reports)` from either New Arrival export menu.
+2. Fetch the complete report with `exportAll=1`, so collapsed Product Type/Tag sections are calculated without requiring the user to open them.
+3. Lazy-load ExcelJS after the export action, leaving normal report loading unchanged.
+4. Build `New Arrival Analysis` with Overall and all classifications, merged period groups, metric headers, cohort rows and Grand Total rows.
+5. Build `Cohort Details` with product columns, linked Product URLs and grouped metric columns for every selected month/week.
+6. Apply spreadsheet styling, number formats, filters and freeze panes, then download one `.xlsx` file containing both worksheets.
