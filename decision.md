@@ -849,3 +849,14 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - The details sheet exports product identity fields followed by merged month/week metric blocks, hyperlinks product URLs, and freezes the identity columns/header rows.
 - ExcelJS is dynamically imported only when workbook export is requested, keeping the large spreadsheet library out of the normal page-load bundle.
 - Existing CSV, JSON Lines and XML section exports remain available for backward compatibility.
+
+# 2026-09-15 - Neutral zero-value cohort heatmaps
+
+- Zero and missing percentage values no longer receive the low-performance red heatmap because zero is absence of measured performance, not a weak positive result.
+- The low heatmap is now reserved for positive percentages below 5%; zero and missing values use subdued Polaris gray text.
+
+# 2026-09-15 - Zero-shift product identification popover
+
+- Cohort Details keeps its existing compact product column and row density while exposing full product information through a delayed hover/focus card.
+- The card renders through a document-body portal with fixed positioning so table overflow and sticky columns cannot clip it.
+- Shopify Admin URLs are derived from the already-fetched store handle and product ID, requiring no additional API request.

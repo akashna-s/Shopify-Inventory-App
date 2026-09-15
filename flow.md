@@ -779,3 +779,18 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 4. Build `New Arrival Analysis` with Overall and all classifications, merged period groups, metric headers, cohort rows and Grand Total rows.
 5. Build `Cohort Details` with product columns, linked Product URLs and grouped metric columns for every selected month/week.
 6. Apply spreadsheet styling, number formats, filters and freeze panes, then download one `.xlsx` file containing both worksheets.
+
+# 2026-09-15 - Cohort percentage heatmap flow
+
+1. Read the percentage value for a matrix or Cohort Details cell.
+2. If it is zero or missing, render neutral gray text without a heatmap background.
+3. If it is greater than zero but below 5%, apply the low-performance heatmap.
+4. Continue using the existing mid and high thresholds for all other positive values.
+
+# 2026-09-15 - Cohort product hover flow
+
+1. User rests the pointer on, or keyboards into, a product cell.
+2. Wait 180ms to distinguish intentional inspection from table scrolling.
+3. Measure the product cell and place a fixed 300px card within the visible browser viewport.
+4. Render the card through `document.body` with product image, full title, type, launch cohort, Product ID and Shopify Admin link.
+5. Remove the card shortly after pointer/focus leaves, without changing table width or row height.

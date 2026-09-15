@@ -1058,6 +1058,7 @@ export const loader = async ({ request }) => {
   return {
     report,
     currency: shopInfo.currency,
+    storeHandle: shopInfo.storeHandle,
     range,
     warnings: [...new Set(warnings)],
     debug,
@@ -1090,15 +1091,117 @@ function heatClass(key, value) {
     ].includes(key)
   )
     return "";
+  if (value === 0 || !value) return "";
   if (value > 0.3) return "heat-high";
-  if (value < 0.05) return "heat-low";
+  if (value > 0 && value < 0.05) return "heat-low";
   return "heat-mid";
 }
 
 function MetricValue({ type, value, currency }) {
+  if (value === null || value === undefined)
+    return <span className="metric-empty">—</span>;
+  if (type === "percent" && !Number(value))
+    return <span className="metric-zero">0.0%</span>;
   if (type === "inventory" && Number(value) === 0)
     return <span className="oos-pill">0 · OOS</span>;
   return display(value, type, currency);
+}
+
+function ProductHoverCard({ product, storeHandle, children }) {
+  const [position, setPosition] = useState(null);
+  const [imageFailed, setImageFailed] = useState(false);
+  const showTimer = useRef(null);
+  const hideTimer = useRef(null);
+
+  const clearTimers = useCallback(() => {
+    window.clearTimeout(showTimer.current);
+    window.clearTimeout(hideTimer.current);
+  }, []);
+  const scheduleShow = useCallback((target) => {
+    window.clearTimeout(hideTimer.current);
+    window.clearTimeout(showTimer.current);
+    const rect = target.getBoundingClientRect();
+    showTimer.current = window.setTimeout(() => {
+      const width = 300;
+      const estimatedHeight = 150;
+      const gap = 8;
+      const left = Math.max(
+        12,
+        Math.min(rect.right + gap, window.innerWidth - width - 12),
+      );
+      const top = Math.max(
+        12,
+        Math.min(rect.top, window.innerHeight - estimatedHeight - 12),
+      );
+      setPosition({ top, left });
+    }, 180);
+  }, []);
+  const scheduleHide = useCallback(() => {
+    window.clearTimeout(showTimer.current);
+    hideTimer.current = window.setTimeout(() => setPosition(null), 120);
+  }, []);
+
+  useEffect(() => clearTimers, [clearTimers]);
+  useEffect(() => setImageFailed(false), [product.imageUrl]);
+
+  const adminUrl = storeHandle
+    ? `https://admin.shopify.com/store/${storeHandle}/products/${product.productId}`
+    : product.productUrl;
+  const cohort = `${monthLabel(product.cohort)} NA`;
+  const popoverId = `product-hover-${product.productId}-${String(product.productType).replace(/\W+/g, "-")}`;
+
+  return (
+    <>
+      <div
+        className="product-hover-trigger"
+        aria-describedby={position ? popoverId : undefined}
+        onMouseEnter={(event) => scheduleShow(event.currentTarget)}
+        onMouseLeave={scheduleHide}
+        onFocus={(event) => scheduleShow(event.currentTarget)}
+        onBlur={scheduleHide}
+      >
+        {children}
+      </div>
+      {position &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div
+            id={popoverId}
+            className="product-hover-card"
+            style={{ top: position.top, left: position.left }}
+            role="tooltip"
+            onMouseEnter={() => window.clearTimeout(hideTimer.current)}
+            onMouseLeave={scheduleHide}
+          >
+            <div className="product-hover-main">
+              {product.imageUrl && !imageFailed ? (
+                <img
+                  src={product.imageUrl}
+                  alt=""
+                  onError={() => setImageFailed(true)}
+                />
+              ) : (
+                <span className="product-hover-placeholder">◇</span>
+              )}
+              <strong>{product.title}</strong>
+            </div>
+            <div className="product-hover-meta">
+              <span className="type-badge">{product.productType}</span>
+              <span className="cohort-badge">{cohort}</span>
+            </div>
+            <div className="product-hover-footer">
+              <code>{product.productId}</code>
+              {adminUrl ? (
+                <a href={adminUrl} target="_blank" rel="noreferrer">
+                  Open in Shopify Admin ↗
+                </a>
+              ) : null}
+            </div>
+          </div>,
+          document.body,
+        )}
+    </>
+  );
 }
 
 function LoadingState({ title = "Updating report", compact = false }) {
@@ -1675,6 +1778,7 @@ function Details({
   interval,
   onExportWorkbook,
   exportBusy,
+  storeHandle,
 }) {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
@@ -1920,24 +2024,26 @@ function Details({
                     key={`${row.productId}-${row.productType}`}
                   >
                     <td>
-                      <div className="product-cell">
-                        {row.imageUrl ? (
-                          <img src={row.imageUrl} alt="" />
-                        ) : (
-                          <span className="image-placeholder">◇</span>
-                        )}
-                        <div>
-                          <a
-                            href={row.productUrl || undefined}
-                            target="_blank"
-                            rel="noreferrer"
-                            title={row.title}
-                          >
-                            {row.title}
-                          </a>
-                          <small>Product ID {row.productId}</small>
+                      <ProductHoverCard product={row} storeHandle={storeHandle}>
+                        <div className="product-cell">
+                          {row.imageUrl ? (
+                            <img src={row.imageUrl} alt="" />
+                          ) : (
+                            <span className="image-placeholder">◇</span>
+                          )}
+                          <div>
+                            <a
+                              href={row.productUrl || undefined}
+                              target="_blank"
+                              rel="noreferrer"
+                              title={row.title}
+                            >
+                              {row.title}
+                            </a>
+                            <small>Product ID {row.productId}</small>
+                          </div>
                         </div>
-                      </div>
+                      </ProductHoverCard>
                     </td>
                     <td>
                       <span className="type-badge">{row.productType}</span>
@@ -1957,11 +2063,14 @@ function Details({
                             key === "endingInventory" &&
                               Number(row.values[month][key]) === 0 ? (
                               <span className="oos-pill">0 · OOS</span>
+                            ) : type === "percent" &&
+                              !Number(row.values[month][key]) ? (
+                              <span className="metric-zero">0.0%</span>
                             ) : (
                               display(row.values[month][key], type, currency)
                             )
                           ) : (
-                            "—"
+                            <span className="metric-empty">—</span>
                           )}
                         </td>
                       )),
@@ -2011,6 +2120,7 @@ export default function NewArrivalAnalysisPage() {
     debug,
     catalogSource,
     catalogRefreshedAt,
+    storeHandle,
   } = useLoaderData();
   const navigation = useNavigation();
   const navigate = useNavigate();
@@ -2358,6 +2468,7 @@ export default function NewArrivalAnalysisPage() {
                   analysisExportFetcher.state === "loading" ||
                   analysisExportFetcher.state === "submitting"
                 }
+                storeHandle={storeHandle}
               />
             )}
           </>
