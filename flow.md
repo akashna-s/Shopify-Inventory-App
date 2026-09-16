@@ -792,5 +792,28 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 1. User rests the pointer on, or keyboards into, a product cell.
 2. Wait 180ms to distinguish intentional inspection from table scrolling.
 3. Measure the product cell and place a fixed 300px card within the visible browser viewport.
-4. Render the card through `document.body` with product image, full title, type, launch cohort, Product ID and Shopify Admin link.
+4. Render the card through `document.body` with product image, full title, type, launch cohort, Product ID and live storefront link.
 5. Remove the card shortly after pointer/focus leaves, without changing table width or row height.
+
+# 2026-09-16 - Product hover presentation
+
+1. Hovering or focusing the product link starts only the custom 180ms intent timer; no native title tooltip is available.
+2. Place the 320px card 12px beyond the product cell's right edge and 10px above its top edge, bounded horizontally to the viewport.
+3. Render the fully opaque card above all table and Shopify Admin layers with the existing interactive content.
+
+# 2026-09-16 - Live product URL flow
+
+1. Read the shop's live primary domain once with the existing shop metadata request.
+2. Combine that domain with each catalog product handle as `/products/{handle}`.
+3. Store this canonical storefront URL on the report row without falling back to an Admin URL.
+4. Reuse the row URL for the table title, hover-card action, CSV/JSONL/XML exports and combined Excel workbook.
+
+# 2026-09-16 - Cohort Details product search flow
+
+1. If the input contains `/products/{handle}`, extract that handle and match it exactly.
+2. Otherwise normalize the entered query and each product's title, handle and ID to lowercase words without punctuation differences.
+3. Match the normalized query against product titles first.
+4. Compare the normalized words so visually identical titles still match when their original dash or spacing characters differ.
+5. If the entered storefront title extends the complete report title with a trailing code, retain the product as a match.
+6. Only when no title matches exist, fall back to Product Handle and Product ID matching.
+7. Apply Product Type and Launch Cohort filters after the text match as before.

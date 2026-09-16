@@ -857,7 +857,6 @@ export const loader = async ({ request }) => {
     query NewArrivalShop {
       shop {
         currencyCode
-        myshopifyDomain
         primaryDomain { url }
       }
     }`,
@@ -866,10 +865,6 @@ export const loader = async ({ request }) => {
     .then((json) => ({
       currency: json.data?.shop?.currencyCode || "USD",
       shopUrl: json.data?.shop?.primaryDomain?.url || "",
-      storeHandle: String(json.data?.shop?.myshopifyDomain || "").replace(
-        /\.myshopify\.com$/i,
-        "",
-      ),
     }));
   const analyticsPromise =
     range.interval === "week"
@@ -988,9 +983,6 @@ export const loader = async ({ request }) => {
         product.handle && shopInfo.shopUrl
           ? `${shopInfo.shopUrl.replace(/\/$/, "")}/products/${product.handle}`
           : "";
-      const adminUrl = shopInfo.storeHandle
-        ? `https://admin.shopify.com/store/${shopInfo.storeHandle}/products/${productId}`
-        : "";
       sourceRows.push({
         productId,
         period: result.period,
@@ -1001,7 +993,7 @@ export const loader = async ({ request }) => {
           `Product ${productId}`,
         productType: product.productType || "Others",
         productTags: product.tags || [],
-        productUrl: storefrontUrl || adminUrl,
+        productUrl: storefrontUrl,
         handle: product.handle || "",
         imageUrl: product.featuredImage?.url || "",
         startingInventory: numberFrom(inventory, "starting_inventory_units"),
@@ -1058,7 +1050,6 @@ export const loader = async ({ request }) => {
   return {
     report,
     currency: shopInfo.currency,
-    storeHandle: shopInfo.storeHandle,
     range,
     warnings: [...new Set(warnings)],
     debug,
@@ -1107,7 +1098,7 @@ function MetricValue({ type, value, currency }) {
   return display(value, type, currency);
 }
 
-function ProductHoverCard({ product, storeHandle, children }) {
+function ProductHoverCard({ product, children }) {
   const [position, setPosition] = useState(null);
   const [imageFailed, setImageFailed] = useState(false);
   const showTimer = useRef(null);
@@ -1122,17 +1113,12 @@ function ProductHoverCard({ product, storeHandle, children }) {
     window.clearTimeout(showTimer.current);
     const rect = target.getBoundingClientRect();
     showTimer.current = window.setTimeout(() => {
-      const width = 300;
-      const estimatedHeight = 150;
-      const gap = 8;
+      const width = 320;
       const left = Math.max(
         12,
-        Math.min(rect.right + gap, window.innerWidth - width - 12),
+        Math.min(rect.right + 12, window.innerWidth - width - 12),
       );
-      const top = Math.max(
-        12,
-        Math.min(rect.top, window.innerHeight - estimatedHeight - 12),
-      );
+      const top = Math.max(12, rect.top - 10);
       setPosition({ top, left });
     }, 180);
   }, []);
@@ -1144,9 +1130,6 @@ function ProductHoverCard({ product, storeHandle, children }) {
   useEffect(() => clearTimers, [clearTimers]);
   useEffect(() => setImageFailed(false), [product.imageUrl]);
 
-  const adminUrl = storeHandle
-    ? `https://admin.shopify.com/store/${storeHandle}/products/${product.productId}`
-    : product.productUrl;
   const cohort = `${monthLabel(product.cohort)} NA`;
   const popoverId = `product-hover-${product.productId}-${String(product.productType).replace(/\W+/g, "-")}`;
 
@@ -1191,9 +1174,9 @@ function ProductHoverCard({ product, storeHandle, children }) {
             </div>
             <div className="product-hover-footer">
               <code>{product.productId}</code>
-              {adminUrl ? (
-                <a href={adminUrl} target="_blank" rel="noreferrer">
-                  Open in Shopify Admin ↗
+              {product.productUrl ? (
+                <a href={product.productUrl} target="_blank" rel="noreferrer">
+                  View product ↗
                 </a>
               ) : null}
             </div>
@@ -1768,6 +1751,32 @@ async function exportCombinedWorkbook(report, metrics, currency, range, classifi
   URL.revokeObjectURL(url);
 }
 
+function normalizeProductSearch(value) {
+  return String(value || "")
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function matchesProductTitle(row, needle) {
+  const title = normalizeProductSearch(row.title);
+  return (
+    title.includes(needle) ||
+    (title.length >= 6 && needle.startsWith(`${title} `))
+  );
+}
+
+function productHandleFromQuery(value) {
+  const match = String(value || "").match(/\/products\/([^/?#]+)/i);
+  if (!match) return "";
+  try {
+    return normalizeProductSearch(decodeURIComponent(match[1]));
+  } catch {
+    return normalizeProductSearch(match[1]);
+  }
+}
+
 function Details({
   rows,
   months,
@@ -1778,7 +1787,6 @@ function Details({
   interval,
   onExportWorkbook,
   exportBusy,
-  storeHandle,
 }) {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
@@ -1800,19 +1808,32 @@ function Details({
     () => [...new Set(rows.map((row) => row.productType))].sort(),
     [rows],
   );
-  const filteredRows = useMemo(
-    () =>
-      rows.filter((row) => {
-        const search =
-          `${row.title} ${row.handle} ${row.productId}`.toLowerCase();
-        return (
-          (!query || search.includes(query.toLowerCase())) &&
+  const filteredRows = useMemo(() => {
+    const needle = normalizeProductSearch(query);
+    const urlHandle = productHandleFromQuery(query);
+    let searchMatches = rows;
+    if (urlHandle) {
+      searchMatches = rows.filter(
+        (row) => normalizeProductSearch(row.handle) === urlHandle,
+      );
+    } else if (needle) {
+      const titleMatches = rows.filter((row) =>
+        matchesProductTitle(row, needle),
+      );
+      searchMatches = titleMatches.length
+        ? titleMatches
+        : rows.filter(
+            (row) =>
+              normalizeProductSearch(row.handle).includes(needle) ||
+              normalizeProductSearch(row.productId).includes(needle),
+          );
+    }
+    return searchMatches.filter(
+      (row) =>
           (typeFilter === "all" || row.productType === typeFilter) &&
-          (cohortFilter === "all" || row.cohort === cohortFilter)
-        );
-      }),
-    [rows, query, typeFilter, cohortFilter],
-  );
+          (cohortFilter === "all" || row.cohort === cohortFilter),
+    );
+  }, [rows, query, typeFilter, cohortFilter]);
   const sortedRows = useMemo(() => {
     if (!sort.key) return filteredRows;
     return [...filteredRows].sort(
@@ -1909,7 +1930,7 @@ function Details({
               setQuery(event.target.value);
               setPage(1);
             }}
-            placeholder="Search title, handle, or Product ID"
+            placeholder="Search title, handle, Product ID, or URL"
           />
         </label>
         <select
@@ -2024,7 +2045,7 @@ function Details({
                     key={`${row.productId}-${row.productType}`}
                   >
                     <td>
-                      <ProductHoverCard product={row} storeHandle={storeHandle}>
+                      <ProductHoverCard product={row}>
                         <div className="product-cell">
                           {row.imageUrl ? (
                             <img src={row.imageUrl} alt="" />
@@ -2036,7 +2057,6 @@ function Details({
                               href={row.productUrl || undefined}
                               target="_blank"
                               rel="noreferrer"
-                              title={row.title}
                             >
                               {row.title}
                             </a>
@@ -2120,7 +2140,6 @@ export default function NewArrivalAnalysisPage() {
     debug,
     catalogSource,
     catalogRefreshedAt,
-    storeHandle,
   } = useLoaderData();
   const navigation = useNavigation();
   const navigate = useNavigate();
@@ -2468,7 +2487,6 @@ export default function NewArrivalAnalysisPage() {
                   analysisExportFetcher.state === "loading" ||
                   analysisExportFetcher.state === "submitting"
                 }
-                storeHandle={storeHandle}
               />
             )}
           </>

@@ -859,4 +859,22 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 
 - Cohort Details keeps its existing compact product column and row density while exposing full product information through a delayed hover/focus card.
 - The card renders through a document-body portal with fixed positioning so table overflow and sticky columns cannot clip it.
-- Shopify Admin URLs are derived from the already-fetched store handle and product ID, requiring no additional API request.
+- Product links reuse the live storefront URL already prepared for each report row, requiring no additional API request.
+
+# 2026-09-16 - Single elevated product hover card
+
+- Removed the product link's native HTML title tooltip so only the custom product card appears.
+- Increased the card's opaque elevation and offset it from the product cell, keeping the pointer clear of its content while preserving viewport-safe horizontal placement.
+
+# 2026-09-16 - Canonical storefront product links
+
+- Product links now use only the shop's live primary domain plus the product handle; Shopify Admin URLs are no longer used as a fallback.
+- The same canonical storefront URL is shared by the table, hover card, and all export formats so clicks and downloaded reports remain consistent.
+
+# 2026-09-16 - Resilient Cohort Details product search
+
+- Product search now normalizes case, punctuation, hyphens and repeated spacing before matching title, handle or Product ID.
+- Full-title searches now tolerate visually similar but technically different separators, such as hyphens, Unicode dashes, non-breaking spaces and repeated whitespace.
+- The query-prefix safeguard also handles a storefront title that legitimately extends the report title with an additional trailing code.
+- Title matches now take priority over handle matches. This prevents a renamed product from appearing merely because its older URL handle still contains the searched title; handle and Product ID remain fallbacks when no title matches.
+- Pasted storefront URLs are treated as explicit handle searches: the `/products/{handle}` segment is extracted and matched exactly instead of comparing the entire domain URL to a handle.
