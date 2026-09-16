@@ -817,3 +817,14 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 5. If the entered storefront title extends the complete report title with a trailing code, retain the product as a match.
 6. Only when no title matches exist, fall back to Product Handle and Product ID matching.
 7. Apply Product Type and Launch Cohort filters after the text match as before.
+
+# 2026-09-16 - Supabase monthly analytics rollout
+
+1. Keep the current SQLite-backed Shopify sessions and report cache running while the new Supabase path is introduced independently.
+2. Apply the versioned Supabase migration to create stores, products, product tags, product-month metrics, store-month totals and sync-job tables.
+3. Configure the project URL and service-role secret only in the server environment; browser clients receive no direct table policy.
+4. Import one development store's product catalogue once, then upsert compact monthly facts in batches of at most 500 rows.
+5. Treat absent product-month rows as zero activity and retain explicit store-month totals for unique orders and report denominators.
+6. Verify report values and measure table/index size for one month, then backfill the remaining 18-month window progressively from newest to oldest.
+7. Add server-side reads and pagination only after the stored output matches the existing live ShopifyQL reports.
+8. Roll out gradually from one store to five, twenty and fifty while monitoring database size, egress, failed sync jobs and query latency.

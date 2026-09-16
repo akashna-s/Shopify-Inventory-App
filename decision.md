@@ -878,3 +878,11 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - The query-prefix safeguard also handles a storefront title that legitimately extends the report title with an additional trailing code.
 - Title matches now take priority over handle matches. This prevents a renamed product from appearing merely because its older URL handle still contains the searched title; handle and Product ID remain fallbacks when no title matches.
 - Pasted storefront URLs are treated as explicit handle searches: the `/products/{handle}` segment is extracted and matched exactly instead of comparing the entire domain URL to a handle.
+
+# 2026-09-16 - Supabase monthly analytics foundation
+
+- Keep the existing Prisma/SQLite session and cache path active until the Supabase connection and first-store import are verified, avoiding a risky one-step production cutover.
+- Persist compact product-month facts rather than daily facts. Product text and tags live in normalized tables so titles, URLs and tag classifications are not duplicated in every metric row.
+- Store currency values in minor units as integers, retain exact store-level monthly totals for non-additive metrics such as unique orders, and omit permanent weekly facts during the Free-plan pilot.
+- Enable row-level security without browser policies. Supabase access uses a server-only service-role secret and never exposes administrative credentials to Shopify Admin browser code.
+- Reserve temporary weekly computation and expiring exports for later phases; first validate one store's actual row count, database size and report speed.
