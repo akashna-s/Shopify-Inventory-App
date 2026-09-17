@@ -886,3 +886,13 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Store currency values in minor units as integers, retain exact store-level monthly totals for non-additive metrics such as unique orders, and omit permanent weekly facts during the Free-plan pilot.
 - Enable row-level security without browser policies. Supabase access uses a server-only service-role secret and never exposes administrative credentials to Shopify Admin browser code.
 - Reserve temporary weekly computation and expiring exports for later phases; first validate one store's actual row count, database size and report speed.
+
+# 2026-09-17 - Shopify to Supabase monthly sync
+
+- Added a separate authenticated sync resource without changing Product Audit or New Arrival report loaders.
+- Sync the latest 18 calendar months from newest to oldest so recent data becomes available first and an interrupted run still provides useful progress.
+- Fetch compact monthly product aggregates with at most two ShopifyQL requests in flight, retry temporary failures with exponential delays, and skip writing an incomplete month.
+- Upsert product metadata, tags, product-month facts and store-month totals in batches of no more than 500 rows.
+- Record running, completed, partial or failed status in `audit_sync_jobs`, including current month, completed months, failed months and rows written.
+- Reject overlapping syncs for the same store and automatically close a running job as stale after two hours.
+- Keep the current SQLite caches and live ShopifyQL reports as the source of truth until stored results have been compared and approved.

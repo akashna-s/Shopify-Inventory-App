@@ -32,6 +32,10 @@ async function request(path, options = {}) {
   return text ? JSON.parse(text) : null;
 }
 
+function queryValue(value) {
+  return encodeURIComponent(String(value));
+}
+
 function chunks(rows, size = BATCH_SIZE) {
   const output = [];
   for (let index = 0; index < rows.length; index += size) {
@@ -46,6 +50,58 @@ export function isSupabaseAnalyticsConfigured() {
 
 export async function testSupabaseAnalyticsConnection() {
   return request("audit_stores?select=id&limit=1");
+}
+
+export async function selectSupabaseRows(table, {
+  select = "*",
+  filters = [],
+  order = "",
+  limit = 0,
+} = {}) {
+  const params = [`select=${encodeURIComponent(select)}`];
+  for (const [column, operator, value] of filters) {
+    params.push(`${encodeURIComponent(column)}=${operator}.${queryValue(value)}`);
+  }
+  if (order) params.push(`order=${encodeURIComponent(order)}`);
+  if (limit > 0) params.push(`limit=${limit}`);
+  return request(`${table}?${params.join("&")}`);
+}
+
+export async function insertSupabaseRows(table, rows, { upsert = false, conflictColumns = [] } = {}) {
+  if (!rows.length) return [];
+  const conflict = conflictColumns.length
+    ? `?on_conflict=${encodeURIComponent(conflictColumns.join(","))}`
+    : "";
+  return request(`${table}${conflict}`, {
+    method: "POST",
+    headers: {
+      Prefer: upsert
+        ? "resolution=merge-duplicates,return=representation"
+        : "return=representation",
+    },
+    body: JSON.stringify(rows),
+  });
+}
+
+export async function updateSupabaseRows(table, values, filters = []) {
+  const params = filters.map(([column, operator, value]) =>
+    `${encodeURIComponent(column)}=${operator}.${queryValue(value)}`,
+  );
+  return request(`${table}?${params.join("&")}`, {
+    method: "PATCH",
+    headers: { Prefer: "return=representation" },
+    body: JSON.stringify(values),
+  });
+}
+
+export async function deleteSupabaseRows(table, filters = []) {
+  const params = filters.map(([column, operator, value]) =>
+    `${encodeURIComponent(column)}=${operator}.${queryValue(value)}`,
+  );
+  return request(`${table}?${params.join("&")}`, {
+    method: "DELETE",
+    headers: { Prefer: "return=minimal" },
+  });
 }
 
 export async function upsertSupabaseRows(table, rows, conflictColumns) {

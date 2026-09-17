@@ -828,3 +828,15 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 6. Verify report values and measure table/index size for one month, then backfill the remaining 18-month window progressively from newest to oldest.
 7. Add server-side reads and pagination only after the stored output matches the existing live ShopifyQL reports.
 8. Roll out gradually from one store to five, twenty and fifty while monitoring database size, egress, failed sync jobs and query latency.
+
+# 2026-09-17 - Monthly Supabase sync flow
+
+1. Send an authenticated POST request to `/app/analytics-sync`; a GET request returns the store's latest sync-job status.
+2. Verify that no recent sync is already running for the store, then create a running job covering the latest 18 months.
+3. Fetch the Shopify product catalogue once and upsert product metadata and current tags in Supabase.
+4. Process months from newest to oldest. For each month, fetch inventory, sales, landing sessions and store totals with at most two ShopifyQL requests running together.
+5. Retry temporary Shopify failures with increasing waits. If a month remains failed or truncated, record it and continue without replacing that month's stored facts.
+6. Match sales and inventory by Product ID and landing sessions by product handle, then upsert compact product-month facts in batches of 500.
+7. Save exact store-level orders and sales totals separately, update job progress after every month, and retain only the current 18-month window.
+8. Mark the job completed when every month succeeds, partial when some months fail, or failed when setup/catalog work cannot finish.
+9. Leave Product Audit and New Arrival Analysis on their existing live data paths until a later validation goal explicitly approves a read-path change.
