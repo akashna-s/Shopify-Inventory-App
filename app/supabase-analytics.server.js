@@ -63,8 +63,23 @@ export async function selectSupabaseRows(table, {
     params.push(`${encodeURIComponent(column)}=${operator}.${queryValue(value)}`);
   }
   if (order) params.push(`order=${encodeURIComponent(order)}`);
-  if (limit > 0) params.push(`limit=${limit}`);
-  return request(`${table}?${params.join("&")}`);
+  if (limit > 0) {
+    params.push(`limit=${limit}`);
+    return request(`${table}?${params.join("&")}`);
+  }
+
+  // PostgREST returns at most 1,000 rows by default. Read every page so large
+  // Shopify catalogues are not silently reduced to their first 1,000 products.
+  const pageSize = 1000;
+  const rows = [];
+  for (let offset = 0; ; offset += pageSize) {
+    const page = await request(`${table}?${params.join("&")}`, {
+      headers: { Range: `${offset}-${offset + pageSize - 1}` },
+    });
+    rows.push(...page);
+    if (page.length < pageSize) break;
+  }
+  return rows;
 }
 
 export async function insertSupabaseRows(table, rows, { upsert = false, conflictColumns = [] } = {}) {

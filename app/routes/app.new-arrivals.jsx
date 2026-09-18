@@ -474,6 +474,14 @@ function CohortLogicDrawer({ interval, classification }) {
                     "NA SKU % measures retention within one launch cohort: active cohort SKUs in the period divided by all SKUs assigned to that cohort. NA SKU % (Total) measures catalog share: active SKUs from that cohort divided by all active store SKUs in the same period.",
                   )}
                   {faq(
+                    "How is NA Inventory calculated for a cohort?",
+                    `The report adds the inventory of active products assigned to that cohort. In the product's launch ${periodName}, it uses Ending Inventory because that shows the stock remaining at the end of its launch period. In every later ${periodName}, it uses Starting Inventory because that shows the stock carried into that period. For example, an August cohort uses its products' Ending Inventory in August and their Starting Inventory in September, October, and later periods.`,
+                  )}
+                  {faq(
+                    "How is NA Inventory % calculated, and how is its denominator calculated?",
+                    `NA Inventory % shows how much of the store's relevant inventory belongs to one cohort in a particular ${periodName}. The numerator is that cohort's NA Inventory. The denominator is calculated product by product across all eligible products in the report: Ending Inventory is used when the ${periodName} is the product's assigned launch cohort, and Starting Inventory is used in later ${periodName}s. These values are then added together to create the total store inventory denominator for that ${periodName}. The formula is: Cohort NA Inventory ÷ Total store inventory calculated using the same rule × 100. In a Product Type or Product Tag section, only that category's products are included in the numerator, while the denominator continues to use all eligible store products.`,
+                  )}
+                  {faq(
                     "Why are NA Inventory % and NA Sales % not 100% in a Product Type or Product Tag summary?",
                     "A category summary includes inventory and Total Sales only from products in that Product Type or Tag, while its percentage denominator remains the entire store for the same period. NA Inventory % is category cohort inventory divided by total store inventory, and NA Sales % is category cohort Total Sales divided by total store Total Sales. Each cohort row uses the same store-wide denominator but includes only that cohort's products within the selected category. The percentages therefore show each category or cohort's contribution to the whole store, rather than its share within itself, and are not expected to equal 100%.",
                   )}

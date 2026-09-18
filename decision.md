@@ -896,3 +896,25 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Record running, completed, partial or failed status in `audit_sync_jobs`, including current month, completed months, failed months and rows written.
 - Reject overlapping syncs for the same store and automatically close a running job as stale after two hours.
 - Keep the current SQLite caches and live ShopifyQL reports as the source of truth until stored results have been compared and approved.
+
+# 2026-09-18 - NA Inventory FAQ clarity
+
+- Added separate FAQs for cohort NA Inventory and NA Inventory % so users do not interpret the denominator as a simple store-level inventory snapshot.
+- Explain that a product contributes Ending Inventory in its assigned launch period and Starting Inventory in later periods.
+- Explain that the percentage denominator applies the same product-level rule across all eligible store products, while Product Type/Tag sections retain that store-wide denominator.
+
+# 2026-09-18 - Supabase catalogue pagination safeguard
+
+- The first sync validation revealed repeated 1,000-product month counts even though ShopifyQL returned all 4,003 products.
+- The limit came from Supabase PostgREST's default 1,000-row response size when the sync rebuilt its Shopify-ID-to-database-ID product map.
+- Server-side Supabase reads now request consecutive 1,000-row ranges until the final partial page, preventing larger catalogues from being silently truncated.
+- The sync runner accepts an explicit month list for targeted recovery, allowing failed rate-limited months to be retried without re-fetching successful months.
+- Store-month `active_products` follows the report's activity rule rather than counting every stored product row: Starting Inventory, Ending Inventory or Total Sales must be greater than zero.
+
+# 2026-09-18 - First-store Supabase reconciliation
+
+- Reconciled May, July and August 2026 against fresh live ShopifyQL queries before enabling any database-backed report reads.
+- Compared every identifiable product across inventory, first inventory day, landing sessions, orders, quantity metrics and all stored sales amounts; all fields matched with zero differences.
+- Store-level active products, starting/ending inventory, unique orders, landing sessions and Total Sales also matched exactly for all three months.
+- May ShopifyQL included one aggregate row without a Product ID. It is intentionally not stored as a product fact; all 4,001 identifiable May products matched.
+- Keep both live reports on ShopifyQL until a separate, explicitly approved read-path rollout is implemented.

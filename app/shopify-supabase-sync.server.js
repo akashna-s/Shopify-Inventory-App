@@ -225,10 +225,15 @@ async function persistMonth({ store, month, result, catalog, currency }) {
   await upsertSupabaseRows("audit_product_month_metrics", metrics, ["store_id", "product_id", "month"]);
 
   const storeRow = result.store.rows[0] || {};
+  const activeProducts = metrics.filter((row) =>
+    number(row.starting_inventory) > 0 ||
+    number(row.ending_inventory) > 0 ||
+    number(row.total_sales_minor) > 0,
+  ).length;
   await upsertSupabaseRows("audit_store_month_metrics", [{
     store_id: store.id,
     month: `${month}-01`,
-    active_products: metrics.length,
+    active_products: activeProducts,
     starting_inventory: metrics.reduce((sum, row) => sum + number(row.starting_inventory), 0),
     ending_inventory: metrics.reduce((sum, row) => sum + number(row.ending_inventory), 0),
     unique_orders: number(storeRow.orders),
@@ -269,15 +274,21 @@ async function preventOverlappingSync(storeId) {
   });
 }
 
-export async function syncLatest18MonthsToSupabase(admin, session, { now = new Date() } = {}) {
+export async function syncLatest18MonthsToSupabase(admin, session, {
+  now = new Date(),
+  months: requestedMonths = null,
+} = {}) {
   const shopInfo = await fetchShop(admin);
   if (!shopInfo.domain) shopInfo.domain = session.shop;
   const store = await ensureStore(shopInfo);
   await preventOverlappingSync(store.id);
-  const months = syncMonths(now);
+  const months = requestedMonths?.length
+    ? [...new Set(requestedMonths)].filter((month) => /^\d{4}-\d{2}$/.test(month))
+    : syncMonths(now);
+  if (!months.length) throw new Error("No valid months were provided for the analytics sync.");
   const [job] = await insertSupabaseRows("audit_sync_jobs", [{
     store_id: store.id,
-    job_type: "monthly_18_month_backfill",
+    job_type: requestedMonths?.length ? "monthly_targeted_retry" : "monthly_18_month_backfill",
     status: "running",
     range_start: `${months.at(-1)}-01`,
     range_end: monthBounds(months[0], now).end,
@@ -312,7 +323,10 @@ export async function syncLatest18MonthsToSupabase(admin, session, { now = new D
       await wait(400);
     }
 
-    await deleteExpiredMonthlyMetrics(`${months.at(-1)}-01`);
+    // Retention belongs only to a complete rolling-window sync. A targeted
+    // retry must never treat its one month as the new retention boundary.
+    if (!requestedMonths?.length)
+      await deleteExpiredMonthlyMetrics(`${months.at(-1)}-01`);
     const status = failedMonths.length ? "partial" : "completed";
     await updateJob(job.id, {
       status,

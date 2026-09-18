@@ -840,3 +840,29 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 7. Save exact store-level orders and sales totals separately, update job progress after every month, and retain only the current 18-month window.
 8. Mark the job completed when every month succeeds, partial when some months fail, or failed when setup/catalog work cannot finish.
 9. Leave Product Audit and New Arrival Analysis on their existing live data paths until a later validation goal explicitly approves a read-path change.
+
+# 2026-09-18 - NA Inventory FAQ calculation flow
+
+1. Open Calculation Logic & Formulas and expand Frequently Asked Questions.
+2. Read cohort NA Inventory as the sum of Ending Inventory in each product's launch period and Starting Inventory in later periods.
+3. Build the period denominator by applying that same rule to every eligible store product and adding the results.
+4. Calculate NA Inventory % as the selected cohort's NA Inventory divided by that period denominator.
+5. For Product Type/Tag sections, restrict only the numerator to the category and retain the all-store denominator.
+
+# 2026-09-18 - Supabase paginated read flow
+
+1. Build the normal filtered Supabase REST request.
+2. When the caller asks for a specific limit, return only that requested number of rows.
+3. Otherwise request rows in consecutive ranges of 1,000 and append each page.
+4. Stop when Supabase returns fewer than 1,000 rows, ensuring the complete product map is available before monthly facts are written.
+5. If Shopify still rate-limits an individual month after automatic retries, run a targeted sync for only that failed month and preserve every successful month.
+6. Count a store-month product as active only when Starting Inventory, Ending Inventory or Total Sales is greater than zero.
+
+# 2026-09-18 - Supabase reconciliation flow
+
+1. Select representative inventory-heavy and sales-active months before changing any report read path.
+2. Fetch fresh product inventory, sales, landing sessions and store totals from ShopifyQL.
+3. Join ShopifyQL products to Supabase by Shopify Product ID and join landing sessions through the product handle.
+4. Compare all product metric fields and integer minor-unit sales amounts, then compare the store-month summary fields.
+5. Treat a ShopifyQL aggregate row without a Product ID as unattributed data rather than a missing catalog product.
+6. Require zero identifiable-product and store-summary differences before approving a future database-backed report rollout.
