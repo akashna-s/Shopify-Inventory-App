@@ -326,7 +326,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     // Retention belongs only to a complete rolling-window sync. A targeted
     // retry must never treat its one month as the new retention boundary.
     if (!requestedMonths?.length)
-      await deleteExpiredMonthlyMetrics(`${months.at(-1)}-01`);
+      await deleteExpiredMonthlyMetrics(store.id, `${months.at(-1)}-01`);
     const status = failedMonths.length ? "partial" : "completed";
     await updateJob(job.id, {
       status,

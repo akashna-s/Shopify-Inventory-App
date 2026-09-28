@@ -134,14 +134,18 @@ export async function upsertSupabaseRows(table, rows, conflictColumns) {
   return written;
 }
 
-export async function deleteExpiredMonthlyMetrics(retainFromMonth) {
-  const cutoff = encodeURIComponent(`lt.${retainFromMonth}`);
-  await request(`audit_product_month_metrics?month=${cutoff}`, {
-    method: "DELETE",
-    headers: { Prefer: "return=minimal" },
-  });
-  await request(`audit_store_month_metrics?month=${cutoff}`, {
-    method: "DELETE",
-    headers: { Prefer: "return=minimal" },
-  });
+export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before deleting expired monthly metrics.");
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(retainFromMonth))) {
+    throw new Error("A valid retention month is required before deleting expired monthly metrics.");
+  }
+
+  const filters = [
+    ["store_id", "eq", storeId],
+    ["month", "lt", retainFromMonth],
+  ];
+  await deleteSupabaseRows("audit_product_month_metrics", filters);
+  await deleteSupabaseRows("audit_store_month_metrics", filters);
 }

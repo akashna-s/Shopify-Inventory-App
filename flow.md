@@ -866,3 +866,12 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 4. Compare all product metric fields and integer minor-unit sales amounts, then compare the store-month summary fields.
 5. Treat a ShopifyQL aggregate row without a Product ID as unattributed data rather than a missing catalog product.
 6. Require zero identifiable-product and store-summary differences before approving a future database-backed report rollout.
+
+# 2026-09-28 - Store-scoped retention cleanup flow
+
+1. Run retention cleanup only after a complete rolling 18-month sync, never after a targeted one-month retry.
+2. Pass the authenticated database store ID together with the oldest month that must be retained.
+3. Delete product-month rows only when `store_id` equals that store AND `month` is older than the cutoff.
+4. Apply the same two conditions to store-month summary rows.
+5. Refuse to run cleanup when the store ID or a valid cutoff date is missing.
+6. Keep every row belonging to all other stores, even when those rows are older than the syncing store's cutoff.

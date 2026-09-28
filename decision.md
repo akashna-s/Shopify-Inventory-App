@@ -918,3 +918,10 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Store-level active products, starting/ending inventory, unique orders, landing sessions and Total Sales also matched exactly for all three months.
 - May ShopifyQL included one aggregate row without a Product ID. It is intentionally not stored as a product fact; all 4,001 identifiable May products matched.
 - Keep both live reports on ShopifyQL until a separate, explicitly approved read-path rollout is implemented.
+
+# 2026-09-28 - Store-scoped Supabase retention
+
+- Retention cleanup now requires the database store ID and the oldest month to retain.
+- Product-month and store-month deletes use `store_id = selected store AND month < cutoff`, preventing one store's sync from deleting another store's history.
+- Cleanup fails safely when the store ID or cutoff date is missing or invalid.
+- Automated coverage uses two stores and proves that cleaning Store A removes only Store A's expired rows while every Store B row remains unchanged.
