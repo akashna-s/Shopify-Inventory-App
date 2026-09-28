@@ -4,6 +4,7 @@ import {
   deleteExpiredMonthlyMetrics,
   deleteSupabaseRows,
   insertSupabaseRows,
+  replaceSupabaseStoreMonth,
   selectSupabaseRows,
   updateSupabaseRows,
   upsertSupabaseRows,
@@ -222,15 +223,13 @@ async function persistMonth({ store, month, result, catalog, currency }) {
       refreshed_at: new Date().toISOString(),
     }];
   });
-  await upsertSupabaseRows("audit_product_month_metrics", metrics, ["store_id", "product_id", "month"]);
-
   const storeRow = result.store.rows[0] || {};
   const activeProducts = metrics.filter((row) =>
     number(row.starting_inventory) > 0 ||
     number(row.ending_inventory) > 0 ||
     number(row.total_sales_minor) > 0,
   ).length;
-  await upsertSupabaseRows("audit_store_month_metrics", [{
+  const storeMetrics = {
     store_id: store.id,
     month: `${month}-01`,
     active_products: activeProducts,
@@ -240,8 +239,13 @@ async function persistMonth({ store, month, result, catalog, currency }) {
     landing_sessions: metrics.reduce((sum, row) => sum + number(row.landing_sessions), 0),
     total_sales_minor: Math.round(number(storeRow.total_sales) * scale),
     refreshed_at: new Date().toISOString(),
-  }], ["store_id", "month"]);
-  return metrics.length + 1;
+  };
+  return replaceSupabaseStoreMonth({
+    storeId: store.id,
+    month: `${month}-01`,
+    productMetrics: metrics,
+    storeMetrics,
+  });
 }
 
 async function updateJob(jobId, values) {

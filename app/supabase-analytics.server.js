@@ -134,6 +134,36 @@ export async function upsertSupabaseRows(table, rows, conflictColumns) {
   return written;
 }
 
+export async function replaceSupabaseStoreMonth({
+  storeId,
+  month,
+  productMetrics,
+  storeMetrics,
+}) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before replacing monthly metrics.");
+  }
+  if (!/^\d{4}-\d{2}-01$/.test(String(month))) {
+    throw new Error("A valid first-of-month date is required before replacing monthly metrics.");
+  }
+  if (!Array.isArray(productMetrics)) {
+    throw new Error("Product metrics must be a complete array before replacing a month.");
+  }
+  if (!storeMetrics || typeof storeMetrics !== "object" || Array.isArray(storeMetrics)) {
+    throw new Error("Store metrics are required before replacing a month.");
+  }
+
+  return request("rpc/replace_audit_store_month", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_month: month,
+      p_product_metrics: productMetrics,
+      p_store_metrics: storeMetrics,
+    }),
+  });
+}
+
 export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
   if (storeId === undefined || storeId === null || storeId === "") {
     throw new Error("A store ID is required before deleting expired monthly metrics.");

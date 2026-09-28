@@ -875,3 +875,12 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 4. Apply the same two conditions to store-month summary rows.
 5. Refuse to run cleanup when the store ID or a valid cutoff date is missing.
 6. Keep every row belonging to all other stores, even when those rows are older than the syncing store's cutoff.
+
+# 2026-09-28 - Atomic store-month replacement flow
+
+1. Fetch and validate all required ShopifyQL datasets before changing a stored month.
+2. Build the complete product-metric array and one store-summary object for a single store and month.
+3. Send the complete payload to one server-only Supabase database function call.
+4. Validate that every product in the payload belongs to the selected store before deleting old rows.
+5. Delete only the selected store and month, then insert the complete fresh product rows and summary inside one PostgreSQL transaction.
+6. Commit the whole replacement together; if validation or insertion fails, PostgreSQL restores the previous complete month automatically.

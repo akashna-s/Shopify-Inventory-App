@@ -925,3 +925,10 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Product-month and store-month deletes use `store_id = selected store AND month < cutoff`, preventing one store's sync from deleting another store's history.
 - Cleanup fails safely when the store ID or cutoff date is missing or invalid.
 - Automated coverage uses two stores and proves that cleaning Store A removes only Store A's expired rows while every Store B row remains unchanged.
+
+# 2026-09-28 - Atomic Supabase store-month replacement
+
+- Monthly sync persistence now sends the complete validated store-month to one server-only PostgreSQL function instead of independently upserting product and summary rows.
+- The function validates store ownership first, deletes only the selected store/month, and inserts the complete replacement within one transaction.
+- Products omitted from Shopify's newest complete month no longer leave stale historical rows behind.
+- Any validation or insert error rolls back the entire function call, preserving the previous complete month rather than leaving a missing or partially refreshed month.
