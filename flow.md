@@ -884,3 +884,13 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 4. Validate that every product in the payload belongs to the selected store before deleting old rows.
 5. Delete only the selected store and month, then insert the complete fresh product rows and summary inside one PostgreSQL transaction.
 6. Commit the whole replacement together; if validation or insertion fails, PostgreSQL restores the previous complete month automatically.
+
+# 2026-09-28 - Authenticated store analytics access flow
+
+1. Authenticate the Shopify request before any Supabase analytics operation.
+2. Derive the shop domain from `session.shop`; never accept a browser-provided store ID or shop domain.
+3. Resolve the matching internal `audit_stores.id` once and create a store-scoped server gateway.
+4. Route product, tag, monthly metric, retention and sync-job operations through that gateway.
+5. Automatically add or overwrite `store_id` on every supported read, write, update and delete operation.
+6. Ignore a caller-supplied store filter and retain only the authenticated store filter.
+7. Keep the Supabase service-role key on the server and expose no direct analytics-table access to the browser.

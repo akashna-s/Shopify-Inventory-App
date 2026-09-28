@@ -12,7 +12,7 @@ export const loader = async ({ request }) => {
   }
   return Response.json({
     configured: true,
-    job: await latestSupabaseSync(session.shop),
+    job: await latestSupabaseSync(session),
   });
 };
 

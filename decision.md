@@ -932,3 +932,11 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - The function validates store ownership first, deletes only the selected store/month, and inserts the complete replacement within one transaction.
 - Products omitted from Shopify's newest complete month no longer leave stale historical rows behind.
 - Any validation or insert error rolls back the entire function call, preserving the previous complete month rather than leaving a missing or partially refreshed month.
+
+# 2026-09-28 - Authenticated store-scoped Supabase gateway
+
+- Added one server-only analytics access layer that resolves store identity from the authenticated Shopify `session.shop` value.
+- Sync code no longer manually supplies store filters for products, monthly facts, retention or sync jobs; the gateway applies the authenticated store automatically.
+- Browser-provided store filters are not accepted. Even if a caller supplies a different store filter, the gateway removes it and uses the authenticated store ID.
+- Product tags are checked against the scoped store's product IDs before replacement, covering the normalized tag table that intentionally has no `store_id` column.
+- Cross-store tests exercise Store A and Store B gateways and verify isolation for reads, job updates, retention deletes and atomic month writes.

@@ -1,14 +1,6 @@
 import { getProductCatalog } from "./product-catalog-cache.server";
 import { runShopifyQL } from "./shopifyql.server";
-import {
-  deleteExpiredMonthlyMetrics,
-  deleteSupabaseRows,
-  insertSupabaseRows,
-  replaceSupabaseStoreMonth,
-  selectSupabaseRows,
-  updateSupabaseRows,
-  upsertSupabaseRows,
-} from "./supabase-analytics.server";
+import { createAuthenticatedStoreAnalytics } from "./store-analytics-access.server";
 
 const MONTH_COUNT = 18;
 const QUERY_CONCURRENCY = 2;
@@ -90,20 +82,9 @@ function currencyScale(currency) {
   }
 }
 
-async function ensureStore(shop) {
-  const rows = await insertSupabaseRows("audit_stores", [{
-    shop_domain: shop.domain,
-    currency_code: shop.currency,
-    status: "active",
-    updated_at: new Date().toISOString(),
-  }], { upsert: true, conflictColumns: ["shop_domain"] });
-  return rows[0];
-}
-
-async function syncCatalog(storeId, products) {
+async function syncCatalog(analytics, products) {
   const now = new Date().toISOString();
   const rows = products.map((product) => ({
-    store_id: storeId,
     shopify_product_id: numericId(product.id),
     title: product.title || "",
     handle: product.handle || "",
@@ -113,25 +94,19 @@ async function syncCatalog(storeId, products) {
     shopify_created_at: product.createdAt || null,
     last_synced_at: now,
   }));
-  await upsertSupabaseRows("audit_products", rows, ["store_id", "shopify_product_id"]);
+  await analytics.upsertProducts(rows);
 
-  const stored = await selectSupabaseRows("audit_products", {
+  const stored = await analytics.selectProducts({
     select: "id,shopify_product_id,handle",
-    filters: [["store_id", "eq", storeId]],
   });
   const byShopifyId = new Map(stored.map((row) => [String(row.shopify_product_id), row]));
-  const internalIds = stored.map((row) => row.id);
-  for (let index = 0; index < internalIds.length; index += 500) {
-    const ids = internalIds.slice(index, index + 500).join(",");
-    await deleteSupabaseRows("audit_product_tags", [["product_id", "in", `(${ids})`]]);
-  }
   const tags = products.flatMap((product) => {
     const storedProduct = byShopifyId.get(numericId(product.id));
     return storedProduct
       ? (product.tags || []).map((tag) => ({ product_id: storedProduct.id, tag }))
       : [];
   });
-  await upsertSupabaseRows("audit_product_tags", tags, ["product_id", "tag"]);
+  await analytics.replaceProductTags(tags);
   return { byShopifyId, stored, rowsWritten: rows.length + tags.length };
 }
 
@@ -182,7 +157,7 @@ async function fetchMonth(admin, month, now) {
   throw new Error(`Could not fetch ${month}.`);
 }
 
-async function persistMonth({ store, month, result, catalog, currency }) {
+async function persistMonth({ analytics, month, result, catalog, currency }) {
   const inventory = new Map(result.inventory.rows.map((row) => [numericId(row.product_id), row]));
   const sales = new Map(result.sales.rows.map((row) => [numericId(row.product_id), row]));
   const sessions = new Map();
@@ -201,9 +176,7 @@ async function persistMonth({ store, month, result, catalog, currency }) {
     const sold = sales.get(shopifyId) || {};
     const money = (key) => Math.round(number(sold[key]) * scale);
     return [{
-      store_id: store.id,
       product_id: product.id,
-      month: `${month}-01`,
       first_day_in_inventory: stock.first_day_in_inventory || null,
       starting_inventory: stock.starting_inventory_units ?? null,
       ending_inventory: stock.ending_inventory_units ?? null,
@@ -230,8 +203,6 @@ async function persistMonth({ store, month, result, catalog, currency }) {
     number(row.total_sales_minor) > 0,
   ).length;
   const storeMetrics = {
-    store_id: store.id,
-    month: `${month}-01`,
     active_products: activeProducts,
     starting_inventory: metrics.reduce((sum, row) => sum + number(row.starting_inventory), 0),
     ending_inventory: metrics.reduce((sum, row) => sum + number(row.ending_inventory), 0),
@@ -240,23 +211,17 @@ async function persistMonth({ store, month, result, catalog, currency }) {
     total_sales_minor: Math.round(number(storeRow.total_sales) * scale),
     refreshed_at: new Date().toISOString(),
   };
-  return replaceSupabaseStoreMonth({
-    storeId: store.id,
+  return analytics.replaceMonth({
     month: `${month}-01`,
     productMetrics: metrics,
     storeMetrics,
   });
 }
 
-async function updateJob(jobId, values) {
-  await updateSupabaseRows("audit_sync_jobs", values, [["id", "eq", jobId]]);
-}
-
-async function preventOverlappingSync(storeId) {
-  const running = await selectSupabaseRows("audit_sync_jobs", {
+async function preventOverlappingSync(analytics) {
+  const running = await analytics.selectJobs({
     select: "id,started_at",
     filters: [
-      ["store_id", "eq", storeId],
       ["status", "eq", "running"],
     ],
     order: "created_at.desc",
@@ -271,7 +236,7 @@ async function preventOverlappingSync(storeId) {
     error.code = "SYNC_ALREADY_RUNNING";
     throw error;
   }
-  await updateJob(running[0].id, {
+  await analytics.updateJob(running[0].id, {
     status: "failed",
     error_message: "Sync was automatically closed after remaining in progress for more than two hours.",
     completed_at: new Date().toISOString(),
@@ -283,15 +248,16 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
   months: requestedMonths = null,
 } = {}) {
   const shopInfo = await fetchShop(admin);
-  if (!shopInfo.domain) shopInfo.domain = session.shop;
-  const store = await ensureStore(shopInfo);
-  await preventOverlappingSync(store.id);
+  const analytics = await createAuthenticatedStoreAnalytics(session, {
+    createStore: true,
+    currencyCode: shopInfo.currency,
+  });
+  await preventOverlappingSync(analytics);
   const months = requestedMonths?.length
     ? [...new Set(requestedMonths)].filter((month) => /^\d{4}-\d{2}$/.test(month))
     : syncMonths(now);
   if (!months.length) throw new Error("No valid months were provided for the analytics sync.");
-  const [job] = await insertSupabaseRows("audit_sync_jobs", [{
-    store_id: store.id,
+  const [job] = await analytics.createJob({
     job_type: requestedMonths?.length ? "monthly_targeted_retry" : "monthly_18_month_backfill",
     status: "running",
     range_start: `${months.at(-1)}-01`,
@@ -299,28 +265,28 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     attempts: 1,
     started_at: new Date().toISOString(),
     details: { totalMonths: months.length, completedMonths: [], failedMonths: [] },
-  }]);
+  });
 
   let rowsWritten = 0;
   const completedMonths = [];
   const failedMonths = [];
   try {
     const productCatalog = await getProductCatalog(admin, session.shop);
-    const catalog = await syncCatalog(store.id, productCatalog.products);
+    const catalog = await syncCatalog(analytics, productCatalog.products);
     rowsWritten += catalog.rowsWritten;
 
     for (const month of months) {
-      await updateJob(job.id, {
+      await analytics.updateJob(job.id, {
         details: { totalMonths: months.length, currentMonth: month, completedMonths, failedMonths },
       });
       try {
         const result = await fetchMonth(admin, month, now);
-        rowsWritten += await persistMonth({ store, month, result, catalog, currency: shopInfo.currency });
+        rowsWritten += await persistMonth({ analytics, month, result, catalog, currency: shopInfo.currency });
         completedMonths.push(month);
       } catch (error) {
         failedMonths.push({ month, error: error.message });
       }
-      await updateJob(job.id, {
+      await analytics.updateJob(job.id, {
         rows_written: rowsWritten,
         details: { totalMonths: months.length, completedMonths, failedMonths },
       });
@@ -330,9 +296,9 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     // Retention belongs only to a complete rolling-window sync. A targeted
     // retry must never treat its one month as the new retention boundary.
     if (!requestedMonths?.length)
-      await deleteExpiredMonthlyMetrics(store.id, `${months.at(-1)}-01`);
+      await analytics.deleteExpiredMonths(`${months.at(-1)}-01`);
     const status = failedMonths.length ? "partial" : "completed";
-    await updateJob(job.id, {
+    await analytics.updateJob(job.id, {
       status,
       rows_written: rowsWritten,
       error_message: failedMonths.length ? `${failedMonths.length} month(s) failed.` : null,
@@ -341,7 +307,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     });
     return { jobId: job.id, status, rowsWritten, completedMonths, failedMonths };
   } catch (error) {
-    await updateJob(job.id, {
+    await analytics.updateJob(job.id, {
       status: "failed",
       rows_written: rowsWritten,
       error_message: error.message,
@@ -352,16 +318,11 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
   }
 }
 
-export async function latestSupabaseSync(shopDomain) {
-  const stores = await selectSupabaseRows("audit_stores", {
-    select: "id",
-    filters: [["shop_domain", "eq", shopDomain]],
-    limit: 1,
-  });
-  if (!stores.length) return null;
-  const jobs = await selectSupabaseRows("audit_sync_jobs", {
+export async function latestSupabaseSync(session) {
+  const analytics = await createAuthenticatedStoreAnalytics(session);
+  if (!analytics) return null;
+  const jobs = await analytics.selectJobs({
     select: "id,status,range_start,range_end,attempts,rows_written,error_message,details,created_at,started_at,completed_at",
-    filters: [["store_id", "eq", stores[0].id]],
     order: "created_at.desc",
     limit: 1,
   });
