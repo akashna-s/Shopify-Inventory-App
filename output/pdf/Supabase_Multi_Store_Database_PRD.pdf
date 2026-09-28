@@ -1,0 +1,7020 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 21
+/Kids [ 4 0 R 9 0 R 12 0 R 15 0 R 20 0 R 23 0 R 26 0 R 29 0 R 32 0 R 35 0 R 38 0 R 41 0 R 44 0 R 47 0 R 50 0 R 53 0 R 56 0 R 59 0 R 62 0 R 65 0 R 68 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 7 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 3553
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 54.18898 716.8346 cm
+Q
+q
+1 0 0 1 68.0315 452.226 cm
+q
+.090196 .196078 .301961 rg
+n 0 264.6087 459.2126 -144.6772 re f*
+.090196 .196078 .301961 rg
+n 0 119.9315 459.2126 -45.35433 re f*
+.917647 .94902 1 rg
+n 0 74.57717 459.2126 -74.57717 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 14 244.9315 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (SUPABASE DATA FOUNDATION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 14 176.9315 cm
+q
+BT 1 0 0 1 0 36 Tm 31 TL /F2 26 Tf 1 1 1 rg (Multi-Store Database Review &) Tj T* (Improvement PRD) Tj T* ET
+Q
+Q
+q
+1 0 0 1 14 134.9315 cm
+q
+.843137 .901961 .960784 rg
+BT 1 0 0 1 0 24 Tm /F1 12 Tf 18 TL -0.108822 Tw (A beginner-friendly explanation of the current database, identified risks, long-term) Tj T* 0 Tw (consequences, recommended solutions, and implementation plan.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 14 77.57717 cm
+Q
+q
+1 0 0 1 14 54.9 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Scope) Tj T* ET
+Q
+Q
+q
+1 0 0 1 14 12 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28.2 Tm /F1 8.7 Tf 12.3 TL (Shopify-to-Supabase monthly analytics sync for the latest 18 months. This document reviews storage and) Tj T* (multi-store safety only. Existing live reports continue to read ShopifyQL until reconciliation and approval are) Tj T* (complete.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.090196 .196078 .301961 RG
+.8 w
+n 0 264.6087 m 459.2126 264.6087 l S
+n 0 0 m 459.2126 0 l S
+n 0 0 m 0 264.6087 l S
+n 459.2126 0 m 459.2126 264.6087 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 418.2102 cm
+Q
+q
+1 0 0 1 54.18898 319.8102 cm
+q
+.058824 .462745 .431373 rg
+n 0 98.4 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 58.8 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 19.6 476.2205 -19.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 83.4 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Document) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 83.4 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Value) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 63.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Purpose) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 63.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Approve a safe multi-store database design before more stores are onboarded) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 44.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Current status) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 44.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (One store synced; database is not yet the source used by live reports) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Audience) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Business owner, product owner, developer, and implementation reviewer) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Decision needed) Tj T* ET
+Q
+Q
+q
+1 0 0 1 124.0551 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Approve the priority fixes and rollout sequence in this PRD) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 98.4 m 476.2205 98.4 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 98.4 l S
+n 476.2205 0 m 476.2205 98.4 l S
+n 0 78.4 m 476.2205 78.4 l S
+n 0 58.8 m 476.2205 58.8 l S
+n 0 39.2 m 476.2205 39.2 l S
+n 0 19.6 m 476.2205 19.6 l S
+n 119.0551 0 m 119.0551 98.4 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+Q
+
+endstream
+endobj
+6 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+7 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+8 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+9 0 obj
+<<
+/Contents 10 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 11 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+10 0 obj
+<<
+/Length 4837
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 2) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (OUTCOME FIRST) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (1. Executive Summary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 648.9142 cm
+q
+.917647 .972549 .941176 rg
+n 0 80.2 476.2205 -80.2 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 60.2 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Overall assessment) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 40.5 Tm /F1 8.7 Tf 12.3 TL (The current design is a good monthly analytics foundation and the first store reconciles correctly with ShopifyQL. It is) Tj T* (suitable for controlled testing. Before adding many stores or making Supabase the live reporting source, four) Tj T* (safeguards should be implemented: enforce store-product ownership, make retention store-specific, replace a month) Tj T* (atomically, and centralize all reads behind authenticated store scope.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.023529 .462745 .278431 RG
+.8 w
+n 0 80.2 m 476.2205 80.2 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 80.2 l S
+n 476.2205 0 m 476.2205 80.2 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 637.5756 cm
+Q
+q
+1 0 0 1 54.18898 612.5756 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (What is already working well) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 581.5756 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (1.) Tj /F1 9.1 Tf ( Store identity is separated from product identity. The same Shopify product number can exist in two stores without) Tj T* 12 0 Td (colliding because the product is uniquely identified by ) Tj /F2 9.1 Tf (store + Shopify product ID) Tj /F1 9.1 Tf (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 551.5756 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (2.) Tj /F1 9.1 Tf ( Monthly facts are compact. Product text is stored once, while monthly rows mainly store numbers. This is appropriate) Tj T* 12 0 Td (for an 18-month retention model.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 534.5756 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (3.) Tj /F1 9.1 Tf ( The sync uses batching, limited concurrency, retries, progress tracking, and a targeted retry for failed months.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 504.5756 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (4.) Tj /F1 9.1 Tf ( The first store completed reconciliation for selected months with zero identifiable product mismatches and zero) Tj T* 12 0 Td (store-total mismatches.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 479.5756 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (Main decision) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 448.1756 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 17.2 Tm /F1 9.2 Tf 13.2 TL (Proceed with Supabase, but complete the critical multi-store integrity work before onboarding Store 2. After that,) Tj T* (improve metric naming and historical accuracy in phases. This keeps the project moving without requiring a redesign.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 437.5063 cm
+Q
+q
+1 0 0 1 59.52756 369.6063 cm
+q
+.917647 .94902 1 rg
+n 0 67.9 476.2205 -67.9 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.9 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Important clarification about product tags) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28.2 Tm /F1 8.7 Tf 12.3 TL (The absence of store_id in audit_product_tags is intentional and safe. The table stores the database's internal) Tj T* (product_id, not the Shopify product number. That internal product belongs to exactly one audit_products row, and that) Tj T* (row contains store_id. Store ownership is therefore obtained through the product relationship.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.145098 .388235 .921569 RG
+.8 w
+n 0 67.9 m 476.2205 67.9 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.9 l S
+n 476.2205 0 m 476.2205 67.9 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 2 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+11 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+12 0 obj
+<<
+/Contents 13 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 14 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+13 0 obj
+<<
+/Length 9297
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 3) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (HOW IT WORKS TODAY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (2. Current Database Working and Structure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 711.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (2.1 Simple mental model) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 501.3142 cm
+q
+.090196 .196078 .301961 rg
+n 0 204.8 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 165.2 476.2205 -29.2 re f*
+.964706 .972549 .980392 rg
+n 0 106.8 476.2205 -38.8 re f*
+.964706 .972549 .980392 rg
+n 0 29.2 476.2205 -29.2 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 189.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Step) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 189.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (What happens) Tj T* ET
+Q
+Q
+q
+1 0 0 1 305.4724 189.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Why it exists) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 170.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (1. Store) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 170.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (One audit_stores row identifies each Shopify shop.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 305.4724 170.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Separates one brand/store from another.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 141 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (2. Product) Tj T* (catalog) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 141 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (audit_products stores current title, handle, type, status, image, and Shopify) Tj T* (product ID.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 305.4724 150.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Avoids repeating product text every month.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 121.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (3. Tags) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 121.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_product_tags stores many tags against the internal product row.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 305.4724 111.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Allows filtering without repeating tags in monthly) Tj T* (facts.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 73 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (4. Product) Tj T* (-month) Tj T* (facts) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 92.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL -0.095061 Tw (audit_product_month_metrics stores one row per store, product, and month.) Tj T* 0 Tw ET
+Q
+Q
+q
+1 0 0 1 305.4724 92.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Powers product audit and cohort calculations.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (5. Store-m) Tj T* (onth) Tj T* (summary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 53.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_store_month_metrics stores one overall row per store and month.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 305.4724 53.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Provides validation and fast high-level totals.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (6. Sync) Tj T* (progress) Tj T* ET
+Q
+Q
+q
+1 0 0 1 50.35433 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_sync_jobs records status, date range, counts, and errors.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 305.4724 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Makes long imports observable and retryable.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 204.8 m 476.2205 204.8 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 204.8 l S
+n 476.2205 0 m 476.2205 204.8 l S
+n 0 184.8 m 476.2205 184.8 l S
+n 0 165.2 m 476.2205 165.2 l S
+n 0 136 m 476.2205 136 l S
+n 0 106.8 m 476.2205 106.8 l S
+n 0 68 m 476.2205 68 l S
+n 0 29.2 m 476.2205 29.2 l S
+n 45.35433 0 m 45.35433 204.8 l S
+n 300.4724 0 m 300.4724 204.8 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 487.1409 cm
+Q
+q
+1 0 0 1 54.18898 462.1409 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (2.2 Relationship map) Tj T* ET
+Q
+Q
+q
+1 0 0 1 59.52756 309.7394 cm
+q
+.917647 .94902 1 rg
+n 0 147.4016 96.37795 -51.02362 re f*
+.909804 .964706 .952941 rg
+n 175.748 147.4016 107.7165 -96.37795 re f*
+1 .964706 .898039 rg
+n 362.8346 147.4016 113.3858 -51.02362 re f*
+1 .964706 .898039 rg
+n 0 51.02362 96.37795 -51.02362 re f*
+.917647 .94902 1 rg
+n 175.748 51.02362 107.7165 -51.02362 re f*
+.992157 .92549 .92549 rg
+n 362.8346 51.02362 113.3858 -51.02362 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 116.8898 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.40498 0 Td (audit_stores) Tj T* -18.40498 0 Td ET
+Q
+Q
+q
+1 0 0 1 102.378 116.6398 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (1 store has many) Tj T* ET
+Q
+Q
+q
+1 0 0 1 181.748 116.8898 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.96627 0 Td (audit_products) Tj T* -18.96627 0 Td ET
+Q
+Q
+q
+1 0 0 1 289.4646 116.6398 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL -0.083774 Tw (1 product has many) Tj T* 0 Tw ET
+Q
+Q
+q
+1 0 0 1 368.8346 111.8898 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 12 Tm /F2 8 Tf 10 TL .244913 0 Td (audit_product_month_met) Tj T* 43.332 0 Td (rics) Tj T* -43.57691 0 Td ET
+Q
+Q
+BT 1 0 0 1 48.18898 69.70079 Tm  T* ET
+BT 1 0 0 1 136.063 69.70079 Tm  T* ET
+q
+1 0 0 1 181.748 68.70079 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 10.74227 0 Td (audit_product_tags) Tj T* -10.74227 0 Td ET
+Q
+Q
+BT 1 0 0 1 323.1496 69.70079 Tm  T* ET
+BT 1 0 0 1 419.5276 69.70079 Tm  T* ET
+q
+1 0 0 1 6 15.51181 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 12 Tm /F2 8 Tf 10 TL .404976 0 Td (audit_store_month_m) Tj T* 31.112 0 Td (etrics) Tj T* -31.51698 0 Td ET
+Q
+Q
+q
+1 0 0 1 102.378 20.26181 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (belongs to) Tj T* ET
+Q
+Q
+q
+1 0 0 1 181.748 20.51181 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 24.07427 0 Td (audit_stores) Tj T* -24.07427 0 Td ET
+Q
+Q
+q
+1 0 0 1 289.4646 20.26181 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (has many) Tj T* ET
+Q
+Q
+q
+1 0 0 1 368.8346 20.51181 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 19.34891 0 Td (audit_sync_jobs) Tj T* -19.34891 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.145098 .388235 .921569 RG
+.7 w
+n 0 147.4016 m 96.37795 147.4016 l S
+n 0 96.37795 m 96.37795 96.37795 l S
+n 0 96.37795 m 0 147.4016 l S
+n 96.37795 96.37795 m 96.37795 147.4016 l S
+.058824 .462745 .431373 RG
+n 175.748 147.4016 m 283.4646 147.4016 l S
+n 175.748 51.02362 m 283.4646 51.02362 l S
+n 175.748 51.02362 m 175.748 147.4016 l S
+n 283.4646 51.02362 m 283.4646 147.4016 l S
+.705882 .32549 .035294 RG
+n 362.8346 147.4016 m 476.2205 147.4016 l S
+n 362.8346 96.37795 m 476.2205 96.37795 l S
+n 362.8346 96.37795 m 362.8346 147.4016 l S
+n 476.2205 96.37795 m 476.2205 147.4016 l S
+n 0 51.02362 m 96.37795 51.02362 l S
+n 0 0 m 96.37795 0 l S
+n 0 0 m 0 51.02362 l S
+n 96.37795 0 m 96.37795 51.02362 l S
+.145098 .388235 .921569 RG
+n 175.748 51.02362 m 283.4646 51.02362 l S
+n 175.748 0 m 283.4646 0 l S
+n 175.748 0 m 175.748 51.02362 l S
+n 283.4646 0 m 283.4646 51.02362 l S
+.705882 .137255 .094118 RG
+n 362.8346 51.02362 m 476.2205 51.02362 l S
+n 362.8346 0 m 476.2205 0 l S
+n 362.8346 0 m 362.8346 51.02362 l S
+n 476.2205 0 m 476.2205 51.02362 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 298.4008 cm
+Q
+q
+1 0 0 1 59.52756 242.8008 cm
+q
+.909804 .964706 .952941 rg
+n 0 55.6 476.2205 -55.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 35.6 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (How tags remain store-safe) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 15.9 Tm /F1 8.7 Tf 12.3 TL (Example: Store A's Shopify product 123 and Store B's Shopify product 123 become two different audit_products rows,) Tj T* (such as internal IDs 50 and 900. Tags point to 50 or 900. A tag never needs to guess which store owns the product.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.058824 .462745 .431373 RG
+.8 w
+n 0 55.6 m 476.2205 55.6 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 55.6 l S
+n 476.2205 0 m 476.2205 55.6 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 3 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+14 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+15 0 obj
+<<
+/Contents 16 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 17 0 R
+/F1-0 18 0 R
+/F2 19 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+16 0 obj
+<<
+/Length 8261
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (NEW SECTION: FROM SHOPIFY SOURCE TO REPORT SCREEN) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 747.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (2.3 The Complete Data Journey - Beginner Version) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 738.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 663.5142 cm
+q
+1 .964706 .898039 rg
+n 0 67.6 476.2205 -67.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.6 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (The most important idea) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+BT 1 0 0 1 0 28 Tm 12.2 TL /F1 8.6 Tf .145098 .192157 .235294 rg (There are currently ) Tj /F2 8.6 Tf (two separate data journeys) Tj /F1 8.6 Tf (. The live reports still ask Shopify for data when a report is opened.) Tj T* (Separately, the new sync copies 18 months of monthly data into Supabase so it can be checked and prepared for future) Tj T* (use. Supabase is not yet feeding the live Product Audit or New Arrival reports.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.8 w
+n 0 67.6 m 476.2205 67.6 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.6 l S
+n 476.2205 0 m 476.2205 67.6 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 652.1756 cm
+Q
+q
+1 0 0 1 54.18898 628.1756 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (Simple meanings of the main words) Tj T* ET
+Q
+Q
+q
+1 0 0 1 59.52756 343.1756 cm
+q
+.058824 .462745 .431373 rg
+n 0 280 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 230 476.2205 -30 re f*
+.964706 .972549 .980392 rg
+n 0 170 476.2205 -30 re f*
+.964706 .972549 .980392 rg
+n 0 110 476.2205 -30 re f*
+.964706 .972549 .980392 rg
+n 0 50 476.2205 -30 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 265 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Word) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 265 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Meaning in very simple language) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 265 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Example in this app) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 245 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Source) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 245 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (The original place where the information comes from.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 235 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Shopify is the source of product, inventory, sales and) Tj T* (session information.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 215 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 205 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (A question sent to Shopify asking it to calculate and return) Tj T* (analytics rows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 215 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Give inventory and sales for each product for August.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 185 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Server) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 175 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (The private part of the app that talks to Shopify and) Tj T* (prepares the report.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 175 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (It checks which store is signed in and joins the) Tj T* (returned rows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 155 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Database) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 145 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Organized tables where information can be saved for later) Tj T* (use.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 145 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Supabase stores one product-month row for each) Tj T* (product and month.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 125 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Cache) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 115 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (A temporary saved answer used to avoid asking Shopify) Tj T* (the same question again immediately.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 115 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (A finished historical month can be reused when the) Tj T* (same report is requested again.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Batch / chunk) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 85 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (A large job divided into smaller pieces so it is less likely to) Tj T* (fail.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 85 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Inventory is split into smaller date ranges and the) Tj T* (results are combined.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 65 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Retry) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 55 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (If Shopify is temporarily busy, the app waits and tries) Tj T* (again.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 55 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (A rate-limited monthly query is retried instead of failing) Tj T* (immediately.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 35 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Transform) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 25 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Cleaning, matching or calculating data before showing or) Tj T* (saving it.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 25 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Match a Shopify product ID to its title, then calculate) Tj T* (CR %.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Embedded app) Tj T* ET
+Q
+Q
+q
+1 0 0 1 84.37008 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (The report page shown inside the Shopify Admin window.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 288.4646 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Product Audit and New Arrival Analysis.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 280 m 476.2205 280 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 280 l S
+n 476.2205 0 m 476.2205 280 l S
+n 0 260 m 476.2205 260 l S
+n 0 230 m 476.2205 230 l S
+n 0 200 m 476.2205 200 l S
+n 0 170 m 476.2205 170 l S
+n 0 140 m 476.2205 140 l S
+n 0 110 m 476.2205 110 l S
+n 0 80 m 476.2205 80 l S
+n 0 50 m 476.2205 50 l S
+n 0 20 m 476.2205 20 l S
+n 79.37008 0 m 79.37008 280 l S
+n 283.4646 0 m 283.4646 280 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 331.837 cm
+Q
+q
+1 0 0 1 59.52756 264.237 cm
+q
+.917647 .94902 1 rg
+n 0 67.6 476.2205 -67.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.6 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Think of it like a restaurant) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28 Tm /F1 8.6 Tf 12.2 TL (Shopify is the storeroom holding the ingredients. ShopifyQL is the order slip asking for specific ingredients. The app) Tj T* (server is the kitchen that combines them. The browser is the waiter, and the report is the prepared dish shown to the) Tj T* (user. Supabase is a labelled pantry being prepared so future dishes can be served faster and more consistently.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.145098 .388235 .921569 RG
+.8 w
+n 0 67.6 m 476.2205 67.6 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.6 l S
+n 476.2205 0 m 476.2205 67.6 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 4 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+17 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+18 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+19 0 obj
+<<
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+20 0 obj
+<<
+/Contents 21 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 17 0 R
+/F1-0 22 0 R
+/F2 19 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+21 0 obj
+<<
+/Length 8395
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (WHAT HAPPENS WHEN THE USER OPENS OR CHANGES A REPORT) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 747.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (2.4 Current Live Report Pipeline) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 738.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 718.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (1.) Tj /F1 9.1 Tf ( The user opens Product Audit or New Arrival Analysis inside Shopify Admin.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 701.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (2.) Tj /F1 9.1 Tf ( Shopify confirms which store is signed in. The app does not rely on a store name typed by the user.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 684.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (3.) Tj /F1 9.1 Tf ( The page URL tells the server the selected start date, end date, grouping and filters.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 654.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td -0.103129 Tw 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (4.) Tj /F1 9.1 Tf ( The server loads the current Shopify product catalog through Shopify Admin GraphQL. This provides names, handles,) Tj T* 0 Tw 12 0 Td (types, statuses, images and tags.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 624.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (5.) Tj /F1 9.1 Tf ( The server sends analytics questions to ShopifyQL. Product Audit asks for product landing sessions, product sales,) Tj T* 12 0 Td (store unique orders and inventory. New Arrival also asks for store sales and the special first-cohort lookback data.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 594.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (6.) Tj /F1 9.1 Tf ( Large inventory requests are divided into smaller date chunks. If a chunk reaches Shopify's row limit, it is divided) Tj T* 12 0 Td (again. Temporary rate-limit errors are retried with waiting time.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 564.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (7.) Tj /F1 9.1 Tf ( The server converts Shopify's returned rows into one consistent format, because Shopify may return different row) Tj T* 12 0 Td (shapes.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 534.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (8.) Tj /F1 9.1 Tf ( Rows are matched using Product ID. Landing sessions are matched using the product URL handle. The app) Tj T* 12 0 Td (combines catalog details, inventory, sessions and sales.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 517.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (9.) Tj /F1 9.1 Tf ( Report rules calculate totals, New Arrival cohorts, percentages, CR %, filters, sorting and pagination.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 487.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (10.) Tj /F1 9.1 Tf ( React Router sends the prepared result to the browser. The old report body is replaced by a loader while the new) Tj T* 12 0 Td (result is being prepared.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 457.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (11.) Tj /F1 9.1 Tf ( The browser draws the tables and cards inside the Shopify embedded app. Export uses the same prepared report) Tj T* 12 0 Td (data.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 444.6102 cm
+Q
+q
+1 0 0 1 59.52756 377.0102 cm
+q
+.917647 .972549 .941176 rg
+n 0 67.6 476.2205 -67.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.6 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Where the live report data comes from today) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+BT 1 0 0 1 0 28 Tm 12.2 TL /F2 8.6 Tf .145098 .192157 .235294 rg (Shopify is still the source of truth.) Tj /F1 8.6 Tf ( The app may reuse a safe cached result for a completed historical period, but if the) Tj T* (required answer is not cached, it asks ShopifyQL. The new Supabase monthly tables are not yet read by these report) Tj T* (pages.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.023529 .462745 .278431 RG
+.8 w
+n 0 67.6 m 476.2205 67.6 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.6 l S
+n 476.2205 0 m 476.2205 67.6 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 365.6717 cm
+Q
+q
+1 0 0 1 59.52756 225.6717 cm
+q
+.090196 .196078 .301961 rg
+n 0 140 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 100 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 60 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 20 476.2205 -20 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 125 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Data needed) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 125 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Original Shopify source) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 125 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (How it joins the report) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 105 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Product details) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 105 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Shopify Admin GraphQL product catalog) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 105 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Shopify Product ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 85 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Starting/ending inventory) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 85 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL inventory analytics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 85 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Product ID + date) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 65 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Sales, units and product orders) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 65 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL sales analytics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 65 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Product ID + date) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 45 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Store unique orders) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 45 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL store-level sales analytics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 45 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (One total for the selected range) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 25 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Landing sessions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 25 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL sessions analytics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 25 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Landing page path / current product handle) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Product image and website URL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 143.8976 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Current product catalog and product handle) Tj T* ET
+Q
+Q
+q
+1 0 0 1 322.4803 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Shown with the product row) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 140 m 476.2205 140 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 140 l S
+n 476.2205 0 m 476.2205 140 l S
+n 0 120 m 476.2205 120 l S
+n 0 100 m 476.2205 100 l S
+n 0 80 m 476.2205 80 l S
+n 0 60 m 476.2205 60 l S
+n 0 40 m 476.2205 40 l S
+n 0 20 m 476.2205 20 l S
+n 138.8976 0 m 138.8976 140 l S
+n 317.4803 0 m 317.4803 140 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 5 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+22 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+23 0 obj
+<<
+/Contents 24 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 17 0 R
+/F1-0 25 0 R
+/F2 19 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+24 0 obj
+<<
+/Length 8167
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (HOW THE 18-MONTH DATABASE COPY IS CREATED) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 747.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (2.5 Supabase Monthly Sync Pipeline) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 738.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 718.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (1.) Tj /F1 9.1 Tf ( The sync starts only for an authenticated Shopify store.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 701.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (2.) Tj /F1 9.1 Tf ( The app creates or updates that store in audit_stores.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 684.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (3.) Tj /F1 9.1 Tf ( The current product catalog is fetched once and stored in audit_products. Tags are stored in audit_product_tags.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 667.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (4.) Tj /F1 9.1 Tf ( The latest 18 months are listed from newest to oldest.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 637.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (5.) Tj /F1 9.1 Tf ( For each month, the app asks ShopifyQL for product inventory, product sales, product landing sessions and store) Tj T* 12 0 Td (totals.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 620.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (6.) Tj /F1 9.1 Tf ( Only a small number of Shopify questions run together. This reduces rate-limit pressure.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 603.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (7.) Tj /F1 9.1 Tf ( Temporary failures are retried. If a month remains incomplete, that month is not written as if it were complete.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 586.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (8.) Tj /F1 9.1 Tf ( Shopify Product IDs are matched to the internal audit_products IDs. Session paths are matched to product handles.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 569.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (9.) Tj /F1 9.1 Tf ( The app prepares compact monthly rows. Text such as title is stored once; changing numbers are stored by month.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 539.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (10.) Tj /F1 9.1 Tf ( Rows are written to audit_product_month_metrics in batches of 500. One overall monthly summary is stored in) Tj T* 12 0 Td (audit_store_month_metrics.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 509.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (11.) Tj /F1 9.1 Tf ( audit_sync_jobs records progress, successful months, failures and row counts. A failed month can be retried) Tj T* 12 0 Td (separately.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 479.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (12.) Tj /F1 9.1 Tf ( After approval in a future phase, reports can read these prepared rows instead of repeating every historical) Tj T* 12 0 Td (ShopifyQL query.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 466.6102 cm
+Q
+q
+1 0 0 1 59.52756 316.6102 cm
+q
+.058824 .462745 .431373 rg
+n 0 150 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 110 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 70 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 30 476.2205 -30 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 135 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Saved table) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 135 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (What is saved) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 135 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Why) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 115 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (audit_stores) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 115 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Store identity, currency and status) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 115 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Keeps every store separate) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (audit_products) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Current product details) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Avoids repeating text for every month) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 75 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (audit_product_tags) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 75 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Tags linked to the internal product) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 75 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Supports product-tag filters) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 55 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (audit_product_month_metrics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 55 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Monthly inventory, sessions, orders, units and sales) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 55 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Main monthly facts for reporting) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 35 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (audit_store_month_metrics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 35 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (One monthly store summary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 35 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Fast checks against Shopify totals) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 15 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (audit_sync_jobs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 152.4016 15 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Progress, dates and errors) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Shows whether the import completed) Tj T* (safely) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 150 m 476.2205 150 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 150 l S
+n 476.2205 0 m 476.2205 150 l S
+n 0 130 m 476.2205 130 l S
+n 0 110 m 476.2205 110 l S
+n 0 90 m 476.2205 90 l S
+n 0 70 m 476.2205 70 l S
+n 0 50 m 476.2205 50 l S
+n 0 30 m 476.2205 30 l S
+n 147.4016 0 m 147.4016 150 l S
+n 340.1575 0 m 340.1575 150 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 305.2717 cm
+Q
+q
+1 0 0 1 59.52756 249.8717 cm
+q
+.917647 .94902 1 rg
+n 0 55.4 476.2205 -55.4 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 35.4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Why monthly storage is smaller) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 15.8 Tm /F1 8.6 Tf 12.2 TL (Product names and tags are not copied 18 times. The catalog text is stored once. Each monthly row mainly stores IDs, a) Tj T* (month and numbers. This is why the database can hold more stores than a daily full-product copy.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.145098 .388235 .921569 RG
+.8 w
+n 0 55.4 m 476.2205 55.4 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 55.4 l S
+n 476.2205 0 m 476.2205 55.4 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 6 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+25 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+26 0 obj
+<<
+/Contents 27 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 17 0 R
+/F1-0 28 0 R
+/F2 19 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+27 0 obj
+<<
+/Length 11827
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (THE TWO DATA JOURNEYS SHOWN TOGETHER) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 747.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (2.6 End-to-End Flowchart) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 738.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 192.5315 cm
+BT /F2 10 Tf 12 TL ET
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 526.5827 Tm (A. What happens when a person opens a live report today) Tj T* ET
+.917647 .94902 1 rg
+.145098 .388235 .921569 RG
+.8 w
+n
+5 402.5197 m
+94.2126 402.5197 l
+96.9766 402.5197 99.2126 404.7557 99.2126 407.5197 c
+99.2126 468.3858 l
+99.2126 471.1498 96.9766 473.3858 94.2126 473.3858 c
+5 473.3858 l
+2.236 473.3858 0 471.1498 0 468.3858 c
+0 407.5197 l
+0 404.7557 2.236 402.5197 5 402.5197 c
+h
+B*
+q
+1 0 0 1 5 419.5528 cm
+q
+BT 1 0 0 1 0 29.4 Tm 16.8489 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (1. Shopify store) Tj /F1 7.4 Tf  T* -16.8489 0 Td -0.015701 Tw (Orders, inventory, products) Tj T* 0 Tw 12.5273 0 Td (and sessions live in) Tj T* 18.7109 0 Td (Shopify.) Tj T* -31.2382 0 Td ET
+Q
+Q
+.145098 .388235 .921569 RG
+.145098 .388235 .921569 rg
+1.2 w
+n 99.2126 437.9528 m 111.3858 437.9528 l S
+n 111.3858 437.9528 m 106.3858 440.9528 l S
+n 111.3858 437.9528 m 106.3858 434.9528 l S
+.917647 .94902 1 rg
+.145098 .388235 .921569 RG
+.8 w
+n
+118.3858 402.5197 m
+207.5984 402.5197 l
+210.3624 402.5197 212.5984 404.7557 212.5984 407.5197 c
+212.5984 468.3858 l
+212.5984 471.1498 210.3624 473.3858 207.5984 473.3858 c
+118.3858 473.3858 l
+115.6218 473.3858 113.3858 471.1498 113.3858 468.3858 c
+113.3858 407.5197 l
+113.3858 404.7557 115.6218 402.5197 118.3858 402.5197 c
+h
+B*
+q
+1 0 0 1 118.3858 424.1528 cm
+q
+BT 1 0 0 1 0 20.2 Tm 13.9703 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (2. Embedded app) Tj /F1 7.4 Tf  T* -11.1148 0 Td (The user chooses a page) Tj T* 15.8323 0 Td (and date range.) Tj T* -18.6878 0 Td ET
+Q
+Q
+.145098 .388235 .921569 RG
+.145098 .388235 .921569 rg
+1.2 w
+n 212.5984 437.9528 m 224.7717 437.9528 l S
+n 224.7717 437.9528 m 219.7717 440.9528 l S
+n 224.7717 437.9528 m 219.7717 434.9528 l S
+.917647 .94902 1 rg
+.145098 .388235 .921569 RG
+.8 w
+n
+231.7717 402.5197 m
+320.9843 402.5197 l
+323.7483 402.5197 325.9843 404.7557 325.9843 407.5197 c
+325.9843 468.3858 l
+325.9843 471.1498 323.7483 473.3858 320.9843 473.3858 c
+231.7717 473.3858 l
+229.0077 473.3858 226.7717 471.1498 226.7717 468.3858 c
+226.7717 407.5197 l
+226.7717 404.7557 229.0077 402.5197 231.7717 402.5197 c
+h
+B*
+q
+1 0 0 1 231.7717 419.5528 cm
+q
+BT 1 0 0 1 0 29.4 Tm 21.1631 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (3. App server) Tj /F1 7.4 Tf  T* -20.3574 0 Td (Checks the signed-in store) Tj T* 1.6391 0 Td (and requests the required) Tj T* 33.9327 0 Td (data.) Tj T* -36.3775 0 Td ET
+Q
+Q
+.145098 .388235 .921569 RG
+.145098 .388235 .921569 rg
+1.2 w
+n 325.9843 437.9528 m 338.1575 437.9528 l S
+n 338.1575 437.9528 m 333.1575 440.9528 l S
+n 338.1575 437.9528 m 333.1575 434.9528 l S
+.917647 .94902 1 rg
+.145098 .388235 .921569 RG
+.8 w
+n
+345.1575 402.5197 m
+434.3701 402.5197 l
+437.1341 402.5197 439.3701 404.7557 439.3701 407.5197 c
+439.3701 468.3858 l
+439.3701 471.1498 437.1341 473.3858 434.3701 473.3858 c
+345.1575 473.3858 l
+342.3935 473.3858 340.1575 471.1498 340.1575 468.3858 c
+340.1575 407.5197 l
+340.1575 404.7557 342.3935 402.5197 345.1575 402.5197 c
+h
+B*
+q
+1 0 0 1 345.1575 424.1528 cm
+q
+BT 1 0 0 1 0 20.2 Tm 21.7847 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (4. ShopifyQL) Tj /F1 7.4 Tf  T* -21.1825 0 Td (Shopify calculates rows for) Tj T* 10.2712 0 Td (the requested dates.) Tj T* -10.8734 0 Td ET
+Q
+Q
+.917647 .972549 .941176 rg
+.023529 .462745 .278431 RG
+.8 w
+n
+5 291.9685 m
+94.2126 291.9685 l
+96.9766 291.9685 99.2126 294.2045 99.2126 296.9685 c
+99.2126 357.8346 l
+99.2126 360.5986 96.9766 362.8346 94.2126 362.8346 c
+5 362.8346 l
+2.236 362.8346 0 360.5986 0 357.8346 c
+0 296.9685 l
+0 294.2045 2.236 291.9685 5 291.9685 c
+h
+B*
+q
+1 0 0 1 5 309.0016 cm
+q
+BT 1 0 0 1 0 29.4 Tm 13.9666 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (8. Shopify screen) Tj /F1 7.4 Tf  T* -3.907201 0 Td (The finished report is) Tj T* 2.053499 0 Td (displayed inside the) Tj T* 11.9251 0 Td (Shopify app.) Tj T* -24.038 0 Td ET
+Q
+Q
+.023529 .462745 .278431 RG
+.023529 .462745 .278431 rg
+1.2 w
+n 111.3858 327.4016 m 99.2126 327.4016 l S
+n 99.2126 327.4016 m 104.2126 330.4016 l S
+n 99.2126 327.4016 m 104.2126 324.4016 l S
+.917647 .972549 .941176 rg
+.023529 .462745 .278431 RG
+.8 w
+n
+118.3858 291.9685 m
+207.5984 291.9685 l
+210.3624 291.9685 212.5984 294.2045 212.5984 296.9685 c
+212.5984 357.8346 l
+212.5984 360.5986 210.3624 362.8346 207.5984 362.8346 c
+118.3858 362.8346 l
+115.6218 362.8346 113.3858 360.5986 113.3858 357.8346 c
+113.3858 296.9685 l
+113.3858 294.2045 115.6218 291.9685 118.3858 291.9685 c
+h
+B*
+q
+1 0 0 1 118.3858 313.6016 cm
+q
+BT 1 0 0 1 0 20.2 Tm 25.6882 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (7. Browser) Tj /F1 7.4 Tf  T* -18.3039 0 Td (Receives the prepared) Tj T* 18.3002 0 Td (report data.) Tj T* -25.6845 0 Td ET
+Q
+Q
+.023529 .462745 .278431 RG
+.023529 .462745 .278431 rg
+1.2 w
+n 224.7717 327.4016 m 212.5984 327.4016 l S
+n 212.5984 327.4016 m 217.5984 330.4016 l S
+n 212.5984 327.4016 m 217.5984 324.4016 l S
+.917647 .972549 .941176 rg
+.023529 .462745 .278431 RG
+.8 w
+n
+231.7717 291.9685 m
+320.9843 291.9685 l
+323.7483 291.9685 325.9843 294.2045 325.9843 296.9685 c
+325.9843 357.8346 l
+325.9843 360.5986 323.7483 362.8346 320.9843 362.8346 c
+231.7717 362.8346 l
+229.0077 362.8346 226.7717 360.5986 226.7717 357.8346 c
+226.7717 296.9685 l
+226.7717 294.2045 229.0077 291.9685 231.7717 291.9685 c
+h
+B*
+q
+1 0 0 1 231.7717 309.0016 cm
+q
+BT 1 0 0 1 0 29.4 Tm 18.9061 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (6. Report logic) Tj /F1 7.4 Tf  T* -16.6611 0 Td (Calculates totals, cohorts,) Tj T* 3.9035 0 Td (percentages, filters and) Tj T* 27.3504 0 Td (pages.) Tj T* -33.4989 0 Td ET
+Q
+Q
+.023529 .462745 .278431 RG
+.023529 .462745 .278431 rg
+1.2 w
+n 338.1575 327.4016 m 325.9843 327.4016 l S
+n 325.9843 327.4016 m 330.9843 330.4016 l S
+n 325.9843 327.4016 m 330.9843 324.4016 l S
+.917647 .972549 .941176 rg
+.023529 .462745 .278431 RG
+.8 w
+n
+345.1575 291.9685 m
+434.3701 291.9685 l
+437.1341 291.9685 439.3701 294.2045 439.3701 296.9685 c
+439.3701 357.8346 l
+439.3701 360.5986 437.1341 362.8346 434.3701 362.8346 c
+345.1575 362.8346 l
+342.3935 362.8346 340.1575 360.5986 340.1575 357.8346 c
+340.1575 296.9685 l
+340.1575 294.2045 342.3935 291.9685 345.1575 291.9685 c
+h
+B*
+q
+1 0 0 1 345.1575 313.6016 cm
+q
+BT 1 0 0 1 0 20.2 Tm 19.7238 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (5. Safety work) Tj /F1 7.4 Tf  T* -14.8074 0 Td (Large requests are split,) Tj T* 3.9072 0 Td (retried and combined.) Tj T* -8.823599 0 Td ET
+Q
+Q
+.023529 .462745 .278431 RG
+.023529 .462745 .278431 rg
+1.2 w
+n 389.7638 402.5197 m 389.7638 364.8346 l S
+n 389.7638 364.8346 m 386.7638 369.8346 l S
+n 389.7638 364.8346 m 392.7638 369.8346 l S
+BT /F2 10 Tf 12 TL ET
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 273.9685 Tm (B. Separate background preparation flow for Supabase) Tj T* ET
+.909804 .964706 .952941 rg
+.058824 .462745 .431373 RG
+.8 w
+n
+5 141.7323 m
+94.2126 141.7323 l
+96.9766 141.7323 99.2126 143.9683 99.2126 146.7323 c
+99.2126 207.5984 l
+99.2126 210.3624 96.9766 212.5984 94.2126 212.5984 c
+5 212.5984 l
+2.236 212.5984 0 210.3624 0 207.5984 c
+0 146.7323 l
+0 143.9683 2.236 141.7323 5 141.7323 c
+h
+B*
+q
+1 0 0 1 5 163.3654 cm
+q
+BT 1 0 0 1 0 20.2 Tm 22.6024 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (1. Start sync) Tj /F1 7.4 Tf  T* -15.0183 0 Td (An authenticated store) Tj T* -7.1891 0 Td (starts the 18-month import.) Tj T* -0.394999 0 Td ET
+Q
+Q
+.058824 .462745 .431373 RG
+.058824 .462745 .431373 rg
+1.2 w
+n 99.2126 177.1654 m 111.3858 177.1654 l S
+n 111.3858 177.1654 m 106.3858 180.1654 l S
+n 111.3858 177.1654 m 106.3858 174.1654 l S
+.909804 .964706 .952941 rg
+.058824 .462745 .431373 RG
+.8 w
+n
+118.3858 141.7323 m
+207.5984 141.7323 l
+210.3624 141.7323 212.5984 143.9683 212.5984 146.7323 c
+212.5984 207.5984 l
+212.5984 210.3624 210.3624 212.5984 207.5984 212.5984 c
+118.3858 212.5984 l
+115.6218 212.5984 113.3858 210.3624 113.3858 207.5984 c
+113.3858 146.7323 l
+113.3858 143.9683 115.6218 141.7323 118.3858 141.7323 c
+h
+B*
+q
+1 0 0 1 118.3858 158.7654 cm
+q
+BT 1 0 0 1 0 29.4 Tm 16.0275 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (2. Fetch Shopify) Tj /F1 7.4 Tf  T* -8.232501 0 Td (Catalog once; monthly) Tj T* -5.3428 0 Td (inventory, sales, sessions) Tj T* 25.0823 0 Td (and totals.) Tj T* -27.5345 0 Td ET
+Q
+Q
+.058824 .462745 .431373 RG
+.058824 .462745 .431373 rg
+1.2 w
+n 212.5984 177.1654 m 224.7717 177.1654 l S
+n 224.7717 177.1654 m 219.7717 180.1654 l S
+n 224.7717 177.1654 m 219.7717 174.1654 l S
+.909804 .964706 .952941 rg
+.058824 .462745 .431373 RG
+.8 w
+n
+231.7717 141.7323 m
+320.9843 141.7323 l
+323.7483 141.7323 325.9843 143.9683 325.9843 146.7323 c
+325.9843 207.5984 l
+325.9843 210.3624 323.7483 212.5984 320.9843 212.5984 c
+231.7717 212.5984 l
+229.0077 212.5984 226.7717 210.3624 226.7717 207.5984 c
+226.7717 146.7323 l
+226.7717 143.9683 229.0077 141.7323 231.7717 141.7323 c
+h
+B*
+q
+1 0 0 1 231.7717 158.7654 cm
+q
+BT 1 0 0 1 0 29.4 Tm 10.8845 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (3. Clean and match) Tj /F1 7.4 Tf  T* -5.553701 0 Td (Match rows to products,) Tj T* 1.2395 0 Td (retry temporary failures) Tj T* 17.057 0 Td (and validate.) Tj T* -23.6273 0 Td ET
+Q
+Q
+.058824 .462745 .431373 RG
+.058824 .462745 .431373 rg
+1.2 w
+n 325.9843 177.1654 m 338.1575 177.1654 l S
+n 338.1575 177.1654 m 333.1575 180.1654 l S
+n 338.1575 177.1654 m 333.1575 174.1654 l S
+.909804 .964706 .952941 rg
+.058824 .462745 .431373 RG
+.8 w
+n
+345.1575 141.7323 m
+434.3701 141.7323 l
+437.1341 141.7323 439.3701 143.9683 439.3701 146.7323 c
+439.3701 207.5984 l
+439.3701 210.3624 437.1341 212.5984 434.3701 212.5984 c
+345.1575 212.5984 l
+342.3935 212.5984 340.1575 210.3624 340.1575 207.5984 c
+340.1575 146.7323 l
+340.1575 143.9683 342.3935 141.7323 345.1575 141.7323 c
+h
+B*
+q
+1 0 0 1 345.1575 158.7654 cm
+q
+BT 1 0 0 1 0 29.4 Tm 12.5273 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (4. Store Supabase) Tj /F1 7.4 Tf  T* -1.650201 0 Td (Save products, tags,) Tj T* -8.214001 0 Td (monthly facts, summaries) Tj T* 13.357 0 Td (and job progress.) Tj T* -16.0201 0 Td ET
+Q
+Q
+1 .964706 .898039 rg
+.705882 .32549 .035294 RG
+.8 w
+n
+61.69291 68.0315 m
+437.2047 68.0315 l
+439.9687 68.0315 442.2047 70.2675 442.2047 73.0315 c
+442.2047 114.0551 l
+442.2047 116.8191 439.9687 119.0551 437.2047 119.0551 c
+61.69291 119.0551 l
+58.92891 119.0551 56.69291 116.8191 56.69291 114.0551 c
+56.69291 73.0315 l
+56.69291 70.2675 58.92891 68.0315 61.69291 68.0315 c
+h
+B*
+q
+1 0 0 1 61.69291 79.74331 cm
+q
+BT 1 0 0 1 0 20.2 Tm 71.18001 0 Td 9.2 TL /F2 7.4 Tf .145098 .192157 .235294 rg (Important: these two lanes are not connected for live reporting yet) Tj /F1 7.4 Tf  T* -67.8765 0 Td (Supabase is currently a checked copy used for comparison. Product Audit and New Arrival Analysis still read live) Tj T* 69.2825 0 Td (ShopifyQL. A later approved change will connect reports to Supabase.) Tj T* -72.58601 0 Td ET
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 7 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+28 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+29 0 obj
+<<
+/Contents 30 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 17 0 R
+/F1-0 31 0 R
+/F2 19 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+30 0 obj
+<<
+/Length 6034
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (FROM PREPARED ROWS TO THE USER'S SCREEN) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 747.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (2.7 How the Data Finally Appears in Shopify) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 738.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 714.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (What the browser receives) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 696.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (1.) Tj /F1 9.1 Tf ( The server sends prepared report data, not raw Shopify passwords or Supabase service keys.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 679.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (2.) Tj /F1 9.1 Tf ( The response contains rows, totals, date information, errors/warnings and freshness details needed by that screen.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 662.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (3.) Tj /F1 9.1 Tf ( The browser uses React components to draw the date selector, metric cards, tables, filters, pagination and exports.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 632.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (4.) Tj /F1 9.1 Tf ( When the date changes, the URL changes and the route loader runs again. A full loader replaces the previous report) Tj T* 12 0 Td (body so old numbers are not mistaken for new numbers.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 602.1142 cm
+q
+BT 1 0 0 1 16 16.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (5.) Tj /F1 9.1 Tf ( Client-only actions, such as switching some already-loaded views or paging through prepared results, can be faster) Tj T* 12 0 Td (because they do not always require another Shopify request.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 586.7756 cm
+Q
+q
+1 0 0 1 54.18898 562.7756 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (What will change after a future database-read rollout) Tj T* ET
+Q
+Q
+q
+1 0 0 1 59.52756 427.7756 cm
+q
+.090196 .196078 .301961 rg
+n 0 130 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 90 476.2205 -30 re f*
+.964706 .972549 .980392 rg
+n 0 30 476.2205 -30 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 115 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Step) Tj T* ET
+Q
+Q
+q
+1 0 0 1 112.7165 115 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Today) Tj T* ET
+Q
+Q
+q
+1 0 0 1 296.9685 115 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.2 Tm /F2 7.8 Tf 10 TL (Future after approval) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Historical data source) Tj T* ET
+Q
+Q
+q
+1 0 0 1 112.7165 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL or existing analytics cache) Tj T* ET
+Q
+Q
+q
+1 0 0 1 296.9685 95 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Supabase monthly rows for stored periods) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 75 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Fresh/current period) Tj T* ET
+Q
+Q
+q
+1 0 0 1 112.7165 75 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (ShopifyQL) Tj T* ET
+Q
+Q
+q
+1 0 0 1 296.9685 65 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Likely ShopifyQL for the latest incomplete period,) Tj T* (then save/refresh) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 45 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Report calculations) Tj T* ET
+Q
+Q
+q
+1 0 0 1 112.7165 45 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (App server and New Arrival engine) Tj T* ET
+Q
+Q
+q
+1 0 0 1 296.9685 35 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Same approved calculation rules, using database) Tj T* (rows) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 15 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (Shopify screen) Tj T* ET
+Q
+Q
+q
+1 0 0 1 112.7165 15 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.5 Tm /F1 7.5 Tf 10 TL (React tables inside embedded app) Tj T* ET
+Q
+Q
+q
+1 0 0 1 296.9685 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 12.5 Tm /F1 7.5 Tf 10 TL (Same user experience; only the source behind it) Tj T* (changes) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 130 m 476.2205 130 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 130 l S
+n 476.2205 0 m 476.2205 130 l S
+n 0 110 m 476.2205 110 l S
+n 0 90 m 476.2205 90 l S
+n 0 60 m 476.2205 60 l S
+n 0 30 m 476.2205 30 l S
+n 107.7165 0 m 107.7165 130 l S
+n 291.9685 0 m 291.9685 130 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 413.6024 cm
+Q
+q
+1 0 0 1 59.52756 358.2024 cm
+q
+1 .964706 .898039 rg
+n 0 55.4 476.2205 -55.4 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 35.4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Safe rollout principle) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 15.8 Tm /F1 8.6 Tf 12.2 TL (The user should not see a different answer just because the source changes from live ShopifyQL to Supabase. Before) Tj T* (switching, the same months and products must be compared. Any difference must be explained and approved.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.8 w
+n 0 55.4 m 476.2205 55.4 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 55.4 l S
+n 476.2205 0 m 476.2205 55.4 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 8 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+31 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+32 0 obj
+<<
+/Contents 33 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 34 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+33 0 obj
+<<
+/Length 10292
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 4) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (WHAT EACH STORED FIELD MEANS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (3. Table and Metric Dictionary) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 543.5142 cm
+q
+.090196 .196078 .301961 rg
+n 0 185.6 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 136.4 476.2205 -29.2 re f*
+.964706 .972549 .980392 rg
+n 0 78 476.2205 -29.2 re f*
+.964706 .972549 .980392 rg
+n 0 19.6 476.2205 -19.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 170.6 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Table) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 170.6 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Row meaning) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 170.6 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Main content) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 170.6 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Purpose) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 151 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_stores) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 151 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (One row per Shopify store) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 141.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (shop_domain, currency, status, lifecycle) Tj T* (dates) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 151 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Tenant identity) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 121.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_products) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 121.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (One row per product per store) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 112.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (current title, handle, type, status, image,) Tj T* (created date) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 121.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Current catalog snapshot) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 92.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_product_tags) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 83 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (One row per internal product and) Tj T* (tag) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 92.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (product_id + tag) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 92.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Current product tags) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 63.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_product_month_metrics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 53.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (One row per store + product +) Tj T* (month) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 63.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (inventory, sessions, orders, units, sales) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 63.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Monthly product facts) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_store_month_metrics) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (One row per store + month) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (active products, inventory, unique orders,) Tj T* (sessions, sales) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL -0.013546 Tw (Store-level monthly check) Tj T* 0 Tw ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (audit_sync_jobs) Tj T* ET
+Q
+Q
+q
+1 0 0 1 115.5512 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (One row per sync attempt) Tj T* ET
+Q
+Q
+q
+1 0 0 1 237.4409 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (status, range, counts, details, errors) Tj T* ET
+Q
+Q
+q
+1 0 0 1 387.6772 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Progress and operations) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 185.6 m 476.2205 185.6 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 185.6 l S
+n 476.2205 0 m 476.2205 185.6 l S
+n 0 165.6 m 476.2205 165.6 l S
+n 0 136.4 m 476.2205 136.4 l S
+n 0 107.2 m 476.2205 107.2 l S
+n 0 78 m 476.2205 78 l S
+n 0 48.8 m 476.2205 48.8 l S
+n 0 19.6 m 476.2205 19.6 l S
+n 110.5512 0 m 110.5512 185.6 l S
+n 232.4409 0 m 232.4409 185.6 l S
+n 382.6772 0 m 382.6772 185.6 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 529.3409 cm
+Q
+q
+1 0 0 1 54.18898 504.3409 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (Important metric distinctions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 303.3409 cm
+q
+.058824 .462745 .431373 rg
+n 0 196 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 156.4 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 107.6 476.2205 -29.2 re f*
+.964706 .972549 .980392 rg
+n 0 58.8 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 19.6 476.2205 -19.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 181 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Metric) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 181 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Plain-language meaning) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 161.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (starting_inventory) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 161.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Inventory at the start boundary for the product/month. It can be negative in raw ShopifyQL data.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 141.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (ending_inventory) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 141.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Inventory at the end boundary for the product/month. It can be negative in raw ShopifyQL data.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 122.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (first_day_in_inventory) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 112.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (A diagnostic/product-audit field. The New Arrival cohort rule intentionally does not use the first inventory) Tj T* (date.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 93 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (orders \(product\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 83.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Orders containing that product. Adding this across products can count the same customer order more) Tj T* (than once.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 63.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (unique_orders \(store\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 63.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Distinct orders for the whole store. This is not the sum of product orders.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 44.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (landing_sessions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 44.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Sessions attributed to a product landing page and matched through a product handle.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (sales *_minor) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Money stored in the smallest currency unit, such as paise or cents, to avoid decimal rounding errors.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (active_products) Tj T* ET
+Q
+Q
+q
+1 0 0 1 132.5591 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Products meeting the report activity rule, not variants or SKUs.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 196 m 476.2205 196 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 196 l S
+n 476.2205 0 m 476.2205 196 l S
+n 0 176 m 476.2205 176 l S
+n 0 156.4 m 476.2205 156.4 l S
+n 0 136.8 m 476.2205 136.8 l S
+n 0 107.6 m 476.2205 107.6 l S
+n 0 78.4 m 476.2205 78.4 l S
+n 0 58.8 m 476.2205 58.8 l S
+n 0 39.2 m 476.2205 39.2 l S
+n 0 19.6 m 476.2205 19.6 l S
+n 127.5591 0 m 127.5591 196 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 292.0024 cm
+Q
+q
+1 0 0 1 59.52756 211.8024 cm
+q
+.917647 .94902 1 rg
+n 0 80.2 476.2205 -80.2 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 60.2 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (NA Inventory % denominator) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 40.5 Tm /F1 8.7 Tf 12.3 TL (For a displayed period, NA Inventory is the positive inventory contributed by products in the selected new-arrival cohort.) Tj T* (NA Inventory % divides this by the positive inventory of all active products in the same displayed group and period.) Tj T* (Negative inventory is treated as zero for this percentage. The store-month starting_inventory and ending_inventory) Tj T* (fields are raw validation totals and are not automatically the denominator.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.145098 .388235 .921569 RG
+.8 w
+n 0 80.2 m 476.2205 80.2 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 80.2 l S
+n 476.2205 0 m 476.2205 80.2 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 504.5541 22.67717 Tm
+(Page 9 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+34 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+35 0 obj
+<<
+/Contents 36 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 37 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+36 0 obj
+<<
+/Length 7289
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 5) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (END-TO-END PROCESS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (4. Current Shopify-to-Supabase Sync Workflow) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 716.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (1.) Tj /F1 9.1 Tf ( A user opens the authenticated Shopify development app and starts the analytics sync.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 699.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (2.) Tj /F1 9.1 Tf ( The server identifies the shop and currency, then creates or updates its audit_stores row.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 682.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (3.) Tj /F1 9.1 Tf ( The app blocks another overlapping sync for that same store.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 665.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (4.) Tj /F1 9.1 Tf ( The full current product catalog is fetched once. Products and tags are written to Supabase.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 648.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (5.) Tj /F1 9.1 Tf ( The latest 18 months are processed from newest to oldest.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 631.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (6.) Tj /F1 9.1 Tf ( For each month, ShopifyQL queries retrieve inventory, product sales, product landing sessions, and store-level totals.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 614.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (7.) Tj /F1 9.1 Tf ( At most two ShopifyQL queries run concurrently. Rate-limited or temporary failures are retried with delay.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 597.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (8.) Tj /F1 9.1 Tf ( Rows are matched to the internal product record. Product-month rows are upserted in batches of 500.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 580.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (9.) Tj /F1 9.1 Tf ( The store-month summary is upserted, and audit_sync_jobs records progress, row counts, and errors.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 563.1142 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (10.) Tj /F1 9.1 Tf ( A failed month can be retried separately. Old months are removed according to the 18-month retention rule.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 547.7756 cm
+Q
+q
+1 0 0 1 54.18898 522.7756 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (Current first-store result) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 350.9756 cm
+q
+.058824 .462745 .431373 rg
+n 0 166.8 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 127.2 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 88 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 48.8 476.2205 -29.2 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 151.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Measure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 151.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Result) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 132.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Store) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 132.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (d2c-apps.myshopify.com \(INR\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 112.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Products) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 112.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (4,003) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 93 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Product-tag rows) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 93 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (10,983) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 73.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Product-month facts) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 73.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (20,268) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Store-month summaries) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 53.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (18 months: Apr 2025 to Sep 2026) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Reconciliation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Selected May, Jul, and Aug 2026 checks: zero mismatches for identifiable products and store) Tj T* (totals) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Current source for live reports) Tj T* ET
+Q
+Q
+q
+1 0 0 1 163.7402 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (ShopifyQL. Supabase has not replaced live reads.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 166.8 m 476.2205 166.8 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 166.8 l S
+n 476.2205 0 m 476.2205 166.8 l S
+n 0 146.8 m 476.2205 146.8 l S
+n 0 127.2 m 476.2205 127.2 l S
+n 0 107.6 m 476.2205 107.6 l S
+n 0 88 m 476.2205 88 l S
+n 0 68.4 m 476.2205 68.4 l S
+n 0 48.8 m 476.2205 48.8 l S
+n 0 19.6 m 476.2205 19.6 l S
+n 158.7402 0 m 158.7402 166.8 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 339.637 cm
+Q
+q
+1 0 0 1 59.52756 271.737 cm
+q
+1 .964706 .898039 rg
+n 0 67.9 476.2205 -67.9 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.9 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (What reconciliation proves) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28.2 Tm /F1 8.7 Tf 12.3 TL -0.00737 Tw (It shows that the current extraction and mapping can reproduce the checked ShopifyQL results for the first store. It does) Tj T* 0 Tw (not by itself prove multi-store isolation, atomic refresh behavior, historical classification accuracy, or future) Tj T* (timezone/currency safety. Those are addressed below.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.8 w
+n 0 67.9 m 476.2205 67.9 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.9 l S
+n 476.2205 0 m 476.2205 67.9 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 10 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+37 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+38 0 obj
+<<
+/Contents 39 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 40 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+39 0 obj
+<<
+/Length 4951
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 6) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (FIX BEFORE STORE 2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (5. Critical Multi-Store Issues and Recommendations) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 704.1142 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+.992157 .92549 .92549 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (1. Store-product ownership is not enforced as one pair) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 9.769071 0 Td (CRITICAL) Tj T* -9.769071 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .137255 .094118 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 698.4449 cm
+Q
+q
+1 0 0 1 54.18898 672.0449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( A monthly fact stores both store_id and product_id. Each value is valid separately, but the) Tj T* (database does not currently prove that the product belongs to that same store.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 640.6449 cm
+q
+BT 1 0 0 1 0 17.2 Tm -0.120218 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A bug could write Store A's store_id with Store B's product_id. Both foreign keys pass, even though the pair is) Tj T* 0 Tw (wrong.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 609.2449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Data can leak into the wrong store's totals, cohorts, or exports. The error may) Tj T* (remain hidden because every referenced row exists.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 577.8449 cm
+q
+BT 1 0 0 1 0 17.2 Tm -0.11833 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Add a database-level composite relationship between product_id and store_id. Keep store_id) Tj T* 0 Tw (on the fact table for fast filtering, but make an incorrect pair impossible to save.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 565.7583 cm
+Q
+q
+1 0 0 1 59.52756 540.7583 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+.992157 .92549 .92549 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (2. Retention cleanup is not store-scoped) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 9.769071 0 Td (CRITICAL) Tj T* -9.769071 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .137255 .094118 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 535.089 cm
+Q
+q
+1 0 0 1 54.18898 508.689 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( The cleanup function currently removes old monthly rows based only on month, not on the) Tj T* (store being synchronized.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 477.289 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( If Store A completes a sync with a later retention boundary, its cleanup can delete older rows that still belong) Tj T* (to Store B.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 445.889 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( One customer's routine sync can silently remove another customer's historical) Tj T* (data. The risk grows immediately when a second store is added.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 414.489 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Require store_id in the cleanup function and include it in every delete condition. Add a test) Tj T* (proving a Store A cleanup leaves Store B unchanged.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 402.4024 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 11 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+40 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+41 0 obj
+<<
+/Contents 42 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 43 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+42 0 obj
+<<
+/Length 4922
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 7) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 738.8661 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 28 Tm /F2 18 Tf 23 TL (5. Critical Multi-Store Issues and Recommendations) Tj T* (\(continued\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 729.8661 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 697.8661 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+.992157 .92549 .92549 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (3. A month is upserted, not fully replaced) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 9.769071 0 Td (CRITICAL) Tj T* -9.769071 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .137255 .094118 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 692.1969 cm
+Q
+q
+1 0 0 1 54.18898 665.7969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Upsert updates returned rows and adds new ones, but it does not remove an old row that) Tj T* (Shopify no longer returns.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 634.3969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A product appeared in June during the first sync. A corrected ShopifyQL result later excludes it. Re-running) Tj T* (June updates other rows, but the old product row can remain.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 602.9969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Stale facts inflate counts, cohorts, inventory, or sales after corrections.) Tj T* (Re-running a sync does not guarantee the database exactly matches Shopify.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 571.5969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Use a transaction or Supabase database function: load and validate the complete) Tj T* (store-month result, then replace that store-month atomically. If the new load fails, keep the previous good month.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 559.5102 cm
+Q
+q
+1 0 0 1 59.52756 534.5102 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+.992157 .92549 .92549 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (4. Service-role access depends on perfect application filtering) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 9.769071 0 Td (CRITICAL) Tj T* -9.769071 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .137255 .094118 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 528.8409 cm
+Q
+q
+1 0 0 1 54.18898 502.4409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Browser roles are blocked, which is good. The server uses the service-role key, which can) Tj T* (read every store and bypasses row-level security.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 471.0409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( If a report endpoint accepts store_id from the browser and forgets one filter, it could return another store's) Tj T* (rows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 439.6409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( As more pages and developers are added, one missed filter can become a) Tj T* (serious tenant-isolation and privacy incident.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 395.0409 cm
+q
+BT 1 0 0 1 0 30.4 Tm -0.025854 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Create one server-side data-access layer. It must derive store identity from the authenticated) Tj T* 0 Tw (Shopify session, apply store_id automatically, and never trust a browser-provided store_id. Add cross-store isolation) Tj T* (tests.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 382.9543 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 12 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+43 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+44 0 obj
+<<
+/Contents 45 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 46 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+45 0 obj
+<<
+/Length 4975
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 8) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (PREVENT MISLEADING REPORTS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (6. Metric and Data Meaning Issues) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 704.1142 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (5. The data is product-level, although some labels say SKU) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 698.4449 cm
+Q
+q
+1 0 0 1 54.18898 672.0449 cm
+q
+BT 1 0 0 1 0 17.2 Tm -0.113833 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( The stored key is Shopify Product ID. Inventory is aggregated across variants and locations,) Tj T* 0 Tw (so one row represents a product, not one SKU/variant.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 653.8449 cm
+q
+BT 1 0 0 1 0 4 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A shirt with 5 sizes is one product row even though Shopify may have 5 SKUs.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 622.4449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Users can misread NA SKU %, SKU count, or active SKU metrics as) Tj T* (variant-level measures and make incorrect merchandising decisions.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 591.0449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Choose the intended grain. If product-level is correct, rename definitions and labels to) Tj T* (Product. If true SKU analysis is required later, add a variant-level model rather than mixing grains.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 578.9583 cm
+Q
+q
+1 0 0 1 59.52756 536.9583 cm
+q
+.964706 .972549 .980392 rg
+n 0 42 405.3543 -42 re f*
+1 .964706 .898039 rg
+n 405.3543 42 70.86614 -42 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 21 Tm /F2 13 Tf 17 TL (6. Raw negative inventory and clamped NA inventory use) Tj T* (different rules) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 16 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 42 m 476.2205 42 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 42 l S
+n 476.2205 0 m 476.2205 42 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 531.289 cm
+Q
+q
+1 0 0 1 54.18898 504.889 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Store summaries retain raw inventory, including negative values. NA Inventory % treats) Tj T* (negative inventory as zero.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 473.489 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( For Aug 2026, raw starting inventory was 912,771; after treating negatives as zero it was 914,020, a) Tj T* (difference of 1,249. The audit found 163 product-month rows with negative inventory.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 442.089 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Two screens can show different inventory totals while both are technically) Tj T* (following their own rules. Users may think the database is wrong.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 410.689 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Name raw values clearly \(for example, raw_starting_inventory\) and either add explicit) Tj T* (non-negative fields or calculate them consistently in a documented reporting layer.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 398.6024 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 13 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+46 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+47 0 obj
+<<
+/Contents 48 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 49 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+48 0 obj
+<<
+/Length 4792
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 523.3191 22.67717 Tm (Page 9) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 761.8661 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (6. Metric and Data Meaning Issues \(continued\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 752.8661 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 720.8661 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (7. Product orders and store unique orders are not additive) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 715.1969 cm
+Q
+q
+1 0 0 1 54.18898 688.7969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Product orders count an order for each product it contains. Store unique orders count the) Tj T* (customer order once.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 657.3969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( One order containing Product A and Product B contributes 1 to each product, but only 1 to store unique) Tj T* (orders. Summing product orders gives 2.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 625.9969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( A report that sums product orders can overstate order volume and distort) Tj T* (conversion metrics.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 594.5969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Keep both metrics, but use exact names such as Product Orders and Store Unique Orders.) Tj T* (Block or warn against summing product orders as a store total.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 582.5102 cm
+Q
+q
+1 0 0 1 59.52756 557.5102 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (8. Landing sessions depend on the current product handle) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 551.8409 cm
+Q
+q
+1 0 0 1 54.18898 525.4409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Product landing-page sessions are matched using the product handle. The catalog stores) Tj T* (only the current handle, while historical URLs may use an older handle.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 494.0409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A product was /products/pink-dress in May and renamed to /products/rose-dress in August. May sessions) Tj T* (may no longer match the current product record.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 462.6409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Historical landing sessions and CR % can be understated, especially for) Tj T* (renamed products. Store-level sessions built from matched products can also be low.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 431.2409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Store handle history with valid-from and valid-to dates, and keep an unmatched-session) Tj T* (bucket. Where Shopify provides a direct store-level session total, store it separately for reconciliation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 419.1543 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 14 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+49 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+50 0 obj
+<<
+/Contents 51 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 52 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+51 0 obj
+<<
+/Length 4844
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 10) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 761.8661 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (6. Metric and Data Meaning Issues \(continued\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 752.8661 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 720.8661 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (9. Product type, tags, title, and handle are current snapshots) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 715.1969 cm
+Q
+q
+1 0 0 1 54.18898 688.7969 cm
+q
+BT 1 0 0 1 0 17.2 Tm -0.066751 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( The product table stores today's catalog values. Historical monthly facts point to that current) Tj T* 0 Tw (row.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 657.3969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A product classified as Dresses in January changes to Occasion Wear in September. January may now) Tj T* (appear under Occasion Wear if a report joins to the current product table.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 625.9969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Historical cohort composition can move when catalog metadata changes,) Tj T* (making old exported results hard to reproduce.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 594.5969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Decide explicitly between current classification and historical classification. For reproducible) Tj T* (history, store monthly type/handle snapshots or effective-dated history. For current classification, label reports clearly.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 582.5102 cm
+Q
+q
+1 0 0 1 59.52756 557.5102 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (10. Removed products do not have a clear lifecycle state) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 551.8409 cm
+Q
+q
+1 0 0 1 54.18898 525.4409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Historical product rows remain, which is useful, but there is no catalog_present,) Tj T* (last_seen_at, or deleted_at field to explain whether a product still exists in Shopify.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 494.0409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A deleted product may retain an old ACTIVE status in the database because it is no longer returned to be) Tj T* (updated.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 462.6409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Users can mistake stale metadata for a live product. Tags may also disappear) Tj T* (during a refresh, reducing historical context.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 431.2409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Add lifecycle fields and mark products missing from a successful full catalog sync. Preserve) Tj T* (historical facts while clearly distinguishing current catalog presence.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 419.1543 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 15 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+52 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+53 0 obj
+<<
+/Contents 54 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 55 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+54 0 obj
+<<
+/Length 4862
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 11) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (RELIABILITY AT 50 STORES) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (7. Operational and Future-Proofing Issues) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 704.1142 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (11. Tag refresh is not atomic) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 698.4449 cm
+Q
+q
+1 0 0 1 54.18898 672.0449 cm
+q
+BT 1 0 0 1 0 17.2 Tm -0.060693 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( The current pattern deletes a store's tags and then inserts the refreshed set. If insertion fails) Tj T* 0 Tw (after deletion, the old correct tags are already gone.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 640.6449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A temporary network error occurs between delete and insert. Product facts survive, but tag filters become) Tj T* (empty or incomplete.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 609.2449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Reports can suddenly lose product-tag classifications until the next successful) Tj T* (full sync.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 577.8449 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Refresh tags inside one database transaction, or load into staging first and swap only after) Tj T* (validation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 565.7583 cm
+Q
+q
+1 0 0 1 59.52756 540.7583 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (12. Currency is safe per store but unsafe across stores) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 535.089 cm
+Q
+q
+1 0 0 1 54.18898 508.689 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( Money is stored in minor units and each store has a currency code. That works for one) Tj T* (store. It does not make INR, USD, and GBP directly comparable.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 490.489 cm
+q
+BT 1 0 0 1 0 4 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( Adding INR 10,000 and USD 500 produces a number with no valid currency meaning.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 459.089 cm
+q
+BT 1 0 0 1 0 17.2 Tm -0.125331 Tw 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( A future agency-level dashboard could show incorrect revenue if it sums stores) Tj T* 0 Tw (without conversion. A later currency change inside one store also needs history.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 427.689 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Never sum currencies without conversion. Store currency with each monthly summary \(or) Tj T* (maintain currency history\), and require an explicit reporting currency plus exchange-rate policy for cross-store totals.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 415.6024 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 16 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+55 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+56 0 obj
+<<
+/Contents 57 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 58 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+57 0 obj
+<<
+/Length 4627
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 12) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 761.8661 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (7. Operational and Future-Proofing Issues \(continued\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 752.8661 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 59.52756 720.8661 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+1 .964706 .898039 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (13. Month boundaries use the app server timezone) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 18.43307 0 Td (HIGH) Tj T* -18.43307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .32549 .035294 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 715.1969 cm
+Q
+q
+1 0 0 1 54.18898 688.7969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( The latest completed day/month is currently calculated from the application server's clock) Tj T* (rather than each Shopify store's timezone.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 670.5969 cm
+q
+BT 1 0 0 1 0 4 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( At midnight in India, a US store may still be on the previous calendar date.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 639.1969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( First/last-day inventory and current-month ranges can shift by one day for) Tj T* (stores in other timezones.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 607.7969 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Store each shop's IANA timezone and calculate date boundaries in that timezone. Add) Tj T* (boundary tests around midnight and daylight-saving changes.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 595.7102 cm
+Q
+q
+1 0 0 1 59.52756 570.7102 cm
+q
+.964706 .972549 .980392 rg
+n 0 25 405.3543 -25 re f*
+.917647 .94902 1 rg
+n 405.3543 25 70.86614 -25 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 7 4 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (14. Sync progress fields can be misread) Tj T* ET
+Q
+Q
+q
+1 0 0 1 412.3543 7.5 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 2 Tm /F2 8 Tf 10 TL 12.21307 0 Td (MEDIUM) Tj T* -12.21307 0 Td ET
+Q
+Q
+q
+1 J
+1 j
+.145098 .388235 .921569 RG
+.7 w
+n 0 25 m 476.2205 25 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 25 l S
+n 476.2205 0 m 476.2205 25 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 565.0409 cm
+Q
+q
+1 0 0 1 54.18898 525.4409 cm
+q
+BT 1 0 0 1 0 30.4 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Issue in simple language:) Tj /F1 9.2 Tf ( attempts currently describes job-level attempts but can remain 1 even when individual) Tj T* (ShopifyQL queries retry. rows_written mixes processed/upserted operations and is not the same as newly inserted) Tj T* (database rows.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 507.2409 cm
+q
+BT 1 0 0 1 0 4 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Example:) Tj /F1 9.2 Tf ( A job can show attempts = 1 even though one monthly query retried several times.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 475.8409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Long-term / multi-store consequence:) Tj /F1 9.2 Tf ( Operations cannot accurately identify rate-limit pressure, write amplification, or) Tj T* (how much data actually changed.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 444.4409 cm
+q
+BT 1 0 0 1 0 17.2 Tm 13.2 TL /F2 9.2 Tf .145098 .192157 .235294 rg (Recommended solution:) Tj /F1 9.2 Tf ( Track job_attempt, query_retry_count, rows_processed, rows_inserted, rows_updated, and) Tj T* (rows_deleted separately. Keep a short human-readable error summary.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 432.3543 cm
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 17 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+58 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+59 0 obj
+<<
+/Contents 60 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 61 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+60 0 obj
+<<
+/Length 6444
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 13) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (LOWER-RISK BUT WORTH DECIDING) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (8. Additional Design Findings) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 534.3142 cm
+q
+.090196 .196078 .301961 rg
+n 0 194.8 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 145.6 476.2205 -38.8 re f*
+.964706 .972549 .980392 rg
+n 0 68 476.2205 -38.8 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (#) Tj T* ET
+Q
+Q
+q
+1 0 0 1 33.34646 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Topic) Tj T* ET
+Q
+Q
+q
+1 0 0 1 135.3937 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Finding) Tj T* ET
+Q
+Q
+q
+1 0 0 1 308.3071 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Recommended decision) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 160.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (15) Tj T* ET
+Q
+Q
+q
+1 0 0 1 33.34646 160.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Shopify IDs in JavaScript) Tj T* ET
+Q
+Q
+q
+1 0 0 1 135.3937 150.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Current IDs are below JavaScript's safe integer) Tj T* (limit, but a 64-bit ID could eventually exceed it.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 308.3071 150.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Treat Shopify IDs as text end-to-end. Keep) Tj T* (internal database IDs numeric.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 131 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (16) Tj T* ET
+Q
+Q
+q
+1 0 0 1 33.34646 131 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Unattributed source rows) Tj T* ET
+Q
+Q
+q
+1 0 0 1 135.3937 111.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (ShopifyQL can return a row without a usable) Tj T* (Product ID; one such May row was intentionally) Tj T* (excluded.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 308.3071 111.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (Store an explicit unattributed bucket for) Tj T* (reconciliation instead of silently mixing it with) Tj T* (products.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 92.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (17) Tj T* ET
+Q
+Q
+q
+1 0 0 1 33.34646 82.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Store inventory summary) Tj T* (purpose) Tj T* ET
+Q
+Q
+q
+1 0 0 1 135.3937 73 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (Store-month starting/ending inventory is currently) Tj T* (a validation field and is not required for NA) Tj T* (Inventory %.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 308.3071 82.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Rename/document it as raw validation inventory,) Tj T* (or remove it if it has no approved consumer.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 53.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (18) Tj T* ET
+Q
+Q
+q
+1 0 0 1 33.34646 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (first_day_in_inventory) Tj T* (purpose) Tj T* ET
+Q
+Q
+q
+1 0 0 1 135.3937 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (The field is useful for audit diagnostics, but the NA) Tj T* (cohort rule does not use the first historical) Tj T* (inventory date.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 308.3071 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Document this separation and prevent accidental) Tj T* (reuse in cohort assignment.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (19) Tj T* ET
+Q
+Q
+q
+1 0 0 1 33.34646 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (active_products naming) Tj T* ET
+Q
+Q
+q
+1 0 0 1 135.3937 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (The count represents active products based on) Tj T* (inventory/sales, not variants or SKUs.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 308.3071 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Use Active Products consistently unless a variant) Tj T* (table is introduced.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 194.8 m 476.2205 194.8 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 194.8 l S
+n 476.2205 0 m 476.2205 194.8 l S
+n 0 174.8 m 476.2205 174.8 l S
+n 0 145.6 m 476.2205 145.6 l S
+n 0 106.8 m 476.2205 106.8 l S
+n 0 68 m 476.2205 68 l S
+n 0 29.2 m 476.2205 29.2 l S
+n 28.34646 0 m 28.34646 194.8 l S
+n 130.3937 0 m 130.3937 194.8 l S
+n 303.3071 0 m 303.3071 194.8 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 520.1409 cm
+Q
+q
+1 0 0 1 59.52756 452.2409 cm
+q
+.917647 .972549 .941176 rg
+n 0 67.9 476.2205 -67.9 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.9 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Current data-quality snapshot) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28.2 Tm /F1 8.7 Tf 12.3 TL -0.065043 Tw (At the time of review: 1 store, 4,003 products, 10,983 tags, 20,268 product-month facts, 18 store-month summaries, and) Tj T* 0 Tw (3 sync jobs. There were zero orphan tags, zero store/product mismatches, and zero case-variant duplicate tags. The) Tj T* (absence of current mismatches is positive, but constraints are still needed to prevent future bad writes.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.023529 .462745 .278431 RG
+.8 w
+n 0 67.9 m 476.2205 67.9 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.9 l S
+n 476.2205 0 m 476.2205 67.9 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 18 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+61 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+62 0 obj
+<<
+/Contents 63 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 64 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+63 0 obj
+<<
+/Length 7797
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 14) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (PRIORITIZED IMPLEMENTATION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (9. Recommended Plan of Action) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 534.3142 cm
+q
+.058824 .462745 .431373 rg
+n 0 194.8 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 136 476.2205 -38.8 re f*
+.964706 .972549 .980392 rg
+n 0 58.4 476.2205 -29.2 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Phase) Tj T* ET
+Q
+Q
+q
+1 0 0 1 61.69291 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Goal) Tj T* ET
+Q
+Q
+q
+1 0 0 1 172.2441 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (When) Tj T* ET
+Q
+Q
+q
+1 0 0 1 260.1181 179.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Main work) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 160.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Phase 0) Tj T* ET
+Q
+Q
+q
+1 0 0 1 61.69291 160.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Decision lock) Tj T* ET
+Q
+Q
+q
+1 0 0 1 172.2441 160.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (1-2 working sessions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 260.1181 141 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (Confirm product vs SKU grain; current vs historical) Tj T* (classifications; raw vs clamped inventory; timezone and currency) Tj T* (rules.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 121.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Phase 1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 61.69291 121.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Critical multi-store safety) Tj T* ET
+Q
+Q
+q
+1 0 0 1 172.2441 121.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Before Store 2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 260.1181 102.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (Composite store-product constraint; store-scoped retention;) Tj T* (authenticated repository; atomic month replacement; isolation) Tj T* (tests.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 82.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Phase 2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 61.69291 82.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Metric clarity and observability) Tj T* ET
+Q
+Q
+q
+1 0 0 1 172.2441 82.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Next) Tj T* ET
+Q
+Q
+q
+1 0 0 1 260.1181 63.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 21.5 Tm /F1 7.3 Tf 9.6 TL (Rename product/store order metrics; clarify Product labels;) Tj T* (explicit inventory semantics; improve sync counters and) Tj T* (unmatched sessions.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Phase 3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 61.69291 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Historical reliability) Tj T* ET
+Q
+Q
+q
+1 0 0 1 172.2441 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (After stable sync) Tj T* ET
+Q
+Q
+q
+1 0 0 1 260.1181 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Product lifecycle fields; handle history; historical type/tag) Tj T* (strategy; store timezone; currency history.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Phase 4) Tj T* ET
+Q
+Q
+q
+1 0 0 1 61.69291 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Controlled rollout) Tj T* ET
+Q
+Q
+q
+1 0 0 1 172.2441 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Progressive) Tj T* ET
+Q
+Q
+q
+1 0 0 1 260.1181 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Re-sync Store 1; reconcile; add Store 2; verify isolation; then) Tj T* (expand 1 -> 5 -> 20 -> 50 stores.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 194.8 m 476.2205 194.8 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 194.8 l S
+n 476.2205 0 m 476.2205 194.8 l S
+n 0 174.8 m 476.2205 174.8 l S
+n 0 136 m 476.2205 136 l S
+n 0 97.2 m 476.2205 97.2 l S
+n 0 58.4 m 476.2205 58.4 l S
+n 0 29.2 m 476.2205 29.2 l S
+n 56.69291 0 m 56.69291 194.8 l S
+n 167.2441 0 m 167.2441 194.8 l S
+n 255.1181 0 m 255.1181 194.8 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 520.1409 cm
+Q
+q
+1 0 0 1 54.18898 495.1409 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (Detailed execution checklist) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 477.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (1.) Tj /F1 9.1 Tf ( Create a migration backup and rollback plan before changing constraints.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 460.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (2.) Tj /F1 9.1 Tf ( Add the composite ownership constraint and run a query proving zero existing violations.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 443.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (3.) Tj /F1 9.1 Tf ( Make every retention/delete function require store_id and add a two-store automated test.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 426.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (4.) Tj /F1 9.1 Tf ( Create a transactional replace_store_month function or staging workflow.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 409.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (5.) Tj /F1 9.1 Tf ( Centralize Supabase reads/writes in server-only modules that derive store from Shopify authentication.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 392.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (6.) Tj /F1 9.1 Tf ( Add contract tests for product/store ownership, stale-row removal, retry safety, and failed tag refresh.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 375.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (7.) Tj /F1 9.1 Tf ( Add approved metric names and definitions to the calculation logic documentation.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 358.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (8.) Tj /F1 9.1 Tf ( Re-run the 18-month sync for Store 1 and compare selected products and months with ShopifyQL.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 341.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (9.) Tj /F1 9.1 Tf ( Onboard a controlled Store 2 whose Shopify product numbers may overlap; prove no collision or cross-read.) Tj T* 12 0 Td ET
+Q
+Q
+q
+1 0 0 1 54.18898 324.1409 cm
+q
+BT 1 0 0 1 16 3.9 Tm -12 0 Td 13 TL /F2 9.1 Tf .145098 .192157 .235294 rg (10.) Tj /F1 9.1 Tf ( Monitor database size, egress, ShopifyQL rate limits, failed months, retry counts, and end-to-end sync duration.) Tj T* 12 0 Td ET
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 19 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+64 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+65 0 obj
+<<
+/Contents 66 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 67 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+66 0 obj
+<<
+/Length 6790
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 15) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (HOW WE KNOW THE DESIGN IS READY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (10. Acceptance Criteria) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 464.3142 cm
+q
+.090196 .196078 .301961 rg
+n 0 264.8 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 225.2 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 186 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 137.2 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 98 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 58.8 476.2205 -19.6 re f*
+.964706 .972549 .980392 rg
+n 0 19.6 476.2205 -19.6 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 249.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 249.8 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Acceptance requirement) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 230.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-01) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 230.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Database rejects a monthly fact whose product belongs to another store.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 210.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-02) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 210.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Syncing or cleaning Store A cannot insert, update, or delete Store B data.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 191 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-03) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 191 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Re-syncing a corrected month removes stale rows and either completes fully or preserves the previous good month.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 171.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-04) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 171.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Every application read derives store identity from the authenticated Shopify session.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 151.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-05) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 142.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Product vs SKU, raw vs clamped inventory, product orders vs unique orders, and NA Inventory % are documented and use) Tj T* (final names.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 122.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-06) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 122.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Selected-month reconciliation against live ShopifyQL produces zero unexplained mismatches.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 103 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-07) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 103 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Two stores can contain the same Shopify product ID without collision.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 83.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-08) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 83.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (A failed tag refresh leaves the last successful tag set intact.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 63.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-09) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 63.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Different currencies are never summed without an explicit conversion method.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 44.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-10) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 44.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Month/date boundaries pass tests in store timezones, including midnight and daylight-saving cases.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-11) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 24.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Sync monitoring distinguishes job attempts, query retries, processed rows, and actual database changes.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (AC-12) Tj T* ET
+Q
+Q
+q
+1 0 0 1 67.3622 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Supabase remains in comparison mode until the business owner approves switching a live report.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 264.8 m 476.2205 264.8 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 264.8 l S
+n 476.2205 0 m 476.2205 264.8 l S
+n 0 244.8 m 476.2205 244.8 l S
+n 0 225.2 m 476.2205 225.2 l S
+n 0 205.6 m 476.2205 205.6 l S
+n 0 186 m 476.2205 186 l S
+n 0 166.4 m 476.2205 166.4 l S
+n 0 137.2 m 476.2205 137.2 l S
+n 0 117.6 m 476.2205 117.6 l S
+n 0 98 m 476.2205 98 l S
+n 0 78.4 m 476.2205 78.4 l S
+n 0 58.8 m 476.2205 58.8 l S
+n 0 39.2 m 476.2205 39.2 l S
+n 0 19.6 m 476.2205 19.6 l S
+n 62.3622 0 m 62.3622 264.8 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 450.1409 cm
+Q
+q
+1 0 0 1 59.52756 382.2409 cm
+q
+.992157 .92549 .92549 rg
+n 0 67.9 476.2205 -67.9 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.9 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Go-live rule) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28.2 Tm /F1 8.7 Tf 12.3 TL (Do not switch Product Audit or New Arrival Analysis to database reads simply because the sync completes. Switch only) Tj T* (after Phase 1 is complete, the relevant metric decisions are approved, and reconciliation passes for more than one) Tj T* (store.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.705882 .137255 .094118 RG
+.8 w
+n 0 67.9 m 476.2205 67.9 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.9 l S
+n 476.2205 0 m 476.2205 67.9 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 20 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+67 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+68 0 obj
+<<
+/Contents 69 0 R
+/MediaBox [ 0 0 595.2756 841.8898 ]
+/Resources <<
+/Font <<
+/F1 6 0 R
+/F1-0 70 0 R
+/F2 8 0 R
+>>
+/ProcSet [ /ImageB /ImageC /ImageI /PDF /Text ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Annots [ ]
+/Parent 2 0 R
+>>
+endobj
+69 0 obj
+<<
+/Length 7136
+>>
+stream
+q
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+.85098 .878431 .905882 RG
+n 48.18898 810.7087 m 547.0866 810.7087 l S
+BT /F1 7.5 Tf 9 TL ET
+.4 .439216 .521569 rg
+BT 1 0 0 1 48.18898 817.7953 Tm (AUDIT BOT - DATABASE REVIEW PRD) Tj T* ET
+BT 1 0 0 1 519.1491 22.67717 Tm (Page 16) Tj T* ET
+BT 1 0 0 1 48.18898 22.67717 Tm (Prepared 25 Sep 2026 | Decision document - no live report changes) Tj T* ET
+Q
+q
+1 0 0 1 54.18898 774.3661 cm
+q
+.4 .439216 .521569 rg
+BT 1 0 0 1 0 2.8 Tm /F1 7.7 Tf 10.5 TL (SHORT APPROVAL LIST) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 770.1142 cm
+Q
+q
+1 0 0 1 54.18898 745.1142 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 5 Tm /F2 18 Tf 23 TL (11. Decisions Required from the Product Owner) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 736.1142 cm
+q
+1 w
+1 J
+.85098 .878431 .905882 RG
+n 0 0 m 486.8976 0 l S
+Q
+Q
+q
+1 0 0 1 54.18898 533.9142 cm
+q
+.058824 .462745 .431373 rg
+n 0 195.2 476.2205 -20 re f*
+.964706 .972549 .980392 rg
+n 0 146 476.2205 -29.2 re f*
+.964706 .972549 .980392 rg
+n 0 87.6 476.2205 -29.2 re f*
+.964706 .972549 .980392 rg
+n 0 29.2 476.2205 -29.2 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 5 180.2 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (ID) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 180.2 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Decision) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 180.2 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Question) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 180.2 cm
+q
+1 1 1 rg
+BT 1 0 0 1 0 2.3 Tm /F2 7.7 Tf 10 TL (Recommendation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 160.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (D1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 160.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Reporting grain) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 151 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Keep product-level reporting and rename SKU labels, or) Tj T* (invest in variant/SKU-level storage?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 151 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Recommend product-level for current) Tj T* (scope.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 131.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (D2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 131.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Historical classification) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 121.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Should old months show today's type/tags or the type/tags) Tj T* (that existed then?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 121.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Recommend historical snapshots for) Tj T* (reproducible cohorts.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 102.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (D3) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 102.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Inventory meaning) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 92.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Should general inventory totals remain raw, or should) Tj T* (user-facing totals clamp negatives to zero?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 92.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Recommend store both meanings with) Tj T* (explicit names.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 73 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (D4) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 73 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Cross-store revenue) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 73 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Will there be agency totals across currencies?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 63.4 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (If yes, approve reporting currency and) Tj T* (FX source.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (D5) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 43.8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Deleted products) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Should deleted products remain searchable in historical) Tj T* (reports?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 34.2 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Recommend yes, with clear lifecycle) Tj T* (labels.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 5 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (D6) Tj T* ET
+Q
+Q
+q
+1 0 0 1 41.85039 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Unmatched sessions) Tj T* ET
+Q
+Q
+q
+1 0 0 1 138.2283 14.6 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 2.3 Tm /F1 7.3 Tf 9.6 TL (Show an Unattributed bucket or only matched products?) Tj T* ET
+Q
+Q
+q
+1 0 0 1 345.1575 5 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 11.9 Tm /F1 7.3 Tf 9.6 TL (Recommend retain and report) Tj T* (unmatched totals.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.85098 .878431 .905882 RG
+.45 w
+n 0 195.2 m 476.2205 195.2 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 195.2 l S
+n 476.2205 0 m 476.2205 195.2 l S
+n 0 175.2 m 476.2205 175.2 l S
+n 0 146 m 476.2205 146 l S
+n 0 116.8 m 476.2205 116.8 l S
+n 0 87.6 m 476.2205 87.6 l S
+n 0 58.4 m 476.2205 58.4 l S
+n 0 29.2 m 476.2205 29.2 l S
+n 36.85039 0 m 36.85039 195.2 l S
+n 133.2283 0 m 133.2283 195.2 l S
+n 340.1575 0 m 340.1575 195.2 l S
+Q
+Q
+Q
+q
+1 0 0 1 54.18898 516.9063 cm
+Q
+q
+1 0 0 1 54.18898 491.9063 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 4 Tm /F2 13 Tf 17 TL (Recommended approval) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 460.5063 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 17.2 Tm /F1 9.2 Tf 13.2 TL (Approve Phase 1 immediately, keep Supabase in shadow/comparison mode, and resolve D1-D3 before report) Tj T* (migration. D4-D6 can be finalized during Phase 2 without blocking the critical safety work.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 54.18898 438.4984 cm
+Q
+q
+1 0 0 1 59.52756 370.5984 cm
+q
+.917647 .972549 .941176 rg
+n 0 67.9 476.2205 -67.9 re f*
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 8 47.9 cm
+q
+.090196 .196078 .301961 rg
+BT 1 0 0 1 0 3 Tm /F2 10 Tf 13 TL (Final recommendation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 8 8 cm
+q
+.145098 .192157 .235294 rg
+BT 1 0 0 1 0 28.2 Tm /F1 8.7 Tf 12.3 TL (The architecture can support the planned multi-store model without an external redesign. The safest and most efficient) Tj T* (path is to strengthen tenant integrity first, make refreshes atomic, then improve metric clarity and historical fidelity. This) Tj T* (preserves the work already completed and creates a reliable path toward 50 stores.) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.023529 .462745 .278431 RG
+.8 w
+n 0 67.9 m 476.2205 67.9 l S
+n 0 0 m 476.2205 0 l S
+n 0 0 m 0 67.9 l S
+n 476.2205 0 m 476.2205 67.9 l S
+Q
+Q
+Q
+ 
+
+Q
+q
+0.0 0.0 595.2756 841.8898 re
+W
+n
+1 0 0 1 0 0 cm
+BT
+/F1-0 12 Tf
+14.4 TL
+ET
+1 1 1 rg
+n
+0 0 595.2756 39.68504 re
+f*
+BT
+/F1-0 7.5 Tf
+9 TL
+ET
+0.4 0.439216 0.521569 rg
+BT
+1 0 0 1 48.18898 22.67717 Tm
+(Prepared 25 Sep 2026 \174 Decision document \055 no live report changes) Tj
+T*
+ET
+BT
+1 0 0 1 500.3841 22.67717 Tm
+(Page 21 of 21) Tj
+T*
+ET
+Q
+
+endstream
+endobj
+70 0 obj
+<<
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
+>>
+endobj
+xref
+0 71
+0000000000 65535 f 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000253 00000 n 
+0000000302 00000 n 
+0000000545 00000 n 
+0000004150 00000 n 
+0000004257 00000 n 
+0000004364 00000 n 
+0000004476 00000 n 
+0000004721 00000 n 
+0000009611 00000 n 
+0000009719 00000 n 
+0000009965 00000 n 
+0000019315 00000 n 
+0000019423 00000 n 
+0000019671 00000 n 
+0000027985 00000 n 
+0000028093 00000 n 
+0000028201 00000 n 
+0000028314 00000 n 
+0000028562 00000 n 
+0000037010 00000 n 
+0000037118 00000 n 
+0000037366 00000 n 
+0000045586 00000 n 
+0000045694 00000 n 
+0000045942 00000 n 
+0000057823 00000 n 
+0000057931 00000 n 
+0000058179 00000 n 
+0000064266 00000 n 
+0000064374 00000 n 
+0000064620 00000 n 
+0000074966 00000 n 
+0000075074 00000 n 
+0000075320 00000 n 
+0000082662 00000 n 
+0000082770 00000 n 
+0000083016 00000 n 
+0000088020 00000 n 
+0000088128 00000 n 
+0000088374 00000 n 
+0000093349 00000 n 
+0000093457 00000 n 
+0000093703 00000 n 
+0000098731 00000 n 
+0000098839 00000 n 
+0000099085 00000 n 
+0000103930 00000 n 
+0000104038 00000 n 
+0000104284 00000 n 
+0000109181 00000 n 
+0000109289 00000 n 
+0000109535 00000 n 
+0000114450 00000 n 
+0000114558 00000 n 
+0000114804 00000 n 
+0000119484 00000 n 
+0000119592 00000 n 
+0000119838 00000 n 
+0000126335 00000 n 
+0000126443 00000 n 
+0000126689 00000 n 
+0000134539 00000 n 
+0000134647 00000 n 
+0000134893 00000 n 
+0000141736 00000 n 
+0000141844 00000 n 
+0000142090 00000 n 
+0000149279 00000 n 
+trailer
+<<
+/Size 71
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+149387
+%%EOF

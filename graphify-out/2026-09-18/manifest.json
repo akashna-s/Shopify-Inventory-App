@@ -1,0 +1,242 @@
+{
+  ".cursor/mcp.json": {
+    "mtime": 1784724566.3889513,
+    "seen": 1789537268.5139167,
+    "ast_hash": "14b217df03e20b809ebb7789664714a6",
+    "semantic_hash": ""
+  },
+  ".eslintrc.cjs": {
+    "mtime": 1784724566.3889513,
+    "seen": 1789537268.5139294,
+    "ast_hash": "e92b71efa9c3ca442b18b39a4ab9cfe9",
+    "semantic_hash": ""
+  },
+  ".gemini/extensions/shopify-dev-mcp/gemini-extension.json": {
+    "mtime": 1784724566.4015965,
+    "seen": 1789537268.5139356,
+    "ast_hash": "967d28beb4b8aca707be1c9926507754",
+    "semantic_hash": ""
+  },
+  ".graphqlrc.js": {
+    "mtime": 1784724566.4173455,
+    "seen": 1789537268.5139394,
+    "ast_hash": "b57d3f26779874088eba1834bc335483",
+    "semantic_hash": ""
+  },
+  ".mcp.json": {
+    "mtime": 1784724566.4173455,
+    "seen": 1789537268.5139427,
+    "ast_hash": "5d64262e8caa4cdbcc9fc1fbd2cf1f82",
+    "semantic_hash": ""
+  },
+  "app/analytics-cache.server.js": {
+    "mtime": 1786522027.2419894,
+    "seen": 1789537268.513946,
+    "ast_hash": "54dc6d773690f4aeee8569cc38a04bdf",
+    "semantic_hash": ""
+  },
+  "app/components/DateRangePicker.jsx": {
+    "mtime": 1789101318.4360495,
+    "seen": 1789537268.5139496,
+    "ast_hash": "8806ecca97ce93fcba772bb64e8583b7",
+    "semantic_hash": ""
+  },
+  "app/db.server.js": {
+    "mtime": 1786530200.4512641,
+    "seen": 1789537268.5139525,
+    "ast_hash": "4be30e021e426433909521ee803e3711",
+    "semantic_hash": ""
+  },
+  "app/entry.server.jsx": {
+    "mtime": 1786522890.710749,
+    "seen": 1789537268.5139558,
+    "ast_hash": "c6c5999aa8854e1bf29aa5a0ad3d8bd2",
+    "semantic_hash": ""
+  },
+  "app/new-arrival-engine.server.js": {
+    "mtime": 1789038114.3321507,
+    "seen": 1789537268.5139592,
+    "ast_hash": "0e923fb4c6e501933052907c384bd6ec",
+    "semantic_hash": ""
+  },
+  "app/product-catalog-cache.server.js": {
+    "mtime": 1788156238.4124303,
+    "seen": 1789537268.513962,
+    "ast_hash": "cd3f0f7c895b0b0765ddebf8240814e6",
+    "semantic_hash": ""
+  },
+  "app/root.jsx": {
+    "mtime": 1784724566.436256,
+    "seen": 1789537268.513966,
+    "ast_hash": "c905ff763aff26f8379dca5f073c4f18",
+    "semantic_hash": ""
+  },
+  "app/routes.js": {
+    "mtime": 1784724566.436256,
+    "seen": 1789537268.5139692,
+    "ast_hash": "6b8b42d00b15e7737e1c87158e363953",
+    "semantic_hash": ""
+  },
+  "app/routes/_index/route.jsx": {
+    "mtime": 1789106094.3378074,
+    "seen": 1789537268.5139725,
+    "ast_hash": "a7958a9f7cd2e2e42ee16c808ad00340",
+    "semantic_hash": ""
+  },
+  "app/routes/app._index.jsx": {
+    "mtime": 1789106092.9717183,
+    "seen": 1789537268.513976,
+    "ast_hash": "ef8b81124cb20005d55f4dc37f41068d",
+    "semantic_hash": ""
+  },
+  "app/routes/app.additional.jsx": {
+    "mtime": 1784724566.448822,
+    "seen": 1789537268.5139794,
+    "ast_hash": "0e42343f624d7e99961d8867304f47c6",
+    "semantic_hash": ""
+  },
+  "app/routes/app.jsx": {
+    "mtime": 1789106091.136613,
+    "seen": 1789537268.5139823,
+    "ast_hash": "7101d0aa431ab982e91ecdf015a7f475",
+    "semantic_hash": ""
+  },
+  "app/routes/app.new-arrivals.jsx": {
+    "mtime": 1789716208.3213935,
+    "seen": 1789716404.5390854,
+    "ast_hash": "0552cc6be1f677284cdf1bea7de9546a",
+    "semantic_hash": ""
+  },
+  "app/routes/app.products.jsx": {
+    "mtime": 1789650621.2414327,
+    "seen": 1789716404.53909,
+    "ast_hash": "ef8e84a842494dc78a690ecfde0cc696",
+    "semantic_hash": ""
+  },
+  "app/routes/auth.$.jsx": {
+    "mtime": 1784724566.4518435,
+    "seen": 1789537268.5139916,
+    "ast_hash": "069a3a2c98ecfbacbe3625b70926dec8",
+    "semantic_hash": ""
+  },
+  "app/routes/auth.login/error.server.jsx": {
+    "mtime": 1784724566.453816,
+    "seen": 1789537268.5139945,
+    "ast_hash": "52befbef31a9d6b2d36112c250f374e6",
+    "semantic_hash": ""
+  },
+  "app/routes/auth.login/route.jsx": {
+    "mtime": 1784724566.4551017,
+    "seen": 1789537268.5139978,
+    "ast_hash": "4289f6340cafe97ff8cc41de64ea5c83",
+    "semantic_hash": ""
+  },
+  "app/routes/webhooks.app.scopes_update.jsx": {
+    "mtime": 1784724566.4551017,
+    "seen": 1789537268.5140018,
+    "ast_hash": "fa9056954d90e4f70eb45abd532a8649",
+    "semantic_hash": ""
+  },
+  "app/routes/webhooks.app.uninstalled.jsx": {
+    "mtime": 1784724566.4551017,
+    "seen": 1789537268.514005,
+    "ast_hash": "6dc33e05a8816d3392d9b78be6e38832",
+    "semantic_hash": ""
+  },
+  "app/shopify.server.js": {
+    "mtime": 1784724566.4577544,
+    "seen": 1789537268.5140083,
+    "ast_hash": "35c4f13ac6e58b65ae6754d7c0553b44",
+    "semantic_hash": ""
+  },
+  "app/shopifyql.server.js": {
+    "mtime": 1787225323.7151256,
+    "seen": 1789537268.5140114,
+    "ast_hash": "e88dd5c6ecc0a99be270733faf454563",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1789388962.6189902,
+    "seen": 1789537268.5140145,
+    "ast_hash": "b2504039124aa4d9742b76a8c1afdab5",
+    "semantic_hash": ""
+  },
+  "tooling/convert-prd-to-pdf.cjs": {
+    "mtime": 1789386226.9553275,
+    "seen": 1789537268.5140176,
+    "ast_hash": "0c36e39150d4f0742deeb5b2e33f2952",
+    "semantic_hash": ""
+  },
+  "tooling/generate-current-state-prd.cjs": {
+    "mtime": 1789385971.1435492,
+    "seen": 1789537268.5140207,
+    "ast_hash": "9d5fa52b600561a9b87a753ba8bfce95",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1784724566.4647772,
+    "seen": 1789537268.5140238,
+    "ast_hash": "dcda9500f0ddb139caeb109dcc0d3db3",
+    "semantic_hash": ""
+  },
+  "vite.config.js": {
+    "mtime": 1784724566.4647772,
+    "seen": 1789537268.514027,
+    "ast_hash": "f24773437c0eb49048c9011bb75fc663",
+    "semantic_hash": ""
+  },
+  "CHANGELOG.md": {
+    "mtime": 1784724566.4280858,
+    "seen": 1789537268.5140297,
+    "ast_hash": "957150dfe08d7b68052c6269f853498e",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1784724566.431023,
+    "seen": 1789537268.5140326,
+    "ast_hash": "c8b704598ba8b3668a881a50603ca03b",
+    "semantic_hash": ""
+  },
+  "decision.md": {
+    "mtime": 1789726232.6320107,
+    "seen": 1789728285.6522102,
+    "ast_hash": "cfb58e978bb925be36054360cbb9156e",
+    "semantic_hash": ""
+  },
+  "flow.md": {
+    "mtime": 1789726234.9274857,
+    "seen": 1789728285.6522133,
+    "ast_hash": "45db9e8667edd46c33c757f7f4b83d37",
+    "semantic_hash": ""
+  },
+  "pnpm-workspace.yaml": {
+    "mtime": 1784724566.4606595,
+    "seen": 1789537268.5140421,
+    "ast_hash": "807f5e86fa35282f677b944f6732e200",
+    "semantic_hash": ""
+  },
+  "output/pdf/Audit_Bot_Current_State_PRD_2026-09-14.pdf": {
+    "mtime": 1789387870.0508604,
+    "seen": 1789537268.5140448,
+    "ast_hash": "ad946d5fd2bfa3fe7c825fc922ab70e7",
+    "semantic_hash": ""
+  },
+  "app/routes/app.analytics-sync.jsx": {
+    "mtime": 1789642557.19849,
+    "seen": 1789642733.7401614,
+    "ast_hash": "84f95ac8de32224719c7edde35b2f77f",
+    "semantic_hash": ""
+  },
+  "app/shopify-supabase-sync.server.js": {
+    "mtime": 1789726229.526119,
+    "seen": 1789728285.6500497,
+    "ast_hash": "a485e35a46d6a1b428ee5cf073890423",
+    "semantic_hash": ""
+  },
+  "app/supabase-analytics.server.js": {
+    "mtime": 1789720333.769881,
+    "seen": 1789728285.6505294,
+    "ast_hash": "4f2998baddf634270fddd72ce1d16d39",
+    "semantic_hash": ""
+  }
+}
