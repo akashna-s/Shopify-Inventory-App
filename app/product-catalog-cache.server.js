@@ -121,6 +121,13 @@ async function refreshCatalog(admin, shop) {
   }
 }
 
+// Lifecycle reconciliation must use a newly completed full catalogue fetch,
+// never a cached snapshot that may predate a product change.
+export async function refreshProductCatalog(admin, shop) {
+  const products = await refreshCatalog(admin, shop);
+  return { products, source: "fresh-full-catalog", refreshedAt: new Date() };
+}
+
 function startBackgroundRefresh(admin, shop) {
   if (refreshesByShop.has(shop)) return;
   const refresh = refreshCatalog(admin, shop)

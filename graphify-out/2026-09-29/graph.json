@@ -1696,42 +1696,6 @@
       "source_location": "L1"
     },
     {
-      "id": "app_landing_session_matcher_server_handlefromlandingpath",
-      "label": "handleFromLandingPath()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "handlefromlandingpath()",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "app_landing_session_matcher_server_matchlandingsessions",
-      "label": "matchLandingSessions()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "matchlandingsessions()",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L13"
-    },
-    {
-      "id": "app_landing_session_matcher_server_number",
-      "label": "number()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "number()",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L1"
-    },
-    {
       "id": "app_product_catalog_cache_server_fetchproductswithbulkoperation",
       "label": "fetchProductsWithBulkOperation()",
       "_callable": true,
@@ -1849,7 +1813,7 @@
       "file_type": "code",
       "norm_label": "currencyscale()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L75"
+      "source_location": "L74"
     },
     {
       "id": "app_shopify_supabase_sync_server_datestring",
@@ -1861,7 +1825,7 @@
       "file_type": "code",
       "norm_label": "datestring()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L15"
+      "source_location": "L14"
     },
     {
       "id": "app_shopify_supabase_sync_server_fetchmonth",
@@ -1885,7 +1849,7 @@
       "file_type": "code",
       "norm_label": "fetchmonthonce()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L134"
+      "source_location": "L135"
     },
     {
       "id": "app_shopify_supabase_sync_server_fetchshop",
@@ -1897,7 +1861,19 @@
       "file_type": "code",
       "norm_label": "fetchshop()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L61"
+      "source_location": "L60"
+    },
+    {
+      "id": "app_shopify_supabase_sync_server_handlefrompath",
+      "label": "handleFromPath()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "handlefrompath()",
+      "source_file": "app/shopify-supabase-sync.server.js",
+      "source_location": "L125"
     },
     {
       "id": "app_shopify_supabase_sync_server_latestsupabasesync",
@@ -1909,7 +1885,7 @@
       "file_type": "code",
       "norm_label": "latestsupabasesync()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L361"
+      "source_location": "L335"
     },
     {
       "id": "app_shopify_supabase_sync_server_mapconcurrent",
@@ -1921,7 +1897,7 @@
       "file_type": "code",
       "norm_label": "mapconcurrent()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L48"
+      "source_location": "L47"
     },
     {
       "id": "app_shopify_supabase_sync_server_mapconcurrent_consume",
@@ -1933,7 +1909,7 @@
       "file_type": "code",
       "norm_label": "consume()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L51"
+      "source_location": "L50"
     },
     {
       "id": "app_shopify_supabase_sync_server_monthbounds",
@@ -1945,7 +1921,7 @@
       "file_type": "code",
       "norm_label": "monthbounds()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L34"
+      "source_location": "L33"
     },
     {
       "id": "app_shopify_supabase_sync_server_monthstring",
@@ -1957,7 +1933,7 @@
       "file_type": "code",
       "norm_label": "monthstring()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L21"
+      "source_location": "L20"
     },
     {
       "id": "app_shopify_supabase_sync_server_number",
@@ -1969,7 +1945,7 @@
       "file_type": "code",
       "norm_label": "number()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L14"
+      "source_location": "L13"
     },
     {
       "id": "app_shopify_supabase_sync_server_numericid",
@@ -1981,7 +1957,7 @@
       "file_type": "code",
       "norm_label": "numericid()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L13"
+      "source_location": "L12"
     },
     {
       "id": "app_shopify_supabase_sync_server_persistmonth",
@@ -2005,7 +1981,7 @@
       "file_type": "code",
       "norm_label": "preventoverlappingsync()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L261"
+      "source_location": "L235"
     },
     {
       "id": "app_shopify_supabase_sync_server_retryable",
@@ -2017,7 +1993,7 @@
       "file_type": "code",
       "norm_label": "retryable()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L44"
+      "source_location": "L43"
     },
     {
       "id": "app_shopify_supabase_sync_server_shiftmonth",
@@ -2029,7 +2005,7 @@
       "file_type": "code",
       "norm_label": "shiftmonth()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L23"
+      "source_location": "L22"
     },
     {
       "id": "app_shopify_supabase_sync_server_synccatalog",
@@ -2041,7 +2017,7 @@
       "file_type": "code",
       "norm_label": "synccatalog()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L87"
+      "source_location": "L86"
     },
     {
       "id": "app_shopify_supabase_sync_server_synclatest18monthstosupabase",
@@ -2053,7 +2029,7 @@
       "file_type": "code",
       "norm_label": "synclatest18monthstosupabase()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L286"
+      "source_location": "L260"
     },
     {
       "id": "app_shopify_supabase_sync_server_syncmonths",
@@ -2065,7 +2041,7 @@
       "file_type": "code",
       "norm_label": "syncmonths()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L28"
+      "source_location": "L27"
     },
     {
       "id": "app_shopify_supabase_sync_server_wait",
@@ -2077,7 +2053,7 @@
       "file_type": "code",
       "norm_label": "wait()",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L12"
+      "source_location": "L11"
     },
     {
       "id": "app_supabase_analytics_server_issupabaseanalyticsconfigured",
@@ -2113,7 +2089,7 @@
       "file_type": "code",
       "norm_label": "authenticatedshop()",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L17"
+      "source_location": "L16"
     },
     {
       "id": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
@@ -2125,7 +2101,7 @@
       "file_type": "code",
       "norm_label": "createauthenticatedstoreanalytics()",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L33"
+      "source_location": "L32"
     },
     {
       "id": "app_store_analytics_access_server_scopedoptions",
@@ -2137,7 +2113,7 @@
       "file_type": "code",
       "norm_label": "scopedoptions()",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L23"
+      "source_location": "L22"
     },
     {
       "id": "app_supabase_analytics_server_chunks",
@@ -2161,7 +2137,7 @@
       "file_type": "code",
       "norm_label": "cleanupsupabaseorphanproducts()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L206"
+      "source_location": "L205"
     },
     {
       "id": "app_supabase_analytics_server_config",
@@ -2221,7 +2197,7 @@
       "file_type": "code",
       "norm_label": "marksupabaseproductdeleted()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L195"
+      "source_location": "L194"
     },
     {
       "id": "app_supabase_analytics_server_queryvalue",
@@ -2245,19 +2221,7 @@
       "file_type": "code",
       "norm_label": "reconcilesupabaseproductcatalog()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L184"
-    },
-    {
-      "id": "app_supabase_analytics_server_reconcilesupabaseproducthandles",
-      "label": "reconcileSupabaseProductHandles()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "supabase-analytics.server.js",
-      "file_type": "code",
-      "norm_label": "reconcilesupabaseproducthandles()",
-      "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L216"
+      "source_location": "L183"
     },
     {
       "id": "app_supabase_analytics_server_replacesupabasestoremonth",
@@ -5739,17 +5703,6 @@
       "source_location": "L1"
     },
     {
-      "id": "app_landing_session_matcher_server",
-      "label": "landing-session-matcher.server.js",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "landing-session-matcher.server.js",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L1"
-    },
-    {
       "id": "app_product_catalog_cache_server",
       "label": "product-catalog-cache.server.js",
       "_origin": "ast",
@@ -5791,17 +5744,6 @@
       "file_type": "code",
       "norm_label": "shopify-supabase-sync.server.js",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_landing_session_matcher_test",
-      "label": "landing-session-matcher.test.js",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "landing-session-matcher.test.js",
-      "source_file": "tests/landing-session-matcher.test.js",
       "source_location": "L1"
     },
     {
@@ -7165,18 +7107,6 @@
       "source_location": "L922"
     },
     {
-      "id": "decision_2026_09_29_historical_product_handles_and_landing_session_reconciliation",
-      "label": "2026-09-29 \u2014 Historical product handles and landing-session reconciliation",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "decision.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2026-09-29 \u2014 historical product handles and landing-session reconciliation",
-      "source_file": "decision.md",
-      "source_location": "L968"
-    },
-    {
       "id": "decision_2026_09_29_non_negative_reporting_inventory_totals",
       "label": "2026-09-29 - Non-negative reporting inventory totals",
       "_origin": "ast",
@@ -7547,18 +7477,6 @@
       "norm_label": "2026-09-29 - product lifecycle and catalogue cleanup flow",
       "source_file": "flow.md",
       "source_location": "L916"
-    },
-    {
-      "id": "flow_historical_handle_matching_for_supabase_monthly_sync",
-      "label": "Historical handle matching for Supabase monthly sync",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "flow.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "historical handle matching for supabase monthly sync",
-      "source_file": "flow.md",
-      "source_location": "L926"
     },
     {
       "id": "flow_new_arrival_analysis_flow_2026_08_20",
@@ -8583,30 +8501,6 @@
       "context": "call",
       "source_file": "app/inventory-rules.server.js",
       "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "app_landing_session_matcher_server_matchlandingsessions",
-      "target": "app_landing_session_matcher_server_handlefromlandingpath",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L26",
-      "weight": 1.0
-    },
-    {
-      "source": "app_landing_session_matcher_server_matchlandingsessions",
-      "target": "app_landing_session_matcher_server_number",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -10490,7 +10384,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L135",
+      "source_location": "L136",
       "weight": 1.0
     },
     {
@@ -10538,7 +10432,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L362",
+      "source_location": "L336",
       "weight": 1.0
     },
     {
@@ -10550,7 +10444,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L40",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -10562,7 +10456,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L21",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -10579,26 +10473,14 @@
     },
     {
       "source": "app_shopify_supabase_sync_server_persistmonth",
-      "target": "app_landing_session_matcher_server_matchlandingsessions",
+      "target": "app_shopify_supabase_sync_server_handlefrompath",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L192",
-      "weight": 1.0
-    },
-    {
-      "source": "app_shopify_supabase_sync_server_persistmonth",
-      "target": "app_shopify_supabase_sync_server_currencyscale",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L197",
+      "source_location": "L178",
       "weight": 1.0
     },
     {
@@ -10610,7 +10492,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L204",
+      "source_location": "L179",
+      "weight": 1.0
+    },
+    {
+      "source": "app_shopify_supabase_sync_server_persistmonth",
+      "target": "app_shopify_supabase_sync_server_currencyscale",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/shopify-supabase-sync.server.js",
+      "source_location": "L182",
       "weight": 1.0
     },
     {
@@ -10622,7 +10516,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L239",
+      "source_location": "L221",
       "weight": 1.0
     },
     {
@@ -10634,7 +10528,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L25",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -10646,7 +10540,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L90",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -10658,7 +10552,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L290",
+      "source_location": "L264",
       "weight": 1.0
     },
     {
@@ -10670,7 +10564,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L291",
+      "source_location": "L265",
       "weight": 1.0
     },
     {
@@ -10682,7 +10576,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L295",
+      "source_location": "L269",
       "weight": 1.0
     },
     {
@@ -10694,7 +10588,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L298",
+      "source_location": "L272",
       "weight": 1.0
     },
     {
@@ -10706,7 +10600,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L304",
+      "source_location": "L278",
       "weight": 1.0
     },
     {
@@ -10718,7 +10612,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L314",
+      "source_location": "L288",
       "weight": 1.0
     },
     {
@@ -10730,7 +10624,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L315",
+      "source_location": "L289",
       "weight": 1.0
     },
     {
@@ -10742,7 +10636,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L323",
+      "source_location": "L297",
       "weight": 1.0
     },
     {
@@ -10754,7 +10648,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L324",
+      "source_location": "L298",
       "weight": 1.0
     },
     {
@@ -10766,7 +10660,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L333",
+      "source_location": "L307",
       "weight": 1.0
     },
     {
@@ -10778,7 +10672,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L30",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -10790,7 +10684,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -10826,19 +10720,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L103",
-      "weight": 1.0
-    },
-    {
-      "source": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
-      "target": "app_supabase_analytics_server_reconcilesupabaseproducthandles",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L107",
+      "source_location": "L102",
       "weight": 1.0
     },
     {
@@ -10850,7 +10732,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L118",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -10862,7 +10744,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L136",
+      "source_location": "L124",
       "weight": 1.0
     },
     {
@@ -10874,7 +10756,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L145",
+      "source_location": "L133",
       "weight": 1.0
     },
     {
@@ -10886,7 +10768,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L147",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -10898,7 +10780,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L159",
+      "source_location": "L147",
       "weight": 1.0
     },
     {
@@ -10910,7 +10792,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L37",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -10922,7 +10804,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L40",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -10934,7 +10816,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L47",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
@@ -10946,7 +10828,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L73",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -10958,7 +10840,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L97",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -10970,7 +10852,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L207",
+      "source_location": "L206",
       "weight": 1.0
     },
     {
@@ -11030,7 +10912,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L196",
+      "source_location": "L195",
       "weight": 1.0
     },
     {
@@ -11042,19 +10924,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L185",
-      "weight": 1.0
-    },
-    {
-      "source": "app_supabase_analytics_server_reconcilesupabaseproducthandles",
-      "target": "app_supabase_analytics_server_request",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L217",
+      "source_location": "L184",
       "weight": 1.0
     },
     {
@@ -11635,18 +11505,6 @@
       "weight": 1.0
     },
     {
-      "source": "app_shopify_supabase_sync_server",
-      "target": "app_landing_session_matcher_server_matchlandingsessions",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
       "source": "app_store_analytics_access_server",
       "target": "app_supabase_analytics_server_cleanupsupabaseorphanproducts",
       "relation": "imports",
@@ -11709,18 +11567,6 @@
     {
       "source": "app_store_analytics_access_server",
       "target": "app_supabase_analytics_server_reconcilesupabaseproductcatalog",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "app_store_analytics_access_server",
-      "target": "app_supabase_analytics_server_reconcilesupabaseproducthandles",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -12195,18 +12041,6 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/inventory-rules.test.js",
-      "source_location": "L6",
-      "weight": 1.0
-    },
-    {
-      "source": "tests_landing_session_matcher_test",
-      "target": "app_landing_session_matcher_server_matchlandingsessions",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "tests/landing-session-matcher.test.js",
       "source_location": "L6",
       "weight": 1.0
     },
@@ -12895,18 +12729,6 @@
       "weight": 1.0
     },
     {
-      "source": "app_shopify_supabase_sync_server",
-      "target": "app_landing_session_matcher_server",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
       "source": "app_store_analytics_access_server",
       "target": "app_supabase_analytics_server",
       "relation": "imports_from",
@@ -12939,18 +12761,6 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/inventory-rules.test.js",
-      "source_location": "L6",
-      "weight": 1.0
-    },
-    {
-      "source": "tests_landing_session_matcher_test",
-      "target": "app_landing_session_matcher_server",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "tests/landing-session-matcher.test.js",
       "source_location": "L6",
       "weight": 1.0
     },
@@ -13234,39 +13044,6 @@
       "confidence_score": 1.0,
       "source_file": "app/inventory-rules.server.js",
       "source_location": "L14",
-      "weight": 1.0
-    },
-    {
-      "source": "app_landing_session_matcher_server",
-      "target": "app_landing_session_matcher_server_number",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "app_landing_session_matcher_server",
-      "target": "app_landing_session_matcher_server_matchlandingsessions",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L13",
-      "weight": 1.0
-    },
-    {
-      "source": "app_landing_session_matcher_server",
-      "target": "app_landing_session_matcher_server_handlefromlandingpath",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -14949,12 +14726,34 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L12",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
       "source": "app_shopify_supabase_sync_server",
       "target": "app_shopify_supabase_sync_server_numericid",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/shopify-supabase-sync.server.js",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "app_shopify_supabase_sync_server",
+      "target": "app_shopify_supabase_sync_server_handlefrompath",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/shopify-supabase-sync.server.js",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "app_shopify_supabase_sync_server",
+      "target": "app_shopify_supabase_sync_server_number",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14971,18 +14770,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L134",
-      "weight": 1.0
-    },
-    {
-      "source": "app_shopify_supabase_sync_server",
-      "target": "app_shopify_supabase_sync_server_number",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L14",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -14993,7 +14781,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L15",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -15026,7 +14814,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L21",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -15037,7 +14825,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L23",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -15048,18 +14836,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L261",
-      "weight": 1.0
-    },
-    {
-      "source": "app_shopify_supabase_sync_server",
-      "target": "app_shopify_supabase_sync_server_syncmonths",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L28",
+      "source_location": "L235",
       "weight": 1.0
     },
     {
@@ -15070,7 +14847,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L286",
+      "source_location": "L260",
+      "weight": 1.0
+    },
+    {
+      "source": "app_shopify_supabase_sync_server",
+      "target": "app_shopify_supabase_sync_server_syncmonths",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/shopify-supabase-sync.server.js",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -15081,7 +14869,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L34",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -15092,7 +14880,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L361",
+      "source_location": "L335",
       "weight": 1.0
     },
     {
@@ -15103,7 +14891,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L44",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -15114,7 +14902,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L48",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -15125,7 +14913,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L61",
+      "source_location": "L60",
       "weight": 1.0
     },
     {
@@ -15136,7 +14924,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L75",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -15147,7 +14935,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L87",
+      "source_location": "L86",
       "weight": 1.0
     },
     {
@@ -15191,7 +14979,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L17",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -15202,7 +14990,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L23",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -15213,7 +15001,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L33",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -15290,7 +15078,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L184",
+      "source_location": "L183",
       "weight": 1.0
     },
     {
@@ -15301,7 +15089,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L195",
+      "source_location": "L194",
       "weight": 1.0
     },
     {
@@ -15312,18 +15100,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L206",
-      "weight": 1.0
-    },
-    {
-      "source": "app_supabase_analytics_server",
-      "target": "app_supabase_analytics_server_reconcilesupabaseproducthandles",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L216",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -16105,17 +15882,6 @@
       "confidence_score": 1.0,
       "source_file": "decision.md",
       "source_location": "L959",
-      "weight": 1.0
-    },
-    {
-      "source": "decision",
-      "target": "decision_2026_09_29_historical_product_handles_and_landing_session_reconciliation",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "decision.md",
-      "source_location": "L968",
       "weight": 1.0
     },
     {
@@ -17755,17 +17521,6 @@
       "confidence_score": 1.0,
       "source_file": "flow.md",
       "source_location": "L916",
-      "weight": 1.0
-    },
-    {
-      "source": "flow",
-      "target": "flow_historical_handle_matching_for_supabase_monthly_sync",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "flow.md",
-      "source_location": "L926",
       "weight": 1.0
     },
     {
@@ -19921,7 +19676,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/shopify-supabase-sync.server.js",
-      "source_location": "L57",
+      "source_location": "L56",
       "weight": 1.0
     }
   ],

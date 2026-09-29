@@ -1,6 +1,8 @@
-import { getProductCatalog } from "./product-catalog-cache.server";
+import { refreshProductCatalog } from "./product-catalog-cache.server";
 import { runShopifyQL } from "./shopifyql.server";
 import { createAuthenticatedStoreAnalytics } from "./store-analytics-access.server";
+import { sumNonNegativeInventory } from "./inventory-rules.server";
+import { matchLandingSessions } from "./landing-session-matcher.server";
 
 const MONTH_COUNT = 18;
 const QUERY_CONCURRENCY = 2;
@@ -92,6 +94,10 @@ async function syncCatalog(analytics, products) {
     status: product.status || "",
     image_url: product.featuredImage?.url || "",
     shopify_created_at: product.createdAt || null,
+    catalog_state: "present",
+    last_seen_at: now,
+    missing_since: null,
+    deleted_at: null,
     last_synced_at: now,
   }));
   await analytics.upsertProducts(rows);
@@ -106,18 +112,23 @@ async function syncCatalog(analytics, products) {
       ? (product.tags || []).map((tag) => ({ product_id: storedProduct.id, tag }))
       : [];
   });
-  await analytics.replaceProductTags(tags);
+  const refreshedProductIds = products
+    .map((product) => byShopifyId.get(numericId(product.id))?.id)
+    .filter(Boolean);
+  await analytics.replaceProductTags(tags, refreshedProductIds);
+  await analytics.reconcileCatalog(
+    products.map((product) => numericId(product.id)),
+    now,
+  );
+  await analytics.reconcileProductHandles(
+    products.map((product) => ({
+      shopify_product_id: numericId(product.id),
+      handle: product.handle || "",
+      valid_from: product.createdAt || now,
+    })),
+    now,
+  );
   return { byShopifyId, stored, rowsWritten: rows.length + tags.length };
-}
-
-function handleFromPath(path) {
-  const match = String(path || "").match(/\/products\/([^/?#]+)/);
-  if (!match) return "";
-  try {
-    return decodeURIComponent(match[1]);
-  } catch {
-    return match[1];
-  }
 }
 
 async function fetchMonthOnce(admin, month, now) {
@@ -126,6 +137,7 @@ async function fetchMonthOnce(admin, month, now) {
     ["inventory", `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`],
     ["sales", `FROM sales SHOW orders, quantity_ordered, net_items_sold, reversed_quantity, gross_sales, discounts, gross_sales_reversals, net_sales, shipping_charges, return_fees, taxes, total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`],
     ["sessions", `FROM sessions SHOW sessions WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`],
+    ["storeSessions", `FROM sessions SHOW sessions SINCE ${start} UNTIL ${end}`],
     ["store", `FROM sales SHOW orders, total_sales SINCE ${start} UNTIL ${end}`],
   ];
   const results = await mapConcurrent(queries, QUERY_CONCURRENCY, async ([name, query]) => [
@@ -160,12 +172,27 @@ async function fetchMonth(admin, month, now) {
 async function persistMonth({ analytics, month, result, catalog, currency }) {
   const inventory = new Map(result.inventory.rows.map((row) => [numericId(row.product_id), row]));
   const sales = new Map(result.sales.rows.map((row) => [numericId(row.product_id), row]));
-  const sessions = new Map();
-  const byHandle = new Map(catalog.stored.map((row) => [row.handle, String(row.shopify_product_id)]));
-  for (const row of result.sessions.rows) {
-    const productId = byHandle.get(handleFromPath(row.landing_page_path));
-    if (productId) sessions.set(productId, (sessions.get(productId) || 0) + number(row.sessions));
-  }
+  const monthStart = `${month}-01`;
+  const monthEnd = result.end;
+  const handleHistory = await analytics.selectProductHandleHistory({
+    select: "product_id,shopify_product_id,handle,valid_from,valid_to",
+    filters: [
+      ["valid_from", "lte", `${monthEnd}T23:59:59.999Z`],
+      ["valid_to", "is", "null"],
+    ],
+  });
+  // Include closed aliases that were valid at any point in the requested month.
+  const closedHistory = await analytics.selectProductHandleHistory({
+    select: "product_id,shopify_product_id,handle,valid_from,valid_to",
+    filters: [
+      ["valid_from", "lte", `${monthEnd}T23:59:59.999Z`],
+      ["valid_to", "gte", `${monthStart}T00:00:00.000Z`],
+    ],
+  });
+  const { matched: sessions, unmatched } = matchLandingSessions(
+    result.sessions.rows,
+    [...handleHistory, ...closedHistory],
+  );
 
   const scale = currencyScale(currency);
   const ids = new Set([...inventory.keys(), ...sales.keys(), ...sessions.keys()]);
@@ -181,7 +208,7 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
       starting_inventory: stock.starting_inventory_units ?? null,
       ending_inventory: stock.ending_inventory_units ?? null,
       landing_sessions: sessions.get(shopifyId) || 0,
-      orders: number(sold.orders),
+      product_orders: number(sold.orders),
       quantity_ordered: number(sold.quantity_ordered),
       net_items_sold: number(sold.net_items_sold),
       reversed_quantity: number(sold.reversed_quantity),
@@ -197,6 +224,9 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
     }];
   });
   const storeRow = result.store.rows[0] || {};
+  const directStoreSessionRow = result.storeSessions.rows[0] || {};
+  const matchedLandingSessions = metrics.reduce((sum, row) => sum + number(row.landing_sessions), 0);
+  const unmatchedLandingSessions = [...unmatched.values()].reduce((sum, value) => sum + value, 0);
   const activeProducts = metrics.filter((row) =>
     number(row.starting_inventory) > 0 ||
     number(row.ending_inventory) > 0 ||
@@ -204,10 +234,20 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
   ).length;
   const storeMetrics = {
     active_products: activeProducts,
-    starting_inventory: metrics.reduce((sum, row) => sum + number(row.starting_inventory), 0),
-    ending_inventory: metrics.reduce((sum, row) => sum + number(row.ending_inventory), 0),
+    // Product-month facts keep Shopify's raw values for auditing. Store-month
+    // report totals treat each negative product balance as zero.
+    starting_inventory: sumNonNegativeInventory(metrics, "starting_inventory"),
+    ending_inventory: sumNonNegativeInventory(metrics, "ending_inventory"),
     unique_orders: number(storeRow.orders),
-    landing_sessions: metrics.reduce((sum, row) => sum + number(row.landing_sessions), 0),
+    // Keep the existing field as matched product landing sessions for report compatibility.
+    landing_sessions: matchedLandingSessions,
+    matched_product_landing_sessions: matchedLandingSessions,
+    unmatched_product_landing_sessions: unmatchedLandingSessions,
+    store_sessions: number(directStoreSessionRow.sessions),
+    unmatched_landing_pages: [...unmatched].map(([handle, sessionCount]) => ({
+      handle,
+      sessions: sessionCount,
+    })),
     total_sales_minor: Math.round(number(storeRow.total_sales) * scale),
     refreshed_at: new Date().toISOString(),
   };
@@ -271,7 +311,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
   const completedMonths = [];
   const failedMonths = [];
   try {
-    const productCatalog = await getProductCatalog(admin, session.shop);
+    const productCatalog = await refreshProductCatalog(admin, session.shop);
     const catalog = await syncCatalog(analytics, productCatalog.products);
     rowsWritten += catalog.rowsWritten;
 

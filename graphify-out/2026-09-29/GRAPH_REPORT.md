@@ -1,12 +1,12 @@
 # Graph Report - audit-bot  (2026-09-29)
 
 ## Corpus Check
-- 58 files · ~54,122 words
+- 54 files · ~52,228 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 16 file(s) not represented in the graph (top: (none) 7, .css 4, .toml 2)
 
 ## Summary
-- 712 nodes · 1015 edges · 43 communities (41 shown, 2 thin omitted)
+- 705 nodes · 1001 edges · 43 communities (41 shown, 2 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -61,10 +61,10 @@
 ## God Nodes (most connected - your core abstractions)
 1. `Audit Bot — Decision Log` - 28 edges
 2. `Audit Bot — Product Audit Data Flow` - 27 edges
-3. `createAuthenticatedStoreAnalytics()` - 19 edges
-4. `@shopify/shopify-app-template-remix` - 19 edges
-5. `2026-08-31 — Polaris light data-visibility refactor` - 19 edges
-6. `New Arrival report interaction flow (2026-08-31)` - 19 edges
+3. `@shopify/shopify-app-template-remix` - 19 edges
+4. `2026-08-31 — Polaris light data-visibility refactor` - 19 edges
+5. `New Arrival report interaction flow (2026-08-31)` - 19 edges
+6. `createAuthenticatedStoreAnalytics()` - 18 edges
 7. `scripts` - 18 edges
 8. `compilerOptions` - 18 edges
 9. `loader()` - 13 edges
@@ -109,11 +109,11 @@ Nodes (40): Audit Bot — Product Audit Data Flow, Automatic ShopifyQL range rec
 
 ### Community 5 - "decision.md"
 Cohesion: 0.06
-Nodes (31): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+23 more)
+Nodes (30): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+22 more)
 
 ### Community 6 - "flow.md"
-Cohesion: 0.06
-Nodes (30): 2026-09-11 - Calculation drawer accordion, 2026-09-11 - Calculation drawer reference flow, 2026-09-11 - Cohort Details filters, 2026-09-11 - Date picker interaction, 2026-09-11 - Monthly quick ranges, 2026-09-11 - Product Audit date-change feedback, 2026-09-11 - Product Audit dimension-change flow, 2026-09-11 - Product Audit inventory chunk flow (+22 more)
+Cohesion: 0.07
+Nodes (29): 2026-09-11 - Calculation drawer accordion, 2026-09-11 - Calculation drawer reference flow, 2026-09-11 - Cohort Details filters, 2026-09-11 - Date picker interaction, 2026-09-11 - Monthly quick ranges, 2026-09-11 - Product Audit date-change feedback, 2026-09-11 - Product Audit dimension-change flow, 2026-09-11 - Product Audit inventory chunk flow (+21 more)
 
 ### Community 7 - "@shopify/shopify-app-template-remix"
 Cohesion: 0.06
@@ -236,12 +236,12 @@ Cohesion: 0.67
 Nodes (3): 2026-08-17 — Metric totals inventory removal and unique Orders, Expanded filter operators, Result table Summary row
 
 ### Community 38 - "shopify-supabase-sync.server.js"
-Cohesion: 0.11
-Nodes (33): handleFromLandingPath(), matchLandingSessions(), number(), fetchProductsWithBulkOperation(), fetchProductsWithPagination(), getProductCatalog(), refreshCatalog(), refreshesByShop (+25 more)
+Cohesion: 0.12
+Nodes (31): fetchProductsWithBulkOperation(), fetchProductsWithPagination(), getProductCatalog(), refreshCatalog(), refreshesByShop, refreshProductCatalog(), startBackgroundRefresh(), wait() (+23 more)
 
 ### Community 39 - "supabase-analytics.server.js"
-Cohesion: 0.20
-Nodes (19): action(), authenticatedShop(), createAuthenticatedStoreAnalytics(), chunks(), cleanupSupabaseOrphanProducts(), config(), deleteExpiredMonthlyMetrics(), deleteSupabaseRows() (+11 more)
+Cohesion: 0.21
+Nodes (18): action(), authenticatedShop(), createAuthenticatedStoreAnalytics(), chunks(), cleanupSupabaseOrphanProducts(), config(), deleteExpiredMonthlyMetrics(), deleteSupabaseRows() (+10 more)
 
 ### Community 40 - "2026-08-31 — Polaris light data-visibility refactor"
 Cohesion: 0.11
@@ -256,8 +256,8 @@ Cohesion: 0.60
 Nodes (3): CATALOG_STATES, effectiveProductStatus(), isValidCatalogState()
 
 ## Knowledge Gaps
-- **399 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+394 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 451 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **397 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+392 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 449 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -270,7 +270,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `react` connect `shopify.server.js` to `DateRangePicker.jsx`, `app.new-arrivals.jsx`, `app.products.jsx`, `package.json`?**
   _High betweenness centrality (0.030) - this node is a cross-community bridge._
 - **What connects `npx`, `@shopify/dev-mcp`, `config` to the rest of the system?**
-  _399 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _397 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `app.new-arrivals.jsx` be split into smaller, more focused modules?**
   _Cohesion score 0.07019230769230769 - nodes in this community are weakly interconnected._
 - **Should `shopify.server.js` be split into smaller, more focused modules?**

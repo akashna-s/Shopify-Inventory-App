@@ -1,7 +1,11 @@
 import {
   deleteExpiredMonthlyMetrics,
+  cleanupSupabaseOrphanProducts,
   deleteSupabaseRows,
   insertSupabaseRows,
+  markSupabaseProductDeleted,
+  reconcileSupabaseProductCatalog,
+  reconcileSupabaseProductHandles,
   replaceSupabaseStoreMonth,
   selectSupabaseRows,
   updateSupabaseRows,
@@ -58,6 +62,13 @@ export async function createAuthenticatedStoreAnalytics(session, {
       return selectSupabaseRows("audit_products", scopedOptions(storeId, options));
     },
 
+    selectReportProducts(options = {}) {
+      return selectSupabaseRows(
+        "audit_products_with_effective_status",
+        scopedOptions(storeId, options),
+      );
+    },
+
     upsertProducts(rows) {
       return upsertSupabaseRows(
         "audit_products",
@@ -66,7 +77,7 @@ export async function createAuthenticatedStoreAnalytics(session, {
       );
     },
 
-    async replaceProductTags(tags) {
+    async replaceProductTags(tags, refreshedProductIds) {
       const products = await selectSupabaseRows("audit_products", {
         select: "id",
         filters: [["store_id", "eq", storeId]],
@@ -77,11 +88,34 @@ export async function createAuthenticatedStoreAnalytics(session, {
         throw new Error("Every product tag must belong to the authenticated store.");
       }
 
-      for (let index = 0; index < productIds.length; index += TAG_DELETE_BATCH_SIZE) {
-        const ids = productIds.slice(index, index + TAG_DELETE_BATCH_SIZE).join(",");
+      const refreshedIds = [...new Set((refreshedProductIds || []).map(String))];
+      if (refreshedIds.some((id) => !allowed.has(id))) {
+        throw new Error("Every refreshed product must belong to the authenticated store.");
+      }
+      for (let index = 0; index < refreshedIds.length; index += TAG_DELETE_BATCH_SIZE) {
+        const ids = refreshedIds.slice(index, index + TAG_DELETE_BATCH_SIZE).join(",");
         await deleteSupabaseRows("audit_product_tags", [["product_id", "in", `(${ids})`]]);
       }
       return upsertSupabaseRows("audit_product_tags", tags, ["product_id", "tag"]);
+    },
+
+    reconcileCatalog(shopifyProductIds, seenAt) {
+      return reconcileSupabaseProductCatalog(storeId, shopifyProductIds, seenAt);
+    },
+
+    reconcileProductHandles(handles, seenAt) {
+      return reconcileSupabaseProductHandles(storeId, handles, seenAt);
+    },
+
+    selectProductHandleHistory(options = {}) {
+      return selectSupabaseRows(
+        "audit_product_handle_history_with_product",
+        scopedOptions(storeId, options),
+      );
+    },
+
+    markProductDeleted(shopifyProductId, deletedAt = new Date().toISOString()) {
+      return markSupabaseProductDeleted(storeId, shopifyProductId, deletedAt);
     },
 
     selectProductMonths(options = {}) {
@@ -107,8 +141,10 @@ export async function createAuthenticatedStoreAnalytics(session, {
       });
     },
 
-    deleteExpiredMonths(retainFromMonth) {
-      return deleteExpiredMonthlyMetrics(storeId, retainFromMonth);
+    async deleteExpiredMonths(retainFromMonth) {
+      await deleteExpiredMonthlyMetrics(storeId, retainFromMonth);
+      const graceBefore = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+      return cleanupSupabaseOrphanProducts(storeId, graceBefore);
     },
 
     createJob(values) {

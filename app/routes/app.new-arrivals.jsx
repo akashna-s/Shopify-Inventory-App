@@ -110,10 +110,10 @@ const MATRIX_METRICS = [
   ],
   [
     "orders",
-    "Orders",
+    "Product orders",
     "number",
-    "Orders that included a product from this cohort during the month.",
-    "COUNT(orders containing a cohort product)",
+    "Product-order occurrences for products in this cohort. One customer order containing two cohort products contributes one Product Order to each product, so this is not a store-wide unique-order total.",
+    "SUM(product orders containing each cohort product)",
     "sales",
   ],
   [
@@ -121,7 +121,7 @@ const MATRIX_METRICS = [
     "CR %",
     "percent",
     "A directional conversion indicator for the cohort: orders divided by landing sessions. It is not the exact product conversion rate because it counts only sessions that started on a product page, not sessions that reached the product later. Use it to compare cohort performance and guide business or marketing decisions.",
-    "Orders / Landing sessions × 100",
+    "Product orders / Landing sessions × 100",
     "traffic",
   ],
 ];
@@ -176,9 +176,9 @@ const DETAIL_METRICS = [
   ],
   [
     "orders",
-    "Orders",
+    "Product orders",
     "number",
-    "Orders containing this product; one order counts once for the product.",
+    "Orders containing this product; one customer order counts once for this product but can also count for other products it contains.",
     "COUNT(DISTINCT orders containing product)",
     "sales",
   ],
@@ -187,7 +187,7 @@ const DETAIL_METRICS = [
     "CR %",
     "percent",
     "A directional conversion indicator for this product: orders containing the product divided by sessions that started on its product page. It is not the exact product conversion rate because sessions that reached the product after landing elsewhere are not counted. Use it to compare products and guide business or marketing decisions.",
-    "Orders / Landing sessions × 100",
+    "Product orders / Landing sessions × 100",
     "traffic",
   ],
 ];

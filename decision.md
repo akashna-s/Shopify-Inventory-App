@@ -940,3 +940,36 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Browser-provided store filters are not accepted. Even if a caller supplies a different store filter, the gateway removes it and uses the authenticated store ID.
 - Product tags are checked against the scoped store's product IDs before replacement, covering the normalized tag table that intentionally has no `store_id` column.
 - Cross-store tests exercise Store A and Store B gateways and verify isolation for reads, job updates, retention deletes and atomic month writes.
+
+# 2026-09-29 - Non-negative reporting inventory totals
+
+- Product-month Starting Inventory and Ending Inventory continue to store Shopify's original values, including negatives, so Product Audit and reconciliation do not lose source information.
+- Store-month Starting Inventory and Ending Inventory now add each product only after converting a negative balance to zero. A negative product can no longer reduce a store total.
+- New Arrival Inventory and its denominator use the same shared non-negative rule before applying the existing launch-period rule: Ending Inventory in launch period, Starting Inventory afterward.
+- The database also rejects negative store-month totals and the atomic replacement function clamps incoming summary totals, protecting future database-backed report readers and older callers.
+
+# 2026-09-29 - Product Orders versus Store Unique Orders
+
+- Product-level orders mean Product Orders: an order contributes once to every product it contains. They remain valid for product and cohort analysis but are not additive across products.
+- The ungrouped store query and `audit_store_month_metrics.unique_orders` mean Store Unique Orders: each customer order contributes exactly once to the store total.
+- Product Audit table headers and New Arrival dictionaries now say Product Orders. The selected total card says Store Unique Orders.
+- Product Audit's cross-product Summary row no longer displays a summed Product Orders number; it shows `Not additive` and directs users to Store Unique Orders.
+- Supabase product-month storage uses the explicit `product_orders` column. The replacement function temporarily accepts both `product_orders` and the older `orders` payload name so an older running sync cannot silently lose order values during rollout.
+
+# 2026-09-29 - Product catalogue lifecycle and storage cleanup
+
+- Keep Shopify's last reported `status` (`ACTIVE`, `DRAFT`, or `ARCHIVED`) and store a separate compact `catalog_state` (`present`, `missing`, or `deleted`).
+- Product Audit database reads use a zero-storage view that exposes `effective_status`; `MISSING` and `DELETED` take priority over a stale last-known Shopify status.
+- Lifecycle reconciliation always forces a fresh complete catalogue fetch. A cached or failed catalogue response is never used to mark products missing.
+- Returned products become `present` and update `last_seen_at`. Products absent from that completed fetch become `missing` while retaining their title, status, tags, and monthly facts.
+- Shopify `products/delete` webhooks mark deletion explicitly without deleting historical data.
+- Tag replacement is limited to products returned in the fresh catalogue. Missing/deleted products retain their last-known tags for historical reports.
+- After the rolling 18-month facts are cleaned, missing/deleted products with no remaining monthly facts and at least a 30-day grace period are deleted. Foreign-key cascades remove their tags without leaving orphan rows.
+# 2026-09-29 — Historical product handles and landing-session reconciliation
+
+- Product landing sessions are no longer matched only against the current Shopify handle.
+- `audit_product_handle_history` records each known handle and its validity window. A full catalogue sync closes the old handle and opens the new one when a rename is detected.
+- Existing products are seeded with their current handle. Renames that happened before this feature cannot be reconstructed automatically unless Shopify session results expose the old handle; those sessions are retained as unmatched instead of being silently discarded.
+- `audit_unmatched_landing_sessions` stores unmatched product-handle counts by store and month. Ambiguous reused handles also stay unmatched to avoid assigning traffic to the wrong product.
+- Store-month rows separately preserve matched product landing sessions, unmatched product landing sessions, and Shopify's direct store-wide session total. Existing `landing_sessions` remains the matched product value so current reports do not change.
+- The additional direct store-session ShopifyQL query is for reconciliation only and is not substituted into product-level conversion calculations.

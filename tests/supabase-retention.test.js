@@ -51,6 +51,12 @@ test("retention cleanup deletes only the selected store's expired rows", async (
       { store_id: 2, month: "2025-01-01" },
       { store_id: 2, month: "2025-04-01" },
     ],
+    audit_unmatched_landing_sessions: [
+      { store_id: 1, month: "2025-01-01" },
+      { store_id: 1, month: "2025-04-01" },
+      { store_id: 2, month: "2025-01-01" },
+      { store_id: 2, month: "2025-04-01" },
+    ],
   };
   const restore = installInMemorySupabase(rows);
 

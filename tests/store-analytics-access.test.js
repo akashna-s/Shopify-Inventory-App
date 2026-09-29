@@ -54,6 +54,14 @@ test("authenticated gateways force their own store on reads, updates, deletes an
       ],
     });
     await storeB.selectProductMonths();
+    await storeA.selectReportProducts({ filters: [["store_id", "eq", 2]] });
+    await storeA.reconcileCatalog([101, 102], "2026-09-29T10:00:00.000Z");
+    await storeA.reconcileProductHandles(
+      [{ shopify_product_id: 101, handle: "pink-dress" }],
+      "2026-09-29T10:00:00.000Z",
+    );
+    await storeA.selectProductHandleHistory();
+    await storeA.markProductDeleted(102, "2026-09-29T11:00:00.000Z");
     await storeA.updateJob(99, { status: "completed" });
     await storeA.deleteExpiredMonths("2025-04-01");
     await storeA.replaceMonth({
@@ -74,6 +82,44 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   assert.equal(productReads[1].url.searchParams.get("store_id"), "eq.2");
   assert.equal(productReads[2].url.searchParams.get("store_id"), "eq.1");
 
+  const reportProductRead = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/audit_products_with_effective_status"),
+  );
+  assert.equal(reportProductRead.url.searchParams.get("store_id"), "eq.1");
+  assert.equal(reportProductRead.url.searchParams.getAll("store_id").length, 1);
+
+  const catalogReconcile = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/reconcile_audit_product_catalog"),
+  );
+  assert.deepEqual(JSON.parse(catalogReconcile.options.body), {
+    p_store_id: 1,
+    p_seen_product_ids: [101, 102],
+    p_seen_at: "2026-09-29T10:00:00.000Z",
+  });
+
+  const productDelete = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/mark_audit_product_deleted"),
+  );
+  assert.deepEqual(JSON.parse(productDelete.options.body), {
+    p_store_id: 1,
+    p_shopify_product_id: 102,
+    p_deleted_at: "2026-09-29T11:00:00.000Z",
+  });
+
+  const handleReconcile = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/reconcile_audit_product_handles"),
+  );
+  assert.deepEqual(JSON.parse(handleReconcile.options.body), {
+    p_store_id: 1,
+    p_handles: [{ shopify_product_id: 101, handle: "pink-dress" }],
+    p_seen_at: "2026-09-29T10:00:00.000Z",
+  });
+
+  const handleRead = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/audit_product_handle_history_with_product"),
+  );
+  assert.equal(handleRead.url.searchParams.get("store_id"), "eq.1");
+
   const jobUpdate = api.calls.find(({ url, options }) =>
     url.pathname.endsWith("/audit_sync_jobs") && options.method === "PATCH",
   );
@@ -84,6 +130,11 @@ test("authenticated gateways force their own store on reads, updates, deletes an
     url.pathname.endsWith("/audit_store_month_metrics") && options.method === "DELETE",
   );
   assert.equal(storeMonthDelete.url.searchParams.get("store_id"), "eq.1");
+
+  const orphanCleanup = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/cleanup_audit_orphan_products"),
+  );
+  assert.equal(JSON.parse(orphanCleanup.options.body).p_store_id, 1);
 
   const monthReplace = api.calls.find(({ url }) =>
     url.pathname.endsWith("/rpc/replace_audit_store_month"),

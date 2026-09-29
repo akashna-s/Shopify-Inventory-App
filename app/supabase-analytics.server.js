@@ -178,4 +178,48 @@ export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
   ];
   await deleteSupabaseRows("audit_product_month_metrics", filters);
   await deleteSupabaseRows("audit_store_month_metrics", filters);
+  await deleteSupabaseRows("audit_unmatched_landing_sessions", filters);
+}
+
+export function reconcileSupabaseProductCatalog(storeId, shopifyProductIds, seenAt) {
+  return request("rpc/reconcile_audit_product_catalog", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_seen_product_ids: shopifyProductIds,
+      p_seen_at: seenAt,
+    }),
+  });
+}
+
+export function markSupabaseProductDeleted(storeId, shopifyProductId, deletedAt) {
+  return request("rpc/mark_audit_product_deleted", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_shopify_product_id: shopifyProductId,
+      p_deleted_at: deletedAt,
+    }),
+  });
+}
+
+export function cleanupSupabaseOrphanProducts(storeId, graceBefore) {
+  return request("rpc/cleanup_audit_orphan_products", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_grace_before: graceBefore,
+    }),
+  });
+}
+
+export function reconcileSupabaseProductHandles(storeId, handles, seenAt) {
+  return request("rpc/reconcile_audit_product_handles", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_handles: handles,
+      p_seen_at: seenAt,
+    }),
+  });
 }

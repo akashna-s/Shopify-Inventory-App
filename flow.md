@@ -894,3 +894,42 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 5. Automatically add or overwrite `store_id` on every supported read, write, update and delete operation.
 6. Ignore a caller-supplied store filter and retain only the authenticated store filter.
 7. Keep the Supabase service-role key on the server and expose no direct analytics-table access to the browser.
+
+# 2026-09-29 - Non-negative inventory reporting flow
+
+1. Save each product-month Starting Inventory and Ending Inventory exactly as Shopify returns it, including a negative value when present.
+2. When building a store-month inventory summary, convert each negative product balance to zero before adding the products together.
+3. Save only the resulting non-negative Starting Inventory and Ending Inventory totals in `audit_store_month_metrics`.
+4. Enforce non-negative store totals again inside PostgreSQL so an incorrect caller cannot save a negative summary.
+5. When New Arrival calculations read live or stored product-month data, convert negative inventory to zero before building cohort inventory and the all-product denominator.
+6. Apply the existing NA period rule after that conversion: use Ending Inventory in the launch period and Starting Inventory in every later period.
+
+# 2026-09-29 - Product and store order-count flow
+
+1. Fetch Product Orders with ShopifyQL grouped by product. One customer order containing Product A and Product B contributes one Product Order to A and one to B.
+2. Store that product-month value as `audit_product_month_metrics.product_orders` and use it only for product/cohort analysis.
+3. Fetch Store Unique Orders with a separate ungrouped ShopifyQL store query. The same A+B customer order contributes only one Store Unique Order.
+4. Store that exact value as `audit_store_month_metrics.unique_orders` and use it for store-wide cards or totals.
+5. Never calculate Store Unique Orders by summing Product Orders. Product Audit's cross-product summary explicitly shows `Not additive` in that column.
+6. New Arrival CR remains directional: Product Orders divided by product landing sessions. Its labels and dictionary make clear that it is not a store unique-order conversion rate.
+
+# 2026-09-29 - Product lifecycle and catalogue cleanup flow
+
+1. Start the monthly sync by fetching a fresh complete Shopify product catalogue rather than using the local six-hour cache.
+2. Upsert every returned product with its current Shopify status, `catalog_state = present`, and a new `last_seen_at` time.
+3. Replace tags only for returned products. Preserve last-known tags for products absent from the new catalogue.
+4. After the full catalogue fetch and upsert succeed, mark this store's unseen non-deleted products as `missing` and set `missing_since` once.
+5. When Shopify sends an authenticated `products/delete` webhook, set the matching product to `deleted` and record `deleted_at`.
+6. Keep all product metadata and monthly facts while any retained 18-month product-month row still references the product.
+7. After monthly retention removes expired facts, delete only `missing` or `deleted` products that have no remaining monthly facts and whose missing/deleted date is older than 30 days.
+8. Use the database view's Effective Status for future filters: `DELETED`, then `MISSING`, otherwise the current Shopify status.
+# Historical handle matching for Supabase monthly sync
+
+1. A fresh Shopify catalogue sync returns each product's current handle.
+2. Supabase keeps the current handle open in `audit_product_handle_history`. If it changed, the previous row receives an end time and a new row starts.
+3. For each month, the sync loads every handle that was valid during that month.
+4. Shopify landing-page paths are matched against both current and historical handles.
+5. Matched sessions are written to the relevant product-month row.
+6. Unknown or ambiguous handles are written to `audit_unmatched_landing_sessions`, not silently dropped or guessed.
+7. Store-month data keeps three separate checks: matched product landing sessions, unmatched product landing sessions, and direct Shopify store sessions.
+8. Existing live reports remain unchanged until a later, separately approved database-read switchover.

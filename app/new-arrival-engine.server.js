@@ -1,3 +1,5 @@
+import { nonNegativeInventory } from "./inventory-rules.server";
+
 function number(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : 0;
@@ -47,8 +49,10 @@ function buildRecords(sourceRows) {
       handle: String(row.handle || "").trim(),
       imageUrl: String(row.imageUrl || "").trim(),
       startRaw: number(row.startingInventory),
-      start: Math.max(0, number(row.startingInventory)),
-      end: Math.max(0, number(row.endingInventory)),
+      // Keep the source value separately for launch/activity detection, but
+      // never let negative inventory reduce NA Inventory or its denominator.
+      start: nonNegativeInventory(row.startingInventory),
+      end: nonNegativeInventory(row.endingInventory),
       sales: Math.max(0, number(row.totalSales)),
       landingSessions: Math.max(0, number(row.landingSessions)),
       orders: Math.max(0, number(row.orders)),

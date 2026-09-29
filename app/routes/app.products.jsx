@@ -771,7 +771,10 @@ const REPORT_METRICS = {
         label: "Landing Sessions",
         info: "Sessions whose first storefront page was this product.",
     },
-    orders: { label: "Orders", info: "Unique orders containing the product." },
+    orders: {
+        label: "Product Orders",
+        info: "Orders containing this product. Do not sum this metric across products to calculate store orders, because one customer order can contain multiple products.",
+    },
     quantityOrdered: {
         label: "Quantity Ordered",
         info: "Units ordered before reversals.",
@@ -1034,11 +1037,11 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
         setCurrentPage(1);
     };
 
-    // Summary metrics
+    // Product Orders are intentionally not summed here because one customer
+    // order can contain more than one product.
     const summaryMetrics = useMemo(() => {
         const totalLandingSessions = filteredRows.reduce((s, r) => s + (r.landingSessions || 0), 0);
         const totalCompletedCheckoutSessions = filteredRows.reduce((s, r) => s + (r.completedCheckoutSessions || 0), 0);
-        const totalOrders = filteredRows.reduce((s, r) => s + (r.orders || 0), 0);
         const salesTotals = filteredRows.reduce(
             (totals, row) => ({
                 grossSales: totals.grossSales + (row.grossSales || 0),
@@ -1062,7 +1065,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             },
         );
         const convRate = totalLandingSessions > 0 ? ((totalCompletedCheckoutSessions / totalLandingSessions) * 100).toFixed(1) : "0.0";
-        return { totalLandingSessions, totalOrders, ...salesTotals, convRate };
+        return { totalLandingSessions, ...salesTotals, convRate };
     }, [filteredRows]);
     const overallRow = useMemo(() => aggregateReportRows(rows, [])[0] || {}, [rows]);
 
@@ -1612,6 +1615,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                             .map((key) => {
                                 const metric = REPORT_METRICS[key];
                                 const rawValue = key === "orders" ? uniqueOrderTotal : overallRow[key];
+                                const totalLabel = key === "orders" ? "Store Unique Orders" : metric.label;
                                 const value = metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : (rawValue ?? "—");
                                 return (
                                     <div key={key} style={metricCardStyle}>
@@ -1622,7 +1626,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                                 fontWeight: 500,
                                             }}
                                         >
-                                            {metric.label}
+                                            {totalLabel}
                                             {metric.money ? ` (${currency})` : ""}
                                         </span>
                                         <span style={{ fontSize: "21px", fontWeight: 700 }}>{value}</span>
@@ -1644,10 +1648,6 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                         <div style={metricCardStyle}>
                             <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Landing Sessions</span>
                             <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalLandingSessions.toLocaleString()}</span>
-                        </div>
-                        <div style={metricCardStyle}>
-                            <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Product Orders (summed)</span>
-                            <span style={{ fontSize: "22px", fontWeight: 700, color: "#202223" }}>{summaryMetrics.totalOrders.toLocaleString()}</span>
                         </div>
                         <div style={metricCardStyle}>
                             <span style={{ fontSize: "12px", color: "#6d7175", fontWeight: 500 }}>Gross Sales ({currency})</span>
@@ -2129,6 +2129,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                         {selectedMetrics.map((key) => {
                                             const metric = REPORT_METRICS[key];
                                             const rawValue = tableTotals[key];
+                                            const isNonAdditiveOrder = key === "orders";
                                             const value = metric.type === "text" ? "—" : metric.money ? formatMoney(rawValue, currency) : metric.type === "date" ? formatDate(rawValue) : (rawValue ?? "—");
                                             return (
                                                 <th
@@ -2139,7 +2140,9 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                                                         textAlign: metric.type ? "left" : "right",
                                                     }}
                                                 >
-                                                    {value}
+                                                    <span title={isNonAdditiveOrder ? "Product Orders cannot be summed across products. Use Store Unique Orders for the store total." : undefined}>
+                                                        {isNonAdditiveOrder ? "Not additive" : value}
+                                                    </span>
                                                 </th>
                                             );
                                         })}
