@@ -9,6 +9,7 @@ import {
 } from "../app/product-lifecycle.server.js";
 
 test("effective status prioritizes lifecycle over stale Shopify status", () => {
+  assert.equal(effectiveProductStatus({ status: "ACTIVE", catalog_state: "missing", record_kind: "unattributed" }), "UNATTRIBUTED");
   assert.equal(effectiveProductStatus({ status: "ACTIVE", catalog_state: "deleted" }), "DELETED");
   assert.equal(effectiveProductStatus({ status: "ACTIVE", catalog_state: "missing" }), "MISSING");
   assert.equal(effectiveProductStatus({ status: "DRAFT", catalog_state: "present" }), "DRAFT");

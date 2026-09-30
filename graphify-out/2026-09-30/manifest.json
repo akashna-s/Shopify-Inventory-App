@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "app/new-arrival-engine.server.js": {
-    "mtime": 1790773820.4772034,
-    "seen": 1790774099.7820058,
-    "ast_hash": "9910c6099b2c07ff3343d0c3e907cb22",
+    "mtime": 1790768255.4509146,
+    "seen": 1790768584.3302937,
+    "ast_hash": "d8eb3e76dca34dd61e8b1ed03694e201",
     "semantic_hash": ""
   },
   "app/product-catalog-cache.server.js": {
@@ -102,15 +102,15 @@
     "semantic_hash": ""
   },
   "app/routes/app.new-arrivals.jsx": {
-    "mtime": 1790773718.7250688,
-    "seen": 1790774099.7835014,
-    "ast_hash": "5ce9078e9bbfc363bdee423b49f92fb4",
+    "mtime": 1790768266.3666797,
+    "seen": 1790768584.3389184,
+    "ast_hash": "2aca442a1741033f3f62a7732ad9b086",
     "semantic_hash": ""
   },
   "app/routes/app.products.jsx": {
-    "mtime": 1790773650.3894935,
-    "seen": 1790774099.7835035,
-    "ast_hash": "fc6ac09db83b56372d57082730a33e3d",
+    "mtime": 1790768269.5019488,
+    "seen": 1790768584.3389254,
+    "ast_hash": "b4b64d7caa733b28abaa6ff942edbaf2",
     "semantic_hash": ""
   },
   "app/routes/auth.$.jsx": {
@@ -198,15 +198,15 @@
     "semantic_hash": ""
   },
   "decision.md": {
-    "mtime": 1790774037.2958388,
-    "seen": 1790774099.788424,
-    "ast_hash": "22217ed0141ed146deecd7b4e082d2fa",
+    "mtime": 1790768107.5250795,
+    "seen": 1790768584.34887,
+    "ast_hash": "1f95fb9e0a85ae9eea8c6376358ea77e",
     "semantic_hash": ""
   },
   "flow.md": {
-    "mtime": 1790774040.4112694,
-    "seen": 1790774099.7884264,
-    "ast_hash": "7f7727f743e51648d9c6fb5cf6205230",
+    "mtime": 1790768109.6239972,
+    "seen": 1790768584.348878,
+    "ast_hash": "4acbb8d37c9a8eeddd0ca301a1cccb15",
     "semantic_hash": ""
   },
   "pnpm-workspace.yaml": {
@@ -228,15 +228,15 @@
     "semantic_hash": ""
   },
   "app/shopify-supabase-sync.server.js": {
-    "mtime": 1790773594.186222,
-    "seen": 1790774099.7847831,
-    "ast_hash": "160f09f6b65e03557732c26c3f47b0a4",
+    "mtime": 1790768260.55025,
+    "seen": 1790768584.3427103,
+    "ast_hash": "5653dbd2ecbd70a3248cf5605963baed",
     "semantic_hash": ""
   },
   "app/supabase-analytics.server.js": {
-    "mtime": 1790773565.5883913,
-    "seen": 1790774099.7853208,
-    "ast_hash": "ec65ec46090648d7b2caccb5c8342a38",
+    "mtime": 1790768263.4343448,
+    "seen": 1790768584.3437326,
+    "ast_hash": "8d3acfd0d93372898aaef29dc718a012",
     "semantic_hash": ""
   },
   "app/inventory-rules.server.js": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "app/store-analytics-access.server.js": {
-    "mtime": 1790773568.164891,
-    "seen": 1790774099.78514,
-    "ast_hash": "74a72cd8e919e2a3d99c12c4fe5293a4",
+    "mtime": 1790764622.5828848,
+    "seen": 1790767268.0504937,
+    "ast_hash": "04ba6a0383e4785b7c2d123bf34500ec",
     "semantic_hash": ""
   },
   "tests/inventory-rules.test.js": {
@@ -258,9 +258,9 @@
     "semantic_hash": ""
   },
   "tests/store-analytics-access.test.js": {
-    "mtime": 1790773762.050749,
-    "seen": 1790774099.786783,
-    "ast_hash": "e6b69c1feccc894e7ce564295250674a",
+    "mtime": 1790768181.2753186,
+    "seen": 1790768584.345803,
+    "ast_hash": "195757c78cceb41eb18589f4c32310de",
     "semantic_hash": ""
   },
   "tests/supabase-retention.test.js": {
@@ -276,9 +276,9 @@
     "semantic_hash": ""
   },
   "app/product-lifecycle.server.js": {
-    "mtime": 1790773757.7812262,
-    "seen": 1790774099.7822132,
-    "ast_hash": "84a499ab76fce5094857f1c70c046ea6",
+    "mtime": 1790677770.0928802,
+    "seen": 1790678124.8602407,
+    "ast_hash": "1aa2a4114c552ba03c1e9639d502194d",
     "semantic_hash": ""
   },
   "app/routes/webhooks.products.delete.jsx": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "tests/product-lifecycle.test.js": {
-    "mtime": 1790773760.0406375,
-    "seen": 1790774099.786599,
-    "ast_hash": "ad79ea2b2f621eda1a8e86b15cebd7fe",
+    "mtime": 1790677777.89892,
+    "seen": 1790678124.86479,
+    "ast_hash": "0efce6809324c420d8c491daf5129433",
     "semantic_hash": ""
   },
   "app/landing-session-matcher.server.js": {
@@ -357,12 +357,6 @@
     "mtime": 1790768104.9449656,
     "seen": 1790768584.345799,
     "ast_hash": "b00445c310252a2910d38aaca8dba701",
-    "semantic_hash": ""
-  },
-  "tests/unattributed-product.test.js": {
-    "mtime": 1790773763.864202,
-    "seen": 1790774099.7873206,
-    "ast_hash": "d9ea7a69c79bc3a43ebf772ec7009ffb",
     "semantic_hash": ""
   }
 }

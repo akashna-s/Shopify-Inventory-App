@@ -16,6 +16,7 @@ import { generateNewArrivalReport } from "../new-arrival-engine.server";
 import DateRangePicker from "../components/DateRangePicker";
 import styles from "../styles/new-arrivals.css?url";
 import dateRangeStyles from "../styles/date-range-picker.css?url";
+import { shopifyIdText } from "../shopify-id.js";
 
 /* Loader data and local table component props are runtime-validated by React Router. */
 /* eslint-disable react/prop-types */
@@ -572,7 +573,6 @@ function weekBounds(week, yesterday) {
   const naturalEnd = dateString(endDate);
   return { start: week, end: naturalEnd > yesterday ? yesterday : naturalEnd };
 }
-const numericId = (value) => String(value ?? "").replace(/\D/g, "");
 function numberFrom(row, key) {
   return Number(row?.[key]) || 0;
 }
@@ -736,11 +736,11 @@ async function fetchFirstCohortLookback(admin, shop, selectedStart) {
       numberFrom(row, "starting_inventory_units") > 0 ||
       numberFrom(row, "ending_inventory_units") > 0
     )
-      activeProductIds.add(numericId(row.product_id));
+      activeProductIds.add(shopifyIdText(row.product_id));
   }
   for (const row of sales.rows || []) {
     if (numberFrom(row, "total_sales") > 0)
-      activeProductIds.add(numericId(row.product_id));
+      activeProductIds.add(shopifyIdText(row.product_id));
   }
   return { start, end, inventory, sales, activeProductIds };
 }
@@ -900,13 +900,13 @@ export const loader = async ({ request }) => {
     lookbackPromise,
   ]);
   const catalogById = new Map(
-    catalog.products.map((product) => [numericId(product.id), product]),
+    catalog.products.map((product) => [shopifyIdText(product.id), product]),
   );
   const analyticsProductIds = new Set(
     monthly
       .flatMap((result) => [
-        ...result.inventory.rows.map((row) => numericId(row.product_id)),
-        ...result.sales.rows.map((row) => numericId(row.product_id)),
+        ...result.inventory.rows.map((row) => shopifyIdText(row.product_id)),
+        ...result.sales.rows.map((row) => shopifyIdText(row.product_id)),
       ])
       .filter(Boolean),
   );
@@ -920,7 +920,7 @@ export const loader = async ({ request }) => {
   if (missingIds.length) {
     const enrichedProducts = await fetchProductsByIds(admin, missingIds);
     for (const product of enrichedProducts)
-      catalogById.set(numericId(product.id), product);
+      catalogById.set(shopifyIdText(product.id), product);
   }
   const productIdByHandle = new Map(
     [...catalogById]
@@ -954,10 +954,14 @@ export const loader = async ({ request }) => {
   }
   for (const result of monthly) {
     const inventoryById = new Map(
-      result.inventory.rows.map((row) => [numericId(row.product_id), row]),
+      result.inventory.rows
+        .map((row) => [shopifyIdText(row.product_id), row])
+        .filter(([productId]) => productId),
     );
     const salesById = new Map(
-      result.sales.rows.map((row) => [numericId(row.product_id), row]),
+      result.sales.rows
+        .map((row) => [shopifyIdText(row.product_id), row])
+        .filter(([productId]) => productId),
     );
     const sessionsById = new Map();
     for (const row of result.landingSessions.rows) {
@@ -1009,6 +1013,28 @@ export const loader = async ({ request }) => {
         totalSales: numberFrom(sales, "total_sales"),
         orders: numberFrom(sales, "orders"),
         landingSessions: sessionsById.get(productId) || 0,
+      });
+    }
+    const unattributedSalesRows = result.sales.rows.filter(
+      (row) => !shopifyIdText(row.product_id),
+    );
+    if (unattributedSalesRows.length) {
+      sourceRows.push({
+        isUnattributed: true,
+        period: result.period,
+        title: "Unattributed Shopify Data",
+        productType: "Unknown",
+        productTags: [],
+        // Only sales are defensible without a Product ID. Inventory, SKU,
+        // launch-cohort and conversion calculations deliberately ignore it.
+        totalSales: unattributedSalesRows.reduce(
+          (sum, row) => sum + numberFrom(row, "total_sales"),
+          0,
+        ),
+        orders: unattributedSalesRows.reduce(
+          (sum, row) => sum + numberFrom(row, "orders"),
+          0,
+        ),
       });
     }
     monthlyStoreSales[result.period] = result.storeSales.rows.reduce(
@@ -1549,7 +1575,9 @@ function exportAnalysis(sections, months, metrics, currency, format) {
       const valueCells = (values) =>
         months.flatMap((month) =>
           metrics.map(([key, , type]) =>
-            values[month] ? display(values[month][key], type, currency) : "—",
+            values[month] && values[month][key] !== null && values[month][key] !== undefined
+              ? display(values[month][key], type, currency)
+              : "—",
           ),
         );
       const rows = [
@@ -1665,7 +1693,8 @@ function addAnalysisSection(sheet, section, months, metrics, currency, interval,
     styleExcelCell(row.getCell(1), { bold: true, alignment: "left" });
     months.forEach((period, periodIndex) => metrics.forEach(([key, , type], metricIndex) => {
       const cell = row.getCell(2 + periodIndex * metrics.length + metricIndex);
-      cell.value = cohortRow.values[period] ? Number(cohortRow.values[period][key]) || 0 : null;
+      const rawValue = cohortRow.values[period]?.[key];
+      cell.value = rawValue === null || rawValue === undefined ? null : Number(rawValue) || 0;
       styleExcelCell(cell);
       applyExcelNumberFormat(cell, type, currency);
     }));

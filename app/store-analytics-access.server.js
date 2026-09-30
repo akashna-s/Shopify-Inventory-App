@@ -1,18 +1,17 @@
 import {
   deleteExpiredMonthlyMetrics,
   cleanupSupabaseOrphanProducts,
-  deleteSupabaseRows,
+  ensureSupabaseUnattributedProduct,
   insertSupabaseRows,
   markSupabaseProductDeleted,
   reconcileSupabaseProductCatalog,
   reconcileSupabaseProductHandles,
+  replaceSupabaseProductTags,
   replaceSupabaseStoreMonth,
   selectSupabaseRows,
   updateSupabaseRows,
   upsertSupabaseRows,
 } from "./supabase-analytics.server.js";
-
-const TAG_DELETE_BATCH_SIZE = 500;
 
 function authenticatedShop(session) {
   const shop = String(session?.shop || "").trim().toLowerCase();
@@ -33,6 +32,7 @@ function scopedOptions(storeId, options = {}) {
 export async function createAuthenticatedStoreAnalytics(session, {
   createStore = false,
   currencyCode = "USD",
+  ianaTimeZone = "Etc/UTC",
 } = {}) {
   const shopDomain = authenticatedShop(session);
   let stores;
@@ -40,12 +40,13 @@ export async function createAuthenticatedStoreAnalytics(session, {
     stores = await insertSupabaseRows("audit_stores", [{
       shop_domain: shopDomain,
       currency_code: currencyCode,
+      iana_timezone: ianaTimeZone,
       status: "active",
       updated_at: new Date().toISOString(),
     }], { upsert: true, conflictColumns: ["shop_domain"] });
   } else {
     stores = await selectSupabaseRows("audit_stores", {
-      select: "id,shop_domain,currency_code,status",
+      select: "id,shop_domain,currency_code,iana_timezone,status",
       filters: [["shop_domain", "eq", shopDomain]],
       limit: 1,
     });
@@ -77,26 +78,12 @@ export async function createAuthenticatedStoreAnalytics(session, {
       );
     },
 
-    async replaceProductTags(tags, refreshedProductIds) {
-      const products = await selectSupabaseRows("audit_products", {
-        select: "id",
-        filters: [["store_id", "eq", storeId]],
-      });
-      const productIds = products.map((product) => String(product.id));
-      const allowed = new Set(productIds);
-      if (tags.some((tag) => !allowed.has(String(tag.product_id)))) {
-        throw new Error("Every product tag must belong to the authenticated store.");
-      }
+    ensureUnattributedProduct() {
+      return ensureSupabaseUnattributedProduct(storeId);
+    },
 
-      const refreshedIds = [...new Set((refreshedProductIds || []).map(String))];
-      if (refreshedIds.some((id) => !allowed.has(id))) {
-        throw new Error("Every refreshed product must belong to the authenticated store.");
-      }
-      for (let index = 0; index < refreshedIds.length; index += TAG_DELETE_BATCH_SIZE) {
-        const ids = refreshedIds.slice(index, index + TAG_DELETE_BATCH_SIZE).join(",");
-        await deleteSupabaseRows("audit_product_tags", [["product_id", "in", `(${ids})`]]);
-      }
-      return upsertSupabaseRows("audit_product_tags", tags, ["product_id", "tag"]);
+    replaceProductTags(tags, refreshedProductIds) {
+      return replaceSupabaseProductTags(storeId, refreshedProductIds || [], tags || []);
     },
 
     reconcileCatalog(shopifyProductIds, seenAt) {
@@ -142,9 +129,15 @@ export async function createAuthenticatedStoreAnalytics(session, {
     },
 
     async deleteExpiredMonths(retainFromMonth) {
-      await deleteExpiredMonthlyMetrics(storeId, retainFromMonth);
+      const monthlyCounts = await deleteExpiredMonthlyMetrics(storeId, retainFromMonth);
       const graceBefore = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-      return cleanupSupabaseOrphanProducts(storeId, graceBefore);
+      const orphanProductsDeleted = Number(
+        await cleanupSupabaseOrphanProducts(storeId, graceBefore),
+      ) || 0;
+      return {
+        ...monthlyCounts,
+        rowsDeleted: monthlyCounts.rowsDeleted + orphanProductsDeleted,
+      };
     },
 
     createJob(values) {

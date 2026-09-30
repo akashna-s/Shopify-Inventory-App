@@ -1,12 +1,12 @@
 # Graph Report - audit-bot  (2026-09-30)
 
 ## Corpus Check
-- 74 files · ~62,410 words
+- 72 files · ~60,008 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 16 file(s) not represented in the graph (top: (none) 7, .css 4, .toml 2)
 
 ## Summary
-- 751 nodes · 1109 edges · 45 communities (40 shown, 5 thin omitted)
+- 744 nodes · 1091 edges · 45 communities (40 shown, 5 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -33,7 +33,7 @@
 - dependencies
 - Audit Bot — Decision Log
 - DateRangePicker.jsx
-- new-arrival-engine.server.js
+- product-catalog-cache.server.js
 - 2026-08-12 — Stale Prisma client ko automatically replace karna
 - 2026-08-12 — Historical analytics cache
 - 2026-08-17 — Shopify-style two-column report layout
@@ -63,8 +63,8 @@
 ## God Nodes (most connected - your core abstractions)
 1. `Audit Bot — Decision Log` - 28 edges
 2. `Audit Bot — Product Audit Data Flow` - 27 edges
-3. `shopifyIdText()` - 22 edges
-4. `createAuthenticatedStoreAnalytics()` - 20 edges
+3. `shopifyIdText()` - 21 edges
+4. `createAuthenticatedStoreAnalytics()` - 19 edges
 5. `@shopify/shopify-app-template-remix` - 19 edges
 6. `2026-08-31 — Polaris light data-visibility refactor` - 19 edges
 7. `New Arrival report interaction flow (2026-08-31)` - 19 edges
@@ -73,16 +73,16 @@
 10. `syncLatest18MonthsToSupabase()` - 17 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `reconcileSupabaseProductCatalog()` --indirect_call--> `shopifyIdText()`  [INFERRED]
-  app/supabase-analytics.server.js → app/shopify-id.js
-- `fetchInventoryChunk()` --calls--> `runWithAnalyticsCache()`  [EXTRACTED]
-  app/routes/app.products.jsx → app/analytics-cache.server.js
-- `loader()` --calls--> `runWithAnalyticsCache()`  [EXTRACTED]
-  app/routes/app.products.jsx → app/analytics-cache.server.js
-- `persistMonth()` --calls--> `sumNonNegativeInventory()`  [EXTRACTED]
-  app/shopify-supabase-sync.server.js → app/inventory-rules.server.js
-- `buildRecords()` --calls--> `shopifyIdText()`  [EXTRACTED]
-  app/new-arrival-engine.server.js → app/shopify-id.js
+- `fetchFirstCohortLookback()` --calls--> `runWithAnalyticsCache()`  [EXTRACTED]
+  app/routes/app.new-arrivals.jsx → app/analytics-cache.server.js
+- `fetchPeriod()` --calls--> `runWithAnalyticsCache()`  [EXTRACTED]
+  app/routes/app.new-arrivals.jsx → app/analytics-cache.server.js
+- `fetchWeekChunk()` --calls--> `runWithAnalyticsCache()`  [EXTRACTED]
+  app/routes/app.new-arrivals.jsx → app/analytics-cache.server.js
+- `buildRecords()` --calls--> `nonNegativeInventory()`  [EXTRACTED]
+  app/new-arrival-engine.server.js → app/inventory-rules.server.js
+- `matchLandingSessions()` --calls--> `shopifyIdText()`  [EXTRACTED]
+  app/landing-session-matcher.server.js → app/shopify-id.js
 
 ## Import Cycles
 - None detected.
@@ -91,19 +91,19 @@
 
 ### Community 0 - "app.new-arrivals.jsx"
 Cohesion: 0.07
-Nodes (57): isFinalizedRange(), runWithAnalyticsCache(), addAnalysisSection(), analysisSections(), applyExcelNumberFormat(), categoryLoadQueue, csvCell(), dateString() (+49 more)
+Nodes (55): addAnalysisSection(), analysisSections(), applyExcelNumberFormat(), categoryLoadQueue, csvCell(), dateString(), DETAIL_METRICS, detailExportRows() (+47 more)
 
 ### Community 1 - "shopify.server.js"
-Cohesion: 0.06
-Nodes (18): headers(), headers(), reports, headers(), loginErrorMessage(), action(), loader(), apiVersion (+10 more)
+Cohesion: 0.05
+Nodes (23): handleRequest(), streamTimeout, headers(), headers(), reports, headers(), loginErrorMessage(), action() (+15 more)
 
 ### Community 2 - "app.products.jsx"
-Cohesion: 0.08
-Nodes (39): fetchProductsWithBulkOperation(), fetchProductsWithPagination(), getProductCatalog(), refreshCatalog(), refreshesByShop, refreshProductCatalog(), startBackgroundRefresh(), wait() (+31 more)
+Cohesion: 0.09
+Nodes (33): isFinalizedRange(), runWithAnalyticsCache(), adjustDay(), adjustWeek(), aggregateReportRows(), combineInventoryChunkResults(), dateBoundsFor(), dayBounds() (+25 more)
 
 ### Community 3 - "package.json"
-Cohesion: 0.04
-Nodes (42): handleRequest(), streamTimeout, addDocumentResponseHeaders, config, author, engines, node, name (+34 more)
+Cohesion: 0.05
+Nodes (37): config, author, engines, node, name, overrides, p-map, private (+29 more)
 
 ### Community 4 - "Audit Bot — Product Audit Data Flow"
 Cohesion: 0.05
@@ -111,11 +111,11 @@ Nodes (40): Audit Bot — Product Audit Data Flow, Automatic ShopifyQL range rec
 
 ### Community 5 - "decision.md"
 Cohesion: 0.05
-Nodes (38): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+30 more)
+Nodes (37): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+29 more)
 
 ### Community 6 - "flow.md"
 Cohesion: 0.05
-Nodes (37): 2026-09-11 - Calculation drawer accordion, 2026-09-11 - Calculation drawer reference flow, 2026-09-11 - Cohort Details filters, 2026-09-11 - Date picker interaction, 2026-09-11 - Monthly quick ranges, 2026-09-11 - Product Audit date-change feedback, 2026-09-11 - Product Audit dimension-change flow, 2026-09-11 - Product Audit inventory chunk flow (+29 more)
+Nodes (36): 2026-09-11 - Calculation drawer accordion, 2026-09-11 - Calculation drawer reference flow, 2026-09-11 - Cohort Details filters, 2026-09-11 - Date picker interaction, 2026-09-11 - Monthly quick ranges, 2026-09-11 - Product Audit date-change feedback, 2026-09-11 - Product Audit dimension-change flow, 2026-09-11 - Product Audit inventory chunk flow (+28 more)
 
 ### Community 7 - "@shopify/shopify-app-template-remix"
 Cohesion: 0.06
@@ -161,9 +161,9 @@ Nodes (17): 2026-08-12 — Browser/table performance, 2026-08-13 cart-addition r
 Cohesion: 0.38
 Nodes (11): asDate(), calendarDays(), CalendarPanel(), clampMonth(), DateRangePicker(), firstOfMonth(), isoDate(), MONTHS (+3 more)
 
-### Community 17 - "new-arrival-engine.server.js"
-Cohesion: 0.25
-Nodes (13): finiteNumber(), nonNegativeInventory(), sumNonNegativeInventory(), aggregateProductMonths(), brandDenominators(), buildProductMaps(), buildRecords(), calculateMatrix() (+5 more)
+### Community 17 - "product-catalog-cache.server.js"
+Cohesion: 0.42
+Nodes (8): fetchProductsWithBulkOperation(), fetchProductsWithPagination(), getProductCatalog(), refreshCatalog(), refreshesByShop, refreshProductCatalog(), startBackgroundRefresh(), wait()
 
 ### Community 18 - "2026-08-12 — Stale Prisma client ko automatically replace karna"
 Cohesion: 0.20
@@ -234,12 +234,12 @@ Cohesion: 0.67
 Nodes (3): 2026-08-17 — Metric totals inventory removal and unique Orders, Expanded filter operators, Result table Summary row
 
 ### Community 38 - "shopify-supabase-sync.server.js"
-Cohesion: 0.11
-Nodes (35): handleFromLandingPath(), matchLandingSessions(), number(), action(), loader(), shopifyIdText(), aggregateUnattributedRows(), currencyScale() (+27 more)
+Cohesion: 0.10
+Nodes (36): finiteNumber(), nonNegativeInventory(), sumNonNegativeInventory(), handleFromLandingPath(), matchLandingSessions(), number(), action(), loader() (+28 more)
 
 ### Community 39 - "supabase-analytics.server.js"
-Cohesion: 0.19
-Nodes (22): action(), authenticatedShop(), createAuthenticatedStoreAnalytics(), chunks(), cleanupSupabaseOrphanProducts(), config(), deleteExpiredMonthlyMetrics(), deleteSupabaseRows() (+14 more)
+Cohesion: 0.13
+Nodes (30): aggregateProductMonths(), brandDenominators(), buildProductMaps(), buildRecords(), calculateMatrix(), generateNewArrivalReport(), monthLabel(), number() (+22 more)
 
 ### Community 40 - "2026-08-31 — Polaris light data-visibility refactor"
 Cohesion: 0.11
@@ -254,8 +254,8 @@ Cohesion: 0.60
 Nodes (3): CATALOG_STATES, effectiveProductStatus(), isValidCatalogState()
 
 ## Knowledge Gaps
-- **417 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+412 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 472 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **415 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+410 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 470 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -264,14 +264,14 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `react-router` connect `shopify.server.js` to `app.new-arrivals.jsx`, `app.products.jsx`, `package.json`?**
   _High betweenness centrality (0.042) - this node is a cross-community bridge._
 - **Why does `Audit Bot — Decision Log` connect `Audit Bot — Decision Log` to `2026-08-12 — Currency and inventory-date semantics`, `2026-08-17 — Metric totals inventory removal and unique Orders`, `decision.md`, `2026-08-12 — Product catalog ke liye Bulk Operation + cache`, `2026-08-12 — Stale Prisma client ko automatically replace karna`, `2026-08-12 — Historical analytics cache`, `2026-08-17 — Shopify-style two-column report layout`, `2026-08-12 — Product Page Views aur Landing Sessions ko separate metrics banana`, `2026-08-13 — Per-product complete sales breakup add karna`, `2026-08-12 — Duplicate sessions query remove karna`, `2026-08-12 — Independent requests parallel me chalana + retry`, `2026-08-12 — Per-product Product Sessions add karna`, `2026-08-13 — Multi-format Export menu with page/all scope`, `2026-08-12 — Catalog refresh status me exact time dikhana`, `2026-08-12 — Progressive loading and safer export`, `2026-08-12 — ShopifyQL row limit fix`?**
-  _High betweenness centrality (0.037) - this node is a cross-community bridge._
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
 - **Why does `react` connect `shopify.server.js` to `DateRangePicker.jsx`, `app.new-arrivals.jsx`, `app.products.jsx`, `package.json`?**
   _High betweenness centrality (0.032) - this node is a cross-community bridge._
 - **What connects `npx`, `@shopify/dev-mcp`, `config` to the rest of the system?**
-  _417 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _415 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `app.new-arrivals.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.06829488919041157 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07093253968253968 - nodes in this community are weakly interconnected._
 - **Should `shopify.server.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.05990338164251208 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.053544494720965306 - nodes in this community are weakly interconnected._
 - **Should `app.products.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07738095238095238 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08859357696567 - nodes in this community are weakly interconnected._

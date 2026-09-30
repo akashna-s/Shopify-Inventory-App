@@ -4,18 +4,12 @@ import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
 import { getProductCatalog } from "../product-catalog-cache.server";
 import { runWithAnalyticsCache } from "../analytics-cache.server";
+import { shopifyIdText } from "../shopify-id.js";
 import DateRangePicker from "../components/DateRangePicker";
 import dateRangeStyles from "../styles/date-range-picker.css?url";
 
 /* Loader and Await render props are runtime-validated by React Router. */
 /* eslint-disable react/prop-types */
-
-// Strips a GraphQL GID (or any string) down to its trailing numeric id so it
-// can be matched against the ids ShopifyQL returns, whatever shape those take.
-function numericId(value) {
-    if (value === null || value === undefined) return "";
-    return String(value).replace(/\D/g, "");
-}
 
 // ── Date helpers for day / week / month filtering ──
 function fmtDate(d) {
@@ -481,10 +475,31 @@ export const loader = async ({ request }) => {
             sessionByHandle[key] = current;
         });
 
+        const emptySales = () => ({
+            orders: 0,
+            quantityOrdered: 0,
+            netItemsSold: 0,
+            reversedQuantity: 0,
+            grossSales: 0,
+            discounts: 0,
+            salesReversals: 0,
+            netSales: 0,
+            shippingCharges: 0,
+            returnFees: 0,
+            taxes: 0,
+            totalSales: 0,
+        });
+        const addSales = (left, right) =>
+            Object.fromEntries(
+                Object.keys(emptySales()).map((field) => [
+                    field,
+                    (Number(left?.[field]) || 0) + (Number(right?.[field]) || 0),
+                ]),
+            );
         const salesByProduct = {};
-        let unattributedSales = null;
+        const unattributedSalesByDay = {};
         salesTotals.rows.forEach((row) => {
-            const key = numericId(row.product_id);
+            const key = shopifyIdText(row.product_id);
             const day = dayValue(row.day);
             const values = {
                 orders: Number(row.orders) || 0,
@@ -500,18 +515,40 @@ export const loader = async ({ request }) => {
                 taxes: Number(row.taxes) || 0,
                 totalSales: Number(row.total_sales) || 0,
             };
-            if (!key || !day) {
-                unattributedSales = values;
+            if (!key) {
+                if (day)
+                    unattributedSalesByDay[day] = addSales(
+                        unattributedSalesByDay[day],
+                        values,
+                    );
                 return;
             }
+            if (!day) return;
             salesByProduct[analyticsKey(day, key)] = values;
         });
 
         const inventoryByProduct = {};
+        const unattributedInventoryByDay = {};
         inventoryTotals.rows.forEach((row) => {
-            const key = numericId(row.product_id);
+            const key = shopifyIdText(row.product_id);
             const day = dayValue(row.day);
-            if (!key || !day) return;
+            if (!day) return;
+            if (!key) {
+                const current = unattributedInventoryByDay[day] || {
+                    firstDayInInventory: null,
+                    startingInventory: null,
+                    endingInventory: null,
+                };
+                const firstDay = row.first_day_in_inventory || null;
+                if (firstDay && (!current.firstDayInInventory || firstDay < current.firstDayInInventory))
+                    current.firstDayInInventory = firstDay;
+                if (row.starting_inventory_units !== null && row.starting_inventory_units !== undefined)
+                    current.startingInventory = (current.startingInventory || 0) + Number(row.starting_inventory_units || 0);
+                if (row.ending_inventory_units !== null && row.ending_inventory_units !== undefined)
+                    current.endingInventory = (current.endingInventory || 0) + Number(row.ending_inventory_units || 0);
+                unattributedInventoryByDay[day] = current;
+                return;
+            }
             inventoryByProduct[analyticsKey(day, key)] = {
                 firstDayInInventory: row.first_day_in_inventory || null,
                 startingInventory: row.starting_inventory_units ?? null,
@@ -535,7 +572,7 @@ export const loader = async ({ request }) => {
             const [day, key] = value.split("|");
             registerDay(key, day);
         });
-        const productByHandle = Object.fromEntries(products.map((product) => [product.handle || "", numericId(product.id)]));
+        const productByHandle = Object.fromEntries(products.map((product) => [product.handle || "", shopifyIdText(product.id)]));
         Object.keys(sessionByHandle).forEach((value) => {
             const separator = value.indexOf("|");
             const day = value.slice(0, separator);
@@ -543,8 +580,8 @@ export const loader = async ({ request }) => {
             registerDay(productByHandle[handle], day);
         });
 
-        const rows = products.flatMap((product) => {
-            const key = numericId(product.id);
+        const productRows = products.flatMap((product) => {
+            const key = shopifyIdText(product.id);
             const handle = product.handle || "";
             const productDays = [...(daysByProduct[key] || [])].sort();
             if (!productDays.length) productDays.push(null);
@@ -562,20 +599,7 @@ export const loader = async ({ request }) => {
                     startingInventory: null,
                     endingInventory: null,
                 };
-                const sales = salesByProduct[dailyKeyByProduct] || {
-                    orders: 0,
-                    quantityOrdered: 0,
-                    netItemsSold: 0,
-                    reversedQuantity: 0,
-                    grossSales: 0,
-                    discounts: 0,
-                    salesReversals: 0,
-                    netSales: 0,
-                    shippingCharges: 0,
-                    returnFees: 0,
-                    taxes: 0,
-                    totalSales: 0,
-                };
+                const sales = salesByProduct[dailyKeyByProduct] || emptySales();
 
                 const prodUrl = cleanShopUrl && product.handle ? `${cleanShopUrl}/products/${product.handle}` : "";
 
@@ -597,6 +621,40 @@ export const loader = async ({ request }) => {
                 };
             });
         });
+        const unattributedDays = [
+            ...new Set([
+                ...Object.keys(unattributedSalesByDay),
+                ...Object.keys(unattributedInventoryByDay),
+            ]),
+        ].sort();
+        const unattributedRows = unattributedDays.map((day) => ({
+            day,
+            productId: "UNATTRIBUTED",
+            title: "Unattributed Shopify Data",
+            status: "UNATTRIBUTED",
+            productType: "Unknown",
+            tags: [],
+            productUrl: "",
+            createdAt: null,
+            firstDayInInventory:
+                unattributedInventoryByDay[day]?.firstDayInInventory || null,
+            startingInventory:
+                unattributedInventoryByDay[day]?.startingInventory ?? null,
+            endingInventory:
+                unattributedInventoryByDay[day]?.endingInventory ?? null,
+            // Without a Product ID there is no trustworthy product handle to
+            // match to landing sessions, so product conversion is unavailable.
+            landingSessions: null,
+            completedCheckoutSessions: null,
+            ...emptySales(),
+            ...(unattributedSalesByDay[day] || {}),
+            isUnattributed: true,
+        }));
+        const rows = [...productRows, ...unattributedRows];
+        const unattributedSales = Object.values(unattributedSalesByDay).reduce(
+            addSales,
+            emptySales(),
+        );
 
         const analyticsQueries = [
             {
@@ -875,9 +933,14 @@ function aggregateReportRows(sourceRows, dimensions) {
             group.endingInventory = null;
             group.__firstInventoryDay = null;
             group.__lastInventoryDay = null;
+            group.__hasAttributed = false;
+            group.__hasUnattributed = false;
             for (const key of summedMetrics) group[key] = 0;
             groups.set(groupKey, group);
         }
+
+        if (row.isUnattributed) group.__hasUnattributed = true;
+        else group.__hasAttributed = true;
 
         if (!group.productUrl && row.productUrl) group.productUrl = row.productUrl;
         if (!group.createdAt && row.createdAt) group.createdAt = row.createdAt;
@@ -897,8 +960,15 @@ function aggregateReportRows(sourceRows, dimensions) {
 
     return [...groups.values()].map((group) => {
         const result = { ...group };
+        if (result.__hasUnattributed && !result.__hasAttributed) {
+            result.landingSessions = null;
+            result.completedCheckoutSessions = null;
+            result.isUnattributed = true;
+        }
         delete result.__firstInventoryDay;
         delete result.__lastInventoryDay;
+        delete result.__hasAttributed;
+        delete result.__hasUnattributed;
         return result;
     });
 }
@@ -1499,7 +1569,7 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
             {hasUnattributedSales && (
                 <s-box padding="base" background="subdued" borderRadius="base" style={{ marginBottom: "16px", border: "1px solid #b7c9e2" }}>
                     <s-paragraph style={{ margin: 0 }}>
-                        <strong>Order-level sales note:</strong> Shopify returned some shipping, tax, fee, or adjustment amounts without a product ID. They are not divided across products, so product-row totals can differ from the store-wide sales report.
+                        <strong>Unattributed Shopify data:</strong> Shopify returned some sales values without a usable Product ID. They are kept together in the <strong>Unattributed Shopify Data</strong> row for reconciliation and are never assigned to a real product. Product conversion is unavailable for this row.
                     </s-paragraph>
                 </s-box>
             )}

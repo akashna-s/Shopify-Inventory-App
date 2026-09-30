@@ -1,12 +1,9 @@
-import { nonNegativeInventory } from "./inventory-rules.server";
+import { nonNegativeInventory } from "./inventory-rules.server.js";
+import { shopifyIdText } from "./shopify-id.js";
 
 function number(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : 0;
-}
-
-function cleanProductId(value) {
-  return String(value ?? "").replace(/\D/g, "");
 }
 
 function monthLabel(month) {
@@ -33,8 +30,9 @@ function monthLabel(month) {
 
 function buildRecords(sourceRows) {
   return sourceRows
+    .filter((row) => !row.isUnattributed)
     .map((row) => ({
-      pid: cleanProductId(row.productId),
+      pid: shopifyIdText(row.productId),
       month: String(row.period || row.month || ""),
       type: String(row.productType || "").trim() || "Others",
       tags: [
@@ -62,6 +60,71 @@ function buildRecords(sourceRows) {
       ...row,
       active: row.startRaw > 0 || row.end > 0 || row.sales > 0,
     }));
+}
+
+function calculateUnattributedMatrix(
+  sourceRows,
+  months,
+  monthlyStoreSales,
+) {
+  const salesByMonth = Object.fromEntries(months.map((month) => [month, 0]));
+  let hasSourceRows = false;
+  for (const row of sourceRows) {
+    if (!row.isUnattributed || !(row.period in salesByMonth)) continue;
+    hasSourceRows = true;
+    salesByMonth[row.period] += Math.max(0, number(row.totalSales));
+  }
+  if (!hasSourceRows) return null;
+
+  const values = Object.fromEntries(
+    months.map((month) => [
+      month,
+      {
+        naSkus: null,
+        naSkuRate: null,
+        naSkuTotalRate: null,
+        naInventory: null,
+        naInventoryRate: null,
+        naSales: salesByMonth[month],
+        naSalesRate: monthlyStoreSales[month]
+          ? salesByMonth[month] / monthlyStoreSales[month]
+          : 0,
+        landingSessions: null,
+        orders: null,
+        conversionRate: null,
+      },
+    ]),
+  );
+  return {
+    row: {
+      cohort: "unattributed",
+      label: "Unattributed",
+      values,
+      isUnattributed: true,
+    },
+    salesByMonth,
+  };
+}
+
+function includeUnattributedSales(matrix, unattributed, months, monthlyStoreSales) {
+  if (!unattributed) return matrix;
+  const grand = { ...matrix.grand };
+  for (const month of months) {
+    const base = matrix.grand[month] || {};
+    const naSales = number(base.naSales) + unattributed.salesByMonth[month];
+    grand[month] = {
+      ...base,
+      naSales,
+      naSalesRate: monthlyStoreSales[month]
+        ? naSales / monthlyStoreSales[month]
+        : 0,
+    };
+  }
+  return {
+    ...matrix,
+    rows: [...matrix.rows, unattributed.row],
+    grand,
+  };
 }
 
 function aggregateProductMonths(records) {
@@ -268,12 +331,18 @@ export function generateNewArrivalReport(
   classification = "type",
   options = {},
 ) {
+  const unattributed = calculateUnattributedMatrix(
+    sourceRows,
+    months,
+    monthlyStoreSales,
+  );
+  const unattributedCategory = classification === "tag" ? "None" : "Unknown";
   const records = buildRecords(sourceRows);
   const aggregated = aggregateProductMonths(records);
   const productMaps = buildProductMaps(records, aggregated);
   const firstCohort = months[0];
   for (const pid of options.firstCohortProductIds || []) {
-    const cleanPid = cleanProductId(pid);
+    const cleanPid = shopifyIdText(pid);
     // A lookback match only carries a product into the first cohort when that
     // product is also active somewhere inside the selected report range.
     if (firstCohort && productMaps.launch.has(cleanPid))
@@ -287,23 +356,37 @@ export function generateNewArrivalReport(
     const pids = [...categoryMap]
       .filter(([, categories]) => categories.includes(options.categoryOnly))
       .map(([pid]) => pid);
+    const matrix = calculateMatrix(
+      pids,
+      months,
+      productMaps,
+      monthlyStoreSales,
+      denominators,
+    );
     return {
       type: options.categoryOnly,
-      matrix: calculateMatrix(
-        pids,
-        months,
-        productMaps,
-        monthlyStoreSales,
-        denominators,
-      ),
+      matrix:
+        options.categoryOnly === unattributedCategory
+          ? includeUnattributedSales(
+              matrix,
+              unattributed,
+              months,
+              monthlyStoreSales,
+            )
+          : matrix,
     };
   }
-  const overall = calculateMatrix(
-    allPids,
+  const overall = includeUnattributedSales(
+    calculateMatrix(
+      allPids,
+      months,
+      productMaps,
+      monthlyStoreSales,
+      denominators,
+    ),
+    unattributed,
     months,
-    productMaps,
     monthlyStoreSales,
-    denominators,
   );
 
   const lastMonth = months.at(-1);
@@ -313,12 +396,17 @@ export function generateNewArrivalReport(
     for (const type of types)
       typeSales.set(type, (typeSales.get(type) || 0) + sales);
   }
+  if (unattributed)
+    typeSales.set(
+      unattributedCategory,
+      (typeSales.get(unattributedCategory) || 0) +
+        unattributed.salesByMonth[lastMonth],
+    );
   const productTypes = [...typeSales.keys()].sort(
     (a, b) => (typeSales.get(b) || 0) - (typeSales.get(a) || 0),
   );
-  const byProductType = productTypes.map((type) => ({
-    type,
-    matrix: options.deferCategories
+  const byProductType = productTypes.map((type) => {
+    const matrix = options.deferCategories
       ? null
       : calculateMatrix(
           [...categoryMap]
@@ -328,8 +416,20 @@ export function generateNewArrivalReport(
           productMaps,
           monthlyStoreSales,
           denominators,
-        ),
-  }));
+        );
+    return {
+      type,
+      matrix:
+        matrix && type === unattributedCategory
+          ? includeUnattributedSales(
+              matrix,
+              unattributed,
+              months,
+              monthlyStoreSales,
+            )
+          : matrix,
+    };
+  });
 
   const typeTotals = new Map();
   for (const [pid, types] of categoryMap) {

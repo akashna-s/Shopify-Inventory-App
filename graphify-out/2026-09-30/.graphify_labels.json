@@ -16,7 +16,7 @@
   "14": "dependencies",
   "15": "Audit Bot — Decision Log",
   "16": "DateRangePicker.jsx",
-  "17": "new-arrival-engine.server.js",
+  "17": "product-catalog-cache.server.js",
   "18": "2026-08-12 — Stale Prisma client ko automatically replace karna",
   "19": "2026-08-12 — Historical analytics cache",
   "20": "2026-08-17 — Shopify-style two-column report layout",

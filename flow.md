@@ -933,3 +933,61 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 6. Unknown or ambiguous handles are written to `audit_unmatched_landing_sessions`, not silently dropped or guessed.
 7. Store-month data keeps three separate checks: matched product landing sessions, unmatched product landing sessions, and direct Shopify store sessions.
 8. Existing live reports remain unchanged until a later, separately approved database-read switchover.
+# Monthly product metadata snapshots
+
+1. The fresh catalogue supplies the product's current title, Product Type, and handle.
+2. When a new product-month is first saved, those three values are copied into the monthly fact row.
+3. A later resync replaces the month's numeric metrics atomically but retains the already-saved metadata snapshot.
+4. Future database-backed historical reports will classify that month from its snapshot. Current-catalog screens can continue using `audit_products`.
+5. Tags are not snapshotted; tag filtering continues to mean the product's current tags.
+# Atomic tag refresh
+
+1. The full catalogue sync builds the complete tag list and refreshed product-ID list for one authenticated store.
+2. One Supabase RPC validates that every product belongs to that store and every tag belongs to a refreshed product.
+3. Inside the same database transaction, old tags for those refreshed products are deleted and the complete new set is inserted.
+4. If validation, deletion, or insertion fails, PostgreSQL rolls back the complete operation and the previous tags remain available to reports.
+# Monthly currency safety
+
+1. Shopify supplies the store currency at the start of each sync.
+2. Money is converted to integer minor units using that currency's decimal scale.
+3. The currency code is saved on every product-month and store-month row alongside the money values.
+4. Existing months keep their saved currency during normal same-currency refreshes.
+5. If the incoming currency differs from the existing month, the database rejects the replacement instead of mixing meanings.
+6. Future multi-store reporting must group totals by currency unless an explicit exchange-rate conversion policy is implemented.
+# Store-timezone date boundaries
+
+1. The sync reads `currencyCode`, `myshopifyDomain`, and `ianaTimezone` from the authenticated Shopify shop.
+2. Supabase stores the IANA timezone on that shop's `audit_stores` row.
+3. The app converts the current instant into the shop's local calendar date and subtracts one calendar day to find the latest completed date.
+4. The rolling 18 months and each ShopifyQL month end are generated from that store-local completed date.
+5. Midnight and daylight-saving tests ensure server location cannot move a store's range by one day.
+
+# Clear sync progress tracking
+
+1. Create a sync job with `job_attempt = 1` and every query/row counter at zero.
+2. Count every ShopifyQL execution after its first execution as a query retry, including retries hidden inside one monthly job.
+3. Count incoming primary report rows as processed, and ask PostgreSQL for actual inserted and deleted rows during atomic replacements.
+4. Update the job after catalogue work and after every month so operations can see accurate progress while the sync is running.
+5. Record retention removals under rows deleted rather than mixing them into rows written.
+6. Save a short one-line error summary while retaining month-level failure details in the job JSON.
+7. Continue filling the old attempts and rows-written fields for compatibility, but use the new fields for monitoring and decisions.
+
+# Shopify ID text flow
+
+1. Receive Shopify Product IDs as GraphQL ID strings or decimal strings.
+2. Extract only the trailing decimal characters and keep the result as JavaScript text.
+3. Match ShopifyQL, catalogue, landing-session, webhook, and report records using that exact text.
+4. Store `audit_products.shopify_product_id` as PostgreSQL text and pass text arrays/values to lifecycle database functions.
+5. Continue using numeric internal database IDs for relationships, joins, tags, and monthly facts.
+6. Reject an already-unsafe JavaScript number so an incorrect rounded ID can never be saved silently.
+
+# Unattributed Shopify data flow
+
+1. Read every ShopifyQL product-level source row and check whether it contains a usable Product ID.
+2. Match rows with Product IDs to their normal products. Add all rows without a Product ID into one unattributed bucket for that store and period.
+3. In Product Audit, display the bucket as `Unattributed Shopify Data` with status `UNATTRIBUTED`, Product Type `Unknown`, no tags, and no product URL.
+4. Preserve its sales and any raw audit inventory returned by Shopify. Leave landing sessions and conversion unavailable because there is no reliable product handle.
+5. In New Arrival Analysis, create a separate `Unattributed` row and show only Total Sales and Total Sales %. Do not give it a launch cohort or use it in SKU, inventory, or conversion calculations.
+6. Save the period metrics against the store's one protected synthetic database product. Keep real Shopify products identified by their exact Shopify Product ID.
+7. Exclude the synthetic product from active-product counts, catalogue lifecycle changes, tag and handle refreshes, delete webhooks, and orphan cleanup.
+8. Keep unmatched landing-page sessions in their existing separate reconciliation table; never guess that those sessions belong to unattributed sales.

@@ -1,3 +1,5 @@
+import { shopifyIdText } from "./shopify-id.js";
+
 const number = (value) => Number(value) || 0;
 
 export function handleFromLandingPath(path) {
@@ -15,7 +17,7 @@ export function matchLandingSessions(rows, handleHistory) {
   for (const history of handleHistory) {
     const handle = String(history.handle || "").trim().toLowerCase();
     if (!handle) continue;
-    const productId = String(history.shopify_product_id);
+    const productId = shopifyIdText(history.shopify_product_id);
     const existing = byHandle.get(handle);
     byHandle.set(handle, existing && existing !== productId ? null : productId);
   }

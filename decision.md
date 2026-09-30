@@ -973,3 +973,55 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - `audit_unmatched_landing_sessions` stores unmatched product-handle counts by store and month. Ambiguous reused handles also stay unmatched to avoid assigning traffic to the wrong product.
 - Store-month rows separately preserve matched product landing sessions, unmatched product landing sessions, and Shopify's direct store-wide session total. Existing `landing_sessions` remains the matched product value so current reports do not change.
 - The additional direct store-session ShopifyQL query is for reconciliation only and is not substituted into product-level conversion calculations.
+# 2026-09-30 — Monthly product metadata snapshots
+
+- Historical database-backed reports will use the title, Product Type, and handle saved for each product-month instead of automatically joining those fields to today's catalogue values.
+- Tags remain current-only and are intentionally not copied into monthly rows.
+- The first snapshot saved for a product-month is preserved during later refreshes of that month. Metrics can be corrected without silently reclassifying historical results.
+- Existing product-month rows are initialized with the current metadata available at migration time. Shopify does not provide a reliable reconstruction of every title/type/handle change that happened before snapshot tracking began.
+- Current live ShopifyQL reports remain unchanged until the database-read switchover is separately implemented.
+# 2026-09-30 — Atomic product-tag refresh
+
+- A catalogue refresh now sends the complete refreshed product IDs and tag set to `replace_audit_product_tags` in one Supabase RPC.
+- The database validates store ownership, refreshed-product membership, and non-empty tags before deleting anything.
+- Delete and insert execute in one PostgreSQL transaction. Any failure automatically restores the previous correct tags.
+- Only products included in the successful fresh catalogue response are replaced; missing/deleted products keep their historical last-known tags.
+# 2026-09-30 — Monthly currency history and cross-store safety
+
+- Both product-month and store-month money rows now store their own three-letter `currency_code`.
+- Existing rows are initialized from their owning store's current currency. Future rows receive the currency returned by Shopify for that sync.
+- A resync cannot replace an existing month with a different currency. The previous good month remains intact until an explicit conversion policy exists.
+- Cross-store totals must group by currency. INR, USD, GBP, or any other currencies must never be added directly.
+- A future agency dashboard requires an explicitly selected reporting currency, an exchange-rate source, a rate date policy, and stored conversion evidence before displaying converted totals.
+# 2026-09-30 — Store-timezone calendar boundaries
+
+- The sync fetches Shopify's `ianaTimezone` together with currency and stores it as `audit_stores.iana_timezone`.
+- “Today”, “yesterday”, latest completed month, month end, ShopifyQL `SINCE`/`UNTIL`, and sync-job range end are calculated from the store's local calendar rather than the app server clock.
+- IANA timezone conversion uses `Intl.DateTimeFormat`, so daylight-saving transitions are handled by the runtime timezone database.
+- Missing legacy timezone values default to `Etc/UTC`; the next authenticated full sync replaces that fallback with Shopify's actual timezone.
+
+# 2026-09-30 - Clear sync progress metrics
+
+- `job_attempt` records attempts of the complete sync job, while `query_retry_count` records extra ShopifyQL query executions caused by retry handling.
+- `rows_processed`, `rows_inserted`, `rows_updated`, and `rows_deleted` now have separate meanings and are updated after each completed operation.
+- Atomic tag refresh, store-month replacement, and retention cleanup return their real insert/delete counts from PostgreSQL instead of reporting only payload size.
+- `error_summary` stores a short one-line operational message. The existing `error_message` remains available for compatibility and fuller diagnostics.
+- Legacy `attempts` mirrors `job_attempt`, and legacy `rows_written` mirrors inserted plus updated rows so older readers continue working.
+
+# 2026-09-30 - Shopify IDs remain text
+
+- Shopify Product IDs are stored and compared as decimal text from API input through JavaScript and Supabase.
+- Internal database keys such as `audit_stores.id`, `audit_products.id`, and monthly `product_id` foreign keys remain numeric bigint values.
+- GraphQL GIDs are reduced to their trailing decimal text without converting through JavaScript `Number`.
+- Unsafe numeric input is rejected instead of being silently rounded. Product-delete webhooks prefer Shopify's string `admin_graphql_api_id` value.
+
+# 2026-09-30 - One unattributed Shopify data bucket per store
+
+- Keep one protected synthetic product named `Unattributed Shopify Data` for each store when ShopifyQL returns sales or inventory without a usable Product ID.
+- Mark it with `record_kind = unattributed`, Product Type `Unknown`, and effective status `UNATTRIBUTED`. It has no Shopify Product ID, storefront URL, handle, tags, or launch date.
+- Show its source metrics in Product Audit and exports so product-level totals can be reconciled with Shopify instead of silently dropping the values.
+- Show an `Unattributed` row in New Arrival Overall Analysis, plus `Unknown` Product Type or `None` Product Tag analysis, but expose only its sales trajectory and store-sales share.
+- Never count the synthetic row as a product, active SKU, launch cohort, NA SKU, or inventory denominator. Its landing sessions and conversion rate remain unavailable because no trustworthy product handle exists.
+- Include its sales in the New Arrival grand sales total for reconciliation, while leaving all real-product SKU, inventory, cohort, and conversion calculations unchanged.
+- Exclude the synthetic row from catalogue missing/deleted reconciliation, delete webhooks, tags, handle history, active-product counts, and orphan-product cleanup.
+- Store at most one such row per store with a partial unique database index. Monthly retention may remove old facts normally, but the small identity row remains available for future unattributed months.

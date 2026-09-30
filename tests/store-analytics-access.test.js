@@ -25,7 +25,17 @@ function installStoreApi() {
       return Response.json(stores[shop] ? [stores[shop]] : []);
     }
     if (!options.method || options.method === "GET") return Response.json([]);
-    if (options.method === "POST") return Response.json(1);
+    if (options.method === "POST") {
+      if (url.pathname.includes("_with_counts")) {
+        return Response.json({
+          rows_processed: 1,
+          rows_inserted: 1,
+          rows_updated: 0,
+          rows_deleted: 0,
+        });
+      }
+      return Response.json(1);
+    }
     return new Response(null, { status: 204 });
   };
 
@@ -55,7 +65,12 @@ test("authenticated gateways force their own store on reads, updates, deletes an
     });
     await storeB.selectProductMonths();
     await storeA.selectReportProducts({ filters: [["store_id", "eq", 2]] });
+    await storeA.replaceProductTags(
+      [{ product_id: 101, tag: "Summer" }],
+      [101],
+    );
     await storeA.reconcileCatalog([101, 102], "2026-09-29T10:00:00.000Z");
+    await storeA.ensureUnattributedProduct();
     await storeA.reconcileProductHandles(
       [{ shopify_product_id: 101, handle: "pink-dress" }],
       "2026-09-29T10:00:00.000Z",
@@ -76,11 +91,10 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   const productReads = api.calls.filter(({ url }) =>
     url.pathname.endsWith("/audit_product_month_metrics"),
   );
-  assert.equal(productReads.length, 3);
+  assert.equal(productReads.length, 2);
   assert.equal(productReads[0].url.searchParams.get("store_id"), "eq.1");
   assert.equal(productReads[0].url.searchParams.getAll("store_id").length, 1);
   assert.equal(productReads[1].url.searchParams.get("store_id"), "eq.2");
-  assert.equal(productReads[2].url.searchParams.get("store_id"), "eq.1");
 
   const reportProductRead = api.calls.find(({ url }) =>
     url.pathname.endsWith("/audit_products_with_effective_status"),
@@ -93,8 +107,26 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   );
   assert.deepEqual(JSON.parse(catalogReconcile.options.body), {
     p_store_id: 1,
-    p_seen_product_ids: [101, 102],
+    p_seen_product_ids: ["101", "102"],
     p_seen_at: "2026-09-29T10:00:00.000Z",
+  });
+
+  const tagReplacement = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/replace_audit_product_tags_with_counts"),
+  );
+  assert.deepEqual(JSON.parse(tagReplacement.options.body), {
+    p_store_id: 1,
+    p_refreshed_product_ids: [101],
+    p_tags: [{ product_id: 101, tag: "Summer" }],
+  });
+  assert.equal(api.calls.some(({ url, options }) =>
+    url.pathname.endsWith("/audit_product_tags") && options.method === "DELETE"), false);
+
+  const unattributedProduct = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/ensure_audit_unattributed_product"),
+  );
+  assert.deepEqual(JSON.parse(unattributedProduct.options.body), {
+    p_store_id: 1,
   });
 
   const productDelete = api.calls.find(({ url }) =>
@@ -102,7 +134,7 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   );
   assert.deepEqual(JSON.parse(productDelete.options.body), {
     p_store_id: 1,
-    p_shopify_product_id: 102,
+    p_shopify_product_id: "102",
     p_deleted_at: "2026-09-29T11:00:00.000Z",
   });
 
@@ -111,7 +143,7 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   );
   assert.deepEqual(JSON.parse(handleReconcile.options.body), {
     p_store_id: 1,
-    p_handles: [{ shopify_product_id: 101, handle: "pink-dress" }],
+    p_handles: [{ shopify_product_id: "101", handle: "pink-dress" }],
     p_seen_at: "2026-09-29T10:00:00.000Z",
   });
 
@@ -126,10 +158,13 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   assert.equal(jobUpdate.url.searchParams.get("store_id"), "eq.1");
   assert.equal(jobUpdate.url.searchParams.get("id"), "eq.99");
 
-  const storeMonthDelete = api.calls.find(({ url, options }) =>
-    url.pathname.endsWith("/audit_store_month_metrics") && options.method === "DELETE",
+  const retentionCleanup = api.calls.find(({ url }) =>
+    url.pathname.endsWith("/rpc/delete_expired_audit_monthly_metrics_with_counts"),
   );
-  assert.equal(storeMonthDelete.url.searchParams.get("store_id"), "eq.1");
+  assert.deepEqual(JSON.parse(retentionCleanup.options.body), {
+    p_store_id: 1,
+    p_retain_from_month: "2025-04-01",
+  });
 
   const orphanCleanup = api.calls.find(({ url }) =>
     url.pathname.endsWith("/rpc/cleanup_audit_orphan_products"),
@@ -137,7 +172,7 @@ test("authenticated gateways force their own store on reads, updates, deletes an
   assert.equal(JSON.parse(orphanCleanup.options.body).p_store_id, 1);
 
   const monthReplace = api.calls.find(({ url }) =>
-    url.pathname.endsWith("/rpc/replace_audit_store_month"),
+    url.pathname.endsWith("/rpc/replace_audit_store_month_with_counts"),
   );
   assert.equal(JSON.parse(monthReplace.options.body).p_store_id, 1);
 });

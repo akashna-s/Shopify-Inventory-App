@@ -1,3 +1,5 @@
+import { shopifyIdText } from "./shopify-id.js";
+
 const BATCH_SIZE = 500;
 
 function config() {
@@ -42,6 +44,15 @@ function chunks(rows, size = BATCH_SIZE) {
     output.push(rows.slice(index, index + size));
   }
   return output;
+}
+
+function writeCounts(value = {}) {
+  return {
+    rowsProcessed: Number(value?.rows_processed) || 0,
+    rowsInserted: Number(value?.rows_inserted) || 0,
+    rowsUpdated: Number(value?.rows_updated) || 0,
+    rowsDeleted: Number(value?.rows_deleted) || 0,
+  };
 }
 
 export function isSupabaseAnalyticsConfigured() {
@@ -153,7 +164,7 @@ export async function replaceSupabaseStoreMonth({
     throw new Error("Store metrics are required before replacing a month.");
   }
 
-  return request("rpc/replace_audit_store_month", {
+  const result = await request("rpc/replace_audit_store_month_with_counts", {
     method: "POST",
     body: JSON.stringify({
       p_store_id: storeId,
@@ -162,6 +173,7 @@ export async function replaceSupabaseStoreMonth({
       p_store_metrics: storeMetrics,
     }),
   });
+  return writeCounts(result);
 }
 
 export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
@@ -172,32 +184,36 @@ export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
     throw new Error("A valid retention month is required before deleting expired monthly metrics.");
   }
 
-  const filters = [
-    ["store_id", "eq", storeId],
-    ["month", "lt", retainFromMonth],
-  ];
-  await deleteSupabaseRows("audit_product_month_metrics", filters);
-  await deleteSupabaseRows("audit_store_month_metrics", filters);
-  await deleteSupabaseRows("audit_unmatched_landing_sessions", filters);
+  const result = await request("rpc/delete_expired_audit_monthly_metrics_with_counts", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_retain_from_month: retainFromMonth,
+    }),
+  });
+  return writeCounts(result);
 }
 
 export function reconcileSupabaseProductCatalog(storeId, shopifyProductIds, seenAt) {
+  const textIds = [...new Set(shopifyProductIds.map(shopifyIdText).filter(Boolean))];
   return request("rpc/reconcile_audit_product_catalog", {
     method: "POST",
     body: JSON.stringify({
       p_store_id: storeId,
-      p_seen_product_ids: shopifyProductIds,
+      p_seen_product_ids: textIds,
       p_seen_at: seenAt,
     }),
   });
 }
 
 export function markSupabaseProductDeleted(storeId, shopifyProductId, deletedAt) {
+  const textId = shopifyIdText(shopifyProductId);
+  if (!textId) throw new Error("A Shopify product ID is required before marking a product deleted.");
   return request("rpc/mark_audit_product_deleted", {
     method: "POST",
     body: JSON.stringify({
       p_store_id: storeId,
-      p_shopify_product_id: shopifyProductId,
+      p_shopify_product_id: textId,
       p_deleted_at: deletedAt,
     }),
   });
@@ -213,13 +229,45 @@ export function cleanupSupabaseOrphanProducts(storeId, graceBefore) {
   });
 }
 
+export function ensureSupabaseUnattributedProduct(storeId) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before creating the unattributed product bucket.");
+  }
+  return request("rpc/ensure_audit_unattributed_product", {
+    method: "POST",
+    body: JSON.stringify({ p_store_id: storeId }),
+  });
+}
+
 export function reconcileSupabaseProductHandles(storeId, handles, seenAt) {
+  const textHandles = handles.map((item) => ({
+    ...item,
+    shopify_product_id: shopifyIdText(item.shopify_product_id),
+  }));
   return request("rpc/reconcile_audit_product_handles", {
     method: "POST",
     body: JSON.stringify({
       p_store_id: storeId,
-      p_handles: handles,
+      p_handles: textHandles,
       p_seen_at: seenAt,
     }),
   });
+}
+
+export async function replaceSupabaseProductTags(storeId, refreshedProductIds, tags) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before replacing product tags.");
+  }
+  if (!Array.isArray(refreshedProductIds) || !Array.isArray(tags)) {
+    throw new Error("Complete refreshed product IDs and tags are required.");
+  }
+  const result = await request("rpc/replace_audit_product_tags_with_counts", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_refreshed_product_ids: [...new Set(refreshedProductIds.map(Number))],
+      p_tags: tags,
+    }),
+  });
+  return writeCounts(result);
 }

@@ -11,11 +11,11 @@ test("matches current and historical handles and preserves unmatched sessions", 
     { landing_page_path: "/products/rose-dress", sessions: 6 },
     { landing_page_path: "/products/unknown-product", sessions: 3 },
   ], [
-    { shopify_product_id: 101, handle: "pink-dress" },
-    { shopify_product_id: 101, handle: "rose-dress" },
+    { shopify_product_id: "18446744073709551615", handle: "pink-dress" },
+    { shopify_product_id: "18446744073709551615", handle: "rose-dress" },
   ]);
 
-  assert.equal(result.matched.get("101"), 10);
+  assert.equal(result.matched.get("18446744073709551615"), 10);
   assert.equal(result.unmatched.get("unknown-product"), 3);
 });
 
@@ -23,8 +23,8 @@ test("keeps a reused ambiguous handle unmatched instead of assigning it incorrec
   const result = matchLandingSessions([
     { landing_page_path: "/products/reused-handle", sessions: 5 },
   ], [
-    { shopify_product_id: 101, handle: "reused-handle" },
-    { shopify_product_id: 202, handle: "reused-handle" },
+    { shopify_product_id: "18446744073709551614", handle: "reused-handle" },
+    { shopify_product_id: "18446744073709551615", handle: "reused-handle" },
   ]);
 
   assert.equal(result.matched.size, 0);
