@@ -6,7 +6,7 @@ import test from "node:test";
 
 import { generateNewArrivalReport } from "../app/new-arrival-engine.server.js";
 
-test("unattributed sales are visible without becoming a SKU, cohort, inventory or conversion", () => {
+test("unattributed sales are visible without becoming a product, cohort, inventory or conversion", () => {
   const months = ["2026-01", "2026-02"];
   const report = generateNewArrivalReport(
     [
@@ -44,20 +44,20 @@ test("unattributed sales are visible without becoming a SKU, cohort, inventory o
 
   assert.equal(report.productCount, 1);
   assert.equal(report.details.length, 1);
-  assert.equal(report.overall.launchCounts["2026-01"], 1);
+  assert.equal(report.overall.launchedProductCounts["2026-01"], 1);
 
   const unknown = report.overall.rows.find((row) => row.isUnattributed);
   assert.equal(unknown.label, "Unattributed");
   assert.equal(unknown.values["2026-01"].naSales, 25);
   assert.equal(unknown.values["2026-02"].naSales, 40);
   assert.equal(unknown.values["2026-01"].naSalesRate, 0.2);
-  assert.equal(unknown.values["2026-01"].naSkus, null);
+  assert.equal(unknown.values["2026-01"].naProducts, null);
   assert.equal(unknown.values["2026-01"].naInventory, null);
   assert.equal(unknown.values["2026-01"].conversionRate, null);
 
   assert.equal(report.overall.grand["2026-01"].naSales, 125);
   assert.equal(report.overall.grand["2026-01"].naInventory, 4);
-  assert.equal(report.overall.grand["2026-01"].naSkus, 1);
+  assert.equal(report.overall.grand["2026-01"].naProducts, 1);
   assert.ok(report.byProductType.some(({ type }) => type === "Unknown"));
 });
 

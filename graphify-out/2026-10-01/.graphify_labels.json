@@ -45,5 +45,6 @@
   "43": "monthly-product-metadata.test.js",
   "44": "atomic-product-tags.test.js",
   "45": "store-inventory-summary-naming.test.js",
-  "46": "monthly-currency-history.test.js"
+  "46": "monthly-currency-history.test.js",
+  "47": "2026-08-12 — Browser/table performance"
 }

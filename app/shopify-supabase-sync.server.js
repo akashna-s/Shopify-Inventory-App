@@ -353,8 +353,14 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
     active_products: activeProducts,
     // Product-month facts keep Shopify's raw values for auditing. Store-month
     // report totals treat each negative product balance as zero.
-    starting_inventory: sumNonNegativeInventory(metrics, "starting_inventory"),
-    ending_inventory: sumNonNegativeInventory(metrics, "ending_inventory"),
+    non_negative_starting_inventory: sumNonNegativeInventory(
+      metrics,
+      "starting_inventory",
+    ),
+    non_negative_ending_inventory: sumNonNegativeInventory(
+      metrics,
+      "ending_inventory",
+    ),
     unique_orders: number(storeRow.orders),
     // Keep the existing field as matched product landing sessions for report compatibility.
     landing_sessions: matchedLandingSessions,

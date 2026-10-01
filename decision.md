@@ -764,13 +764,13 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - The first displayed cohort additionally checks a retrospective window beginning on the first day two complete calendar months before the selected start month and ending one day before the selected start date. For a report beginning August 15, the window is June 1 through August 14.
 - A retrospective match moves a product into the first displayed cohort only if that product is also active somewhere inside the selected report range. Products active only before the range remain excluded.
 - The same two-calendar-month rule applies to Month and Week grouping. In Week grouping, matched products are assigned to the first displayed weekly cohort.
-- A carried product may be inactive in the first displayed period. Its cohort launch count still includes it, while that period's active SKU count does not; therefore first-cohort NA SKU % can correctly be below 100%.
+- A carried product may be inactive in the first displayed period. Its cohort launch count still includes it, while that period's active product count does not; therefore first-cohort NA Product % can correctly be below 100%.
 - Cohort assignment does not use Shopify `first_day_in_inventory`, so the displayed cohort can differ from the product's original inventory date.
 
 ## 2026-09-10 — Calculation drawer FAQs
 
 - Added a collapsible FAQ section inside Calculation Logic & Formulas so methodology answers remain available without creating another page or overcrowding the drawer.
-- FAQs explain a below-100% first-cohort NA SKU %, delayed cohort assignment for older products, and the denominator difference between NA SKU % and NA SKU % (Total).
+- FAQs explain a below-100% first-cohort NA Product %, delayed cohort assignment for older products, and the denominator difference between NA Product % and NA Product % (Total).
 - Additional answers clarify that lookback-only products remain excluded and that Month and Week views use the same calendar-month lookback rule.
 - The FAQ also explains that Product Type/Tag summary and cohort contribution percentages retain store-wide denominators; they are not percentages within the selected category and therefore need not total 100%.
 
@@ -944,7 +944,7 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 # 2026-09-29 - Non-negative reporting inventory totals
 
 - Product-month Starting Inventory and Ending Inventory continue to store Shopify's original values, including negatives, so Product Audit and reconciliation do not lose source information.
-- Store-month Starting Inventory and Ending Inventory now add each product only after converting a negative balance to zero. A negative product can no longer reduce a store total.
+- Store-month `non_negative_starting_inventory` and `non_negative_ending_inventory` add each product only after converting a negative balance to zero. A negative product can no longer reduce a store total.
 - New Arrival Inventory and its denominator use the same shared non-negative rule before applying the existing launch-period rule: Ending Inventory in launch period, Starting Inventory afterward.
 - The database also rejects negative store-month totals and the atomic replacement function clamps incoming summary totals, protecting future database-backed report readers and older callers.
 
@@ -1021,7 +1021,21 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Mark it with `record_kind = unattributed`, Product Type `Unknown`, and effective status `UNATTRIBUTED`. It has no Shopify Product ID, storefront URL, handle, tags, or launch date.
 - Show its source metrics in Product Audit and exports so product-level totals can be reconciled with Shopify instead of silently dropping the values.
 - Show an `Unattributed` row in New Arrival Overall Analysis, plus `Unknown` Product Type or `None` Product Tag analysis, but expose only its sales trajectory and store-sales share.
-- Never count the synthetic row as a product, active SKU, launch cohort, NA SKU, or inventory denominator. Its landing sessions and conversion rate remain unavailable because no trustworthy product handle exists.
-- Include its sales in the New Arrival grand sales total for reconciliation, while leaving all real-product SKU, inventory, cohort, and conversion calculations unchanged.
+- Never count the synthetic row as a product, active product, launch cohort, NA Product, or inventory denominator. Its landing sessions and conversion rate remain unavailable because no trustworthy product handle exists.
+- Include its sales in the New Arrival grand sales total for reconciliation, while leaving all real-product counts, inventory, cohort, and conversion calculations unchanged.
 - Exclude the synthetic row from catalogue missing/deleted reconciliation, delete webhooks, tags, handle history, active-product counts, and orphan-product cleanup.
 - Store at most one such row per store with a partial unique database index. Monthly retention may remove old facts normally, but the small identity row remains available for future unattributed months.
+
+# 2026-10-01 - Clear store inventory validation names
+
+- Renamed only the store-month summary columns to `non_negative_starting_inventory` and `non_negative_ending_inventory`.
+- Product-month `starting_inventory` and `ending_inventory` keep their original names and continue storing Shopify's raw per-product values, including negatives.
+- The renamed store fields are calculated validation totals: each product's negative balance becomes zero before the values are added.
+- These store totals are not the NA Inventory % denominator. NA Inventory continues to use product-level Ending Inventory in the launch period and Starting Inventory in later periods.
+- The replacement database function temporarily accepts the previous store payload names as a compatibility fallback, while current application writes use only the new explicit names.
+
+# 2026-10-01 - Product terminology for New Arrival counts
+
+- New Arrival product-count metrics use `NA Products`, `NA Product %`, and `NA Product % (Total)` in the UI, formulas, FAQs, and exports.
+- Internal report fields use `naProducts`, `naProductRate`, `naProductTotalRate`, `activeProducts`, and `launchedProductCounts` so the calculation vocabulary matches the displayed vocabulary.
+- This is a terminology-only change. A product is still counted once by Product ID, and all existing count and percentage formulas remain unchanged.

@@ -532,7 +532,7 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 4. For every selected month, fetch product inventory, product sales, and total store sales. Finished months are read from cache when available; temporary failures retry automatically.
 5. Join analytics rows to the catalog by numeric Shopify Product ID and attach current title and Product Type.
 6. Determine each product's launch month using the Python rule: first positive starting inventory, ending inventory, or sales month.
-7. Calculate Overall and Product Type cohort matrices, including SKU, inventory, sales, and denominator percentages.
+7. Calculate Overall and Product Type cohort matrices, including product, inventory, sales, and denominator percentages.
 8. Calculate the product-level Cohort Details rows.
 9. Render either the New Arrival Analysis tab or the paginated Cohort Details tab.
 
@@ -899,7 +899,7 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 
 1. Save each product-month Starting Inventory and Ending Inventory exactly as Shopify returns it, including a negative value when present.
 2. When building a store-month inventory summary, convert each negative product balance to zero before adding the products together.
-3. Save only the resulting non-negative Starting Inventory and Ending Inventory totals in `audit_store_month_metrics`.
+3. Save only the resulting totals as `audit_store_month_metrics.non_negative_starting_inventory` and `audit_store_month_metrics.non_negative_ending_inventory`.
 4. Enforce non-negative store totals again inside PostgreSQL so an incorrect caller cannot save a negative summary.
 5. When New Arrival calculations read live or stored product-month data, convert negative inventory to zero before building cohort inventory and the all-product denominator.
 6. Apply the existing NA period rule after that conversion: use Ending Inventory in the launch period and Starting Inventory in every later period.
@@ -987,7 +987,23 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 2. Match rows with Product IDs to their normal products. Add all rows without a Product ID into one unattributed bucket for that store and period.
 3. In Product Audit, display the bucket as `Unattributed Shopify Data` with status `UNATTRIBUTED`, Product Type `Unknown`, no tags, and no product URL.
 4. Preserve its sales and any raw audit inventory returned by Shopify. Leave landing sessions and conversion unavailable because there is no reliable product handle.
-5. In New Arrival Analysis, create a separate `Unattributed` row and show only Total Sales and Total Sales %. Do not give it a launch cohort or use it in SKU, inventory, or conversion calculations.
+5. In New Arrival Analysis, create a separate `Unattributed` row and show only Total Sales and Total Sales %. Do not give it a launch cohort or use it in product-count, inventory, or conversion calculations.
 6. Save the period metrics against the store's one protected synthetic database product. Keep real Shopify products identified by their exact Shopify Product ID.
 7. Exclude the synthetic product from active-product counts, catalogue lifecycle changes, tag and handle refreshes, delete webhooks, and orphan cleanup.
 8. Keep unmatched landing-page sessions in their existing separate reconciliation table; never guess that those sessions belong to unattributed sales.
+
+# Store inventory validation naming flow
+
+1. Save Shopify's original per-product Starting and Ending Inventory in `audit_product_month_metrics`, including negative values.
+2. For the store summary, convert each negative product value to zero and then add the products together.
+3. Save those calculated totals as `non_negative_starting_inventory` and `non_negative_ending_inventory` in `audit_store_month_metrics`.
+4. Use these store fields for validation or future store-level summaries, not as the NA Inventory % denominator.
+5. Continue calculating NA Inventory % from product-month rows because its denominator mixes Ending Inventory in a product's launch period with Starting Inventory in later periods.
+
+# New Arrival product-count terminology
+
+1. Count distinct active Product IDs in each cohort and period.
+2. Display that count as `NA Products`.
+3. Calculate `NA Product %` as active cohort products divided by total products launched in that cohort.
+4. Calculate `NA Product % (Total)` as active cohort products divided by active store products in the same period.
+5. Use these Product names in the screen, formulas, FAQs, exports, and internal report fields without changing the underlying calculations.

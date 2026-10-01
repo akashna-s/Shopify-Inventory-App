@@ -46,27 +46,27 @@ function enqueueCategoryLoad(start, priority = false) {
 }
 const MATRIX_METRICS = [
   [
-    "naSkus",
-    "NA SKUs",
+    "naProducts",
+    "NA Products",
     "number",
-    "Distinct cohort SKUs with inventory or sales activity during this month.",
-    "COUNT(DISTINCT active cohort SKUs)",
+    "Distinct cohort products with inventory or sales activity during this month.",
+    "COUNT(DISTINCT active cohort products)",
     "inventory",
   ],
   [
-    "naSkuRate",
-    "NA SKU %",
+    "naProductRate",
+    "NA Product %",
     "percent",
     "Share of the launched cohort that remains active in this month.",
-    "Active cohort SKUs / Total SKUs launched in cohort × 100",
+    "Active cohort products / Total products launched in cohort × 100",
     "inventory",
   ],
   [
-    "naSkuTotalRate",
-    "NA SKU % (Total)",
+    "naProductTotalRate",
+    "NA Product % (Total)",
     "percent",
     "Share of the store's active catalog represented by this cohort.",
-    "Active cohort SKUs / Total active store SKUs × 100",
+    "Active cohort products / Active store products × 100",
     "inventory",
   ],
   [
@@ -410,7 +410,7 @@ function CohortLogicDrawer({ interval, classification }) {
                   {metric(
                     "inventory",
                     `Launch ${periodName === "week" ? "Week" : "Month"}`,
-                    `The report normally places a product in the first ${periodName} where it has inventory or Total Sales. The first cohort gets one extra check: the report looks for product activity during the two full calendar months before the selected start month, plus any earlier days in the selected start month. For example, if the range starts on August 15, the extra check covers June 1 to August 14. If a product was active during that earlier period and becomes active again anywhere inside the selected range, it is placed in the first displayed ${periodName} cohort. If it never becomes active inside the selected range, it is not included. Because a carried-over product may have no activity in the first displayed ${periodName} itself, the first cohort's NA SKU % can be below 100%.`,
+                    `The report normally places a product in the first ${periodName} where it has inventory or Total Sales. The first cohort gets one extra check: the report looks for product activity during the two full calendar months before the selected start month, plus any earlier days in the selected start month. For example, if the range starts on August 15, the extra check covers June 1 to August 14. If a product was active during that earlier period and becomes active again anywhere inside the selected range, it is placed in the first displayed ${periodName} cohort. If it never becomes active inside the selected range, it is not included. Because a carried-over product may have no activity in the first displayed ${periodName} itself, the first cohort's NA Product % can be below 100%.`,
                     "startingInventory > 0 OR endingInventory > 0 OR totalSales > 0",
                   )}
                   {metric(
@@ -463,16 +463,16 @@ function CohortLogicDrawer({ interval, classification }) {
                   </summary>
                   <div className="logic-main-section-content">
                   {faq(
-                    "Why can the first cohort's NA SKU % be below 100%?",
-                    `The first cohort can include a product that was active during the lookback window and becomes active again later in the selected range, even if it is inactive in the first displayed ${periodName}. That product counts as a launched cohort SKU, but not as an active SKU in the first period. The percentage therefore reflects actual activity and may be below 100%.`,
+                    "Why can the first cohort's NA Product % be below 100%?",
+                    `The first cohort can include a product that was active during the lookback window and becomes active again later in the selected range, even if it is inactive in the first displayed ${periodName}. That product counts as a launched cohort product, but not as an active product in the first period. The percentage therefore reflects actual activity and may be below 100%.`,
                   )}
                   {faq(
                     "Why can a product launched earlier appear in a much later cohort?",
                     `The report does not use the product's original creation date or Shopify's first_day_in_inventory. It assigns the cohort from inventory or Total Sales activity visible inside the selected range, with only a limited lookback for the first cohort. For example, a product originally stocked in April 2025 can appear in an October 2026 cohort if its earlier activity falls outside the lookback and October 2026 is its first qualifying ${periodName} in the selected data.`,
                   )}
                   {faq(
-                    "What is the difference between NA SKU % and NA SKU % (Total)?",
-                    "NA SKU % measures retention within one launch cohort: active cohort SKUs in the period divided by all SKUs assigned to that cohort. NA SKU % (Total) measures catalog share: active SKUs from that cohort divided by all active store SKUs in the same period.",
+                    "What is the difference between NA Product % and NA Product % (Total)?",
+                    "NA Product % measures retention within one launch cohort: active cohort products in the period divided by all products assigned to that cohort. NA Product % (Total) measures catalog share: active products from that cohort divided by all active store products in the same period.",
                   )}
                   {faq(
                     "How is NA Inventory calculated for a cohort?",
@@ -1025,7 +1025,7 @@ export const loader = async ({ request }) => {
         title: "Unattributed Shopify Data",
         productType: "Unknown",
         productTags: [],
-        // Only sales are defensible without a Product ID. Inventory, SKU,
+        // Only sales are defensible without a Product ID. Inventory, product,
         // launch-cohort and conversion calculations deliberately ignore it.
         totalSales: unattributedSalesRows.reduce(
           (sum, row) => sum + numberFrom(row, "total_sales"),

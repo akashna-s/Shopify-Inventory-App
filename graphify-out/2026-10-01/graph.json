@@ -676,18 +676,6 @@
       "source_location": "L5"
     },
     {
-      "id": "app_entry_server_handlerequest",
-      "label": "handleRequest()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "handlerequest()",
-      "source_file": "app/entry.server.jsx",
-      "source_location": "L13"
-    },
-    {
       "id": "app_root_app",
       "label": "App()",
       "_callable": true,
@@ -1165,7 +1153,7 @@
       "file_type": "code",
       "norm_label": "calculatematrix()",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L214"
+      "source_location": "L212"
     },
     {
       "id": "app_new_arrival_engine_server_calculateunattributedmatrix",
@@ -1189,7 +1177,7 @@
       "file_type": "code",
       "norm_label": "generatenewarrivalreport()",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L331"
+      "source_location": "L327"
     },
     {
       "id": "app_new_arrival_engine_server_includeunattributedsales",
@@ -1237,7 +1225,7 @@
       "file_type": "code",
       "norm_label": "reportwithinventoryauditdate()",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
-      "source_location": "L9"
+      "source_location": "L8"
     },
     {
       "id": "app_analytics_cache_server_isfinalizedrange",
@@ -1670,6 +1658,18 @@
       "norm_label": "weekbounds()",
       "source_file": "app/routes/app.products.jsx",
       "source_location": "L31"
+    },
+    {
+      "id": "app_entry_server_handlerequest",
+      "label": "handleRequest()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "handlerequest()",
+      "source_file": "app/entry.server.jsx",
+      "source_location": "L13"
     },
     {
       "id": "graphqlrc_getconfig",
@@ -2755,28 +2755,6 @@
       "source_location": "L1"
     },
     {
-      "id": "app_entry_server",
-      "label": "entry.server.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "entry.server.jsx",
-      "source_file": "app/entry.server.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_entry_server_streamtimeout",
-      "label": "streamTimeout",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "streamtimeout",
-      "source_file": "app/entry.server.jsx",
-      "source_location": "L11"
-    },
-    {
       "id": "app_root",
       "label": "root.jsx",
       "_origin": "ast",
@@ -2898,17 +2876,6 @@
       "source_location": "L1"
     },
     {
-      "id": "app_shopify_server_adddocumentresponseheaders",
-      "label": "addDocumentResponseHeaders",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "adddocumentresponseheaders",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L29"
-    },
-    {
       "id": "app_shopify_server_apiversion",
       "label": "apiVersion",
       "_origin": "ast",
@@ -2986,17 +2953,6 @@
       "source_location": "L31"
     },
     {
-      "id": "ref_isbot",
-      "label": "isbot",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "isbot",
-      "source_file": "package.json",
-      "source_location": "L37"
-    },
-    {
       "id": "ref_prisma_client",
       "label": "@prisma/client",
       "_origin": "ast",
@@ -3028,17 +2984,6 @@
       "norm_label": "react-router",
       "source_file": "package.json",
       "source_location": "L41"
-    },
-    {
-      "id": "ref_react_router_node",
-      "label": "@react-router/node",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "@react-router/node",
-      "source_file": "package.json",
-      "source_location": "L31"
     },
     {
       "id": "ref_shopify_shopify_app_session_storage_prisma",
@@ -3975,18 +3920,6 @@
       "source_location": "L42"
     },
     {
-      "id": "decision_2026_08_12_browser_table_performance",
-      "label": "2026-08-12 \u2014 Browser/table performance",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "Audit Bot \u2014 Decision Log",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2026-08-12 \u2014 browser/table performance",
-      "source_file": "decision.md",
-      "source_location": "L260"
-    },
-    {
       "id": "decision_2026_08_13_cart_addition_removal_and_reporting_timing_finding",
       "label": "2026-08-13 cart-addition removal and reporting timing finding",
       "_origin": "ast",
@@ -4141,30 +4074,6 @@
       "norm_label": "audit bot \u2014 decision log",
       "source_file": "decision.md",
       "source_location": "L1"
-    },
-    {
-      "id": "decision_consequences_270",
-      "label": "Consequences",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "Audit Bot \u2014 Decision Log",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "consequences",
-      "source_file": "decision.md",
-      "source_location": "L270"
-    },
-    {
-      "id": "decision_decisions",
-      "label": "Decisions",
-      "_origin": "ast",
-      "community": 15,
-      "community_name": "Audit Bot \u2014 Decision Log",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "decisions",
-      "source_file": "decision.md",
-      "source_location": "L262"
     },
     {
       "id": "decision_is_file_ko_maintain_karne_ka_rule",
@@ -5197,6 +5106,28 @@
       "source_location": "L323"
     },
     {
+      "id": "app_entry_server",
+      "label": "entry.server.jsx",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "entry.server.jsx",
+      "source_file": "app/entry.server.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_entry_server_streamtimeout",
+      "label": "streamTimeout",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "streamtimeout",
+      "source_file": "app/entry.server.jsx",
+      "source_location": "L11"
+    },
+    {
       "id": "app_routes",
       "label": "routes.js",
       "_origin": "ast",
@@ -5206,6 +5137,17 @@
       "norm_label": "routes.js",
       "source_file": "app/routes.js",
       "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_server_adddocumentresponseheaders",
+      "label": "addDocumentResponseHeaders",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "code",
+      "norm_label": "adddocumentresponseheaders",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L29"
     },
     {
       "id": "graphqlrc",
@@ -5439,6 +5381,17 @@
       "source_location": "L59"
     },
     {
+      "id": "ref_isbot",
+      "label": "isbot",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "isbot",
+      "source_file": "package.json",
+      "source_location": "L37"
+    },
+    {
       "id": "ref_prettier",
       "label": "prettier",
       "_origin": "ast",
@@ -5492,6 +5445,17 @@
       "norm_label": "@react-router/fs-routes",
       "source_file": "package.json",
       "source_location": "L30"
+    },
+    {
+      "id": "ref_react_router_node",
+      "label": "@react-router/node",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "package.json",
+      "file_type": "concept",
+      "norm_label": "@react-router/node",
+      "source_file": "package.json",
+      "source_location": "L31"
     },
     {
       "id": "ref_react_router_serve",
@@ -7171,6 +7135,42 @@
       "source_location": "L7"
     },
     {
+      "id": "decision_2026_08_12_browser_table_performance",
+      "label": "2026-08-12 \u2014 Browser/table performance",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "2026-08-12 \u2014 Browser/table performance",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2026-08-12 \u2014 browser/table performance",
+      "source_file": "decision.md",
+      "source_location": "L260"
+    },
+    {
+      "id": "decision_consequences_270",
+      "label": "Consequences",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "2026-08-12 \u2014 Browser/table performance",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "consequences",
+      "source_file": "decision.md",
+      "source_location": "L270"
+    },
+    {
+      "id": "decision_decisions",
+      "label": "Decisions",
+      "_origin": "ast",
+      "community": 47,
+      "community_name": "2026-08-12 \u2014 Browser/table performance",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "decisions",
+      "source_file": "decision.md",
+      "source_location": "L262"
+    },
+    {
       "id": "decision",
       "label": "decision.md",
       "_origin": "ast",
@@ -7651,18 +7651,6 @@
       "source_location": "L1029"
     },
     {
-      "id": "decision_2026_10_01_product_terminology_for_new_arrival_counts",
-      "label": "2026-10-01 - Product terminology for New Arrival counts",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "decision.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2026-10-01 - product terminology for new arrival counts",
-      "source_file": "decision.md",
-      "source_location": "L1037"
-    },
-    {
       "id": "flow",
       "label": "flow.md",
       "_origin": "ast",
@@ -8069,18 +8057,6 @@
       "norm_label": "new arrival analysis flow (2026-08-20)",
       "source_file": "flow.md",
       "source_location": "L527"
-    },
-    {
-      "id": "flow_new_arrival_product_count_terminology",
-      "label": "New Arrival product-count terminology",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "flow.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "new arrival product-count terminology",
-      "source_file": "flow.md",
-      "source_location": "L1003"
     },
     {
       "id": "flow_public_acquisition_and_in_app_activation_flow_2026_08_31",
@@ -9224,7 +9200,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L299",
+      "source_location": "L295",
       "weight": 1.0
     },
     {
@@ -9248,7 +9224,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L338",
+      "source_location": "L334",
       "weight": 1.0
     },
     {
@@ -9260,7 +9236,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L344",
+      "source_location": "L340",
       "weight": 1.0
     },
     {
@@ -9272,7 +9248,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L345",
+      "source_location": "L341",
       "weight": 1.0
     },
     {
@@ -9284,7 +9260,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L346",
+      "source_location": "L342",
       "weight": 1.0
     },
     {
@@ -9296,7 +9272,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L349",
+      "source_location": "L345",
       "weight": 1.0
     },
     {
@@ -9308,7 +9284,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L355",
+      "source_location": "L351",
       "weight": 1.0
     },
     {
@@ -9320,7 +9296,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L363",
+      "source_location": "L359",
       "weight": 1.0
     },
     {
@@ -9332,7 +9308,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L374",
+      "source_location": "L370",
       "weight": 1.0
     },
     {
@@ -12044,7 +12020,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
-      "source_location": "L10",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -12092,7 +12068,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -13293,7 +13269,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -14277,7 +14253,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -14695,7 +14671,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L214",
+      "source_location": "L212",
       "weight": 1.0
     },
     {
@@ -14717,7 +14693,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L331",
+      "source_location": "L327",
       "weight": 1.0
     },
     {
@@ -17318,17 +17294,6 @@
     },
     {
       "source": "decision",
-      "target": "decision_2026_10_01_product_terminology_for_new_arrival_counts",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "decision.md",
-      "source_location": "L1037",
-      "weight": 1.0
-    },
-    {
-      "source": "decision",
       "target": "decision_2026_08_20_new_arrival_analysis_port",
       "relation": "contains",
       "_origin": "ast",
@@ -19030,17 +18995,6 @@
       "confidence_score": 1.0,
       "source_file": "flow.md",
       "source_location": "L1",
-      "weight": 1.0
-    },
-    {
-      "source": "flow",
-      "target": "flow_new_arrival_product_count_terminology",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "flow.md",
-      "source_location": "L1003",
       "weight": 1.0
     },
     {

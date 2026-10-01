@@ -1,12 +1,12 @@
 # Graph Report - audit-bot  (2026-10-01)
 
 ## Corpus Check
-- 77 files · ~64,043 words
+- 77 files · ~63,693 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 16 file(s) not represented in the graph (top: (none) 7, .css 4, .toml 2)
 
 ## Summary
-- 760 nodes · 1119 edges · 47 communities (41 shown, 6 thin omitted)
+- 758 nodes · 1117 edges · 48 communities (42 shown, 6 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 5 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
@@ -61,6 +61,7 @@
 - atomic-product-tags.test.js
 - store-inventory-summary-naming.test.js
 - monthly-currency-history.test.js
+- 2026-08-12 — Browser/table performance
 
 ## God Nodes (most connected - your core abstractions)
 1. `Audit Bot — Decision Log` - 28 edges
@@ -89,23 +90,23 @@
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 6 thin omitted)
+## Communities (48 total, 6 thin omitted)
 
 ### Community 0 - "app.new-arrivals.jsx"
 Cohesion: 0.07
 Nodes (55): addAnalysisSection(), analysisSections(), applyExcelNumberFormat(), categoryLoadQueue, csvCell(), dateString(), DETAIL_METRICS, detailExportRows() (+47 more)
 
 ### Community 1 - "shopify.server.js"
-Cohesion: 0.05
-Nodes (23): handleRequest(), streamTimeout, headers(), headers(), reports, headers(), loginErrorMessage(), action() (+15 more)
+Cohesion: 0.06
+Nodes (18): headers(), headers(), reports, headers(), loginErrorMessage(), action(), loader(), apiVersion (+10 more)
 
 ### Community 2 - "app.products.jsx"
 Cohesion: 0.09
 Nodes (33): isFinalizedRange(), runWithAnalyticsCache(), adjustDay(), adjustWeek(), aggregateReportRows(), combineInventoryChunkResults(), dateBoundsFor(), dayBounds() (+25 more)
 
 ### Community 3 - "package.json"
-Cohesion: 0.05
-Nodes (37): config, author, engines, node, name, overrides, p-map, private (+29 more)
+Cohesion: 0.04
+Nodes (42): handleRequest(), streamTimeout, addDocumentResponseHeaders, config, author, engines, node, name (+34 more)
 
 ### Community 4 - "Audit Bot — Product Audit Data Flow"
 Cohesion: 0.05
@@ -113,11 +114,11 @@ Nodes (40): Audit Bot — Product Audit Data Flow, Automatic ShopifyQL range rec
 
 ### Community 5 - "decision.md"
 Cohesion: 0.05
-Nodes (40): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+32 more)
+Nodes (39): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+31 more)
 
 ### Community 6 - "flow.md"
 Cohesion: 0.05
-Nodes (39): 2026-09-11 - Calculation drawer accordion, 2026-09-11 - Calculation drawer reference flow, 2026-09-11 - Cohort Details filters, 2026-09-11 - Date picker interaction, 2026-09-11 - Monthly quick ranges, 2026-09-11 - Product Audit date-change feedback, 2026-09-11 - Product Audit dimension-change flow, 2026-09-11 - Product Audit inventory chunk flow (+31 more)
+Nodes (38): 2026-09-11 - Calculation drawer accordion, 2026-09-11 - Calculation drawer reference flow, 2026-09-11 - Cohort Details filters, 2026-09-11 - Date picker interaction, 2026-09-11 - Monthly quick ranges, 2026-09-11 - Product Audit date-change feedback, 2026-09-11 - Product Audit dimension-change flow, 2026-09-11 - Product Audit inventory chunk flow (+30 more)
 
 ### Community 7 - "@shopify/shopify-app-template-remix"
 Cohesion: 0.06
@@ -156,8 +157,8 @@ Cohesion: 0.12
 Nodes (16): dependencies, exceljs, isbot, prisma, @prisma/client, react, react-dom, react-router (+8 more)
 
 ### Community 15 - "Audit Bot — Decision Log"
-Cohesion: 0.12
-Nodes (17): 2026-08-12 — Browser/table performance, 2026-08-13 cart-addition removal and reporting timing finding, 2026-08-13 — Configurable Product Audit report builder, 2026-08-13 — Product quantity sales metrics, 2026-08-13 — Purchases replaced by product Orders, 2026-08-13 — Sticky Product Audit table header and first column, 2026-08-13 — Top report toolbar placement, 2026-08-17 — ShopifyQL automatic date-range splitting correction (+9 more)
+Cohesion: 0.14
+Nodes (14): 2026-08-13 cart-addition removal and reporting timing finding, 2026-08-13 — Configurable Product Audit report builder, 2026-08-13 — Product quantity sales metrics, 2026-08-13 — Purchases replaced by product Orders, 2026-08-13 — Sticky Product Audit table header and first column, 2026-08-13 — Top report toolbar placement, 2026-08-17 — ShopifyQL automatic date-range splitting correction, 2026-08-17 — Sortable report columns (+6 more)
 
 ### Community 16 - "DateRangePicker.jsx"
 Cohesion: 0.38
@@ -259,25 +260,29 @@ Nodes (19): 2026-08-31 — Metric explanation flow, 2026-08-31 — New Arrival d
 Cohesion: 0.60
 Nodes (3): CATALOG_STATES, effectiveProductStatus(), isValidCatalogState()
 
+### Community 47 - "2026-08-12 — Browser/table performance"
+Cohesion: 0.67
+Nodes (3): 2026-08-12 — Browser/table performance, Consequences, Decisions
+
 ## Knowledge Gaps
-- **423 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+418 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 478 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **421 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+416 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 476 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **6 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `react-router` connect `shopify.server.js` to `app.new-arrivals.jsx`, `app.products.jsx`, `package.json`?**
-  _High betweenness centrality (0.041) - this node is a cross-community bridge._
-- **Why does `Audit Bot — Decision Log` connect `Audit Bot — Decision Log` to `2026-08-12 — Currency and inventory-date semantics`, `2026-08-17 — Metric totals inventory removal and unique Orders`, `decision.md`, `2026-08-12 — Product catalog ke liye Bulk Operation + cache`, `2026-08-12 — Stale Prisma client ko automatically replace karna`, `2026-08-12 — Historical analytics cache`, `2026-08-17 — Shopify-style two-column report layout`, `2026-08-12 — Product Page Views aur Landing Sessions ko separate metrics banana`, `2026-08-13 — Per-product complete sales breakup add karna`, `2026-08-12 — Duplicate sessions query remove karna`, `2026-08-12 — Independent requests parallel me chalana + retry`, `2026-08-12 — Per-product Product Sessions add karna`, `2026-08-13 — Multi-format Export menu with page/all scope`, `2026-08-12 — Catalog refresh status me exact time dikhana`, `2026-08-12 — Progressive loading and safer export`, `2026-08-12 — ShopifyQL row limit fix`?**
+  _High betweenness centrality (0.042) - this node is a cross-community bridge._
+- **Why does `Audit Bot — Decision Log` connect `Audit Bot — Decision Log` to `2026-08-12 — Currency and inventory-date semantics`, `2026-08-17 — Metric totals inventory removal and unique Orders`, `decision.md`, `2026-08-12 — Product catalog ke liye Bulk Operation + cache`, `2026-08-12 — Browser/table performance`, `2026-08-12 — Stale Prisma client ko automatically replace karna`, `2026-08-12 — Historical analytics cache`, `2026-08-17 — Shopify-style two-column report layout`, `2026-08-12 — Product Page Views aur Landing Sessions ko separate metrics banana`, `2026-08-13 — Per-product complete sales breakup add karna`, `2026-08-12 — Duplicate sessions query remove karna`, `2026-08-12 — Independent requests parallel me chalana + retry`, `2026-08-12 — Per-product Product Sessions add karna`, `2026-08-13 — Multi-format Export menu with page/all scope`, `2026-08-12 — Catalog refresh status me exact time dikhana`, `2026-08-12 — Progressive loading and safer export`, `2026-08-12 — ShopifyQL row limit fix`?**
   _High betweenness centrality (0.037) - this node is a cross-community bridge._
 - **Why does `shopifyIdText()` connect `supabase-analytics.server.js` to `app.new-arrivals.jsx`, `new-arrival-engine.server.js`, `app.products.jsx`, `shopify-supabase-sync.server.js`?**
   _High betweenness centrality (0.031) - this node is a cross-community bridge._
 - **What connects `npx`, `@shopify/dev-mcp`, `config` to the rest of the system?**
-  _423 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _421 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `app.new-arrivals.jsx` be split into smaller, more focused modules?**
   _Cohesion score 0.07093253968253968 - nodes in this community are weakly interconnected._
 - **Should `shopify.server.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.053544494720965306 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05990338164251208 - nodes in this community are weakly interconnected._
 - **Should `app.products.jsx` be split into smaller, more focused modules?**
   _Cohesion score 0.08859357696567 - nodes in this community are weakly interconnected._

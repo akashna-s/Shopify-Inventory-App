@@ -80,9 +80,9 @@ function calculateUnattributedMatrix(
     months.map((month) => [
       month,
       {
-        naSkus: null,
-        naSkuRate: null,
-        naSkuTotalRate: null,
+        naProducts: null,
+        naProductRate: null,
+        naProductTotalRate: null,
         naInventory: null,
         naInventoryRate: null,
         naSales: salesByMonth[month],
@@ -194,7 +194,9 @@ function buildProductMaps(records, aggregated) {
 
 function brandDenominators(productMaps, months) {
   const inventory = Object.fromEntries(months.map((month) => [month, 0]));
-  const activeSkus = Object.fromEntries(months.map((month) => [month, 0]));
+  const activeProducts = Object.fromEntries(
+    months.map((month) => [month, 0]),
+  );
   for (const [pid, monthRows] of productMaps.lookup) {
     const launchMonth = productMaps.launch.get(pid);
     for (const month of months) {
@@ -203,10 +205,10 @@ function brandDenominators(productMaps, months) {
       if (launchMonth && month === launchMonth) inventory[month] += row.end;
       else if (launchMonth && month > launchMonth)
         inventory[month] += row.start;
-      if (row.active) activeSkus[month] += 1;
+      if (row.active) activeProducts[month] += 1;
     }
   }
-  return { inventory, activeSkus };
+  return { inventory, activeProducts };
 }
 
 function calculateMatrix(
@@ -218,7 +220,9 @@ function calculateMatrix(
   sparseCohorts = false,
 ) {
   const allowed = new Set(pids.filter((pid) => productMaps.launch.has(pid)));
-  const launchCounts = Object.fromEntries(months.map((month) => [month, 0]));
+  const launchedProductCounts = Object.fromEntries(
+    months.map((month) => [month, 0]),
+  );
   const cube = Object.fromEntries(
     months.map((cohort) => [
       cohort,
@@ -233,8 +237,8 @@ function calculateMatrix(
 
   for (const pid of allowed) {
     const cohort = productMaps.launch.get(pid);
-    if (!(cohort in launchCounts)) continue;
-    launchCounts[cohort] += 1;
+    if (!(cohort in launchedProductCounts)) continue;
+    launchedProductCounts[cohort] += 1;
     const monthRows = productMaps.lookup.get(pid) || new Map();
     for (const month of months) {
       if (month < cohort) continue;
@@ -255,10 +259,10 @@ function calculateMatrix(
     ]),
   );
   const cohortPeriods = sparseCohorts
-    ? months.filter((cohort) => launchCounts[cohort] > 0)
+    ? months.filter((cohort) => launchedProductCounts[cohort] > 0)
     : months;
   const rows = cohortPeriods.map((cohort) => {
-    const launched = launchCounts[cohort];
+    const launched = launchedProductCounts[cohort];
     const values = {};
     for (const month of months) {
       if (month < cohort) {
@@ -272,10 +276,10 @@ function calculateMatrix(
       grandRaw[month].landingSessions += raw.landingSessions;
       grandRaw[month].orders += raw.orders;
       values[month] = {
-        naSkus: raw.active,
-        naSkuRate: launched ? raw.active / launched : 0,
-        naSkuTotalRate: denominators.activeSkus[month]
-          ? raw.active / denominators.activeSkus[month]
+        naProducts: raw.active,
+        naProductRate: launched ? raw.active / launched : 0,
+        naProductTotalRate: denominators.activeProducts[month]
+          ? raw.active / denominators.activeProducts[month]
           : 0,
         naInventory: raw.inventory,
         naInventoryRate: denominators.inventory[month]
@@ -298,13 +302,13 @@ function calculateMatrix(
   let cumulativeLaunched = 0;
   const grand = {};
   for (const month of months) {
-    cumulativeLaunched += launchCounts[month];
+    cumulativeLaunched += launchedProductCounts[month];
     const raw = grandRaw[month];
     grand[month] = {
-      naSkus: raw.active,
-      naSkuRate: cumulativeLaunched ? raw.active / cumulativeLaunched : 0,
-      naSkuTotalRate: denominators.activeSkus[month]
-        ? raw.active / denominators.activeSkus[month]
+      naProducts: raw.active,
+      naProductRate: cumulativeLaunched ? raw.active / cumulativeLaunched : 0,
+      naProductTotalRate: denominators.activeProducts[month]
+        ? raw.active / denominators.activeProducts[month]
         : 0,
       naInventory: raw.inventory,
       naInventoryRate: denominators.inventory[month]
@@ -321,7 +325,7 @@ function calculateMatrix(
         : 0,
     };
   }
-  return { rows, grand, launchCounts };
+  return { rows, grand, launchedProductCounts };
 }
 
 export function generateNewArrivalReport(
