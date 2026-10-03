@@ -5,6 +5,7 @@ import { authenticate } from "../shopify.server";
 import { getProductCatalog } from "../product-catalog-cache.server";
 import { runWithAnalyticsCache } from "../analytics-cache.server";
 import { shopifyIdText } from "../shopify-id.js";
+import { loadProductAuditMonthlyReport } from "../product-audit-monthly-source.server.js";
 import DateRangePicker from "../components/DateRangePicker";
 import dateRangeStyles from "../styles/date-range-picker.css?url";
 
@@ -401,8 +402,30 @@ export const loader = async ({ request }) => {
     const { start, end, earliest, today } = normalizeCustomRange(url, now);
     const month = `${start}_to_${end}`;
     const displayRange = `${formatDate(start)} – ${formatDate(end)}`;
+    const detailedResolution = url.searchParams.get("resolution") === "daily";
+    const shopInfoPromise = fetchShopInfo(admin).catch(() => ({
+        shopUrl: "",
+        shopCurrency: "USD",
+        shopDomain: "unknown-shop",
+    }));
 
     const report = (async () => {
+        if (!detailedResolution && end < today) {
+            try {
+                const monthlyReport = await loadProductAuditMonthlyReport({
+                    session,
+                    start,
+                    end,
+                    shopInfo: await shopInfoPromise,
+                });
+                if (monthlyReport) return monthlyReport;
+            } catch (error) {
+                console.warn(
+                    "[Product Audit] monthly cache unavailable; using ShopifyQL:",
+                    error.message,
+                );
+            }
+        }
         // These requests do not depend on one another, so start them together. Total
         // waiting time is now close to the slowest request, not the sum of all requests.
         const [productsResult, shopResult, landingSessionTotals, salesTotals, salesOrderTotal, inventoryTotals] = await Promise.all([
@@ -413,11 +436,7 @@ export const loader = async ({ request }) => {
                     error: err?.message || "Failed to load products.",
                 }),
             ),
-            fetchShopInfo(admin).catch(() => ({
-                shopUrl: "",
-                shopCurrency: "USD",
-                shopDomain: "unknown-shop",
-            })),
+            shopInfoPromise,
             runWithAnalyticsCache({
                 shop: session.shop,
                 dataset: "product-landing-sessions-daily-v2",
@@ -736,6 +755,7 @@ export const loader = async ({ request }) => {
             uniqueOrderTotal: Number(salesOrderTotal.rows[0]?.orders) || 0,
             catalogStatus: productsResult.source || "unavailable",
             catalogRefreshedAt: productsResult.refreshedAt || null,
+            dataSource: "shopifyql-live",
         };
     })();
 
@@ -1026,7 +1046,7 @@ function ProductsAuditLoadError() {
 }
 
 function ProductsAuditContent({ loaderData, isRefreshing }) {
-    const { rows, month, start, end, earliest, today, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, catalogStatus, catalogRefreshedAt, unattributedSales, uniqueOrderTotal } = loaderData;
+    const { rows, month, start, end, earliest, today, displayRange, shopCurrency, productsError, analyticsErrors, shopifyqlDebug, catalogStatus, catalogRefreshedAt, unattributedSales, uniqueOrderTotal, dataSource } = loaderData;
     const [searchParams, setSearchParams] = useSearchParams();
     // Every money value on this page is reported in the store's default currency.
     const currency = shopCurrency || "USD";
@@ -1151,11 +1171,24 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     };
 
     const updateDimensions = (updater) => {
+        const nextDimensions = typeof updater === "function"
+            ? updater(selectedDimensions)
+            : updater;
+        const needsDailyResolution = nextDimensions.some(
+            (key) => key === "day" || key === "week",
+        );
+        const hasDailyResolution = searchParams.get("resolution") === "daily";
+        if (needsDailyResolution !== hasDailyResolution) {
+            const nextSearch = new URLSearchParams(searchParams);
+            if (needsDailyResolution) nextSearch.set("resolution", "daily");
+            else nextSearch.delete("resolution");
+            setSearchParams(nextSearch, { replace: true });
+        }
         setIsRebuilding(true);
         // Let React paint the loading state before the CPU-intensive regrouping.
         window.requestAnimationFrame(() => {
             window.setTimeout(() => {
-                setSelectedDimensions(updater);
+                setSelectedDimensions(nextDimensions);
                 window.requestAnimationFrame(() => setIsRebuilding(false));
             }, 0);
         });
@@ -1570,6 +1603,14 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
                 <s-box padding="base" background="subdued" borderRadius="base" style={{ marginBottom: "16px", border: "1px solid #b7c9e2" }}>
                     <s-paragraph style={{ margin: 0 }}>
                         <strong>Unattributed Shopify data:</strong> Shopify returned some sales values without a usable Product ID. They are kept together in the <strong>Unattributed Shopify Data</strong> row for reconciliation and are never assigned to a real product. Product conversion is unavailable for this row.
+                    </s-paragraph>
+                </s-box>
+            )}
+
+            {dataSource && dataSource !== "shopifyql-live" && (
+                <s-box padding="base" background="subdued" borderRadius="base" style={{ marginBottom: "16px", border: "1px solid #b7c9e2" }}>
+                    <s-paragraph style={{ margin: 0 }}>
+                        <strong>Fast monthly data:</strong> This complete date range was loaded from the store&apos;s saved monthly analytics. Adding the Day or Week dimension automatically switches to live Shopify data.
                     </s-paragraph>
                 </s-box>
             )}

@@ -1,4 +1,5 @@
 import {
+  assignSupabaseStoreStorage,
   deleteExpiredMonthlyMetrics,
   cleanupSupabaseOrphanProducts,
   ensureSupabaseUnattributedProduct,
@@ -8,10 +9,12 @@ import {
   reconcileSupabaseProductHandles,
   replaceSupabaseProductTags,
   replaceSupabaseStoreMonth,
+  readSupabaseProductAuditMonths,
   selectSupabaseRows,
   updateSupabaseRows,
   upsertSupabaseRows,
 } from "./supabase-analytics.server.js";
+import { analyticsDatabaseCapacityPolicy } from "./analytics-storage-routing.server.js";
 
 function authenticatedShop(session) {
   const shop = String(session?.shop || "").trim().toLowerCase();
@@ -33,20 +36,24 @@ export async function createAuthenticatedStoreAnalytics(session, {
   createStore = false,
   currencyCode = "USD",
   ianaTimeZone = "Etc/UTC",
+  projectedStorageBytes = 8_000_000,
 } = {}) {
   const shopDomain = authenticatedShop(session);
   let stores;
   if (createStore) {
-    stores = await insertSupabaseRows("audit_stores", [{
-      shop_domain: shopDomain,
-      currency_code: currencyCode,
-      iana_timezone: ianaTimeZone,
-      status: "active",
-      updated_at: new Date().toISOString(),
-    }], { upsert: true, conflictColumns: ["shop_domain"] });
+    const capacity = analyticsDatabaseCapacityPolicy();
+    stores = [await assignSupabaseStoreStorage({
+      shopDomain,
+      currencyCode,
+      ianaTimeZone,
+      projectedStorageBytes,
+      databaseLimitBytes: capacity.databaseLimitBytes,
+      softLimitPercent: capacity.softLimitPercent,
+      databaseBaselineBytes: capacity.databaseBaselineBytes,
+    })];
   } else {
     stores = await selectSupabaseRows("audit_stores", {
-      select: "id,shop_domain,currency_code,iana_timezone,status",
+      select: "id,shop_domain,currency_code,iana_timezone,status,storage_mode,storage_mode_assigned_at,projected_storage_bytes,storage_assignment_reason",
       filters: [["shop_domain", "eq", shopDomain]],
       limit: 1,
     });
@@ -126,6 +133,10 @@ export async function createAuthenticatedStoreAnalytics(session, {
         productMetrics,
         storeMetrics,
       });
+    },
+
+    readProductAuditMonths(startMonth, endMonth) {
+      return readSupabaseProductAuditMonths(storeId, startMonth, endMonth);
     },
 
     async deleteExpiredMonths(retainFromMonth) {

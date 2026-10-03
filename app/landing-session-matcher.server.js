@@ -23,6 +23,7 @@ export function matchLandingSessions(rows, handleHistory) {
   }
 
   const matched = new Map();
+  const matchedCompletedCheckouts = new Map();
   const unmatched = new Map();
   for (const row of rows || []) {
     const handle = handleFromLandingPath(row.landing_page_path);
@@ -30,9 +31,14 @@ export function matchLandingSessions(rows, handleHistory) {
     const productId = byHandle.get(handle);
     if (productId) {
       matched.set(productId, (matched.get(productId) || 0) + count);
+      matchedCompletedCheckouts.set(
+        productId,
+        (matchedCompletedCheckouts.get(productId) || 0) +
+          number(row.sessions_that_completed_checkout),
+      );
     } else if (handle) {
       unmatched.set(handle, (unmatched.get(handle) || 0) + count);
     }
   }
-  return { matched, unmatched };
+  return { matched, matchedCompletedCheckouts, unmatched };
 }

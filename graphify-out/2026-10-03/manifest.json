@@ -108,8 +108,8 @@
     "semantic_hash": ""
   },
   "app/routes/app.products.jsx": {
-    "mtime": 1791022904.194572,
-    "seen": 1791023657.113308,
+    "mtime": 1791014445.3411014,
+    "seen": 1791014883.9412289,
     "ast_hash": "ac599f0b12bf1de9356adcde3597a12d",
     "semantic_hash": ""
   },
@@ -465,18 +465,6 @@
     "mtime": 1791014639.8524823,
     "seen": 1791014883.9492643,
     "ast_hash": "31bcd7a5ba3980bad1b42ecdd337389a",
-    "semantic_hash": ""
-  },
-  "scripts/compare-product-audit-sources.mjs": {
-    "mtime": 1791023274.9999964,
-    "seen": 1791023657.1340969,
-    "ast_hash": "71aae40310b3ab46623a974dd6e8f4b1",
-    "semantic_hash": ""
-  },
-  "scripts/run-targeted-analytics-sync.mjs": {
-    "mtime": 1791023589.4825883,
-    "seen": 1791023657.134104,
-    "ast_hash": "2f1c820fc6a32709c3aa6f3db40760d8",
     "semantic_hash": ""
   }
 }

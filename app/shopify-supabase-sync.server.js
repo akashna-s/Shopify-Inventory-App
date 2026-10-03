@@ -4,6 +4,8 @@ import { createAuthenticatedStoreAnalytics } from "./store-analytics-access.serv
 import { sumNonNegativeInventory } from "./inventory-rules.server";
 import { matchLandingSessions } from "./landing-session-matcher.server";
 import { shopifyIdText } from "./shopify-id.js";
+import { projectedStoreStorageBytes } from "./analytics-storage-routing.server.js";
+import { syncLatest18MonthsToFileCache } from "./shopify-file-cache-sync.server.js";
 import {
   latestSyncMonths,
   normalizeIanaTimeZone,
@@ -162,7 +164,7 @@ async function fetchMonthOnce(admin, month, now, timeZone) {
   const queries = [
     ["inventory", `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`],
     ["sales", `FROM sales SHOW orders, quantity_ordered, net_items_sold, reversed_quantity, gross_sales, discounts, gross_sales_reversals, net_sales, shipping_charges, return_fees, taxes, total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`],
-    ["sessions", `FROM sessions SHOW sessions WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`],
+    ["sessions", `FROM sessions SHOW sessions, sessions_that_completed_checkout WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`],
     ["storeSessions", `FROM sessions SHOW sessions SINCE ${start} UNTIL ${end}`],
     ["store", `FROM sales SHOW orders, total_sales SINCE ${start} UNTIL ${end}`],
   ];
@@ -262,7 +264,11 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
       ["valid_to", "gte", `${monthStart}T00:00:00.000Z`],
     ],
   });
-  const { matched: sessions, unmatched } = matchLandingSessions(
+  const {
+    matched: sessions,
+    matchedCompletedCheckouts,
+    unmatched,
+  } = matchLandingSessions(
     result.sessions.rows,
     [...handleHistory, ...closedHistory],
   );
@@ -285,6 +291,8 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
       starting_inventory: stock.starting_inventory_units ?? null,
       ending_inventory: stock.ending_inventory_units ?? null,
       landing_sessions: sessions.get(shopifyId) || 0,
+      completed_checkout_sessions:
+        matchedCompletedCheckouts.get(shopifyId) || 0,
       product_orders: number(sold.orders),
       quantity_ordered: number(sold.quantity_ordered),
       net_items_sold: number(sold.net_items_sold),
@@ -323,6 +331,7 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
       // A missing Product ID gives us no defensible product handle, so landing
       // sessions and conversion are intentionally unavailable for this bucket.
       landing_sessions: 0,
+      completed_checkout_sessions: 0,
       product_orders: number(sold.orders),
       quantity_ordered: number(sold.quantity_ordered),
       net_items_sold: number(sold.net_items_sold),
@@ -350,6 +359,9 @@ async function persistMonth({ analytics, month, result, catalog, currency }) {
   ).length;
   const storeMetrics = {
     currency_code: currency,
+    source_range_start: result.start,
+    source_range_end: result.end,
+    cache_schema_version: 1,
     active_products: activeProducts,
     // Product-month facts keep Shopify's raw values for auditing. Store-month
     // report totals treat each negative product balance as zero.
@@ -412,12 +424,34 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
   months: requestedMonths = null,
 } = {}) {
   const shopInfo = await fetchShop(admin);
-  const analytics = await createAuthenticatedStoreAnalytics(session, {
+  let analytics = await createAuthenticatedStoreAnalytics(session);
+  if (analytics) {
+    await preventOverlappingSync(analytics);
+  }
+
+  const productCatalog = await refreshProductCatalog(admin, session.shop);
+  analytics = await createAuthenticatedStoreAnalytics(session, {
     createStore: true,
     currencyCode: shopInfo.currency,
     ianaTimeZone: shopInfo.timeZone,
+    projectedStorageBytes: projectedStoreStorageBytes(
+      productCatalog.products.length,
+    ),
   });
-  await preventOverlappingSync(analytics);
+  if (!analytics.store.storage_mode_assigned_at) {
+    throw new Error("The store storage assignment was not completed.");
+  }
+  if (!analytics.store.existing_assignment) await preventOverlappingSync(analytics);
+  if (analytics.store.storage_mode === "file_cache") {
+    return syncLatest18MonthsToFileCache({
+      admin,
+      analytics,
+      shopInfo,
+      productCatalog,
+      now,
+      requestedMonths,
+    });
+  }
   const months = requestedMonths?.length
     ? [...new Set(requestedMonths)].filter((month) => /^\d{4}-\d{2}$/.test(month))
     : latestSyncMonths(now, shopInfo.timeZone, MONTH_COUNT);
@@ -431,6 +465,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     ...syncProgressFields(progress),
     started_at: new Date().toISOString(),
     details: {
+      cacheSchemaVersion: 1,
       totalMonths: months.length,
       completedMonths: [],
       failedMonths: [],
@@ -441,7 +476,6 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
   const completedMonths = [];
   const failedMonths = [];
   try {
-    const productCatalog = await refreshProductCatalog(admin, session.shop);
     const catalog = await syncCatalog(analytics, productCatalog.products);
     addSyncProgress(progress, catalog.progress);
 
@@ -449,6 +483,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
       await analytics.updateJob(job.id, {
         ...syncProgressFields(progress),
         details: {
+          cacheSchemaVersion: 1,
           totalMonths: months.length,
           currentMonth: month,
           completedMonths,
@@ -480,6 +515,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
       await analytics.updateJob(job.id, {
         ...syncProgressFields(progress),
         details: {
+          cacheSchemaVersion: 1,
           totalMonths: months.length,
           completedMonths,
           failedMonths,
@@ -503,6 +539,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
       error_message: errorSummary,
       error_summary: errorSummary,
       details: {
+        cacheSchemaVersion: 1,
         totalMonths: months.length,
         completedMonths,
         failedMonths,
@@ -513,6 +550,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     return {
       jobId: job.id,
       status,
+      storageMode: analytics.store.storage_mode,
       ...syncProgressFields(progress),
       completedMonths,
       failedMonths,
@@ -525,6 +563,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
       error_message: error.message,
       error_summary: errorSummary,
       details: {
+        cacheSchemaVersion: 1,
         totalMonths: months.length,
         completedMonths,
         failedMonths,

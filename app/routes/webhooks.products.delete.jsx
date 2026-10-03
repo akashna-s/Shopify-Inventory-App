@@ -12,6 +12,8 @@ export const action = async ({ request }) => {
   if (!productId) return new Response("Missing product ID", { status: 400 });
 
   const analytics = await createAuthenticatedStoreAnalytics({ shop });
-  if (analytics) await analytics.markProductDeleted(productId);
+  if (analytics?.store.storage_mode === "database") {
+    await analytics.markProductDeleted(productId);
+  }
   return new Response();
 };

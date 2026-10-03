@@ -1007,3 +1007,38 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 3. Calculate `NA Product %` as active cohort products divided by total products launched in that cohort.
 4. Calculate `NA Product % (Total)` as active cohort products divided by active store products in the same period.
 5. Use these Product names in the screen, formulas, FAQs, exports, and internal report fields without changing the underlying calculations.
+
+# Analytics storage assignment flow
+
+1. Authenticate the Shopify store and read its existing `audit_stores` record when present.
+2. Existing stores keep their fixed storage mode. A normal sync can update currency, timezone, status, and increase the projected reservation, but it cannot move the store.
+3. For a new store, fetch the product catalogue and estimate mature 18-month storage as the larger of 8 MB or 15 KB per Shopify product.
+4. PostgreSQL locks the capacity decision, calculates the 80% soft limit, and compares it with the larger of current database usage or baseline plus existing reservations, then adds the new reservation.
+5. Assign `database` when the projected total remains within the soft limit; otherwise assign `file_cache`.
+6. Database-mode stores continue through the existing monthly Supabase sync. File-cache stores stop before product/month database writes until the next implementation step supplies the compressed shared-file pipeline.
+7. Moving a store later requires the explicit service-role migration function; it never happens automatically.
+
+# File-cache monthly sync and browser cache flow
+
+1. The authenticated sync reads the store's fixed storage assignment.
+2. For a `file_cache` store, Shopify supplies a fresh product catalogue and five monthly ShopifyQL datasets: inventory, product sales, product landing sessions, total store sessions, and store sales/order totals.
+3. The server applies the same inventory, currency, handle-history, unattributed-data, and store-summary rules used by database syncs.
+4. The server writes one complete gzip file per store and month under `stores/{internal-store-id}/months/YYYY-MM.json.gz` in the private Supabase Storage bucket.
+5. A compressed catalogue keeps current product details and handle history. A small manifest records every available month, checksum, file size, and update time.
+6. The manifest is updated after each successful month. A failed month therefore leaves the previous good file visible instead of exposing incomplete data.
+7. The authenticated `/app/analytics-cache` route returns only the current store's manifest or an allowed month. The browser never receives a storage credential or arbitrary object path.
+8. On app opening, a `file_cache` store compares manifest checksums with IndexedDB, downloads only changed months with concurrency three, and removes months outside the rolling window.
+9. Database-mode stores continue using the existing PostgreSQL sync path. Existing live report loaders continue using ShopifyQL until the later report-read migration is approved.
+
+# Automatic 18-month sync and Product Audit read flow
+
+1. When an authenticated merchant opens the app, the app shell first resolves the store's fixed `database` or `file_cache` assignment.
+2. The browser checks the latest server-side analytics sync job. If a complete current-format 18-month sync does not exist, it automatically starts one; no setup button is required.
+3. If another sync is already running, the browser polls its status instead of creating a duplicate job. The app displays a small progress message while this happens.
+4. Database-mode stores save complete monthly facts in PostgreSQL. File-cache stores save complete compressed monthly files in private Supabase Storage and then refresh their local IndexedDB copy.
+5. When Product Audit requests a completed range, the server checks whether it starts on the first day of a month, ends on the final day of a month, and has complete version-compatible coverage for every month.
+6. For database mode, one authenticated store-scoped RPC returns the product catalog, current tags/status, product-month facts, and store-month totals. For file-cache mode, the server reads the authenticated store's manifest, catalog, and required month files.
+7. The shared adapter converts either source into the same row shape already used by Product Audit, including product metrics, Store Unique Orders, current metadata, and the unattributed bucket.
+8. If any month is missing, incomplete, current/partial, or incompatible, Product Audit runs its existing live ShopifyQL path for the full range. Cached and live rows are never mixed silently.
+9. Adding Day or Week sets the report to daily resolution and reloads from ShopifyQL because the saved cache intentionally contains monthly facts only. Removing both allows a complete monthly range to use the fast source again.
+10. New Arrival Analysis remains unchanged until refreshed Product Audit results have been compared with ShopifyQL and approved.

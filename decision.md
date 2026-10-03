@@ -1039,3 +1039,33 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - New Arrival product-count metrics use `NA Products`, `NA Product %`, and `NA Product % (Total)` in the UI, formulas, FAQs, and exports.
 - Internal report fields use `naProducts`, `naProductRate`, `naProductTotalRate`, `activeProducts`, and `launchedProductCounts` so the calculation vocabulary matches the displayed vocabulary.
 - This is a terminology-only change. A product is still counted once by Product ID, and all existing count and percentage formulas remain unchanged.
+
+# 2026-10-03 - Analytics storage routing foundation
+
+- Stop assigning new stores to PostgreSQL analytics storage when projected usage would exceed 80% of the configured database allowance. With the current 500 MB allowance, the soft limit is 400 MB.
+- Reserve mature 18-month capacity rather than relying only on today's database size. The initial estimate is 15 KB per Shopify product with an 8 MB minimum per store, based on the measured current-store footprint.
+- Assign each store one fixed `database` or `file_cache` mode. Normal onboarding can increase a store's reservation as its catalogue grows, but cannot switch its mode.
+- Provide a separate service-role-only migration function for a deliberate future move between modes.
+- Serialize assignment decisions inside PostgreSQL so simultaneous installations cannot reserve the same remaining capacity.
+- Step 1 did not change live report reads. Its temporary hold before database fact writes was removed when the private compressed-file pipeline below was implemented.
+
+# 2026-10-03 - Private monthly file cache with browser acceleration
+
+- Stores assigned to `file_cache` use the private Supabase Storage bucket `analytics-monthly-cache`; the bucket is never public.
+- Store data is separated by the internal store ID. Each month is an independent gzip-compressed JSON file, with a compressed catalog and a small manifest alongside it.
+- The manifest is published only after a complete month file upload, so browsers never discover a partly written month.
+- Monthly files are self-contained and preserve Shopify IDs as text, product metadata, tags, inventory, sales, sessions, unattributed metrics, and store-level reconciliation totals.
+- Only the authenticated server can use the Supabase service-role key. The browser requests a manifest or month through `/app/analytics-cache`, which derives store ownership from the Shopify session.
+- File-cache stores keep their manifest and downloaded months in browser IndexedDB. Only files whose checksum changed are downloaded again, and expired months are removed locally.
+- Existing database-mode stores and current live report reads remain unchanged. Connecting report calculations to this storage-neutral monthly format is a separate controlled step.
+
+# 2026-10-03 - Automatic 18-month onboarding sync and Product Audit monthly reads
+
+- Start the initial 18-month analytics sync automatically after an authenticated store opens the app and receives its fixed `database` or `file_cache` assignment.
+- Treat the initial sync as complete only when all 18 months finish under the current cache schema version. A running sync is polled instead of starting a duplicate job, and an incomplete or older-format sync is retried on a later app opening.
+- Product Audit is the first report connected to the storage-neutral monthly source because its month-level calculations can be compared directly with the existing ShopifyQL output before New Arrival Analysis is changed.
+- Use saved monthly data only when every requested calendar month is present, complete, and compatible. Never combine a partly cached range with live data.
+- Keep ShopifyQL as the safe fallback for current/partial months, missing cache coverage, old cache versions, errors, and any report using Day or Week detail.
+- Preserve one report adapter for both storage modes: database stores read through an authenticated store-scoped Supabase RPC, while file-cache stores read their private catalog and month files through the server.
+- Add completed-checkout sessions to the monthly product fact so the saved source can reproduce Product Audit's conversion metric without changing the existing formula.
+- Keep New Arrival Analysis on its existing live path until Product Audit figures have been validated on refreshed versioned data.

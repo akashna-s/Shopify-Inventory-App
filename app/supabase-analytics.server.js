@@ -63,6 +63,53 @@ export async function testSupabaseAnalyticsConnection() {
   return request("audit_stores?select=id&limit=1");
 }
 
+export async function assignSupabaseStoreStorage({
+  shopDomain,
+  currencyCode,
+  ianaTimeZone,
+  projectedStorageBytes,
+  databaseLimitBytes,
+  softLimitPercent,
+  databaseBaselineBytes,
+}) {
+  const result = await request("rpc/assign_audit_store_storage", {
+    method: "POST",
+    body: JSON.stringify({
+      p_shop_domain: shopDomain,
+      p_currency_code: currencyCode,
+      p_iana_timezone: ianaTimeZone,
+      p_projected_storage_bytes: projectedStorageBytes,
+      p_database_limit_bytes: databaseLimitBytes,
+      p_soft_limit_percent: softLimitPercent,
+      p_database_baseline_bytes: databaseBaselineBytes,
+    }),
+  });
+  const assignment = Array.isArray(result) ? result[0] : result;
+  if (!assignment?.id) {
+    throw new Error("Supabase did not return a store storage assignment.");
+  }
+  return assignment;
+}
+
+export async function migrateSupabaseStoreStorageMode(
+  storeId,
+  storageMode,
+  reason,
+) {
+  if (!storeId) throw new Error("A store ID is required for storage migration.");
+  if (!["database", "file_cache"].includes(storageMode)) {
+    throw new Error("Storage mode must be database or file_cache.");
+  }
+  return request("rpc/set_audit_store_storage_mode", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_storage_mode: storageMode,
+      p_reason: String(reason || "manual_migration"),
+    }),
+  });
+}
+
 export async function selectSupabaseRows(table, {
   select = "*",
   filters = [],
@@ -174,6 +221,30 @@ export async function replaceSupabaseStoreMonth({
     }),
   });
   return writeCounts(result);
+}
+
+export async function readSupabaseProductAuditMonths(
+  storeId,
+  startMonth,
+  endMonth,
+) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before reading Product Audit months.");
+  }
+  if (
+    !/^\d{4}-\d{2}-01$/.test(String(startMonth)) ||
+    !/^\d{4}-\d{2}-01$/.test(String(endMonth))
+  ) {
+    throw new Error("Valid first-of-month dates are required for Product Audit reads.");
+  }
+  return request("rpc/get_audit_product_month_report", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_start_month: startMonth,
+      p_end_month: endMonth,
+    }),
+  });
 }
 
 export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
