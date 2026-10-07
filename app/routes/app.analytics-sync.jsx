@@ -1,7 +1,8 @@
 import { authenticate } from "../shopify.server";
 import {
+  analyticsPreparationStatus,
   latestSupabaseSync,
-  syncLatest18MonthsToSupabase,
+  syncNextAnalyticsPreparationStep,
 } from "../shopify-supabase-sync.server";
 import { isSupabaseAnalyticsConfigured } from "../supabase-analytics.server";
 
@@ -13,6 +14,7 @@ export const loader = async ({ request }) => {
   return Response.json({
     configured: true,
     job: await latestSupabaseSync(session),
+    preparation: await analyticsPreparationStatus(session),
   });
 };
 
@@ -25,8 +27,10 @@ export const action = async ({ request }) => {
     return Response.json({ error: "Supabase analytics is not configured." }, { status: 503 });
   }
   try {
-    const result = await syncLatest18MonthsToSupabase(admin, session);
-    return Response.json(result, { status: result.status === "completed" ? 200 : 207 });
+    const result = await syncNextAnalyticsPreparationStep(admin, session);
+    return Response.json(result, {
+      status: result.status === "completed" ? 200 : 207,
+    });
   } catch (error) {
     if (error.code === "SYNC_ALREADY_RUNNING") {
       return Response.json({ error: error.message }, { status: 409 });

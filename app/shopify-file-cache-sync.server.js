@@ -414,6 +414,7 @@ export async function syncLatest18MonthsToFileCache({
   productCatalog,
   now,
   requestedMonths,
+  jobType = null,
 }) {
   const months = requestedMonths?.length
     ? [...new Set(requestedMonths)].filter((month) => /^\d{4}-\d{2}$/.test(month))
@@ -443,9 +444,9 @@ export async function syncLatest18MonthsToFileCache({
   const progress = createSyncProgress(1);
   addSyncProgress(progress, { rowsProcessed: catalog.products.length });
   const [job] = await analytics.createJob({
-    job_type: requestedMonths?.length
+    job_type: jobType || (requestedMonths?.length
       ? "file_cache_monthly_targeted_retry"
-      : "file_cache_monthly_18_month_backfill",
+      : "file_cache_monthly_18_month_backfill"),
     status: "running",
     range_start: `${months.at(-1)}-01`,
     range_end: storeMonthBounds(months[0], now, shopInfo.timeZone).end,

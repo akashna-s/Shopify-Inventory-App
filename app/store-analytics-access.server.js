@@ -12,6 +12,7 @@ import {
   readSupabaseProductAuditMonths,
   selectSupabaseRows,
   updateSupabaseRows,
+  upgradeSupabaseStoreMonthSessions,
   upsertSupabaseRows,
 } from "./supabase-analytics.server.js";
 import { analyticsDatabaseCapacityPolicy } from "./analytics-storage-routing.server.js";
@@ -132,6 +133,27 @@ export async function createAuthenticatedStoreAnalytics(session, {
         month,
         productMetrics,
         storeMetrics,
+      });
+    },
+
+    upgradeMonthSessions({
+      month,
+      rangeStart,
+      rangeEnd,
+      productSessions,
+      unmatchedLandingPages,
+      storeSessions,
+      refreshedAt,
+    }) {
+      return upgradeSupabaseStoreMonthSessions({
+        storeId,
+        month,
+        rangeStart,
+        rangeEnd,
+        productSessions,
+        unmatchedLandingPages,
+        storeSessions,
+        refreshedAt,
       });
     },
 

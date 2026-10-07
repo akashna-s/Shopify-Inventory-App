@@ -1,6 +1,6 @@
-const CACHE_SCHEMA_VERSION = 1;
-const REQUIRED_MONTHS = 18;
 const POLL_INTERVAL_MS = 5000;
+const STEP_PAUSE_MS = 1500;
+const REPORT_READY_TIMEOUT_MS = 30000;
 const MAX_POLLS = 120;
 
 const wait = (milliseconds) =>
@@ -23,46 +23,80 @@ async function syncStatus() {
   }));
 }
 
-function initialSyncComplete(job) {
-  const details = job?.details || {};
-  return (
-    job?.status === "completed" &&
-    Number(details.cacheSchemaVersion) >= CACHE_SCHEMA_VERSION &&
-    Number(details.totalMonths) >= REQUIRED_MONTHS &&
-    (details.completedMonths || []).length >= REQUIRED_MONTHS
-  );
+function progressStatus(preparation) {
+  const completed = Number(preparation?.completedCount) || 0;
+  const required = Number(preparation?.requiredCount) || 18;
+  return {
+    state: "syncing",
+    message: `Preparing saved analytics: ${completed} of ${required} months ready…`,
+  };
 }
 
 async function waitForRunningSync(onStatus) {
   for (let poll = 0; poll < MAX_POLLS; poll += 1) {
     await wait(POLL_INTERVAL_MS);
     const status = await syncStatus();
-    if (status.job?.status !== "running") return status.job;
-    onStatus?.({ state: "syncing", message: "Preparing 18 months of analytics data…" });
+    if (status.job?.status !== "running") return status;
+    onStatus?.(progressStatus(status.preparation));
   }
-  throw new Error("The initial analytics sync is still running. It will continue in the background.");
+  throw new Error("The analytics step is taking longer than expected.");
 }
 
-async function startInitialSync(onStatus) {
-  onStatus?.({ state: "syncing", message: "Preparing 18 months of analytics data…" });
+async function waitForVisibleReport() {
+  const reportPage = /^\/app\/(products|new-arrivals)/.test(window.location.pathname);
+  if (!reportPage || window.__analyticsReportReady) {
+    await wait(1200);
+    return;
+  }
+  await Promise.race([
+    new Promise((resolve) =>
+      window.addEventListener("analytics-report-ready", resolve, { once: true }),
+    ),
+    wait(REPORT_READY_TIMEOUT_MS),
+  ]);
+}
+
+async function waitForInteractiveReportIdle() {
+  while (window.__analyticsInteractiveReportBusy) await wait(750);
+}
+
+async function runOneStep(onStatus) {
+  await waitForInteractiveReportIdle();
   const response = await fetch("/app/analytics-sync", {
     method: "POST",
     credentials: "same-origin",
-    headers: { Accept: "application/json" },
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ mode: "step" }),
   });
   if (response.status === 409) return waitForRunningSync(onStatus);
-  return responseJson(response);
+  const result = await responseJson(response);
+  if (result.status && result.status !== "completed") {
+    throw new Error(
+      result.failedMonths?.[0]?.error || "One monthly analytics step failed.",
+    );
+  }
+  return result;
 }
 
 export async function bootstrapAnalyticsData({ storageMode, onStatus } = {}) {
   onStatus?.({ state: "checking", message: "Checking saved analytics data…" });
   let status = await syncStatus();
-  if (status.job?.status === "running") {
-    await waitForRunningSync(onStatus);
-    status = await syncStatus();
+  if (!status.preparation) {
+    throw new Error("The analytics storage assignment is not ready yet.");
   }
-  if (!initialSyncComplete(status.job)) {
-    await startInitialSync(onStatus);
+  if (status.job?.status === "running") {
+    status = await waitForRunningSync(onStatus);
+  }
+
+  await waitForVisibleReport();
+  while (!status.preparation?.ready) {
+    onStatus?.(progressStatus(status.preparation));
+    await runOneStep(onStatus);
+    status = await syncStatus();
+    if (!status.preparation?.ready) await wait(STEP_PAUSE_MS);
   }
 
   if (storageMode === "file_cache") {

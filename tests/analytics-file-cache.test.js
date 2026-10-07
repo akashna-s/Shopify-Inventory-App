@@ -149,6 +149,8 @@ test("Product Audit monthly reads are versioned and day/week requests keep Shopi
   assert.match(productRoute, /loadProductAuditMonthlyReport/);
   assert.match(productRoute, /resolution"\) === "daily"/);
   assert.match(productRoute, /key === "day" \|\| key === "week"/);
-  assert.match(bootstrap, /REQUIRED_MONTHS = 18/);
+  assert.match(bootstrap, /Preparing saved analytics: \$\{completed\} of \$\{required\}/);
+  assert.match(bootstrap, /runOneStep/);
+  assert.match(bootstrap, /analytics-report-ready/);
   assert.match(bootstrap, /method: "POST"/);
 });

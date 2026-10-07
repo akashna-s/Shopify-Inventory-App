@@ -1,4 +1,7 @@
-import { refreshProductCatalog } from "./product-catalog-cache.server";
+import {
+  getProductCatalog,
+  refreshProductCatalog,
+} from "./product-catalog-cache.server";
 import { runShopifyQL } from "./shopifyql.server";
 import { createAuthenticatedStoreAnalytics } from "./store-analytics-access.server";
 import { sumNonNegativeInventory } from "./inventory-rules.server";
@@ -6,6 +9,10 @@ import { matchLandingSessions } from "./landing-session-matcher.server";
 import { shopifyIdText } from "./shopify-id.js";
 import { projectedStoreStorageBytes } from "./analytics-storage-routing.server.js";
 import { syncLatest18MonthsToFileCache } from "./shopify-file-cache-sync.server.js";
+import {
+  pruneAnalyticsFileMonths,
+  readAnalyticsManifest,
+} from "./analytics-file-cache.server.js";
 import {
   latestSyncMonths,
   normalizeIanaTimeZone,
@@ -422,6 +429,8 @@ async function preventOverlappingSync(analytics) {
 export async function syncLatest18MonthsToSupabase(admin, session, {
   now = new Date(),
   months: requestedMonths = null,
+  preferCachedCatalog = false,
+  jobType = null,
 } = {}) {
   const shopInfo = await fetchShop(admin);
   let analytics = await createAuthenticatedStoreAnalytics(session);
@@ -429,7 +438,9 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     await preventOverlappingSync(analytics);
   }
 
-  const productCatalog = await refreshProductCatalog(admin, session.shop);
+  const productCatalog = preferCachedCatalog
+    ? await getProductCatalog(admin, session.shop)
+    : await refreshProductCatalog(admin, session.shop);
   analytics = await createAuthenticatedStoreAnalytics(session, {
     createStore: true,
     currencyCode: shopInfo.currency,
@@ -450,6 +461,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
       productCatalog,
       now,
       requestedMonths,
+      jobType,
     });
   }
   const months = requestedMonths?.length
@@ -458,7 +470,7 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
   if (!months.length) throw new Error("No valid months were provided for the analytics sync.");
   const progress = createSyncProgress(1);
   const [job] = await analytics.createJob({
-    job_type: requestedMonths?.length ? "monthly_targeted_retry" : "monthly_18_month_backfill",
+    job_type: jobType || (requestedMonths?.length ? "monthly_targeted_retry" : "monthly_18_month_backfill"),
     status: "running",
     range_start: `${months.at(-1)}-01`,
     range_end: storeMonthBounds(months[0], now, shopInfo.timeZone).end,
@@ -573,6 +585,282 @@ export async function syncLatest18MonthsToSupabase(admin, session, {
     });
     throw error;
   }
+}
+
+function monthCoverageComplete(month, row, now, timeZone) {
+  if (!row || Number(row.cache_schema_version ?? row.cacheSchemaVersion) < 1) {
+    return false;
+  }
+  const bounds = storeMonthBounds(month, now, timeZone);
+  const rangeStart = row.source_range_start ?? row.rangeStart;
+  const rangeEnd = row.source_range_end ?? row.rangeEnd;
+  return rangeStart === bounds.start && rangeEnd === bounds.end;
+}
+
+export async function analyticsPreparationStatus(session, { now = new Date() } = {}) {
+  const analytics = await createAuthenticatedStoreAnalytics(session);
+  if (!analytics) return null;
+  const timeZone = normalizeIanaTimeZone(analytics.store.iana_timezone);
+  const requiredMonths = latestSyncMonths(now, timeZone, MONTH_COUNT);
+  let coverageRows = [];
+  if (analytics.store.storage_mode === "file_cache") {
+    const manifest = await readAnalyticsManifest(analytics.store.id).catch(() => null);
+    coverageRows = manifest?.months || [];
+  } else {
+    coverageRows = await analytics.selectStoreMonths({
+      select: "month,source_range_start,source_range_end,cache_schema_version,refreshed_at",
+      filters: [
+        ["month", "gte", `${requiredMonths.at(-1)}-01`],
+        ["month", "lte", `${requiredMonths[0]}-01`],
+      ],
+      order: "month.desc",
+    });
+  }
+  const byMonth = new Map(
+    coverageRows.map((row) => [String(row.month || "").slice(0, 7), row]),
+  );
+  const completedMonths = requiredMonths.filter((month) =>
+    monthCoverageComplete(month, byMonth.get(month), now, timeZone),
+  );
+  const missingMonths = requiredMonths.filter(
+    (month) => !completedMonths.includes(month),
+  );
+  return {
+    storageMode: analytics.store.storage_mode,
+    requiredMonths,
+    completedMonths,
+    missingMonths,
+    completedCount: completedMonths.length,
+    requiredCount: requiredMonths.length,
+    ready: missingMonths.length === 0,
+  };
+}
+
+async function fetchSessionUpgrade(admin, month, now, timeZone) {
+  const { start, end } = storeMonthBounds(month, now, timeZone);
+  const [sessions, storeSessions] = await Promise.all([
+    runShopifyQL(
+      admin,
+      `FROM sessions SHOW sessions, sessions_that_completed_checkout WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`,
+    ),
+    runShopifyQL(admin, `FROM sessions SHOW sessions SINCE ${start} UNTIL ${end}`),
+  ]);
+  const failed = [sessions, storeSessions].find(
+    (result) => result.error || result.truncated,
+  );
+  if (failed) {
+    const error = new Error(
+      failed.error || "The session result reached Shopify's row limit.",
+    );
+    error.queryRetryCount = Math.max(
+      0,
+      (Number(sessions.attempts) || 1) +
+        (Number(storeSessions.attempts) || 1) -
+        2,
+    );
+    throw error;
+  }
+  return { start, end, sessions, storeSessions };
+}
+
+async function upgradeLegacyDatabaseMonth({
+  admin,
+  analytics,
+  month,
+  now,
+}) {
+  await preventOverlappingSync(analytics);
+  const progress = createSyncProgress(1);
+  const bounds = storeMonthBounds(
+    month,
+    now,
+    normalizeIanaTimeZone(analytics.store.iana_timezone),
+  );
+  const [job] = await analytics.createJob({
+    job_type: "monthly_v1_selective_upgrade",
+    status: "running",
+    range_start: bounds.start,
+    range_end: bounds.end,
+    ...syncProgressFields(progress),
+    started_at: new Date().toISOString(),
+    details: {
+      cacheSchemaVersion: 1,
+      totalMonths: 1,
+      currentMonth: month,
+      completedMonths: [],
+      failedMonths: [],
+      selectiveUpgrade: true,
+      progress: syncProgressFields(progress),
+    },
+  });
+  try {
+    const result = await fetchSessionUpgrade(
+      admin,
+      month,
+      now,
+      normalizeIanaTimeZone(analytics.store.iana_timezone),
+    );
+    addSyncProgress(progress, {
+      queryRetryCount: Math.max(
+        0,
+        (Number(result.sessions.attempts) || 1) +
+          (Number(result.storeSessions.attempts) || 1) -
+          2,
+      ),
+    });
+    const monthStart = `${month}-01`;
+    const [openHistory, closedHistory] = await Promise.all([
+      analytics.selectProductHandleHistory({
+        select: "product_id,shopify_product_id,handle,valid_from,valid_to",
+        filters: [
+          ["valid_from", "lte", `${result.end}T23:59:59.999Z`],
+          ["valid_to", "is", "null"],
+        ],
+      }),
+      analytics.selectProductHandleHistory({
+        select: "product_id,shopify_product_id,handle,valid_from,valid_to",
+        filters: [
+          ["valid_from", "lte", `${result.end}T23:59:59.999Z`],
+          ["valid_to", "gte", `${monthStart}T00:00:00.000Z`],
+        ],
+      }),
+    ]);
+    const history = [...openHistory, ...closedHistory];
+    const internalIdByShopifyId = new Map(
+      history.map((item) => [String(item.shopify_product_id), item.product_id]),
+    );
+    const {
+      matched,
+      matchedCompletedCheckouts,
+      unmatched,
+    } = matchLandingSessions(result.sessions.rows, history);
+    const productSessions = [...matched.entries()].flatMap(
+      ([shopifyProductId, landingSessions]) => {
+        const productId = internalIdByShopifyId.get(String(shopifyProductId));
+        return productId
+          ? [{
+              product_id: productId,
+              landing_sessions: landingSessions,
+              completed_checkout_sessions:
+                matchedCompletedCheckouts.get(shopifyProductId) || 0,
+            }]
+          : [];
+      },
+    );
+    const counts = await analytics.upgradeMonthSessions({
+      month: monthStart,
+      rangeStart: result.start,
+      rangeEnd: result.end,
+      productSessions,
+      unmatchedLandingPages: [...unmatched.entries()].map(
+        ([handle, sessions]) => ({ handle, sessions }),
+      ),
+      storeSessions: number(result.storeSessions.rows[0]?.sessions),
+      refreshedAt: new Date().toISOString(),
+    });
+    addSyncProgress(progress, counts);
+    await analytics.updateJob(job.id, {
+      status: "completed",
+      ...syncProgressFields(progress),
+      error_message: null,
+      error_summary: null,
+      details: {
+        cacheSchemaVersion: 1,
+        totalMonths: 1,
+        completedMonths: [month],
+        failedMonths: [],
+        selectiveUpgrade: true,
+        progress: syncProgressFields(progress),
+      },
+      completed_at: new Date().toISOString(),
+    });
+    return {
+      jobId: job.id,
+      status: "completed",
+      storageMode: "database",
+      completedMonths: [month],
+      failedMonths: [],
+      selectiveUpgrade: true,
+      ...syncProgressFields(progress),
+    };
+  } catch (error) {
+    const errorSummary = shortErrorSummary(error);
+    await analytics.updateJob(job.id, {
+      status: "failed",
+      ...syncProgressFields(progress),
+      error_message: error.message,
+      error_summary: errorSummary,
+      details: {
+        cacheSchemaVersion: 1,
+        totalMonths: 1,
+        completedMonths: [],
+        failedMonths: [{ month, error: errorSummary }],
+        selectiveUpgrade: true,
+        progress: syncProgressFields(progress),
+      },
+      completed_at: new Date().toISOString(),
+    });
+    throw error;
+  }
+}
+
+export async function syncNextAnalyticsPreparationStep(
+  admin,
+  session,
+  { now = new Date() } = {},
+) {
+  const preparation = await analyticsPreparationStatus(session, { now });
+  if (!preparation) {
+    throw new Error("The store's analytics storage assignment is missing.");
+  }
+  if (preparation.ready) return { status: "completed", preparation };
+  const month = preparation.missingMonths[0];
+  const analytics = await createAuthenticatedStoreAnalytics(session);
+  let result;
+  if (analytics.store.storage_mode === "database") {
+    const legacy = await analytics.selectStoreMonths({
+      select: "month,cache_schema_version",
+      filters: [["month", "eq", `${month}-01`]],
+      limit: 1,
+    });
+    const selectiveLegacyUpgrade =
+      legacy.length > 0 &&
+      Number(legacy[0].cache_schema_version) < 1 &&
+      month !== preparation.requiredMonths[0];
+    result = selectiveLegacyUpgrade
+      ? await upgradeLegacyDatabaseMonth({ admin, analytics, month, now })
+      : await syncLatest18MonthsToSupabase(admin, session, {
+          now,
+          months: [month],
+          preferCachedCatalog: true,
+          jobType: "monthly_resumable_backfill_step",
+        });
+  } else {
+    result = await syncLatest18MonthsToSupabase(admin, session, {
+      now,
+      months: [month],
+      preferCachedCatalog: true,
+      jobType: "file_cache_resumable_backfill_step",
+    });
+  }
+  const updatedPreparation = await analyticsPreparationStatus(session, { now });
+  if (updatedPreparation?.ready) {
+    if (analytics.store.storage_mode === "database") {
+      await analytics.deleteExpiredMonths(
+        `${updatedPreparation.requiredMonths.at(-1)}-01`,
+      );
+    } else {
+      await pruneAnalyticsFileMonths(
+        analytics.store.id,
+        updatedPreparation.requiredMonths,
+      );
+    }
+  }
+  return {
+    ...result,
+    month,
+    preparation: updatedPreparation,
+  };
 }
 
 export async function latestSupabaseSync(session) {

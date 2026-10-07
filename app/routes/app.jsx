@@ -71,9 +71,16 @@ export default function App() {
       .catch((error) => {
         console.warn("Could not prepare the analytics cache:", error.message);
         if (active) {
+          const reason = /401|unauthor|session/i.test(error.message)
+            ? "The Shopify session needs to be renewed."
+            : /rate limit|throttl/i.test(error.message)
+              ? "Shopify temporarily limited analytics requests."
+              : /timeout|taking longer/i.test(error.message)
+                ? "The monthly step took longer than expected."
+                : "One monthly preparation step failed.";
           setAnalyticsBootstrap({
             state: "error",
-            message: "Saved analytics preparation will retry the next time the app opens.",
+            message: `${reason} Saved analytics will resume the next time the app opens.`,
           });
         }
       });

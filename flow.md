@@ -1042,3 +1042,37 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 8. If any month is missing, incomplete, current/partial, or incompatible, Product Audit runs its existing live ShopifyQL path for the full range. Cached and live rows are never mixed silently.
 9. Adding Day or Week sets the report to daily resolution and reloads from ShopifyQL because the saved cache intentionally contains monthly facts only. Removing both allows a complete monthly range to use the fast source again.
 10. New Arrival Analysis remains unchanged until refreshed Product Audit results have been compared with ShopifyQL and approved.
+
+# Resumable analytics preparation flow
+
+1. Open the app and load the requested Product Audit or New Arrival report first.
+2. Read the store's actual 18-month coverage from PostgreSQL or the private file-cache manifest.
+3. If all 18 months have the required date coverage and cache version, stop; nothing is fetched again.
+4. Otherwise select the newest incomplete month and process only that one month.
+5. For an existing completed historical database month on cache version 0, fetch only landing sessions, completed-checkout sessions, and direct store sessions, then update those fields atomically.
+6. For the current month, a missing database month, an already-versioned but stale month, or any missing file-cache month, fetch the complete monthly datasets and save the month through the existing atomic pipeline.
+7. Recheck coverage, pause briefly, and continue with the next missing month while the app remains open.
+8. If the browser closes or a step fails, keep every completed month and resume from the next incomplete month when the app opens again.
+9. After all 18 months are complete, remove expired months and refresh IndexedDB for file-cache stores.
+
+# Automatic daily current-month refresh flow
+
+1. At 4:55 AM Asia/Kolkata, GitHub Actions calls the public `/health` endpoint to wake the sleeping Render free service.
+2. At 5:00 AM Asia/Kolkata, GitHub Actions calls the protected analytics cron endpoint. An hourly fallback remains for stores in other timezones and for delayed scheduled runs.
+3. The server checks active stores using each store's Shopify timezone and configured refresh hour, defaulting to 5:00 AM.
+4. A store is due only when today's refresh has not completed or its current-month source range does not reach the store's latest completed day.
+5. Each protected call selects one due store, restores its server-side Shopify offline session, and performs a fresh full current-month sync.
+6. Database mode atomically replaces that store-month; file-cache mode uploads a complete replacement month and then publishes the new manifest entry.
+7. The workflow calls again while more stores are due, up to the configured safety limit.
+8. Reports opened after the refresh can use already-prepared monthly data. Day and Week reports continue to fetch live ShopifyQL on request.
+
+# Render hosting and persistent Shopify-session flow
+
+1. Render builds the repository with the existing Dockerfile and starts the React Router server on `0.0.0.0:3000`.
+2. Render provides the public HTTPS `onrender.com` URL that becomes `SHOPIFY_APP_URL` and the Shopify app/redirect URL.
+3. A merchant opens or installs the Shopify app and Shopify sends the authenticated session to the server.
+4. The server saves the online/offline Shopify session in `audit_shopify_sessions` through the server-only Supabase service-role key.
+5. Render may sleep and discard its local SQLite/cache files, but the Shopify session remains in Supabase.
+6. On the next browser request, webhook, or scheduled refresh, the server wakes and loads the persistent Shopify session from Supabase.
+7. Render checks `/health` to confirm the container is accepting requests; this endpoint does not expose store data or secrets.
+8. GitHub Actions retries the protected daily-refresh endpoint during a cold start, then processes due stores using their persistent offline sessions.

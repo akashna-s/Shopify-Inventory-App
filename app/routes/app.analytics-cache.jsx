@@ -24,6 +24,9 @@ function publicManifest(manifest) {
       checksum: entry.checksum,
       compressedBytes: entry.compressedBytes,
       productRows: entry.productRows,
+      rangeStart: entry.rangeStart,
+      rangeEnd: entry.rangeEnd,
+      cacheSchemaVersion: entry.cacheSchemaVersion,
       updatedAt: entry.updatedAt,
     })),
   };

@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: audit-bot
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: main
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeployTrigger: "off"
+    maxShutdownDelaySeconds: 120
+    envVars:
+      - key: PORT
+        value: "3000"
+      - key: SHOPIFY_APP_URL
+        sync: false
+      - key: SHOPIFY_API_KEY
+        sync: false
+      - key: SHOPIFY_API_SECRET
+        sync: false
+      - key: SCOPES
+        value: read_orders,write_products,write_metaobjects,write_metaobject_definitions,read_reports,read_products,read_customer_events,read_customers,read_inventory
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: ANALYTICS_DATABASE_LIMIT_BYTES
+        value: "500000000"
+      - key: ANALYTICS_DATABASE_SOFT_LIMIT_PERCENT
+        value: "80"
+      - key: ANALYTICS_DATABASE_BASELINE_BYTES
+        value: "15000000"
+      - key: ANALYTICS_STORAGE_BUCKET
+        value: analytics-monthly-cache
+      - key: ANALYTICS_CRON_SECRET
+        sync: false
+      - key: ANALYTICS_DAILY_REFRESH_HOUR
+        value: "5"

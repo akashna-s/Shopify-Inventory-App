@@ -223,6 +223,38 @@ export async function replaceSupabaseStoreMonth({
   return writeCounts(result);
 }
 
+export async function upgradeSupabaseStoreMonthSessions({
+  storeId,
+  month,
+  rangeStart,
+  rangeEnd,
+  productSessions,
+  unmatchedLandingPages,
+  storeSessions,
+  refreshedAt,
+}) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before upgrading monthly sessions.");
+  }
+  if (!/^\d{4}-\d{2}-01$/.test(String(month))) {
+    throw new Error("A valid first-of-month date is required before upgrading monthly sessions.");
+  }
+  const result = await request("rpc/upgrade_audit_store_month_sessions_v1", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_month: month,
+      p_range_start: rangeStart,
+      p_range_end: rangeEnd,
+      p_product_sessions: productSessions || [],
+      p_unmatched_landing_pages: unmatchedLandingPages || [],
+      p_store_sessions: Number(storeSessions) || 0,
+      p_refreshed_at: refreshedAt || new Date().toISOString(),
+    }),
+  });
+  return writeCounts(result);
+}
+
 export async function readSupabaseProductAuditMonths(
   storeId,
   startMonth,

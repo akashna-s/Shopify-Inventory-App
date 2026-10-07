@@ -2181,6 +2181,14 @@ export default function NewArrivalAnalysisPage() {
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isNavigating = navigation.state !== "idle";
+  useEffect(() => {
+    window.__analyticsReportReady = true;
+    window.__analyticsInteractiveReportBusy = isNavigating;
+    if (!isNavigating) window.dispatchEvent(new Event("analytics-report-ready"));
+    return () => {
+      window.__analyticsInteractiveReportBusy = false;
+    };
+  }, [isNavigating]);
   const [tab, setTab] = useState("analysis");
   const [density, setDensity] = useState("comfortable");
   const [isMetricUpdating, setIsMetricUpdating] = useState(false);

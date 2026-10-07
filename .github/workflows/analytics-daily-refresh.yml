@@ -1,0 +1,72 @@
+name: Daily analytics warm-up and refresh
+
+on:
+  schedule:
+    # 04:55 Asia/Kolkata: wake Render before the India morning refresh.
+    - cron: "25 23 * * *"
+    # 05:00 Asia/Kolkata: run the India morning refresh.
+    - cron: "30 23 * * *"
+    # Keep checking hourly for stores whose own local 05:00 occurs later.
+    - cron: "15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  warm-render:
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '25 23 * * *' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Wake the Render free web service
+        env:
+          ANALYTICS_CRON_URL: ${{ secrets.ANALYTICS_CRON_URL }}
+        run: |
+          test -n "$ANALYTICS_CRON_URL"
+          health_url="${ANALYTICS_CRON_URL%/api/analytics-cron}/health"
+          healthy=""
+          for wake_attempt in $(seq 1 24); do
+            if curl --fail --silent --show-error --max-time 90 "$health_url" | jq -e '.status == "ok"' >/dev/null 2>&1; then
+              healthy="true"
+              echo "Render is awake and healthy for the 05:00 Asia/Kolkata refresh."
+              break
+            fi
+            echo "Waiting for the Render service to wake up (attempt $wake_attempt/24)..."
+            sleep 10
+          done
+          test "$healthy" = "true"
+
+  refresh:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule != '25 23 * * *' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Refresh stores whose local morning has started
+        env:
+          ANALYTICS_CRON_URL: ${{ secrets.ANALYTICS_CRON_URL }}
+          ANALYTICS_CRON_SECRET: ${{ secrets.ANALYTICS_CRON_SECRET }}
+        run: |
+          test -n "$ANALYTICS_CRON_URL"
+          test -n "$ANALYTICS_CRON_SECRET"
+          for attempt in $(seq 1 60); do
+            response=""
+            for wake_attempt in $(seq 1 12); do
+              candidate=$(curl --silent --show-error --max-time 90 \
+                --request POST \
+                --header "Authorization: Bearer $ANALYTICS_CRON_SECRET" \
+                --header "Accept: application/json" \
+                "$ANALYTICS_CRON_URL" || true)
+              if echo "$candidate" | jq -e 'type == "object" and has("processed")' >/dev/null 2>&1; then
+                response="$candidate"
+                break
+              fi
+              echo "Waiting for the web service to wake up (attempt $wake_attempt/12)..."
+              sleep 10
+            done
+            test -n "$response"
+            echo "$response"
+            processed=$(echo "$response" | jq -r '.processed // false')
+            remaining=$(echo "$response" | jq -r '.remainingDue // 0')
+            if [ "$processed" != "true" ] || [ "$remaining" = "0" ]; then
+              break
+            fi
+            sleep 5
+          done

@@ -1069,3 +1069,28 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Preserve one report adapter for both storage modes: database stores read through an authenticated store-scoped Supabase RPC, while file-cache stores read their private catalog and month files through the server.
 - Add completed-checkout sessions to the monthly product fact so the saved source can reproduce Product Audit's conversion metric without changing the existing formula.
 - Keep New Arrival Analysis on its existing live path until Product Audit figures have been validated on refreshed versioned data.
+
+# 2026-10-07 - Resumable preparation, selective upgrades, and daily refresh
+
+- Product Audit and New Arrival Analysis now receive first priority when the app opens. Saved-data preparation waits until the visible report finishes its initial load, instead of competing with that report immediately.
+- The initial 18-month preparation runs as 18 independent month steps from newest to oldest. A completed month remains complete, so closing the app or hitting a temporary Shopify error does not restart earlier months.
+- Readiness is calculated from actual month coverage and cache version, not merely from the status of the latest sync job.
+- Existing completed historical database months created before cache schema version 1 keep their inventory, sales, orders, currency, and metadata. They run a smaller selective upgrade that fetches only product landing/completed-checkout sessions and direct store sessions.
+- The current month always receives a complete refresh when its covered end date is old. This prevents newly arrived sales or inventory from being incorrectly marked complete after a session-only upgrade.
+- A month that does not exist still uses the complete five-dataset ShopifyQL fetch. File-cache months also use complete monthly files because they cannot be safely patched in place.
+- Once all required months are ready, normal 18-month retention cleanup runs. Product Audit keeps its safe ShopifyQL fallback whenever saved coverage is incomplete.
+- A protected `/api/analytics-cron` endpoint refreshes the current month after 5:00 AM in each store's own timezone. It processes one store per call to keep execution bounded and uses the same safe month-replacement pipeline.
+- GitHub Actions wakes the shared Render service at 4:55 AM Asia/Kolkata through `/health`, starts the India morning refresh at 5:00 AM, and keeps the hourly timezone-aware check for stores in other regions. The refresh still has cold-start retries as a fallback. It requires a deployed, reachable app plus `ANALYTICS_CRON_URL` and `ANALYTICS_CRON_SECRET` repository secrets; local `shopify app dev` alone cannot receive reliable unattended scheduled calls.
+- No report formula was changed. These changes alter when and how monthly source data is prepared, not the Product Audit or New Arrival calculations.
+
+# 2026-10-07 - Render Free hosting foundation
+
+- Use one Render Docker web service in Singapore so the app server is geographically close to the existing Supabase project in Seoul.
+- Keep Render stateless. Free Render files disappear on sleep, restart, or redeploy, so Shopify online/offline sessions are stored in the existing Supabase project instead of relying on local SQLite.
+- The Supabase session table is server-only: browser roles have no permissions, and only the service-role key can read access tokens.
+- Keep the existing local Prisma SQLite store as a temporary cache and one-time session migration fallback. Losing it can reduce cache speed but cannot remove the persistent Shopify login stored in Supabase.
+- Expose `/health` without Shopify authentication for Render deployment health checks.
+- Bind the container to `0.0.0.0:3000`, with Render configured to provide `PORT=3000`.
+- Disable Render automatic deployment. A GitHub commit does not change the live app until a deliberate manual deployment is approved.
+- Keep the GitHub Actions daily-refresh scheduler because Render cron jobs are not part of the free web-service plan. The workflow retries while a sleeping free service wakes up.
+- Render Free is suitable for development and early testing, but its idle sleep can make the first request take about a minute. A paid always-on service is recommended before Shopify review or a larger merchant rollout.

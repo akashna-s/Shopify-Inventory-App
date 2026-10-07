@@ -1,4 +1,4 @@
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Await, useLoaderData, useNavigation, useSearchParams } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
 import { authenticate } from "../shopify.server";
@@ -1061,6 +1061,14 @@ function ProductsAuditContent({ loaderData, isRefreshing }) {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
     const [isRebuilding, setIsRebuilding] = useState(false);
     const isReportBusy = isRefreshing || isRebuilding;
+    useEffect(() => {
+        window.__analyticsReportReady = true;
+        window.__analyticsInteractiveReportBusy = isReportBusy;
+        if (!isReportBusy) window.dispatchEvent(new Event("analytics-report-ready"));
+        return () => {
+            window.__analyticsInteractiveReportBusy = false;
+        };
+    }, [isReportBusy]);
     const pendingSearch = useNavigation().location?.search;
     const pendingParams = pendingSearch ? new URLSearchParams(pendingSearch) : null;
     const visibleStart = pendingParams?.get("start") || start;

@@ -130,6 +130,9 @@ export async function writeAnalyticsMonth(storeId, month, payload) {
     productRows: Array.isArray(value.productMetrics)
       ? value.productMetrics.length
       : 0,
+    rangeStart: value.rangeStart || null,
+    rangeEnd: value.rangeEnd || null,
+    cacheSchemaVersion: Number(value.cacheSchemaVersion) || SCHEMA_VERSION,
     updatedAt: new Date().toISOString(),
   };
 }
@@ -138,6 +141,29 @@ export async function removeAnalyticsMonths(storeId, months) {
   const paths = analyticsFilePaths(storeId);
   const normalized = [...new Set(months.map(monthValue))];
   await removeAnalyticsObjects(normalized.map((month) => paths.month(month)));
+}
+
+export async function pruneAnalyticsFileMonths(storeId, retainedMonths) {
+  const manifest = await readAnalyticsManifest(storeId);
+  if (!manifest) return { removedMonths: [], rowsDeleted: 0 };
+  const retained = new Set(retainedMonths.map(monthValue));
+  const expired = (manifest.months || []).filter(
+    (entry) => !retained.has(entry.month),
+  );
+  if (!expired.length) return { removedMonths: [], rowsDeleted: 0 };
+  await removeAnalyticsMonths(storeId, expired.map((entry) => entry.month));
+  await writeAnalyticsManifest(storeId, {
+    ...manifest,
+    generatedAt: new Date().toISOString(),
+    months: (manifest.months || []).filter((entry) => retained.has(entry.month)),
+  });
+  return {
+    removedMonths: expired.map((entry) => entry.month),
+    rowsDeleted: expired.reduce(
+      (sum, entry) => sum + (Number(entry.productRows) || 0),
+      0,
+    ),
+  };
 }
 
 export const analyticsFileSchemaVersion = SCHEMA_VERSION;
