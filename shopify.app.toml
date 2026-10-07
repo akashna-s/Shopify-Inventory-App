@@ -2,7 +2,7 @@
 
 client_id = "2cc81a90aacb4aeff3c781380e807b1d"
 name = "SecondLook"
-application_url = "https://example.com"
+application_url = "https://secondlook-bu80.onrender.com"
 embedded = true
 
 [access_scopes]
@@ -53,7 +53,7 @@ api_version = "2026-10"
   topics = [ "products/delete" ]
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [ "https://secondlook-bu80.onrender.com/auth/callback" ]
 
 [build]
 automatically_update_urls_on_dev = true
