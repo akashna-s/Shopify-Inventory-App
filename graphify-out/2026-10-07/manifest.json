@@ -96,21 +96,21 @@
     "semantic_hash": ""
   },
   "app/routes/app.jsx": {
-    "mtime": 1791014504.4029286,
-    "seen": 1791014883.9408782,
-    "ast_hash": "f961eb812cc7bb05598cf257c017acfe",
+    "mtime": 1791351724.5828567,
+    "seen": 1791371176.917846,
+    "ast_hash": "10ac883cbc8591ea576c45a921a66d03",
     "semantic_hash": ""
   },
   "app/routes/app.new-arrivals.jsx": {
-    "mtime": 1790848790.5537963,
-    "seen": 1790848950.4352667,
-    "ast_hash": "fb8a1bd082462589c5e365ceb863eb95",
+    "mtime": 1791351732.9649954,
+    "seen": 1791371176.9178483,
+    "ast_hash": "26537cf47f4374f3799881ebf1d7ebff",
     "semantic_hash": ""
   },
   "app/routes/app.products.jsx": {
-    "mtime": 1791022904.194572,
-    "seen": 1791023657.113308,
-    "ast_hash": "ac599f0b12bf1de9356adcde3597a12d",
+    "mtime": 1791351728.8094354,
+    "seen": 1791371176.917851,
+    "ast_hash": "a2cbbc7a4b77e247197163193d6f9eed",
     "semantic_hash": ""
   },
   "app/routes/auth.$.jsx": {
@@ -144,9 +144,9 @@
     "semantic_hash": ""
   },
   "app/shopify.server.js": {
-    "mtime": 1784724566.4577544,
-    "seen": 1789537268.5140083,
-    "ast_hash": "35c4f13ac6e58b65ae6754d7c0553b44",
+    "mtime": 1791356408.4117324,
+    "seen": 1791371176.9199598,
+    "ast_hash": "c2d35f361d2a6d51a072af108ffc3ce3",
     "semantic_hash": ""
   },
   "app/shopifyql.server.js": {
@@ -156,9 +156,9 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1790595229.2050948,
-    "seen": 1790658112.5642388,
-    "ast_hash": "b1fd03dd1f7018ffe020a97ba010ce0a",
+    "mtime": 1791356425.626116,
+    "seen": 1791371176.9214995,
+    "ast_hash": "e8adafc0ad5dded194464bcd9069f848",
     "semantic_hash": ""
   },
   "tooling/convert-prd-to-pdf.cjs": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "vite.config.js": {
-    "mtime": 1784724566.4647772,
-    "seen": 1789537268.514027,
-    "ast_hash": "f24773437c0eb49048c9011bb75fc663",
+    "mtime": 1791356663.5648015,
+    "seen": 1791371176.9272797,
+    "ast_hash": "a2e2c0a16f3c26485c1ffdf9243bdfe7",
     "semantic_hash": ""
   },
   "CHANGELOG.md": {
@@ -198,15 +198,15 @@
     "semantic_hash": ""
   },
   "decision.md": {
-    "mtime": 1791014819.0116916,
-    "seen": 1791014883.957498,
-    "ast_hash": "d30930e4303fe5b5dd5c39481a18f16f",
+    "mtime": 1791371040.8482609,
+    "seen": 1791371176.9277143,
+    "ast_hash": "1bd2582a71535276c64fead41cef67ce",
     "semantic_hash": ""
   },
   "flow.md": {
-    "mtime": 1791014820.6790113,
-    "seen": 1791014883.957503,
-    "ast_hash": "0679ff03239f9eec2c4356298a8bc618",
+    "mtime": 1791371043.175802,
+    "seen": 1791371176.9277165,
+    "ast_hash": "8c69e458ca58cb4c8fb5e76af6968f14",
     "semantic_hash": ""
   },
   "pnpm-workspace.yaml": {
@@ -222,21 +222,21 @@
     "semantic_hash": ""
   },
   "app/routes/app.analytics-sync.jsx": {
-    "mtime": 1791012174.6573007,
-    "seen": 1791012876.9916472,
-    "ast_hash": "0b5c67ea5ec7cc6c8e63c2906ba9e240",
+    "mtime": 1791351645.4783213,
+    "seen": 1791371176.917843,
+    "ast_hash": "6d041f0da13cb9b834396f7b5a12014c",
     "semantic_hash": ""
   },
   "app/shopify-supabase-sync.server.js": {
-    "mtime": 1791014176.9495575,
-    "seen": 1791014883.9444404,
-    "ast_hash": "42901af8f8643354f60367c973193aef",
+    "mtime": 1791353078.8913617,
+    "seen": 1791371176.9199545,
+    "ast_hash": "b5247db138804fcf7720d6995b131ae6",
     "semantic_hash": ""
   },
   "app/supabase-analytics.server.js": {
-    "mtime": 1791014209.592248,
-    "seen": 1791014883.9464128,
-    "ast_hash": "a4e8bd857d4781d10ab87fd50ba51ccf",
+    "mtime": 1791351551.772293,
+    "seen": 1791371176.9206932,
+    "ast_hash": "a672132fe862daf3e07b77099a6348ac",
     "semantic_hash": ""
   },
   "app/inventory-rules.server.js": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "app/store-analytics-access.server.js": {
-    "mtime": 1791014212.6936846,
-    "seen": 1791014883.945759,
-    "ast_hash": "b8a7e5ee256250c947d163244e7a3c66",
+    "mtime": 1791351554.7740855,
+    "seen": 1791371176.920317,
+    "ast_hash": "200c8e2eb866e0308911d9b8232d7d3e",
     "semantic_hash": ""
   },
   "tests/inventory-rules.test.js": {
@@ -408,21 +408,21 @@
     "semantic_hash": ""
   },
   "app/analytics-file-cache.server.js": {
-    "mtime": 1791011983.6293933,
-    "seen": 1791012876.981514,
-    "ast_hash": "b9764bd909cf4bca0c093a0e31213e50",
+    "mtime": 1791351820.6186318,
+    "seen": 1791371176.9137077,
+    "ast_hash": "66684fee825d312a340a70786ee9dbf5",
     "semantic_hash": ""
   },
   "app/routes/app.analytics-cache.jsx": {
-    "mtime": 1791012234.473664,
-    "seen": 1791012876.9911444,
-    "ast_hash": "732ee51c55a725fcf1534b8f2429dc82",
+    "mtime": 1791351571.2040284,
+    "seen": 1791371176.9176192,
+    "ast_hash": "16b4964c1f5baddb77449992e0e41227",
     "semantic_hash": ""
   },
   "app/shopify-file-cache-sync.server.js": {
-    "mtime": 1791014180.2295375,
-    "seen": 1791014883.9434195,
-    "ast_hash": "c46da4569a16ddd2dc411aab29dfcf48",
+    "mtime": 1791351636.4894085,
+    "seen": 1791371176.9192727,
+    "ast_hash": "2f7656957ad42c26d7a1c3f3df7d3558",
     "semantic_hash": ""
   },
   "app/supabase-storage.server.js": {
@@ -432,9 +432,9 @@
     "semantic_hash": ""
   },
   "scripts/apply-supabase-migration.mjs": {
-    "mtime": 1791014571.536538,
-    "seen": 1791014883.9484823,
-    "ast_hash": "c11c3ffb15d6ddc557343b7914079b0a",
+    "mtime": 1791352569.0161347,
+    "seen": 1791371176.921509,
+    "ast_hash": "02ec1bd7f84ad0b7eaf108354abe37e2",
     "semantic_hash": ""
   },
   "scripts/verify-analytics-storage.mjs": {
@@ -444,15 +444,15 @@
     "semantic_hash": ""
   },
   "tests/analytics-file-cache.test.js": {
-    "mtime": 1791014555.3532443,
-    "seen": 1791014883.949272,
-    "ast_hash": "1e79eaafa6910229f76bf6bf9b34ce6b",
+    "mtime": 1791351880.1842139,
+    "seen": 1791371176.9227793,
+    "ast_hash": "45b5fa2180b26eb04e2bbe451689574a",
     "semantic_hash": ""
   },
   "app/analytics-bootstrap.client.js": {
-    "mtime": 1791014502.2318623,
-    "seen": 1791014883.92984,
-    "ast_hash": "ab450d273f24b16717b9ce02706cd537",
+    "mtime": 1791351694.7934358,
+    "seen": 1791371176.9130912,
+    "ast_hash": "dc8c6f61477ccf4ffc0855ef87f87840",
     "semantic_hash": ""
   },
   "app/product-audit-monthly-source.server.js": {
@@ -477,6 +477,54 @@
     "mtime": 1791023589.4825883,
     "seen": 1791023657.134104,
     "ast_hash": "2f1c820fc6a32709c3aa6f3db40760d8",
+    "semantic_hash": ""
+  },
+  "app/analytics-daily-refresh.server.js": {
+    "mtime": 1791352107.7240574,
+    "seen": 1791371176.9137042,
+    "ast_hash": "ae725079ca8fd3d8f8d988dc7e6a1829",
+    "semantic_hash": ""
+  },
+  "app/routes/api.analytics-cron.jsx": {
+    "mtime": 1791352135.467617,
+    "seen": 1791371176.9171991,
+    "ast_hash": "0953652c68b7dccd79be5ecc7f4774b1",
+    "semantic_hash": ""
+  },
+  "app/routes/health.jsx": {
+    "mtime": 1791356412.3899887,
+    "seen": 1791371176.9184885,
+    "ast_hash": "16740006d6997e4e99ec853d03394eac",
+    "semantic_hash": ""
+  },
+  "app/supabase-session-storage.server.js": {
+    "mtime": 1791356398.5060077,
+    "seen": 1791371176.9207003,
+    "ast_hash": "7e7469bd1892e7061b352cb2975db05c",
+    "semantic_hash": ""
+  },
+  "tests/render-hosting.test.js": {
+    "mtime": 1791371038.429964,
+    "seen": 1791371176.9250998,
+    "ast_hash": "c768f523eacdcec9edcc16f480a50380",
+    "semantic_hash": ""
+  },
+  "tests/resumable-analytics-sync.test.js": {
+    "mtime": 1791371035.3793657,
+    "seen": 1791371176.9251027,
+    "ast_hash": "7326211c4d07b122a1f2e2299a6aae29",
+    "semantic_hash": ""
+  },
+  ".github/workflows/analytics-daily-refresh.yml": {
+    "mtime": 1791371033.4496956,
+    "seen": 1791371176.9272826,
+    "ast_hash": "12ae6487a0843584a74457d4c3da0200",
+    "semantic_hash": ""
+  },
+  "render.yaml": {
+    "mtime": 1791356416.648101,
+    "seen": 1791371176.9280267,
+    "ast_hash": "6c62dde29c350ae0f0f5db75af58326a",
     "semantic_hash": ""
   }
 }

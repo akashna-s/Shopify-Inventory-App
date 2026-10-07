@@ -1,4 +1,4 @@
-# Audit Bot — Decision Log
+# SecondLook — Decision Log
 
 > Is file ka purpose: project me har important technical decision ko simple Hinglish me record karna, taaki baad me pata rahe **kya badla, kyun badla, kya risk hai, aur problem aaye toh kya check/rollback karna hai**.
 
@@ -639,7 +639,7 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 
 # 2026-08-31 — Conversion-focused landing page and command center
 
-- Replaced the Shopify starter landing page with a purpose-built Audit Bot acquisition experience focused on inventory risk, product demand, cohort quality, and fast Shopify connection.
+- Replaced the Shopify starter landing page with a purpose-built SecondLook acquisition experience focused on inventory risk, product demand, cohort quality, and fast Shopify connection.
 - Avoided fabricated logos, testimonials, customer counts, and financial claims. Dashboard values are clearly part of a product interface preview rather than claimed merchant results.
 - Kept Shopify domain authentication as the primary conversion action and removed unnecessary navigation and form friction.
 - Replaced the embedded template home and its product-creation mutation with a read-only command center. Home now routes merchants to Product Audit, New Arrival Analysis, and Order Details.

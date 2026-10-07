@@ -50,7 +50,7 @@ export default function CommandCenter() {
       <aside className={styles.operatorNote}><div className={styles.noteIcon}><BrandMark /></div><span>OPERATOR PLAYBOOK</span><h2>Start with the money already trapped in your catalogue.</h2><p>Open Product Audit, sort by ending inventory, then compare sales and landing sessions. Products with high stock and weak demand are your fastest route to an actionable decision.</p><a href="/app/products">Find at-risk inventory <Arrow /></a></aside>
     </section>
 
-    <footer className={styles.footer}><span><BrandMark /> Audit Bot</span><p>Built for decisive Shopify operators.</p><div><i /> Systems operational</div></footer>
+    <footer className={styles.footer}><span><BrandMark /> SecondLook</span><p>Built for decisive Shopify operators.</p><div><i /> Systems operational</div></footer>
   </div></s-page>;
 }
 

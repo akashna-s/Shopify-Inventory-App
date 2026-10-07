@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "2cc81a90aacb4aeff3c781380e807b1d"
-name = "Audit Bot"
+name = "SecondLook"
 application_url = "https://example.com"
 embedded = true
 

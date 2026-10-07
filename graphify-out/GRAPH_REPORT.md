@@ -1,7 +1,7 @@
 # Graph Report - audit-bot  (2026-10-07)
 
 ## Corpus Check
-- 105 files · ~80,089 words
+- 105 files · ~80,078 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 16 file(s) not represented in the graph (top: (none) 7, .css 4, .toml 2)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `b112c75f`
+- Built from commit: `668caf4a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -20,7 +20,7 @@
 - shopify.server.js
 - app.products.jsx
 - package.json
-- Audit Bot — Product Audit Data Flow
+- SecondLook — Product Audit Data Flow
 - decision.md
 - flow.md
 - @shopify/shopify-app-template-remix
@@ -31,7 +31,7 @@
 - 2026-08-12 — Product catalog ke liye Bulk Operation + cache
 - scripts
 - dependencies
-- Audit Bot — Decision Log
+- SecondLook — Decision Log
 - compare-product-audit-sources.mjs
 - analytics-bootstrap.client.js
 - 2026-08-12 — Stale Prisma client ko automatically replace karna
@@ -74,8 +74,8 @@
 
 ## God Nodes (most connected - your core abstractions)
 1. `createAuthenticatedStoreAnalytics()` - 35 edges
-2. `Audit Bot — Decision Log` - 28 edges
-3. `Audit Bot — Product Audit Data Flow` - 27 edges
+2. `SecondLook — Decision Log` - 28 edges
+3. `SecondLook — Product Audit Data Flow` - 27 edges
 4. `shopifyIdText()` - 26 edges
 5. `syncLatest18MonthsToFileCache()` - 21 edges
 6. `syncLatest18MonthsToSupabase()` - 21 edges
@@ -117,9 +117,9 @@ Nodes (46): addSales(), createReport(), currencyScale(), emptySales(), hasExactC
 Cohesion: 0.07
 Nodes (28): author, name, private, trustedDependencies, type, workspaces, eslint, eslint-import-resolver-typescript (+20 more)
 
-### Community 4 - "Audit Bot — Product Audit Data Flow"
+### Community 4 - "SecondLook — Product Audit Data Flow"
 Cohesion: 0.05
-Nodes (40): Audit Bot — Product Audit Data Flow, Automatic ShopifyQL range recovery, Bulk failure fallback, Case A: fresh cache, Case B: stale cache, Case C: no cache, Configurable report builder flow, Current/recent period (+32 more)
+Nodes (40): Automatic ShopifyQL range recovery, Bulk failure fallback, Case A: fresh cache, Case B: stale cache, Case C: no cache, Configurable report builder flow, Current/recent period, Debug panel meaning (+32 more)
 
 ### Community 5 - "decision.md"
 Cohesion: 0.04
@@ -165,7 +165,7 @@ Nodes (18): scripts, build, config:link, config:use, deploy, dev, docker-start, 
 Cohesion: 0.12
 Nodes (17): dependencies, exceljs, isbot, prisma, @prisma/client, react, react-dom, react-router (+9 more)
 
-### Community 15 - "Audit Bot — Decision Log"
+### Community 15 - "SecondLook — Decision Log"
 Cohesion: 0.12
 Nodes (17): 2026-08-12 — Browser/table performance, 2026-08-13 cart-addition removal and reporting timing finding, 2026-08-13 — Configurable Product Audit report builder, 2026-08-13 — Product quantity sales metrics, 2026-08-13 — Purchases replaced by product Orders, 2026-08-13 — Sticky Product Audit table header and first column, 2026-08-13 — Top report toolbar placement, 2026-08-17 — ShopifyQL automatic date-range splitting correction (+9 more)
 

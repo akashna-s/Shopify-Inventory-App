@@ -1,5 +1,5 @@
 {
-  "name": "audit-bot",
+  "name": "secondlook",
   "private": true,
   "scripts": {
     "build": "react-router build",

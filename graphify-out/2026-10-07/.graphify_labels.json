@@ -16,7 +16,7 @@
   "14": "dependencies",
   "15": "Audit Bot — Decision Log",
   "16": "compare-product-audit-sources.mjs",
-  "17": "analytics-browser-cache.client.js",
+  "17": "analytics-bootstrap.client.js",
   "18": "2026-08-12 — Stale Prisma client ko automatically replace karna",
   "19": "2026-08-12 — Historical analytics cache",
   "20": "2026-08-17 — Shopify-style two-column report layout",
@@ -32,7 +32,7 @@
   "30": "2026-08-12 — Progressive loading and safer export",
   "31": "2026-08-12 — ShopifyQL row limit fix",
   "32": "shopify-dev-mcp",
-  "33": "analytics-file-cache.server.js",
+  "33": "shopify-file-cache-sync.server.js",
   "34": "2026-08-12 — Currency and inventory-date semantics",
   "35": "2026-08-17 — Metric totals inventory removal and unique Orders",
   "36": "app.additional.jsx",
@@ -53,5 +53,9 @@
   "51": "overrides",
   "52": "apply-supabase-migration.mjs",
   "53": "verify-product-audit-source.mjs",
-  "54": "product-catalog-cache.server.js"
+  "54": "shopifyIdText",
+  "55": "SupabaseSessionStorage",
+  "56": "DateRangePicker.jsx",
+  "57": "health.jsx",
+  "58": "render-hosting.test.js"
 }

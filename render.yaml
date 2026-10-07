@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: audit-bot
+    name: secondlook
     runtime: docker
     plan: free
     region: singapore
@@ -9,7 +9,6 @@ services:
     dockerContext: .
     healthCheckPath: /health
     autoDeployTrigger: "off"
-    maxShutdownDelaySeconds: 120
     envVars:
       - key: PORT
         value: "3000"

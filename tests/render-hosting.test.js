@@ -12,10 +12,12 @@ test("Render uses a stateless free web service with an unauthenticated health ch
     readFile(new URL("../vite.config.js", import.meta.url), "utf8"),
   ]);
   assert.match(blueprint, /runtime: docker/);
+  assert.match(blueprint, /name: secondlook/);
   assert.match(blueprint, /plan: free/);
   assert.match(blueprint, /region: singapore/);
   assert.match(blueprint, /healthCheckPath: \/health/);
   assert.match(blueprint, /autoDeployTrigger: "off"/);
+  assert.doesNotMatch(blueprint, /maxShutdownDelaySeconds/);
   assert.match(health, /status: "ok"/);
   assert.doesNotMatch(health, /authenticate/);
   assert.match(dockerfile, /ENV HOST=0\.0\.0\.0/);

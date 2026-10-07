@@ -1717,7 +1717,7 @@ async function exportCombinedWorkbook(report, metrics, currency, range, classifi
   const ExcelJSModule = await import("exceljs");
   const ExcelJS = ExcelJSModule.default || ExcelJSModule;
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "Audit Bot";
+  workbook.creator = "SecondLook";
   workbook.created = new Date();
 
   const analysisSheet = workbook.addWorksheet("New Arrival Analysis", { views: [{ state: "frozen", xSplit: 1, ySplit: 3 }] });

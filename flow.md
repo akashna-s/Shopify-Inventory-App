@@ -1,4 +1,4 @@
-# Audit Bot — Product Audit Data Flow
+# SecondLook — Product Audit Data Flow
 
 > Ye document `/app/products` page ka complete flow simple Hinglish me explain karta hai: user click se Shopify/database tak aur final table/export tak.
 
@@ -7,7 +7,7 @@
 System ke 4 main parts hain:
 
 1. **Browser/UI** — user date select karta hai aur table dekhta hai.
-2. **Audit Bot server** — requests coordinate aur data combine karta hai.
+2. **SecondLook server** — requests coordinate aur data combine karta hai.
 3. **Shopify** — products aur analytics deta hai.
 4. **Local database/cache** — repeat data save karke next load fast karta hai.
 
