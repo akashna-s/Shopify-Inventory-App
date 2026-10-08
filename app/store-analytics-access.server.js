@@ -10,6 +10,7 @@ import {
   replaceSupabaseProductTags,
   replaceSupabaseStoreMonth,
   readSupabaseProductAuditMonths,
+  readSupabaseNewArrivalMonths,
   selectSupabaseRows,
   updateSupabaseRows,
   upgradeSupabaseStoreMonthSessions,
@@ -159,6 +160,10 @@ export async function createAuthenticatedStoreAnalytics(session, {
 
     readProductAuditMonths(startMonth, endMonth) {
       return readSupabaseProductAuditMonths(storeId, startMonth, endMonth);
+    },
+
+    readNewArrivalMonths(startMonth, endMonth) {
+      return readSupabaseNewArrivalMonths(storeId, startMonth, endMonth);
     },
 
     async deleteExpiredMonths(retainFromMonth) {

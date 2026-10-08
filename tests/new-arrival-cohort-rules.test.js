@@ -51,6 +51,25 @@ test("first_day_in_inventory never changes New Arrival cohort assignment", () =>
   );
 });
 
+test("cohort details can be deferred for a smaller initial response", () => {
+  const report = generateNewArrivalReport(
+    [{
+      productId: "101",
+      period: "2026-03",
+      title: "Product 101",
+      productType: "Dress",
+      endingInventory: 1,
+      totalSales: 10,
+    }],
+    ["2026-03"],
+    { "2026-03": 10 },
+    "type",
+    { deferDetails: true },
+  );
+  assert.equal(report.details, null);
+  assert.equal(report.overall.grand["2026-03"].naSales, 10);
+});
+
 test("Product terminology keeps the existing New Arrival count and percentage calculations", () => {
   const report = generateNewArrivalReport(
     [

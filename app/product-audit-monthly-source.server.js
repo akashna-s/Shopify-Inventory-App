@@ -342,15 +342,38 @@ export async function loadProductAuditMonthlyReport({
   start,
   end,
   shopInfo,
+  analytics: providedAnalytics,
 }) {
   const months = requestedMonths(start, end);
   if (!months.length) return null;
-  const analytics = await createAuthenticatedStoreAnalytics(session);
+  const analytics =
+    providedAnalytics || (await createAuthenticatedStoreAnalytics(session));
   if (!analytics) return null;
+  const resolvedShopInfo = {
+    shopUrl:
+      shopInfo?.shopUrl ||
+      (analytics.store.shop_domain
+        ? `https://${analytics.store.shop_domain}`
+        : ""),
+    shopCurrency:
+      shopInfo?.shopCurrency || analytics.store.currency_code || "USD",
+  };
   if (analytics.store.storage_mode === "file_cache") {
-    return loadFileCacheMonths(analytics, months, start, end, shopInfo);
+    return loadFileCacheMonths(
+      analytics,
+      months,
+      start,
+      end,
+      resolvedShopInfo,
+    );
   }
-  return loadDatabaseMonths(analytics, months, start, end, shopInfo);
+  return loadDatabaseMonths(
+    analytics,
+    months,
+    start,
+    end,
+    resolvedShopInfo,
+  );
 }
 
 export const productAuditCacheSchemaVersion = CACHE_SCHEMA_VERSION;

@@ -14,6 +14,7 @@ import { runWithAnalyticsCache } from "../analytics-cache.server";
 import { runShopifyQL } from "../shopifyql.server";
 import { generateNewArrivalReport } from "../new-arrival-engine.server";
 import { loadNewArrivalMonthlySource } from "../new-arrival-monthly-source.server";
+import { normalizeNewArrivalRange } from "../new-arrival-range.js";
 import DateRangePicker from "../components/DateRangePicker";
 import styles from "../styles/new-arrivals.css?url";
 import dateRangeStyles from "../styles/date-range-picker.css?url";
@@ -578,50 +579,6 @@ function numberFrom(row, key) {
   return Number(row?.[key]) || 0;
 }
 
-function normalizeRange(url, now = new Date()) {
-  const yesterdayDate = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() - 1,
-  );
-  const yesterday = dateString(yesterdayDate);
-  const currentMonth = monthString(yesterdayDate);
-  const earliestMonth = shiftMonth(currentMonth, -17);
-  const earliest = `${earliestMonth}-01`;
-  const classification =
-    url.searchParams.get("classification") === "tag" ? "tag" : "type";
-  const interval =
-    url.searchParams.get("interval") === "week" ? "week" : "month";
-  const currentWeekStart = new Date(`${startOfWeek(yesterday)}T00:00:00`);
-  currentWeekStart.setDate(currentWeekStart.getDate() - 5 * 7);
-  const defaultStart =
-    interval === "week"
-      ? dateString(currentWeekStart)
-      : `${shiftMonth(currentMonth, -14)}-01`;
-  const valid = (value) => /^\d{4}-\d{2}-\d{2}$/.test(value || "");
-  let start = valid(url.searchParams.get("start"))
-    ? url.searchParams.get("start")
-    : defaultStart;
-  let end = valid(url.searchParams.get("end"))
-    ? url.searchParams.get("end")
-    : yesterday;
-  start = start < earliest ? earliest : start > yesterday ? yesterday : start;
-  end = end > yesterday ? yesterday : end < earliest ? earliest : end;
-  if (start > end) [start, end] = [end, start];
-  return {
-    start,
-    end,
-    startMonth: start.slice(0, 7),
-    endMonth: end.slice(0, 7),
-    earliest,
-    earliestMonth,
-    currentMonth,
-    yesterday,
-    classification,
-    interval,
-  };
-}
-
 async function mapConcurrent(items, limit, worker) {
   const output = new Array(items.length);
   let next = 0;
@@ -853,14 +810,67 @@ async function fetchWeeklyPeriods(admin, shop, periods, range) {
 export const loader = async ({ request }) => {
   const { admin, session } = await authenticate.admin(request);
   const requestUrl = new URL(request.url);
-  const range = normalizeRange(requestUrl);
+  const range = normalizeNewArrivalRange(requestUrl);
   const categoryOnly = requestUrl.searchParams.get("categoryOnly") || "";
+  const detailsOnly = requestUrl.searchParams.get("detailsOnly") === "1";
   const exportAll = requestUrl.searchParams.get("exportAll") === "1";
   const months =
     range.interval === "week"
       ? weeksBetween(range.start, range.end)
       : monthsBetween(range.startMonth, range.endMonth);
-  const shopPromise = admin
+  if (range.interval === "month") {
+    const sourceStartedAt = performance.now();
+    const saved = await loadNewArrivalMonthlySource({
+      session,
+      start: range.start,
+      end: range.end,
+    });
+    if (saved) {
+      const sourceElapsedMs = Math.round(performance.now() - sourceStartedAt);
+      const reportStartedAt = performance.now();
+      const report = generateNewArrivalReport(
+        saved.sourceRows,
+        months,
+        saved.monthlyStoreSales,
+        range.classification,
+        {
+          categoryOnly,
+          deferCategories: !categoryOnly && !exportAll,
+          deferDetails: categoryOnly || (!detailsOnly && !exportAll),
+          firstCohortProductIds: saved.firstCohortProductIds,
+        },
+      );
+      if (categoryOnly) return { category: report };
+      if (detailsOnly) return { details: report.details, range };
+      const reportElapsedMs = Math.round(performance.now() - reportStartedAt);
+      return {
+        report,
+        currency: saved.currency || "USD",
+        range,
+        warnings: [],
+        debug: months
+          .map((month) => ({
+            month,
+            label: "Saved monthly analytics",
+            rows: saved.sourceRows.filter((row) => row.period === month).length,
+            cache: saved.dataSource,
+            attempts: 0,
+            time: 0,
+          }))
+          .concat({
+            month: `${range.start} to ${range.end}`,
+            label: "Saved data load and report build",
+            rows: saved.sourceRows.length,
+            cache: saved.cacheStatus || saved.dataSource,
+            attempts: 1,
+            time: sourceElapsedMs + reportElapsedMs,
+          }),
+        catalogSource: saved.dataSource,
+        catalogRefreshedAt: saved.refreshedAt,
+      };
+    }
+  }
+  const shopInfo = await admin
     .graphql(
       `#graphql
     query NewArrivalShop {
@@ -875,45 +885,6 @@ export const loader = async ({ request }) => {
       currency: json.data?.shop?.currencyCode || "USD",
       shopUrl: json.data?.shop?.primaryDomain?.url || "",
     }));
-  const shopInfo = await shopPromise;
-  if (range.interval === "month") {
-    const saved = await loadNewArrivalMonthlySource({
-      session,
-      start: range.start,
-      end: range.end,
-      shopInfo,
-    });
-    if (saved) {
-      const report = generateNewArrivalReport(
-        saved.sourceRows,
-        months,
-        saved.monthlyStoreSales,
-        range.classification,
-        {
-          categoryOnly,
-          deferCategories: !categoryOnly && !exportAll,
-          firstCohortProductIds: saved.firstCohortProductIds,
-        },
-      );
-      if (categoryOnly) return { category: report };
-      return {
-        report,
-        currency: saved.currency || shopInfo.currency,
-        range,
-        warnings: [],
-        debug: months.map((month) => ({
-          month,
-          label: "Saved monthly analytics",
-          rows: saved.sourceRows.filter((row) => row.period === month).length,
-          cache: saved.dataSource,
-          attempts: 0,
-          time: 0,
-        })),
-        catalogSource: saved.dataSource,
-        catalogRefreshedAt: saved.refreshedAt,
-      };
-    }
-  }
   const analyticsPromise =
     range.interval === "week"
       ? fetchWeeklyPeriods(admin, session.shop, months, range)
@@ -1116,10 +1087,12 @@ export const loader = async ({ request }) => {
     {
       categoryOnly,
       deferCategories: !categoryOnly && !exportAll,
+      deferDetails: categoryOnly || (!detailsOnly && !exportAll),
       firstCohortProductIds: firstCohortLookback.activeProductIds,
     },
   );
   if (categoryOnly) return { category: report };
+  if (detailsOnly) return { details: report.details, range };
   return {
     report,
     currency: shopInfo.currency,
@@ -2238,6 +2211,7 @@ export default function NewArrivalAnalysisPage() {
     () => new Set(defaultMetricOrder),
   );
   const analysisExportFetcher = useFetcher();
+  const detailsFetcher = useFetcher();
   const [pendingAnalysisExport, setPendingAnalysisExport] = useState("");
   const [isWorkbookBuilding, setIsWorkbookBuilding] = useState(false);
   const classificationLabel =
@@ -2314,6 +2288,21 @@ export default function NewArrivalAnalysisPage() {
     interval = range.interval,
   } = {}) =>
     `?start=${start}&end=${end}&classification=${classification}&interval=${interval}`;
+  const fetchedDetailsRange = detailsFetcher.data?.range;
+  const fetchedDetailsMatch =
+    fetchedDetailsRange?.start === range.start &&
+    fetchedDetailsRange?.end === range.end &&
+    fetchedDetailsRange?.interval === range.interval &&
+    fetchedDetailsRange?.classification === range.classification;
+  const detailRows =
+    report.details ||
+    (fetchedDetailsMatch ? detailsFetcher.data?.details : null);
+  const openDetails = () => {
+    setTab("details");
+    if (!detailRows && detailsFetcher.state === "idle") {
+      detailsFetcher.load(`${reportUrl()}&detailsOnly=1`);
+    }
+  };
   useEffect(() => {
     const exportedReport = analysisExportFetcher.data?.report;
     const exportedRange = analysisExportFetcher.data?.range;
@@ -2482,7 +2471,7 @@ export default function NewArrivalAnalysisPage() {
                 </button>
                 <button
                   className={tab === "details" ? "active" : ""}
-                  onClick={() => setTab("details")}
+                  onClick={openDetails}
                 >
                   Cohort Details
                 </button>
@@ -2556,9 +2545,9 @@ export default function NewArrivalAnalysisPage() {
                   ))}
                 </>
               )
-            ) : (
+            ) : detailRows ? (
               <Details
-                rows={report.details}
+                rows={detailRows}
                 months={report.months}
                 currency={currency}
                 density={density}
@@ -2572,6 +2561,8 @@ export default function NewArrivalAnalysisPage() {
                   analysisExportFetcher.state === "submitting"
                 }
               />
+            ) : (
+              <LoadingState title="Loading cohort details" />
             )}
           </>
         )}

@@ -279,6 +279,30 @@ export async function readSupabaseProductAuditMonths(
   });
 }
 
+export async function readSupabaseNewArrivalMonths(
+  storeId,
+  startMonth,
+  endMonth,
+) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before reading New Arrival months.");
+  }
+  if (
+    !/^\d{4}-\d{2}-01$/.test(String(startMonth)) ||
+    !/^\d{4}-\d{2}-01$/.test(String(endMonth))
+  ) {
+    throw new Error("Valid first-of-month dates are required before reading New Arrival months.");
+  }
+  return request("rpc/get_audit_new_arrival_month_report", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_start_month: startMonth,
+      p_end_month: endMonth,
+    }),
+  });
+}
+
 export async function deleteExpiredMonthlyMetrics(storeId, retainFromMonth) {
   if (storeId === undefined || storeId === null || storeId === "") {
     throw new Error("A store ID is required before deleting expired monthly metrics.");

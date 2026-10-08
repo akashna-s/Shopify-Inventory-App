@@ -3,6 +3,8 @@ import {
   Outlet,
   useFetcher,
   useLoaderData,
+  useLocation,
+  useNavigation,
   useRouteError,
 } from "react-router";
 import { boundary } from "@shopify/shopify-app-react-router/server";
@@ -10,6 +12,7 @@ import { AppProvider } from "@shopify/shopify-app-react-router/react";
 import { authenticate } from "../shopify.server";
 import { createAuthenticatedStoreAnalytics } from "../store-analytics-access.server.js";
 import { isSupabaseAnalyticsConfigured } from "../supabase-analytics.server.js";
+import { normalizeNewArrivalRange } from "../new-arrival-range.js";
 
 export const loader = async ({ request }) => {
   const { session } = await authenticate.admin(request);
@@ -39,8 +42,20 @@ export default function App() {
   const { apiKey, storageConfigured, storageAssigned, storageMode } = useLoaderData();
   const storageAssignment = useFetcher();
   const [analyticsBootstrap, setAnalyticsBootstrap] = useState(null);
+  const navigation = useNavigation();
+  const location = useLocation();
   const effectiveStorageMode =
     storageMode || storageAssignment.data?.storageMode || null;
+  const pendingPath = navigation.location?.pathname;
+  const showNewArrivalPending =
+    navigation.state !== "idle" &&
+    pendingPath === "/app/new-arrivals" &&
+    location.pathname !== pendingPath;
+  const pendingNewArrivalRange = showNewArrivalPending
+    ? normalizeNewArrivalRange(
+        `${pendingPath}${navigation.location?.search || ""}`,
+      )
+    : null;
 
   useEffect(() => {
     if (
@@ -114,8 +129,65 @@ export default function App() {
           {analyticsBootstrap.message}
         </div>
       )}
-      <Outlet />
+      {pendingNewArrivalRange ? (
+        <NewArrivalRoutePending range={pendingNewArrivalRange} />
+      ) : (
+        <Outlet />
+      )}
     </AppProvider>
+  );
+}
+
+// Loader data and navigation state are runtime-validated by React Router.
+// eslint-disable-next-line react/prop-types
+function NewArrivalRoutePending({ range }) {
+  const humanDate = (value) =>
+    new Date(`${value}T00:00:00`).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  return (
+    <s-page heading="New Arrival Analysis">
+      <div style={{ padding: "12px 16px" }}>
+        <section
+          style={{
+            padding: "20px",
+            border: "1px solid #e1e3e5",
+            borderRadius: "12px",
+            background: "#fff",
+          }}
+        >
+          <div style={{ color: "#616161", fontSize: "12px", fontWeight: 700 }}>
+            CUSTOM DATE RANGE
+          </div>
+          <strong style={{ display: "block", marginTop: "8px", fontSize: "18px" }}>
+            {/* eslint-disable-next-line react/prop-types */}
+            {humanDate(range.start)} – {humanDate(range.end)}
+          </strong>
+          <small style={{ display: "block", marginTop: "6px", color: "#616161" }}>
+            {/* eslint-disable-next-line react/prop-types */}
+            Available from {humanDate(range.earliest)} through yesterday
+          </small>
+        </section>
+        <section
+          role="status"
+          aria-live="polite"
+          style={{
+            minHeight: "320px",
+            marginTop: "16px",
+            border: "1px solid #e1e3e5",
+            borderRadius: "12px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#4a4a4a",
+          }}
+        >
+          Loading New Arrival report…
+        </section>
+      </div>
+    </s-page>
   );
 }
 

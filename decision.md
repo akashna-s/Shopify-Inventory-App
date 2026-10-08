@@ -1104,3 +1104,12 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Current catalogue title, type, tags, handle and image remain the report classification inputs. Stored historical metadata snapshots remain available for a future explicitly selected historical-classification mode.
 - July through September 2026 saved inputs and the May through June cohort lookback were reconciled against fresh ShopifyQL. There were zero relevant mismatches across 340,272 values. One unattributed May first-inventory date was intentionally absent because unattributed rows do not participate in product, inventory, conversion or cohort calculations.
 - Direct ShopifyQL store Total Sales matched the saved denominator exactly for July, August and September 2026.
+
+# 2026-10-08 - New Arrival first-load speed and stable pending range
+
+- Show the destination New Arrival shell as soon as navigation begins, using the same range normalizer as the server loader. The previous Product Audit date range must not remain visible while the New Arrival loader is pending.
+- Use a dedicated service-role-only Supabase function for New Arrival reads. It returns only current product metadata, tags, the six monthly facts used by the report, and store-month coverage/totals instead of Product Audit's wider payload.
+- Keep title, product type, and handle snapshots stored in the database, but do not transfer them for the current-classification New Arrival report. This preserves the approved report behavior and leaves snapshots available for a future historical-classification mode.
+- Defer the large Cohort Details array until the merchant opens that tab. Category matrices and details reuse a five-minute, store-and-range-scoped server memory cache.
+- Benchmark on the 24,282-row default report reduced the Supabase payload from 14.5 MB to 5.3 MB, the saved-data read from about 6.2 seconds to about 4.0 seconds, and the initial report JSON from 2.9 MB to about 0.03 MB.
+- Full generated-report comparison confirmed identical overall matrices, category ordering, cohort details, and 4,003-product count between the compatible and optimized paths.

@@ -54,9 +54,9 @@
     "semantic_hash": ""
   },
   "app/new-arrival-engine.server.js": {
-    "mtime": 1790848788.646923,
-    "seen": 1790848950.433898,
-    "ast_hash": "cdedba7116980f741a8886a2f5029bf7",
+    "mtime": 1791437197.1539276,
+    "seen": 1791438045.8811471,
+    "ast_hash": "2479d564826cd870cda928c63a3003c2",
     "semantic_hash": ""
   },
   "app/product-catalog-cache.server.js": {
@@ -96,15 +96,15 @@
     "semantic_hash": ""
   },
   "app/routes/app.jsx": {
-    "mtime": 1791351724.5828567,
-    "seen": 1791371176.917846,
-    "ast_hash": "10ac883cbc8591ea576c45a921a66d03",
+    "mtime": 1791437381.633923,
+    "seen": 1791438045.886298,
+    "ast_hash": "2772a37337bb17b4d2f99e683ace0335",
     "semantic_hash": ""
   },
   "app/routes/app.new-arrivals.jsx": {
-    "mtime": 1791372425.2390957,
-    "seen": 1791372611.5542793,
-    "ast_hash": "320ae543f9f2b426469544e3650a6608",
+    "mtime": 1791437206.279913,
+    "seen": 1791438045.886301,
+    "ast_hash": "cf92c770f17ffef7924d437031882deb",
     "semantic_hash": ""
   },
   "app/routes/app.products.jsx": {
@@ -198,15 +198,15 @@
     "semantic_hash": ""
   },
   "decision.md": {
-    "mtime": 1791372432.8775105,
-    "seen": 1791372611.5761786,
-    "ast_hash": "d7a388bba92bad68f84fd5ce7abae7b6",
+    "mtime": 1791435887.101037,
+    "seen": 1791435926.3053694,
+    "ast_hash": "f9908cc623cf876132b743481536e888",
     "semantic_hash": ""
   },
   "flow.md": {
-    "mtime": 1791372435.6648016,
-    "seen": 1791372611.5761828,
-    "ast_hash": "f336498a5076cd8c91357d005ca318c5",
+    "mtime": 1791435887.3157806,
+    "seen": 1791435926.3053718,
+    "ast_hash": "a754ef3bd74bee05723f937fa090a3e8",
     "semantic_hash": ""
   },
   "pnpm-workspace.yaml": {
@@ -234,9 +234,9 @@
     "semantic_hash": ""
   },
   "app/supabase-analytics.server.js": {
-    "mtime": 1791351551.772293,
-    "seen": 1791371176.9206932,
-    "ast_hash": "a672132fe862daf3e07b77099a6348ac",
+    "mtime": 1791437679.0321264,
+    "seen": 1791438045.8929749,
+    "ast_hash": "1ce4378b0b91de1615504b755836ec34",
     "semantic_hash": ""
   },
   "app/inventory-rules.server.js": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "app/store-analytics-access.server.js": {
-    "mtime": 1791351554.7740855,
-    "seen": 1791371176.920317,
-    "ast_hash": "200c8e2eb866e0308911d9b8232d7d3e",
+    "mtime": 1791437678.6378405,
+    "seen": 1791438045.8925579,
+    "ast_hash": "799c1a0bf764d3341acc20ca380b35c7",
     "semantic_hash": ""
   },
   "tests/inventory-rules.test.js": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "tests/new-arrival-cohort-rules.test.js": {
-    "mtime": 1790848852.881443,
-    "seen": 1790848950.43849,
-    "ast_hash": "f8c4b37136bbd65ece294726dcfc1806",
+    "mtime": 1791437345.640008,
+    "seen": 1791438045.8994257,
+    "ast_hash": "d68827fb7fada5184a4879759387d70d",
     "semantic_hash": ""
   },
   "app/analytics-storage-routing.server.js": {
@@ -456,9 +456,9 @@
     "semantic_hash": ""
   },
   "app/product-audit-monthly-source.server.js": {
-    "mtime": 1791014315.0470538,
-    "seen": 1791014883.9360266,
-    "ast_hash": "4df066660689d8c1ca07e97e1dc383b0",
+    "mtime": 1791437237.822008,
+    "seen": 1791438045.8811572,
+    "ast_hash": "6ea0eca7d13cf8b544cc6ed454c280ca",
     "semantic_hash": ""
   },
   "scripts/verify-product-audit-source.mjs": {
@@ -525,6 +525,30 @@
     "mtime": 1791372415.7814536,
     "seen": 1791372611.5765114,
     "ast_hash": "6eee87d7ea6c04f2bd8ced35981ad0cc",
+    "semantic_hash": ""
+  },
+  "app/new-arrival-monthly-source.server.js": {
+    "mtime": 1791437736.8895626,
+    "seen": 1791438045.8811517,
+    "ast_hash": "13288c01e7be06e0de61f7134b40f3c9",
+    "semantic_hash": ""
+  },
+  "tests/new-arrival-monthly-source.test.js": {
+    "mtime": 1791437340.8782103,
+    "seen": 1791438045.8994281,
+    "ast_hash": "2cec788f09dd0764391d494316e61ee3",
+    "semantic_hash": ""
+  },
+  "app/new-arrival-range.js": {
+    "mtime": 1791437100.2300236,
+    "seen": 1791438045.8811543,
+    "ast_hash": "307f8314fccb6932ac1f17aefda76fda",
+    "semantic_hash": ""
+  },
+  "tests/new-arrival-range.test.js": {
+    "mtime": 1791437341.292895,
+    "seen": 1791438045.8994308,
+    "ast_hash": "39e46dbce96e8f973d7c4a773f28ac6d",
     "semantic_hash": ""
   }
 }

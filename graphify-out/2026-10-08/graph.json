@@ -9,8 +9,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community": 1,
+      "community_name": "shopify.server.js",
       "file_type": "code",
       "norm_label": "supabasesessionstorage",
       "source_file": "app/supabase-session-storage.server.js",
@@ -50,7 +50,7 @@
       "file_type": "code",
       "norm_label": "addanalysissection()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1660"
+      "source_location": "L1672"
     },
     {
       "id": "app_routes_app_new_arrivals_analysissections",
@@ -62,7 +62,7 @@
       "file_type": "code",
       "norm_label": "analysissections()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1550"
+      "source_location": "L1562"
     },
     {
       "id": "app_routes_app_new_arrivals_applyexcelnumberformat",
@@ -74,7 +74,7 @@
       "file_type": "code",
       "norm_label": "applyexcelnumberformat()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1654"
+      "source_location": "L1666"
     },
     {
       "id": "app_routes_app_new_arrivals_cohortlogicdrawer",
@@ -86,7 +86,7 @@
       "file_type": "code",
       "norm_label": "cohortlogicdrawer()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L334"
+      "source_location": "L336"
     },
     {
       "id": "app_routes_app_new_arrivals_csvcell",
@@ -98,7 +98,7 @@
       "file_type": "code",
       "norm_label": "csvcell()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1450"
+      "source_location": "L1462"
     },
     {
       "id": "app_routes_app_new_arrivals_custommetricselector",
@@ -110,7 +110,7 @@
       "file_type": "code",
       "norm_label": "custommetricselector()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L195"
+      "source_location": "L197"
     },
     {
       "id": "app_routes_app_new_arrivals_datestring",
@@ -122,7 +122,7 @@
       "file_type": "code",
       "norm_label": "datestring()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L512"
+      "source_location": "L514"
     },
     {
       "id": "app_routes_app_new_arrivals_detailexportrows",
@@ -134,7 +134,7 @@
       "file_type": "code",
       "norm_label": "detailexportrows()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1482"
+      "source_location": "L1494"
     },
     {
       "id": "app_routes_app_new_arrivals_details",
@@ -146,7 +146,7 @@
       "file_type": "code",
       "norm_label": "details()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1817"
+      "source_location": "L1829"
     },
     {
       "id": "app_routes_app_new_arrivals_display",
@@ -158,7 +158,7 @@
       "file_type": "code",
       "norm_label": "display()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1095"
+      "source_location": "L1107"
     },
     {
       "id": "app_routes_app_new_arrivals_downloadexport",
@@ -170,7 +170,7 @@
       "file_type": "code",
       "norm_label": "downloadexport()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1464"
+      "source_location": "L1476"
     },
     {
       "id": "app_routes_app_new_arrivals_enqueuecategoryload",
@@ -182,7 +182,7 @@
       "file_type": "code",
       "norm_label": "enqueuecategoryload()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L38"
+      "source_location": "L40"
     },
     {
       "id": "app_routes_app_new_arrivals_exportanalysis",
@@ -194,7 +194,7 @@
       "file_type": "code",
       "norm_label": "exportanalysis()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1560"
+      "source_location": "L1572"
     },
     {
       "id": "app_routes_app_new_arrivals_exportcombinedworkbook",
@@ -206,7 +206,7 @@
       "file_type": "code",
       "norm_label": "exportcombinedworkbook()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1716"
+      "source_location": "L1728"
     },
     {
       "id": "app_routes_app_new_arrivals_exportdetails",
@@ -218,7 +218,7 @@
       "file_type": "code",
       "norm_label": "exportdetails()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1499"
+      "source_location": "L1511"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchfirstcohortlookback",
@@ -230,7 +230,7 @@
       "file_type": "code",
       "norm_label": "fetchfirstcohortlookback()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L713"
+      "source_location": "L671"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchperiod",
@@ -242,7 +242,7 @@
       "file_type": "code",
       "norm_label": "fetchperiod()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L659"
+      "source_location": "L617"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchproductsbyids",
@@ -254,7 +254,7 @@
       "file_type": "code",
       "norm_label": "fetchproductsbyids()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L639"
+      "source_location": "L597"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchweekchunk",
@@ -266,7 +266,7 @@
       "file_type": "code",
       "norm_label": "fetchweekchunk()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L770"
+      "source_location": "L728"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchweeklyperiods",
@@ -278,7 +278,7 @@
       "file_type": "code",
       "norm_label": "fetchweeklyperiods()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L836"
+      "source_location": "L794"
     },
     {
       "id": "app_routes_app_new_arrivals_firstcohortlookbackbounds",
@@ -290,7 +290,7 @@
       "file_type": "code",
       "norm_label": "firstcohortlookbackbounds()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L703"
+      "source_location": "L661"
     },
     {
       "id": "app_routes_app_new_arrivals_headers",
@@ -302,7 +302,7 @@
       "file_type": "code",
       "norm_label": "headers()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2548"
+      "source_location": "L2578"
     },
     {
       "id": "app_routes_app_new_arrivals_heatclass",
@@ -314,7 +314,7 @@
       "file_type": "code",
       "norm_label": "heatclass()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1108"
+      "source_location": "L1120"
     },
     {
       "id": "app_routes_app_new_arrivals_lazycategorymatrix",
@@ -326,7 +326,7 @@
       "file_type": "code",
       "norm_label": "lazycategorymatrix()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1362"
+      "source_location": "L1374"
     },
     {
       "id": "app_routes_app_new_arrivals_links",
@@ -338,7 +338,7 @@
       "file_type": "code",
       "norm_label": "links()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2544"
+      "source_location": "L2574"
     },
     {
       "id": "app_routes_app_new_arrivals_loader",
@@ -350,7 +350,7 @@
       "file_type": "code",
       "norm_label": "loader()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L852"
+      "source_location": "L810"
     },
     {
       "id": "app_routes_app_new_arrivals_loadingstate",
@@ -362,7 +362,7 @@
       "file_type": "code",
       "norm_label": "loadingstate()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1224"
+      "source_location": "L1236"
     },
     {
       "id": "app_routes_app_new_arrivals_mapconcurrent",
@@ -374,7 +374,7 @@
       "file_type": "code",
       "norm_label": "mapconcurrent()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L624"
+      "source_location": "L582"
     },
     {
       "id": "app_routes_app_new_arrivals_mapconcurrent_consume",
@@ -386,7 +386,7 @@
       "file_type": "code",
       "norm_label": "consume()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L627"
+      "source_location": "L585"
     },
     {
       "id": "app_routes_app_new_arrivals_matchesproducttitle",
@@ -398,7 +398,7 @@
       "file_type": "code",
       "norm_label": "matchesproducttitle()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1799"
+      "source_location": "L1811"
     },
     {
       "id": "app_routes_app_new_arrivals_matrix",
@@ -410,7 +410,7 @@
       "file_type": "code",
       "norm_label": "matrix()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1236"
+      "source_location": "L1248"
     },
     {
       "id": "app_routes_app_new_arrivals_metrictooltip",
@@ -422,7 +422,7 @@
       "file_type": "code",
       "norm_label": "metrictooltip()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L281"
+      "source_location": "L283"
     },
     {
       "id": "app_routes_app_new_arrivals_metricvalue",
@@ -434,7 +434,7 @@
       "file_type": "code",
       "norm_label": "metricvalue()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1125"
+      "source_location": "L1137"
     },
     {
       "id": "app_routes_app_new_arrivals_monthbounds",
@@ -446,7 +446,7 @@
       "file_type": "code",
       "norm_label": "monthbounds()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L561"
+      "source_location": "L563"
     },
     {
       "id": "app_routes_app_new_arrivals_monthlabel",
@@ -458,7 +458,7 @@
       "file_type": "code",
       "norm_label": "monthlabel()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L515"
+      "source_location": "L517"
     },
     {
       "id": "app_routes_app_new_arrivals_monthsbetween",
@@ -470,7 +470,7 @@
       "file_type": "code",
       "norm_label": "monthsbetween()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L555"
+      "source_location": "L557"
     },
     {
       "id": "app_routes_app_new_arrivals_monthstring",
@@ -482,7 +482,7 @@
       "file_type": "code",
       "norm_label": "monthstring()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L514"
+      "source_location": "L516"
     },
     {
       "id": "app_routes_app_new_arrivals_newarrivalanalysispage",
@@ -494,7 +494,7 @@
       "file_type": "code",
       "norm_label": "newarrivalanalysispage()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2171"
+      "source_location": "L2183"
     },
     {
       "id": "app_routes_app_new_arrivals_normalizeproductsearch",
@@ -506,19 +506,7 @@
       "file_type": "code",
       "norm_label": "normalizeproductsearch()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1791"
-    },
-    {
-      "id": "app_routes_app_new_arrivals_normalizerange",
-      "label": "normalizeRange()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "app.new-arrivals.jsx",
-      "file_type": "code",
-      "norm_label": "normalizerange()",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L580"
+      "source_location": "L1803"
     },
     {
       "id": "app_routes_app_new_arrivals_numberfrom",
@@ -530,7 +518,7 @@
       "file_type": "code",
       "norm_label": "numberfrom()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L576"
+      "source_location": "L578"
     },
     {
       "id": "app_routes_app_new_arrivals_producthandlefromquery",
@@ -542,7 +530,7 @@
       "file_type": "code",
       "norm_label": "producthandlefromquery()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1807"
+      "source_location": "L1819"
     },
     {
       "id": "app_routes_app_new_arrivals_producthovercard",
@@ -554,7 +542,7 @@
       "file_type": "code",
       "norm_label": "producthovercard()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1135"
+      "source_location": "L1147"
     },
     {
       "id": "app_routes_app_new_arrivals_runcategoryqueue",
@@ -566,7 +554,7 @@
       "file_type": "code",
       "norm_label": "runcategoryqueue()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L27"
+      "source_location": "L29"
     },
     {
       "id": "app_routes_app_new_arrivals_shiftmonth",
@@ -578,7 +566,7 @@
       "file_type": "code",
       "norm_label": "shiftmonth()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L551"
+      "source_location": "L553"
     },
     {
       "id": "app_routes_app_new_arrivals_sliceweeklyresult",
@@ -590,7 +578,7 @@
       "file_type": "code",
       "norm_label": "sliceweeklyresult()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L760"
+      "source_location": "L718"
     },
     {
       "id": "app_routes_app_new_arrivals_splitintochunks",
@@ -602,7 +590,7 @@
       "file_type": "code",
       "norm_label": "splitintochunks()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L748"
+      "source_location": "L706"
     },
     {
       "id": "app_routes_app_new_arrivals_startofweek",
@@ -614,7 +602,7 @@
       "file_type": "code",
       "norm_label": "startofweek()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L535"
+      "source_location": "L537"
     },
     {
       "id": "app_routes_app_new_arrivals_styleexcelcell",
@@ -626,7 +614,7 @@
       "file_type": "code",
       "norm_label": "styleexcelcell()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1645"
+      "source_location": "L1657"
     },
     {
       "id": "app_routes_app_new_arrivals_weekbounds",
@@ -638,7 +626,7 @@
       "file_type": "code",
       "norm_label": "weekbounds()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L569"
+      "source_location": "L571"
     },
     {
       "id": "app_routes_app_new_arrivals_weekkey",
@@ -650,7 +638,7 @@
       "file_type": "code",
       "norm_label": "weekkey()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L755"
+      "source_location": "L713"
     },
     {
       "id": "app_routes_app_new_arrivals_weeksbetween",
@@ -662,7 +650,7 @@
       "file_type": "code",
       "norm_label": "weeksbetween()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L541"
+      "source_location": "L543"
     },
     {
       "id": "app_routes_app_new_arrivals_xmlescape",
@@ -674,7 +662,7 @@
       "file_type": "code",
       "norm_label": "xmlescape()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1451"
+      "source_location": "L1463"
     },
     {
       "id": "app_shopifyql_server_retryable",
@@ -953,28 +941,148 @@
       "source_location": "L4"
     },
     {
-      "id": "scripts_run_targeted_analytics_sync_graphql",
-      "label": "graphql()",
+      "id": "app_supabase_session_storage_server_configuration",
+      "label": "configuration()",
       "_callable": true,
       "_origin": "ast",
       "community": 1,
       "community_name": "shopify.server.js",
       "file_type": "code",
-      "norm_label": "graphql()",
-      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "norm_label": "configuration()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "app_supabase_session_storage_server_isodate",
+      "label": "isoDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "isodate()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L33"
+    },
+    {
+      "id": "app_supabase_session_storage_server_request",
+      "label": "request()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "request()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "app_supabase_session_storage_server_rowsession",
+      "label": "rowSession()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "rowsession()",
+      "source_file": "app/supabase-session-storage.server.js",
       "source_location": "L64"
     },
     {
-      "id": "scripts_run_targeted_analytics_sync_parseenvironment",
-      "label": "parseEnvironment()",
+      "id": "app_supabase_session_storage_server_sessionrow",
+      "label": "sessionRow()",
       "_callable": true,
       "_origin": "ast",
       "community": 1,
       "community_name": "shopify.server.js",
       "file_type": "code",
-      "norm_label": "parseenvironment()",
-      "source_file": "scripts/run-targeted-analytics-sync.mjs",
-      "source_location": "L5"
+      "norm_label": "sessionrow()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L39"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L90"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_deletesession",
+      "label": ".deleteSession()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".deletesession()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L113"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_deletesessions",
+      "label": ".deleteSessions()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".deletesessions()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L122"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_findsessionsbyshop",
+      "label": ".findSessionsByShop()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".findsessionsbyshop()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L127"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_isready",
+      "label": ".isReady()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".isready()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L138"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_loadsession",
+      "label": ".loadSession()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".loadsession()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L103"
+    },
+    {
+      "id": "app_supabase_session_storage_server_supabasesessionstorage_storesession",
+      "label": ".storeSession()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": ".storesession()",
+      "source_file": "app/supabase-session-storage.server.js",
+      "source_location": "L94"
     },
     {
       "id": "scripts_compare_product_audit_sources_comparemetricmaps",
@@ -1150,7 +1258,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "bootstrapanalyticsdata()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1162,7 +1270,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "progressstatus()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1174,7 +1282,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "responsejson()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1186,7 +1294,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "runonestep()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1198,7 +1306,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "syncstatus()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1210,7 +1318,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "wait()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1222,7 +1330,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "waitforinteractivereportidle()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1234,7 +1342,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "waitforrunningsync()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1246,7 +1354,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "waitforvisiblereport()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1258,7 +1366,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "deleterecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1270,7 +1378,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "fetchjson()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1282,7 +1390,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "getrecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1294,7 +1402,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "mapconcurrent()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1306,7 +1414,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "consume()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1318,7 +1426,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "opendatabase()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1330,7 +1438,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "putrecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1342,7 +1450,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "readcachedanalyticsmonth()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1354,7 +1462,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "refreshanalyticsbrowsercache()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1366,11 +1474,131 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "requestresult()",
       "source_file": "app/analytics-browser-cache.client.js",
       "source_location": "L24"
+    },
+    {
+      "id": "app_new_arrival_range_datestring",
+      "label": "dateString()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "datestring()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_new_arrival_range_monthstring",
+      "label": "monthString()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "monthstring()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "app_new_arrival_range_normalizenewarrivalrange",
+      "label": "normalizeNewArrivalRange()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "normalizenewarrivalrange()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L22"
+    },
+    {
+      "id": "app_new_arrival_range_shiftmonth",
+      "label": "shiftMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "shiftmonth()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "app_new_arrival_range_startofweek",
+      "label": "startOfWeek()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "startofweek()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "app_routes_app_app",
+      "label": "App()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "app()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "app_routes_app_errorboundary",
+      "label": "ErrorBoundary()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "errorboundary()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L195"
+    },
+    {
+      "id": "app_routes_app_headers",
+      "label": "headers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "headers()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L199"
+    },
+    {
+      "id": "app_routes_app_loader",
+      "label": "loader()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "loader()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "app_routes_app_newarrivalroutepending",
+      "label": "NewArrivalRoutePending()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "newarrivalroutepending()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L143"
     },
     {
       "id": "app_product_audit_monthly_source_server_addsales",
@@ -1442,7 +1670,7 @@
       "file_type": "code",
       "norm_label": "loaddatabasemonths()",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L241"
+      "source_location": "L252"
     },
     {
       "id": "app_product_audit_monthly_source_server_loadfilecachemonths",
@@ -1454,7 +1682,7 @@
       "file_type": "code",
       "norm_label": "loadfilecachemonths()",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L274"
+      "source_location": "L301"
     },
     {
       "id": "app_product_audit_monthly_source_server_loadproductauditmonthlyreport",
@@ -1466,7 +1694,7 @@
       "file_type": "code",
       "norm_label": "loadproductauditmonthlyreport()",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L313"
+      "source_location": "L340"
     },
     {
       "id": "app_product_audit_monthly_source_server_monthend",
@@ -1539,6 +1767,78 @@
       "norm_label": "salesvalues()",
       "source_file": "app/product-audit-monthly-source.server.js",
       "source_location": "L97"
+    },
+    {
+      "id": "app_product_catalog_cache_server_fetchproductswithbulkoperation",
+      "label": "fetchProductsWithBulkOperation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "fetchproductswithbulkoperation()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L43"
+    },
+    {
+      "id": "app_product_catalog_cache_server_fetchproductswithpagination",
+      "label": "fetchProductsWithPagination()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "fetchproductswithpagination()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L12"
+    },
+    {
+      "id": "app_product_catalog_cache_server_getproductcatalog",
+      "label": "getProductCatalog()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "getproductcatalog()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L139"
+    },
+    {
+      "id": "app_product_catalog_cache_server_refreshcatalog",
+      "label": "refreshCatalog()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "refreshcatalog()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L103"
+    },
+    {
+      "id": "app_product_catalog_cache_server_startbackgroundrefresh",
+      "label": "startBackgroundRefresh()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "startbackgroundrefresh()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L131"
+    },
+    {
+      "id": "app_product_catalog_cache_server_wait",
+      "label": "wait()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "wait()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L8"
     },
     {
       "id": "app_routes_app_products_adjustday",
@@ -2489,100 +2789,40 @@
       "source_location": "L9"
     },
     {
-      "id": "app_analytics_storage_routing_server_projectedstorestoragebytes",
-      "label": "projectedStoreStorageBytes()",
+      "id": "app_landing_session_matcher_server_handlefromlandingpath",
+      "label": "handleFromLandingPath()",
       "_callable": true,
       "_origin": "ast",
       "community": 38,
       "community_name": "shopify-supabase-sync.server.js",
       "file_type": "code",
-      "norm_label": "projectedstorestoragebytes()",
-      "source_file": "app/analytics-storage-routing.server.js",
-      "source_location": "L12"
+      "norm_label": "handlefromlandingpath()",
+      "source_file": "app/landing-session-matcher.server.js",
+      "source_location": "L5"
     },
     {
-      "id": "app_product_catalog_cache_server_fetchproductswithbulkoperation",
-      "label": "fetchProductsWithBulkOperation()",
+      "id": "app_landing_session_matcher_server_matchlandingsessions",
+      "label": "matchLandingSessions()",
       "_callable": true,
       "_origin": "ast",
       "community": 38,
       "community_name": "shopify-supabase-sync.server.js",
       "file_type": "code",
-      "norm_label": "fetchproductswithbulkoperation()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L43"
+      "norm_label": "matchlandingsessions()",
+      "source_file": "app/landing-session-matcher.server.js",
+      "source_location": "L15"
     },
     {
-      "id": "app_product_catalog_cache_server_fetchproductswithpagination",
-      "label": "fetchProductsWithPagination()",
+      "id": "app_landing_session_matcher_server_number",
+      "label": "number()",
       "_callable": true,
       "_origin": "ast",
       "community": 38,
       "community_name": "shopify-supabase-sync.server.js",
       "file_type": "code",
-      "norm_label": "fetchproductswithpagination()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L12"
-    },
-    {
-      "id": "app_product_catalog_cache_server_getproductcatalog",
-      "label": "getProductCatalog()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "getproductcatalog()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L139"
-    },
-    {
-      "id": "app_product_catalog_cache_server_refreshcatalog",
-      "label": "refreshCatalog()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "refreshcatalog()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L103"
-    },
-    {
-      "id": "app_product_catalog_cache_server_refreshproductcatalog",
-      "label": "refreshProductCatalog()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "refreshproductcatalog()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L126"
-    },
-    {
-      "id": "app_product_catalog_cache_server_startbackgroundrefresh",
-      "label": "startBackgroundRefresh()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "startbackgroundrefresh()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L131"
-    },
-    {
-      "id": "app_product_catalog_cache_server_wait",
-      "label": "wait()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "wait()",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L8"
+      "norm_label": "number()",
+      "source_file": "app/landing-session-matcher.server.js",
+      "source_location": "L3"
     },
     {
       "id": "app_routes_api_analytics_cron_action",
@@ -2609,18 +2849,6 @@
       "source_location": "L9"
     },
     {
-      "id": "app_routes_app_analytics_storage_action",
-      "label": "action()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "action()",
-      "source_file": "app/routes/app.analytics-storage.jsx",
-      "source_location": "L5"
-    },
-    {
       "id": "app_routes_app_analytics_sync_action",
       "label": "action()",
       "_callable": true,
@@ -2643,30 +2871,6 @@
       "norm_label": "loader()",
       "source_file": "app/routes/app.analytics-sync.jsx",
       "source_location": "L9"
-    },
-    {
-      "id": "app_shopify_storage_assignment_server_ensureshopifystorestorageassignment",
-      "label": "ensureShopifyStoreStorageAssignment()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "ensureshopifystorestorageassignment()",
-      "source_file": "app/shopify-storage-assignment.server.js",
-      "source_location": "L20"
-    },
-    {
-      "id": "app_shopify_storage_assignment_server_fetchshopstorageinfo",
-      "label": "fetchShopStorageInfo()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "fetchshopstorageinfo()",
-      "source_file": "app/shopify-storage-assignment.server.js",
-      "source_location": "L6"
     },
     {
       "id": "app_shopify_supabase_sync_server_aggregateunattributedrows",
@@ -3101,52 +3305,40 @@
       "source_location": "L7"
     },
     {
-      "id": "app_routes_app_app",
-      "label": "App()",
+      "id": "app_analytics_storage_routing_server_projectedstorestoragebytes",
+      "label": "projectedStoreStorageBytes()",
       "_callable": true,
       "_origin": "ast",
       "community": 39,
       "community_name": "createAuthenticatedStoreAnalytics",
       "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L38"
+      "norm_label": "projectedstorestoragebytes()",
+      "source_file": "app/analytics-storage-routing.server.js",
+      "source_location": "L12"
     },
     {
-      "id": "app_routes_app_errorboundary",
-      "label": "ErrorBoundary()",
+      "id": "app_product_catalog_cache_server_refreshproductcatalog",
+      "label": "refreshProductCatalog()",
       "_callable": true,
       "_origin": "ast",
       "community": 39,
       "community_name": "createAuthenticatedStoreAnalytics",
       "file_type": "code",
-      "norm_label": "errorboundary()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L123"
+      "norm_label": "refreshproductcatalog()",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L126"
     },
     {
-      "id": "app_routes_app_headers",
-      "label": "headers()",
+      "id": "app_routes_app_analytics_storage_action",
+      "label": "action()",
       "_callable": true,
       "_origin": "ast",
       "community": 39,
       "community_name": "createAuthenticatedStoreAnalytics",
       "file_type": "code",
-      "norm_label": "headers()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L127"
-    },
-    {
-      "id": "app_routes_app_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "createAuthenticatedStoreAnalytics",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L14"
+      "norm_label": "action()",
+      "source_file": "app/routes/app.analytics-storage.jsx",
+      "source_location": "L5"
     },
     {
       "id": "app_routes_webhooks_products_delete_action",
@@ -3161,6 +3353,42 @@
       "source_location": "L5"
     },
     {
+      "id": "app_shopify_id_shopifyidtext",
+      "label": "shopifyIdText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "shopifyidtext()",
+      "source_file": "app/shopify-id.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "app_shopify_storage_assignment_server_ensureshopifystorestorageassignment",
+      "label": "ensureShopifyStoreStorageAssignment()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "ensureshopifystorestorageassignment()",
+      "source_file": "app/shopify-storage-assignment.server.js",
+      "source_location": "L20"
+    },
+    {
+      "id": "app_shopify_storage_assignment_server_fetchshopstorageinfo",
+      "label": "fetchShopStorageInfo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "fetchshopstorageinfo()",
+      "source_file": "app/shopify-storage-assignment.server.js",
+      "source_location": "L6"
+    },
+    {
       "id": "app_store_analytics_access_server_authenticatedshop",
       "label": "authenticatedShop()",
       "_callable": true,
@@ -3170,7 +3398,7 @@
       "file_type": "code",
       "norm_label": "authenticatedshop()",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L20"
+      "source_location": "L21"
     },
     {
       "id": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
@@ -3182,7 +3410,7 @@
       "file_type": "code",
       "norm_label": "createauthenticatedstoreanalytics()",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L36"
+      "source_location": "L37"
     },
     {
       "id": "app_store_analytics_access_server_scopedoptions",
@@ -3194,7 +3422,7 @@
       "file_type": "code",
       "norm_label": "scopedoptions()",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L26"
+      "source_location": "L27"
     },
     {
       "id": "app_supabase_analytics_server_assignsupabasestorestorage",
@@ -3230,7 +3458,7 @@
       "file_type": "code",
       "norm_label": "cleanupsupabaseorphanproducts()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L325"
+      "source_location": "L349"
     },
     {
       "id": "app_supabase_analytics_server_config",
@@ -3254,7 +3482,7 @@
       "file_type": "code",
       "norm_label": "deleteexpiredmonthlymetrics()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L282"
+      "source_location": "L306"
     },
     {
       "id": "app_supabase_analytics_server_deletesupabaserows",
@@ -3278,7 +3506,7 @@
       "file_type": "code",
       "norm_label": "ensuresupabaseunattributedproduct()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L335"
+      "source_location": "L359"
     },
     {
       "id": "app_supabase_analytics_server_insertsupabaserows",
@@ -3302,7 +3530,7 @@
       "file_type": "code",
       "norm_label": "marksupabaseproductdeleted()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L312"
+      "source_location": "L336"
     },
     {
       "id": "app_supabase_analytics_server_migratesupabasestorestoragemode",
@@ -3329,6 +3557,18 @@
       "source_location": "L37"
     },
     {
+      "id": "app_supabase_analytics_server_readsupabasenewarrivalmonths",
+      "label": "readSupabaseNewArrivalMonths()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "readsupabasenewarrivalmonths()",
+      "source_file": "app/supabase-analytics.server.js",
+      "source_location": "L282"
+    },
+    {
       "id": "app_supabase_analytics_server_readsupabaseproductauditmonths",
       "label": "readSupabaseProductAuditMonths()",
       "_callable": true,
@@ -3350,7 +3590,7 @@
       "file_type": "code",
       "norm_label": "reconcilesupabaseproductcatalog()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L300"
+      "source_location": "L324"
     },
     {
       "id": "app_supabase_analytics_server_reconcilesupabaseproducthandles",
@@ -3362,7 +3602,7 @@
       "file_type": "code",
       "norm_label": "reconcilesupabaseproducthandles()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L345"
+      "source_location": "L369"
     },
     {
       "id": "app_supabase_analytics_server_replacesupabaseproducttags",
@@ -3374,7 +3614,7 @@
       "file_type": "code",
       "norm_label": "replacesupabaseproducttags()",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L360"
+      "source_location": "L384"
     },
     {
       "id": "app_supabase_analytics_server_replacesupabasestoremonth",
@@ -3545,6 +3785,30 @@
       "source_location": "L4"
     },
     {
+      "id": "scripts_run_targeted_analytics_sync_graphql",
+      "label": "graphql()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "run-targeted-analytics-sync.mjs",
+      "file_type": "code",
+      "norm_label": "graphql()",
+      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "source_location": "L64"
+    },
+    {
+      "id": "scripts_run_targeted_analytics_sync_parseenvironment",
+      "label": "parseEnvironment()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "run-targeted-analytics-sync.mjs",
+      "file_type": "code",
+      "norm_label": "parseenvironment()",
+      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "source_location": "L5"
+    },
+    {
       "id": "scripts_apply_supabase_migration_applywithdirectconnection",
       "label": "applyWithDirectConnection()",
       "_callable": true,
@@ -3586,7 +3850,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "finitenumber()",
       "source_file": "app/inventory-rules.server.js",
@@ -3598,7 +3862,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "nonnegativeinventory()",
       "source_file": "app/inventory-rules.server.js",
@@ -3610,47 +3874,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "sumnonnegativeinventory()",
       "source_file": "app/inventory-rules.server.js",
       "source_location": "L14"
-    },
-    {
-      "id": "app_landing_session_matcher_server_handlefromlandingpath",
-      "label": "handleFromLandingPath()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "handlefromlandingpath()",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "app_landing_session_matcher_server_matchlandingsessions",
-      "label": "matchLandingSessions()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "matchlandingsessions()",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L15"
-    },
-    {
-      "id": "app_landing_session_matcher_server_number",
-      "label": "number()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "number()",
-      "source_file": "app/landing-session-matcher.server.js",
-      "source_location": "L3"
     },
     {
       "id": "app_new_arrival_engine_server_aggregateproductmonths",
@@ -3658,7 +3886,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "aggregateproductmonths()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3670,7 +3898,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "branddenominators()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3682,7 +3910,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "buildproductmaps()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3694,7 +3922,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "buildrecords()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3706,7 +3934,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "calculatematrix()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3718,7 +3946,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "calculateunattributedmatrix()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3730,7 +3958,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "generatenewarrivalreport()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3742,7 +3970,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "includeunattributedsales()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3754,7 +3982,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "monthlabel()",
       "source_file": "app/new-arrival-engine.server.js",
@@ -3766,23 +3994,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "number()",
       "source_file": "app/new-arrival-engine.server.js",
       "source_location": "L4"
-    },
-    {
-      "id": "app_shopify_id_shopifyidtext",
-      "label": "shopifyIdText()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "shopifyidtext()",
-      "source_file": "app/shopify-id.js",
-      "source_location": "L3"
     },
     {
       "id": "tests_new_arrival_cohort_rules_test_reportwithinventoryauditdate",
@@ -3790,155 +4006,167 @@
       "_callable": true,
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "reportwithinventoryauditdate()",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
       "source_location": "L9"
     },
     {
-      "id": "app_supabase_session_storage_server_configuration",
-      "label": "configuration()",
+      "id": "app_new_arrival_monthly_source_server_activeinlookback",
+      "label": "activeInLookback()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": "configuration()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L3"
+      "norm_label": "activeinlookback()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L82"
     },
     {
-      "id": "app_supabase_session_storage_server_isodate",
-      "label": "isoDate()",
+      "id": "app_new_arrival_monthly_source_server_currencyscale",
+      "label": "currencyScale()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": "isodate()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L33"
+      "norm_label": "currencyscale()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L70"
     },
     {
-      "id": "app_supabase_session_storage_server_request",
-      "label": "request()",
+      "id": "app_new_arrival_monthly_source_server_datestring",
+      "label": "dateString()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": "request()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L12"
+      "norm_label": "datestring()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L7"
     },
     {
-      "id": "app_supabase_session_storage_server_rowsession",
-      "label": "rowSession()",
+      "id": "app_new_arrival_monthly_source_server_hasexactcoverage",
+      "label": "hasExactCoverage()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": "rowsession()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L64"
+      "norm_label": "hasexactcoverage()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L49"
     },
     {
-      "id": "app_supabase_session_storage_server_sessionrow",
-      "label": "sessionRow()",
+      "id": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
+      "label": "loadNewArrivalMonthlySource()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": "sessionrow()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L39"
+      "norm_label": "loadnewarrivalmonthlysource()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L278"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_constructor",
-      "label": ".constructor()",
+      "id": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "label": "loadUncachedNewArrivalMonthlySource()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L90"
+      "norm_label": "loaduncachednewarrivalmonthlysource()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L223"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_deletesession",
-      "label": ".deleteSession()",
+      "id": "app_new_arrival_monthly_source_server_monthend",
+      "label": "monthEnd()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".deletesession()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L113"
+      "norm_label": "monthend()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L32"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_deletesessions",
-      "label": ".deleteSessions()",
+      "id": "app_new_arrival_monthly_source_server_newarrivallookbackbounds",
+      "label": "newArrivalLookbackBounds()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".deletesessions()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L122"
+      "norm_label": "newarrivallookbackbounds()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L17"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_findsessionsbyshop",
-      "label": ".findSessionsByShop()",
+      "id": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "label": "newArrivalSourceFromDatabaseReport()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".findsessionsbyshop()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L127"
+      "norm_label": "newarrivalsourcefromdatabasereport()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L140"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_isready",
-      "label": ".isReady()",
+      "id": "app_new_arrival_monthly_source_server_newarrivalsourcefrommonthlyreport",
+      "label": "newArrivalSourceFromMonthlyReport()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".isready()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L138"
+      "norm_label": "newarrivalsourcefrommonthlyreport()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L91"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_loadsession",
-      "label": ".loadSession()",
+      "id": "app_new_arrival_monthly_source_server_number",
+      "label": "number()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".loadsession()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L103"
+      "norm_label": "number()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L27"
     },
     {
-      "id": "app_supabase_session_storage_server_supabasesessionstorage_storesession",
-      "label": ".storeSession()",
+      "id": "app_new_arrival_monthly_source_server_requestedmonths",
+      "label": "requestedMonths()",
       "_callable": true,
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": ".storesession()",
-      "source_file": "app/supabase-session-storage.server.js",
-      "source_location": "L94"
+      "norm_label": "requestedmonths()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L37"
+    },
+    {
+      "id": "app_new_arrival_monthly_source_server_shiftmonth",
+      "label": "shiftMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 55,
+      "community_name": "new-arrival-monthly-source.server.js",
+      "file_type": "code",
+      "norm_label": "shiftmonth()",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L11"
     },
     {
       "id": "app_components_daterangepicker_asdate",
@@ -4234,7 +4462,7 @@
       "file_type": "code",
       "norm_label": "categoryloadqueue",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L25"
+      "source_location": "L27"
     },
     {
       "id": "app_routes_app_new_arrivals_detail_metrics",
@@ -4245,7 +4473,7 @@
       "file_type": "code",
       "norm_label": "detail_metrics",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L129"
+      "source_location": "L131"
     },
     {
       "id": "app_routes_app_new_arrivals_excel_colors",
@@ -4256,7 +4484,7 @@
       "file_type": "code",
       "norm_label": "excel_colors",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1639"
+      "source_location": "L1651"
     },
     {
       "id": "app_routes_app_new_arrivals_matrix_metrics",
@@ -4267,7 +4495,7 @@
       "file_type": "code",
       "norm_label": "matrix_metrics",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L47"
+      "source_location": "L49"
     },
     {
       "id": "app_shopifyql_server",
@@ -4523,37 +4751,15 @@
       "source_location": "L17"
     },
     {
-      "id": "scripts_run_targeted_analytics_sync",
-      "label": "run-targeted-analytics-sync.mjs",
+      "id": "app_supabase_session_storage_server",
+      "label": "supabase-session-storage.server.js",
       "_origin": "ast",
       "community": 1,
       "community_name": "shopify.server.js",
       "file_type": "code",
-      "norm_label": "run-targeted-analytics-sync.mjs",
-      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "norm_label": "supabase-session-storage.server.js",
+      "source_file": "app/supabase-session-storage.server.js",
       "source_location": "L1"
-    },
-    {
-      "id": "scripts_run_targeted_analytics_sync_baseurl",
-      "label": "baseUrl",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "baseurl",
-      "source_file": "scripts/run-targeted-analytics-sync.mjs",
-      "source_location": "L29"
-    },
-    {
-      "id": "scripts_run_targeted_analytics_sync_months",
-      "label": "months",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "months",
-      "source_file": "scripts/run-targeted-analytics-sync.mjs",
-      "source_location": "L24"
     },
     {
       "id": "ref_isbot",
@@ -4598,6 +4804,17 @@
       "norm_label": "@react-router/node",
       "source_file": "package.json",
       "source_location": "L31"
+    },
+    {
+      "id": "ref_shopify_shopify_api",
+      "label": "@shopify/shopify-api",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "shopify.server.js",
+      "file_type": "concept",
+      "norm_label": "@shopify/shopify-api",
+      "source_file": "package.json",
+      "source_location": "L34"
     },
     {
       "id": "ref_shopify_shopify_app_session_storage_prisma",
@@ -5556,6 +5773,18 @@
       "source_location": "L43"
     },
     {
+      "id": "decision_2026_08_12_browser_table_performance",
+      "label": "2026-08-12 \u2014 Browser/table performance",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "SecondLook \u2014 Decision Log",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2026-08-12 \u2014 browser/table performance",
+      "source_file": "decision.md",
+      "source_location": "L260"
+    },
+    {
       "id": "decision_2026_08_13_cart_addition_removal_and_reporting_timing_finding",
       "label": "2026-08-13 cart-addition removal and reporting timing finding",
       "_origin": "ast",
@@ -5698,6 +5927,30 @@
       "norm_label": "arrow design and layout stability correction",
       "source_file": "decision.md",
       "source_location": "L553"
+    },
+    {
+      "id": "decision_consequences_270",
+      "label": "Consequences",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "SecondLook \u2014 Decision Log",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "consequences",
+      "source_file": "decision.md",
+      "source_location": "L270"
+    },
+    {
+      "id": "decision_decisions",
+      "label": "Decisions",
+      "_origin": "ast",
+      "community": 15,
+      "community_name": "SecondLook \u2014 Decision Log",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "decisions",
+      "source_file": "decision.md",
+      "source_location": "L262"
     },
     {
       "id": "decision_is_file_ko_maintain_karne_ka_rule",
@@ -5849,7 +6102,7 @@
       "label": "analytics-bootstrap.client.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "analytics-bootstrap.client.js",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -5860,11 +6113,55 @@
       "label": "analytics-browser-cache.client.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "analytics-browser-cache.client.js",
       "source_file": "app/analytics-browser-cache.client.js",
       "source_location": "L1"
+    },
+    {
+      "id": "app_new_arrival_range",
+      "label": "new-arrival-range.js",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "new-arrival-range.js",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_app",
+      "label": "app.jsx",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "app.jsx",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_new_arrival_range_test",
+      "label": "new-arrival-range.test.js",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "new-arrival-range.test.js",
+      "source_file": "tests/new-arrival-range.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "concept",
+      "norm_label": "react",
+      "source_file": "package.json",
+      "source_location": "L40"
     },
     {
       "id": "decision_2026_08_12_stale_prisma_client_ko_automatically_replace_karna",
@@ -6090,7 +6387,29 @@
       "file_type": "code",
       "norm_label": "productauditcacheschemaversion",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L329"
+      "source_location": "L379"
+    },
+    {
+      "id": "app_product_catalog_cache_server",
+      "label": "product-catalog-cache.server.js",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "product-catalog-cache.server.js",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_product_catalog_cache_server_refreshesbyshop",
+      "label": "refreshesByShop",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "app.products.jsx",
+      "file_type": "code",
+      "norm_label": "refreshesbyshop",
+      "source_file": "app/product-catalog-cache.server.js",
+      "source_location": "L6"
     },
     {
       "id": "app_routes_app_products",
@@ -7516,26 +7835,15 @@
       "source_location": "L1"
     },
     {
-      "id": "app_product_catalog_cache_server",
-      "label": "product-catalog-cache.server.js",
+      "id": "app_landing_session_matcher_server",
+      "label": "landing-session-matcher.server.js",
       "_origin": "ast",
       "community": 38,
       "community_name": "shopify-supabase-sync.server.js",
       "file_type": "code",
-      "norm_label": "product-catalog-cache.server.js",
-      "source_file": "app/product-catalog-cache.server.js",
+      "norm_label": "landing-session-matcher.server.js",
+      "source_file": "app/landing-session-matcher.server.js",
       "source_location": "L1"
-    },
-    {
-      "id": "app_product_catalog_cache_server_refreshesbyshop",
-      "label": "refreshesByShop",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "refreshesbyshop",
-      "source_file": "app/product-catalog-cache.server.js",
-      "source_location": "L6"
     },
     {
       "id": "app_routes_api_analytics_cron",
@@ -7546,17 +7854,6 @@
       "file_type": "code",
       "norm_label": "api.analytics-cron.jsx",
       "source_file": "app/routes/api.analytics-cron.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_app_analytics_storage",
-      "label": "app.analytics-storage.jsx",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "app.analytics-storage.jsx",
-      "source_file": "app/routes/app.analytics-storage.jsx",
       "source_location": "L1"
     },
     {
@@ -7580,17 +7877,6 @@
       "norm_label": "unauthenticated",
       "source_file": "app/shopify.server.js",
       "source_location": "L38"
-    },
-    {
-      "id": "app_shopify_storage_assignment_server",
-      "label": "shopify-storage-assignment.server.js",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "shopify-storage-assignment.server.js",
-      "source_file": "app/shopify-storage-assignment.server.js",
-      "source_location": "L1"
     },
     {
       "id": "app_shopify_supabase_sync_server",
@@ -7634,6 +7920,17 @@
       "file_type": "code",
       "norm_label": "count_keys",
       "source_file": "app/sync-progress.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_landing_session_matcher_test",
+      "label": "landing-session-matcher.test.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "landing-session-matcher.test.js",
+      "source_file": "tests/landing-session-matcher.test.js",
       "source_location": "L1"
     },
     {
@@ -7692,14 +7989,14 @@
       "source_location": "L45"
     },
     {
-      "id": "app_routes_app",
-      "label": "app.jsx",
+      "id": "app_routes_app_analytics_storage",
+      "label": "app.analytics-storage.jsx",
       "_origin": "ast",
       "community": 39,
       "community_name": "createAuthenticatedStoreAnalytics",
       "file_type": "code",
-      "norm_label": "app.jsx",
-      "source_file": "app/routes/app.jsx",
+      "norm_label": "app.analytics-storage.jsx",
+      "source_file": "app/routes/app.analytics-storage.jsx",
       "source_location": "L1"
     },
     {
@@ -7711,6 +8008,28 @@
       "file_type": "code",
       "norm_label": "webhooks.products.delete.jsx",
       "source_file": "app/routes/webhooks.products.delete.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_id",
+      "label": "shopify-id.js",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "shopify-id.js",
+      "source_file": "app/shopify-id.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_storage_assignment_server",
+      "label": "shopify-storage-assignment.server.js",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "shopify-storage-assignment.server.js",
+      "source_file": "app/shopify-storage-assignment.server.js",
       "source_location": "L1"
     },
     {
@@ -7747,6 +8066,17 @@
       "source_location": "L1"
     },
     {
+      "id": "tests_shopify_id_test",
+      "label": "shopify-id.test.js",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "shopify-id.test.js",
+      "source_file": "tests/shopify-id.test.js",
+      "source_location": "L1"
+    },
+    {
       "id": "tests_store_analytics_access_test",
       "label": "store-analytics-access.test.js",
       "_origin": "ast",
@@ -7767,17 +8097,6 @@
       "norm_label": "supabase-retention.test.js",
       "source_file": "tests/supabase-retention.test.js",
       "source_location": "L1"
-    },
-    {
-      "id": "ref_react",
-      "label": "react",
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "createAuthenticatedStoreAnalytics",
-      "file_type": "concept",
-      "norm_label": "react",
-      "source_file": "package.json",
-      "source_location": "L40"
     },
     {
       "id": "flow_automatic_shopifyql_range_recovery",
@@ -8881,11 +9200,44 @@
       "source_location": "L46"
     },
     {
+      "id": "scripts_run_targeted_analytics_sync",
+      "label": "run-targeted-analytics-sync.mjs",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "run-targeted-analytics-sync.mjs",
+      "file_type": "code",
+      "norm_label": "run-targeted-analytics-sync.mjs",
+      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "source_location": "L1"
+    },
+    {
+      "id": "scripts_run_targeted_analytics_sync_baseurl",
+      "label": "baseUrl",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "run-targeted-analytics-sync.mjs",
+      "file_type": "code",
+      "norm_label": "baseurl",
+      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "source_location": "L29"
+    },
+    {
+      "id": "scripts_run_targeted_analytics_sync_months",
+      "label": "months",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "run-targeted-analytics-sync.mjs",
+      "file_type": "code",
+      "norm_label": "months",
+      "source_file": "scripts/run-targeted-analytics-sync.mjs",
+      "source_location": "L24"
+    },
+    {
       "id": "vite_config",
       "label": "vite.config.js",
       "_origin": "ast",
       "community": 48,
-      "community_name": "vite",
+      "community_name": "run-targeted-analytics-sync.mjs",
       "file_type": "code",
       "norm_label": "vite.config.js",
       "source_file": "vite.config.js",
@@ -8896,7 +9248,7 @@
       "label": "vite",
       "_origin": "ast",
       "community": 48,
-      "community_name": "vite",
+      "community_name": "run-targeted-analytics-sync.mjs",
       "file_type": "concept",
       "norm_label": "vite",
       "source_file": "package.json",
@@ -8907,7 +9259,7 @@
       "label": "vite-tsconfig-paths",
       "_origin": "ast",
       "community": 48,
-      "community_name": "vite",
+      "community_name": "run-targeted-analytics-sync.mjs",
       "file_type": "concept",
       "norm_label": "vite-tsconfig-paths",
       "source_file": "package.json",
@@ -9488,6 +9840,18 @@
       "source_location": "L1073"
     },
     {
+      "id": "decision_2026_10_08_new_arrival_monthly_saved_data_reads",
+      "label": "2026-10-08 - New Arrival monthly saved-data reads",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "decision.md",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2026-10-08 - new arrival monthly saved-data reads",
+      "source_file": "decision.md",
+      "source_location": "L1098"
+    },
+    {
       "id": "package_engines",
       "label": "engines",
       "_origin": "ast",
@@ -9613,21 +9977,10 @@
       "label": "inventory-rules.server.js",
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "inventory-rules.server.js",
       "source_file": "app/inventory-rules.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_landing_session_matcher_server",
-      "label": "landing-session-matcher.server.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "landing-session-matcher.server.js",
-      "source_file": "app/landing-session-matcher.server.js",
       "source_location": "L1"
     },
     {
@@ -9635,21 +9988,10 @@
       "label": "new-arrival-engine.server.js",
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "new-arrival-engine.server.js",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_shopify_id",
-      "label": "shopify-id.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "shopify-id.js",
-      "source_file": "app/shopify-id.js",
       "source_location": "L1"
     },
     {
@@ -9657,21 +9999,10 @@
       "label": "inventory-rules.test.js",
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "inventory-rules.test.js",
       "source_file": "tests/inventory-rules.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_landing_session_matcher_test",
-      "label": "landing-session-matcher.test.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "landing-session-matcher.test.js",
-      "source_file": "tests/landing-session-matcher.test.js",
       "source_location": "L1"
     },
     {
@@ -9679,21 +10010,10 @@
       "label": "new-arrival-cohort-rules.test.js",
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "new-arrival-cohort-rules.test.js",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_shopify_id_test",
-      "label": "shopify-id.test.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "shopifyIdText",
-      "file_type": "code",
-      "norm_label": "shopify-id.test.js",
-      "source_file": "tests/shopify-id.test.js",
       "source_location": "L1"
     },
     {
@@ -9701,33 +10021,44 @@
       "label": "unattributed-product.test.js",
       "_origin": "ast",
       "community": 54,
-      "community_name": "shopifyIdText",
+      "community_name": "new-arrival-engine.server.js",
       "file_type": "code",
       "norm_label": "unattributed-product.test.js",
       "source_file": "tests/unattributed-product.test.js",
       "source_location": "L1"
     },
     {
-      "id": "app_supabase_session_storage_server",
-      "label": "supabase-session-storage.server.js",
+      "id": "app_new_arrival_monthly_source_server",
+      "label": "new-arrival-monthly-source.server.js",
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
+      "community_name": "new-arrival-monthly-source.server.js",
       "file_type": "code",
-      "norm_label": "supabase-session-storage.server.js",
-      "source_file": "app/supabase-session-storage.server.js",
+      "norm_label": "new-arrival-monthly-source.server.js",
+      "source_file": "app/new-arrival-monthly-source.server.js",
       "source_location": "L1"
     },
     {
-      "id": "ref_shopify_shopify_api",
-      "label": "@shopify/shopify-api",
+      "id": "app_new_arrival_monthly_source_server_sourcecache",
+      "label": "sourceCache",
       "_origin": "ast",
       "community": 55,
-      "community_name": "SupabaseSessionStorage",
-      "file_type": "concept",
-      "norm_label": "@shopify/shopify-api",
-      "source_file": "package.json",
-      "source_location": "L34"
+      "community_name": "new-arrival-monthly-source.server.js",
+      "file_type": "code",
+      "norm_label": "sourcecache",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "tests_new_arrival_monthly_source_test",
+      "label": "new-arrival-monthly-source.test.js",
+      "_origin": "ast",
+      "community": 55,
+      "community_name": "new-arrival-monthly-source.server.js",
+      "file_type": "code",
+      "norm_label": "new-arrival-monthly-source.test.js",
+      "source_file": "tests/new-arrival-monthly-source.test.js",
+      "source_location": "L1"
     },
     {
       "id": "app_components_daterangepicker",
@@ -9783,42 +10114,6 @@
       "norm_label": "render-hosting.test.js",
       "source_file": "tests/render-hosting.test.js",
       "source_location": "L1"
-    },
-    {
-      "id": "decision_2026_08_12_browser_table_performance",
-      "label": "2026-08-12 \u2014 Browser/table performance",
-      "_origin": "ast",
-      "community": 59,
-      "community_name": "2026-08-12 \u2014 Browser/table performance",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2026-08-12 \u2014 browser/table performance",
-      "source_file": "decision.md",
-      "source_location": "L260"
-    },
-    {
-      "id": "decision_consequences_270",
-      "label": "Consequences",
-      "_origin": "ast",
-      "community": 59,
-      "community_name": "2026-08-12 \u2014 Browser/table performance",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "consequences",
-      "source_file": "decision.md",
-      "source_location": "L270"
-    },
-    {
-      "id": "decision_decisions",
-      "label": "Decisions",
-      "_origin": "ast",
-      "community": 59,
-      "community_name": "2026-08-12 \u2014 Browser/table performance",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "decisions",
-      "source_file": "decision.md",
-      "source_location": "L262"
     },
     {
       "id": "flow",
@@ -10166,7 +10461,7 @@
       "node_kind": "heading",
       "norm_label": "analytics storage assignment flow",
       "source_file": "flow.md",
-      "source_location": "L1011"
+      "source_location": "L1023"
     },
     {
       "id": "flow_atomic_tag_refresh",
@@ -10190,7 +10485,7 @@
       "node_kind": "heading",
       "norm_label": "automatic 18-month sync and product audit read flow",
       "source_file": "flow.md",
-      "source_location": "L1033"
+      "source_location": "L1045"
     },
     {
       "id": "flow_automatic_daily_current_month_refresh_flow",
@@ -10202,7 +10497,7 @@
       "node_kind": "heading",
       "norm_label": "automatic daily current-month refresh flow",
       "source_file": "flow.md",
-      "source_location": "L1058"
+      "source_location": "L1070"
     },
     {
       "id": "flow_clear_sync_progress_tracking",
@@ -10226,7 +10521,7 @@
       "node_kind": "heading",
       "norm_label": "file-cache monthly sync and browser cache flow",
       "source_file": "flow.md",
-      "source_location": "L1021"
+      "source_location": "L1033"
     },
     {
       "id": "flow_historical_handle_matching_for_supabase_monthly_sync",
@@ -10277,6 +10572,18 @@
       "source_location": "L527"
     },
     {
+      "id": "flow_new_arrival_monthly_saved_data_flow",
+      "label": "New Arrival monthly saved-data flow",
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "flow.md",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "new arrival monthly saved-data flow",
+      "source_file": "flow.md",
+      "source_location": "L1002"
+    },
+    {
       "id": "flow_new_arrival_product_count_terminology",
       "label": "New Arrival product-count terminology",
       "_origin": "ast",
@@ -10286,7 +10593,7 @@
       "node_kind": "heading",
       "norm_label": "new arrival product-count terminology",
       "source_file": "flow.md",
-      "source_location": "L1003"
+      "source_location": "L1015"
     },
     {
       "id": "flow_public_acquisition_and_in_app_activation_flow_2026_08_31",
@@ -10310,7 +10617,7 @@
       "node_kind": "heading",
       "norm_label": "render hosting and persistent shopify-session flow",
       "source_file": "flow.md",
-      "source_location": "L1069"
+      "source_location": "L1081"
     },
     {
       "id": "flow_resumable_analytics_preparation_flow",
@@ -10322,7 +10629,7 @@
       "node_kind": "heading",
       "norm_label": "resumable analytics preparation flow",
       "source_file": "flow.md",
-      "source_location": "L1046"
+      "source_location": "L1058"
     },
     {
       "id": "flow_shopify_id_text_flow",
@@ -12382,6 +12689,318 @@
       "weight": 1.0
     },
     {
+      "source": "app_new_arrival_monthly_source_server_activeinlookback",
+      "target": "app_new_arrival_monthly_source_server_number",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_hasexactcoverage",
+      "target": "app_new_arrival_monthly_source_server_requestedmonths",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_hasexactcoverage",
+      "target": "app_new_arrival_monthly_source_server_monthend",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
+      "target": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L294",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "target": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L229",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "target": "app_new_arrival_monthly_source_server_newarrivallookbackbounds",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L240",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L248",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "target": "app_product_audit_monthly_source_server_loadproductauditmonthlyreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L263",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefrommonthlyreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L271",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_monthend",
+      "target": "app_new_arrival_monthly_source_server_datestring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivallookbackbounds",
+      "target": "app_new_arrival_monthly_source_server_shiftmonth",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivallookbackbounds",
+      "target": "app_new_arrival_monthly_source_server_datestring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "target": "app_new_arrival_monthly_source_server_hasexactcoverage",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L144",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "target": "app_new_arrival_monthly_source_server_number",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L181",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "target": "app_new_arrival_monthly_source_server_currencyscale",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefrommonthlyreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L204",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_newarrivalsourcefrommonthlyreport",
+      "target": "app_new_arrival_monthly_source_server_activeinlookback",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L104",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_requestedmonths",
+      "target": "app_new_arrival_monthly_source_server_shiftmonth",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L42",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server_shiftmonth",
+      "target": "app_new_arrival_monthly_source_server_datestring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_monthstring",
+      "target": "app_new_arrival_range_datestring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_normalizenewarrivalrange",
+      "target": "app_new_arrival_range_datestring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_normalizenewarrivalrange",
+      "target": "app_new_arrival_range_monthstring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L33",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_normalizenewarrivalrange",
+      "target": "app_new_arrival_range_shiftmonth",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_normalizenewarrivalrange",
+      "target": "app_new_arrival_range_startofweek",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_shiftmonth",
+      "target": "app_new_arrival_range_monthstring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range_startofweek",
+      "target": "app_new_arrival_range_datestring",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L19",
+      "weight": 1.0
+    },
+    {
       "source": "app_product_audit_monthly_source_server_addsales",
       "target": "app_product_audit_monthly_source_server_emptysales",
       "relation": "calls",
@@ -12474,7 +13093,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L249",
+      "source_location": "L268",
       "weight": 1.0
     },
     {
@@ -12486,7 +13105,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L257",
+      "source_location": "L284",
       "weight": 1.0
     },
     {
@@ -12498,7 +13117,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L259",
+      "source_location": "L286",
       "weight": 1.0
     },
     {
@@ -12510,7 +13129,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L276",
+      "source_location": "L303",
       "weight": 1.0
     },
     {
@@ -12522,7 +13141,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L277",
+      "source_location": "L304",
       "weight": 1.0
     },
     {
@@ -12534,7 +13153,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L283",
+      "source_location": "L310",
       "weight": 1.0
     },
     {
@@ -12546,7 +13165,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L295",
+      "source_location": "L322",
       "weight": 1.0
     },
     {
@@ -12558,7 +13177,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L297",
+      "source_location": "L324",
       "weight": 1.0
     },
     {
@@ -12570,7 +13189,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L319",
+      "source_location": "L347",
       "weight": 1.0
     },
     {
@@ -12582,7 +13201,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L321",
+      "source_location": "L350",
       "weight": 1.0
     },
     {
@@ -12594,7 +13213,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L324",
+      "source_location": "L362",
       "weight": 1.0
     },
     {
@@ -12606,7 +13225,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L326",
+      "source_location": "L370",
       "weight": 1.0
     },
     {
@@ -12862,6 +13481,18 @@
       "weight": 1.0
     },
     {
+      "source": "app_routes_app_app",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
       "source": "app_routes_app_headers",
       "target": "app_routes_app_headers",
       "relation": "calls",
@@ -12870,7 +13501,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L128",
+      "source_location": "L200",
       "weight": 1.0
     },
     {
@@ -12894,7 +13525,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L16",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -12906,7 +13537,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L21",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -12918,7 +13549,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1665",
+      "source_location": "L1677",
       "weight": 1.0
     },
     {
@@ -12930,7 +13561,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1675",
+      "source_location": "L1687",
       "weight": 1.0
     },
     {
@@ -12942,7 +13573,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1699",
+      "source_location": "L1711",
       "weight": 1.0
     },
     {
@@ -12954,7 +13585,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1487",
+      "source_location": "L1499",
       "weight": 1.0
     },
     {
@@ -12966,7 +13597,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1492",
+      "source_location": "L1504",
       "weight": 1.0
     },
     {
@@ -12978,7 +13609,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1849",
+      "source_location": "L1861",
       "weight": 1.0
     },
     {
@@ -12990,7 +13621,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1850",
+      "source_location": "L1862",
       "weight": 1.0
     },
     {
@@ -13002,7 +13633,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1858",
+      "source_location": "L1870",
       "weight": 1.0
     },
     {
@@ -13014,7 +13645,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1937",
+      "source_location": "L1949",
       "weight": 1.0
     },
     {
@@ -13026,7 +13657,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1999",
+      "source_location": "L2011",
       "weight": 1.0
     },
     {
@@ -13038,7 +13669,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2116",
+      "source_location": "L2128",
       "weight": 1.0
     },
     {
@@ -13050,7 +13681,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2127",
+      "source_location": "L2139",
       "weight": 1.0
     },
     {
@@ -13062,24 +13693,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L42",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
       "source": "app_routes_app_new_arrivals_exportanalysis",
       "target": "app_routes_app_new_arrivals_monthlabel",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1567",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_exportanalysis",
-      "target": "app_routes_app_new_arrivals_display",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13091,6 +13710,18 @@
     },
     {
       "source": "app_routes_app_new_arrivals_exportanalysis",
+      "target": "app_routes_app_new_arrivals_display",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L1591",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_exportanalysis",
       "target": "app_routes_app_new_arrivals_xmlescape",
       "relation": "calls",
       "_origin": "ast",
@@ -13098,7 +13729,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1622",
+      "source_location": "L1634",
       "weight": 1.0
     },
     {
@@ -13110,7 +13741,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1636",
+      "source_location": "L1648",
       "weight": 1.0
     },
     {
@@ -13122,7 +13753,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1725",
+      "source_location": "L1737",
       "weight": 1.0
     },
     {
@@ -13134,7 +13765,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1726",
+      "source_location": "L1738",
       "weight": 1.0
     },
     {
@@ -13146,7 +13777,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1739",
+      "source_location": "L1751",
       "weight": 1.0
     },
     {
@@ -13158,7 +13789,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1744",
+      "source_location": "L1756",
       "weight": 1.0
     },
     {
@@ -13170,24 +13801,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1774",
+      "source_location": "L1786",
       "weight": 1.0
     },
     {
       "source": "app_routes_app_new_arrivals_exportdetails",
       "target": "app_routes_app_new_arrivals_monthlabel",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1507",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_exportdetails",
-      "target": "app_routes_app_new_arrivals_detailexportrows",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -13199,6 +13818,18 @@
     },
     {
       "source": "app_routes_app_new_arrivals_exportdetails",
+      "target": "app_routes_app_new_arrivals_detailexportrows",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L1531",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_exportdetails",
       "target": "app_routes_app_new_arrivals_xmlescape",
       "relation": "calls",
       "_origin": "ast",
@@ -13206,7 +13837,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1537",
+      "source_location": "L1549",
       "weight": 1.0
     },
     {
@@ -13218,7 +13849,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1547",
+      "source_location": "L1559",
       "weight": 1.0
     },
     {
@@ -13230,7 +13861,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L714",
+      "source_location": "L672",
       "weight": 1.0
     },
     {
@@ -13242,7 +13873,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L716",
+      "source_location": "L674",
       "weight": 1.0
     },
     {
@@ -13254,7 +13885,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L721",
+      "source_location": "L679",
       "weight": 1.0
     },
     {
@@ -13266,7 +13897,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L736",
+      "source_location": "L694",
       "weight": 1.0
     },
     {
@@ -13278,7 +13909,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L739",
+      "source_location": "L697",
       "weight": 1.0
     },
     {
@@ -13290,7 +13921,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L670",
+      "source_location": "L628",
       "weight": 1.0
     },
     {
@@ -13302,7 +13933,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L671",
+      "source_location": "L629",
       "weight": 1.0
     },
     {
@@ -13314,7 +13945,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L675",
+      "source_location": "L633",
       "weight": 1.0
     },
     {
@@ -13326,7 +13957,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L680",
+      "source_location": "L638",
       "weight": 1.0
     },
     {
@@ -13338,7 +13969,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L643",
+      "source_location": "L601",
       "weight": 1.0
     },
     {
@@ -13350,7 +13981,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L781",
+      "source_location": "L739",
       "weight": 1.0
     },
     {
@@ -13362,7 +13993,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L784",
+      "source_location": "L742",
       "weight": 1.0
     },
     {
@@ -13374,7 +14005,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L789",
+      "source_location": "L747",
       "weight": 1.0
     },
     {
@@ -13386,7 +14017,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L816",
+      "source_location": "L774",
       "weight": 1.0
     },
     {
@@ -13398,7 +14029,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L829",
+      "source_location": "L787",
       "weight": 1.0
     },
     {
@@ -13410,7 +14041,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L838",
+      "source_location": "L796",
       "weight": 1.0
     },
     {
@@ -13422,7 +14053,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L840",
+      "source_location": "L798",
       "weight": 1.0
     },
     {
@@ -13434,7 +14065,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L708",
+      "source_location": "L666",
       "weight": 1.0
     },
     {
@@ -13446,7 +14077,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L709",
+      "source_location": "L667",
       "weight": 1.0
     },
     {
@@ -13458,7 +14089,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2548",
+      "source_location": "L2578",
       "weight": 1.0
     },
     {
@@ -13470,31 +14101,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1382",
+      "source_location": "L1394",
       "weight": 1.0
     },
     {
       "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_new_arrival_engine_server_generatenewarrivalreport",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1072",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_normalizerange",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L855",
+      "source_location": "L813",
       "weight": 1.0
     },
     {
@@ -13506,7 +14125,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L860",
+      "source_location": "L819",
       "weight": 1.0
     },
     {
@@ -13518,7 +14137,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L861",
+      "source_location": "L820",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L823",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_new_arrival_engine_server_generatenewarrivalreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L831",
       "weight": 1.0
     },
     {
@@ -13530,7 +14173,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L879",
+      "source_location": "L890",
       "weight": 1.0
     },
     {
@@ -13542,7 +14185,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L880",
+      "source_location": "L891",
       "weight": 1.0
     },
     {
@@ -13554,7 +14197,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L881",
+      "source_location": "L892",
       "weight": 1.0
     },
     {
@@ -13566,7 +14209,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L891",
+      "source_location": "L902",
       "weight": 1.0
     },
     {
@@ -13578,7 +14221,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L897",
+      "source_location": "L908",
       "weight": 1.0
     },
     {
@@ -13590,7 +14233,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L903",
+      "source_location": "L913",
       "weight": 1.0
     },
     {
@@ -13602,7 +14245,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L921",
+      "source_location": "L931",
       "weight": 1.0
     },
     {
@@ -13614,7 +14257,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L982",
+      "source_location": "L992",
       "weight": 1.0
     },
     {
@@ -13626,7 +14269,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1800",
+      "source_location": "L1812",
       "weight": 1.0
     },
     {
@@ -13638,7 +14281,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1261",
+      "source_location": "L1273",
       "weight": 1.0
     },
     {
@@ -13650,7 +14293,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1292",
+      "source_location": "L1304",
       "weight": 1.0
     },
     {
@@ -13662,7 +14305,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1132",
+      "source_location": "L1144",
       "weight": 1.0
     },
     {
@@ -13674,7 +14317,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L563",
+      "source_location": "L565",
       "weight": 1.0
     },
     {
@@ -13686,7 +14329,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L557",
+      "source_location": "L559",
       "weight": 1.0
     },
     {
@@ -13698,7 +14341,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L514",
+      "source_location": "L516",
       "weight": 1.0
     },
     {
@@ -13710,7 +14353,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2260",
+      "source_location": "L2273",
       "weight": 1.0
     },
     {
@@ -13722,7 +14365,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2262",
+      "source_location": "L2275",
       "weight": 1.0
     },
     {
@@ -13734,7 +14377,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2296",
+      "source_location": "L2324",
       "weight": 1.0
     },
     {
@@ -13746,7 +14389,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2310",
+      "source_location": "L2338",
       "weight": 1.0
     },
     {
@@ -13758,55 +14401,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2311",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_normalizerange",
-      "target": "app_routes_app_new_arrivals_datestring",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L586",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_normalizerange",
-      "target": "app_routes_app_new_arrivals_monthstring",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L587",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_normalizerange",
-      "target": "app_routes_app_new_arrivals_shiftmonth",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L588",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_normalizerange",
-      "target": "app_routes_app_new_arrivals_startofweek",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L594",
+      "source_location": "L2339",
       "weight": 1.0
     },
     {
@@ -13818,7 +14413,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1811",
+      "source_location": "L1823",
       "weight": 1.0
     },
     {
@@ -13830,7 +14425,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1167",
+      "source_location": "L1179",
       "weight": 1.0
     },
     {
@@ -13842,7 +14437,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L34",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -13854,7 +14449,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L553",
+      "source_location": "L555",
       "weight": 1.0
     },
     {
@@ -13866,7 +14461,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L766",
+      "source_location": "L724",
       "weight": 1.0
     },
     {
@@ -13878,7 +14473,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L539",
+      "source_location": "L541",
       "weight": 1.0
     },
     {
@@ -13890,7 +14485,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L573",
+      "source_location": "L575",
       "weight": 1.0
     },
     {
@@ -13902,7 +14497,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L757",
+      "source_location": "L715",
       "weight": 1.0
     },
     {
@@ -13914,7 +14509,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L543",
+      "source_location": "L545",
       "weight": 1.0
     },
     {
@@ -13926,7 +14521,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L545",
+      "source_location": "L547",
       "weight": 1.0
     },
     {
@@ -15726,7 +16321,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L102",
+      "source_location": "L103",
       "weight": 1.0
     },
     {
@@ -15738,7 +16333,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L113",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -15750,7 +16345,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L131",
+      "source_location": "L132",
       "weight": 1.0
     },
     {
@@ -15762,7 +16357,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L148",
+      "source_location": "L149",
       "weight": 1.0
     },
     {
@@ -15774,7 +16369,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L161",
+      "source_location": "L162",
+      "weight": 1.0
+    },
+    {
+      "source": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
+      "target": "app_supabase_analytics_server_readsupabasenewarrivalmonths",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/store-analytics-access.server.js",
+      "source_location": "L166",
       "weight": 1.0
     },
     {
@@ -15786,7 +16393,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L165",
+      "source_location": "L170",
       "weight": 1.0
     },
     {
@@ -15798,7 +16405,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L168",
+      "source_location": "L173",
       "weight": 1.0
     },
     {
@@ -15810,7 +16417,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L177",
+      "source_location": "L182",
       "weight": 1.0
     },
     {
@@ -15822,7 +16429,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L185",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -15834,7 +16441,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L42",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -15846,7 +16453,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
@@ -15858,7 +16465,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L46",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -15870,7 +16477,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -15882,7 +16489,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L82",
+      "source_location": "L83",
       "weight": 1.0
     },
     {
@@ -15894,7 +16501,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L90",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -15906,7 +16513,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L94",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -15918,7 +16525,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L98",
+      "source_location": "L99",
       "weight": 1.0
     },
     {
@@ -16026,7 +16633,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L326",
+      "source_location": "L350",
       "weight": 1.0
     },
     {
@@ -16038,7 +16645,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L290",
+      "source_location": "L314",
       "weight": 1.0
     },
     {
@@ -16050,7 +16657,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L297",
+      "source_location": "L321",
       "weight": 1.0
     },
     {
@@ -16086,7 +16693,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L339",
+      "source_location": "L363",
       "weight": 1.0
     },
     {
@@ -16110,7 +16717,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L313",
+      "source_location": "L337",
       "weight": 1.0
     },
     {
@@ -16122,7 +16729,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L315",
+      "source_location": "L339",
       "weight": 1.0
     },
     {
@@ -16135,6 +16742,18 @@
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
       "source_location": "L103",
+      "weight": 1.0
+    },
+    {
+      "source": "app_supabase_analytics_server_readsupabasenewarrivalmonths",
+      "target": "app_supabase_analytics_server_request",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/supabase-analytics.server.js",
+      "source_location": "L296",
       "weight": 1.0
     },
     {
@@ -16158,7 +16777,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L302",
+      "source_location": "L326",
       "weight": 1.0
     },
     {
@@ -16170,7 +16789,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L348",
+      "source_location": "L372",
       "weight": 1.0
     },
     {
@@ -16182,7 +16801,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L350",
+      "source_location": "L374",
       "weight": 1.0
     },
     {
@@ -16194,7 +16813,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L367",
+      "source_location": "L391",
       "weight": 1.0
     },
     {
@@ -16206,7 +16825,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L375",
+      "source_location": "L399",
       "weight": 1.0
     },
     {
@@ -16904,7 +17523,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L62",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -16917,7 +17536,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1717",
+      "source_location": "L1729",
       "weight": 1.0
     },
     {
@@ -17102,6 +17721,30 @@
       "weight": 1.0
     },
     {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_product_audit_monthly_source_server_loadproductauditmonthlyreport",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "app_product_audit_monthly_source_server",
       "target": "app_analytics_file_cache_server_readanalyticscatalog",
       "relation": "imports",
@@ -17194,7 +17837,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L10",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -17206,7 +17849,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -17218,7 +17861,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L12",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -17439,7 +18094,7 @@
     },
     {
       "source": "app_routes_app_new_arrivals",
-      "target": "app_components_daterangepicker_daterangepicker",
+      "target": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -17451,6 +18106,30 @@
     },
     {
       "source": "app_routes_app_new_arrivals",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_components_daterangepicker_daterangepicker",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
       "target": "app_shopify_id_shopifyidtext",
       "relation": "imports",
       "_origin": "ast",
@@ -17458,7 +18137,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L19",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -18183,6 +18862,18 @@
     },
     {
       "source": "app_store_analytics_access_server",
+      "target": "app_supabase_analytics_server_readsupabasenewarrivalmonths",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/store-analytics-access.server.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_store_analytics_access_server",
       "target": "app_supabase_analytics_server_readsupabaseproductauditmonths",
       "relation": "imports",
       "_origin": "ast",
@@ -18298,7 +18989,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -18878,6 +19569,66 @@
       "weight": 1.0
     },
     {
+      "source": "tests_new_arrival_monthly_source_test",
+      "target": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-monthly-source.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_new_arrival_monthly_source_test",
+      "target": "app_new_arrival_monthly_source_server_newarrivallookbackbounds",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-monthly-source.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_new_arrival_monthly_source_test",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-monthly-source.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_new_arrival_monthly_source_test",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefrommonthlyreport",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-monthly-source.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_new_arrival_range_test",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-range.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "tests_product_lifecycle_test",
       "target": "app_product_lifecycle_server_effectiveproductstatus",
       "relation": "imports",
@@ -19238,6 +19989,30 @@
       "weight": 1.0
     },
     {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_product_audit_monthly_source_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_store_analytics_access_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "app_product_audit_monthly_source_server",
       "target": "app_analytics_file_cache_server",
       "relation": "imports_from",
@@ -19354,7 +20129,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L10",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -19366,7 +20141,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L11",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -19378,7 +20153,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L12",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app",
+      "target": "app_new_arrival_range",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -19599,7 +20386,7 @@
     },
     {
       "source": "app_routes_app_new_arrivals",
-      "target": "app_components_daterangepicker",
+      "target": "app_new_arrival_monthly_source_server",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -19611,14 +20398,26 @@
     },
     {
       "source": "app_routes_app_new_arrivals",
-      "target": "app_shopify_id",
+      "target": "app_new_arrival_range",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L19",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_components_daterangepicker",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -19631,6 +20430,18 @@
       "context": "import",
       "source_file": "app/routes/app.new-arrivals.jsx",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_shopify_id",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -20230,7 +21041,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -20375,6 +21186,30 @@
       "context": "import",
       "source_file": "tests/new-arrival-cohort-rules.test.js",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_new_arrival_monthly_source_test",
+      "target": "app_new_arrival_monthly_source_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-monthly-source.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_new_arrival_range_test",
+      "target": "app_new_arrival_range",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/new-arrival-range.test.js",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -21325,6 +22160,215 @@
       "weight": 1.0
     },
     {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_shiftmonth",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefromdatabasereport",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_newarrivallookbackbounds",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_loaduncachednewarrivalmonthlysource",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L223",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_number",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L278",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_monthend",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_requestedmonths",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_hasexactcoverage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_sourcecache",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_datestring",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_currencyscale",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L70",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_activeinlookback",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_monthly_source_server",
+      "target": "app_new_arrival_monthly_source_server_newarrivalsourcefrommonthlyreport",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-monthly-source.server.js",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range",
+      "target": "app_new_arrival_range_datestring",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range",
+      "target": "app_new_arrival_range_startofweek",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range",
+      "target": "app_new_arrival_range_monthstring",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "app_new_arrival_range",
+      "target": "app_new_arrival_range_shiftmonth",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
       "source": "app_product_audit_monthly_source_server",
       "target": "app_product_audit_monthly_source_server_monthkey",
       "relation": "contains",
@@ -21398,7 +22442,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L241",
+      "source_location": "L252",
       "weight": 1.0
     },
     {
@@ -21409,7 +22453,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L274",
+      "source_location": "L301",
       "weight": 1.0
     },
     {
@@ -21420,7 +22464,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L313",
+      "source_location": "L340",
       "weight": 1.0
     },
     {
@@ -21431,7 +22475,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L329",
+      "source_location": "L379",
       "weight": 1.0
     },
     {
@@ -21645,24 +22689,13 @@
     },
     {
       "source": "app_routes_app",
-      "target": "app_routes_app_errorboundary",
+      "target": "app_routes_app_newarrivalroutepending",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L123",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app",
-      "target": "app_routes_app_headers",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L127",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -21673,7 +22706,29 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L14",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app",
+      "target": "app_routes_app_errorboundary",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L195",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app",
+      "target": "app_routes_app_headers",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L199",
       "weight": 1.0
     },
     {
@@ -21684,7 +22739,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L38",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -21827,7 +22882,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1095",
+      "source_location": "L1107",
       "weight": 1.0
     },
     {
@@ -21838,7 +22893,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1108",
+      "source_location": "L1120",
       "weight": 1.0
     },
     {
@@ -21849,7 +22904,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1125",
+      "source_location": "L1137",
       "weight": 1.0
     },
     {
@@ -21860,7 +22915,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1135",
+      "source_location": "L1147",
       "weight": 1.0
     },
     {
@@ -21871,7 +22926,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1224",
+      "source_location": "L1236",
       "weight": 1.0
     },
     {
@@ -21882,7 +22937,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1236",
+      "source_location": "L1248",
       "weight": 1.0
     },
     {
@@ -21893,7 +22948,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L129",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
@@ -21904,7 +22959,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1362",
+      "source_location": "L1374",
       "weight": 1.0
     },
     {
@@ -21915,7 +22970,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1450",
+      "source_location": "L1462",
       "weight": 1.0
     },
     {
@@ -21926,7 +22981,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1451",
+      "source_location": "L1463",
       "weight": 1.0
     },
     {
@@ -21937,7 +22992,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1464",
+      "source_location": "L1476",
       "weight": 1.0
     },
     {
@@ -21948,7 +23003,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1482",
+      "source_location": "L1494",
       "weight": 1.0
     },
     {
@@ -21959,7 +23014,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1499",
+      "source_location": "L1511",
       "weight": 1.0
     },
     {
@@ -21970,7 +23025,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1550",
+      "source_location": "L1562",
       "weight": 1.0
     },
     {
@@ -21981,7 +23036,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1560",
+      "source_location": "L1572",
       "weight": 1.0
     },
     {
@@ -21992,7 +23047,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1639",
+      "source_location": "L1651",
       "weight": 1.0
     },
     {
@@ -22003,7 +23058,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1645",
+      "source_location": "L1657",
       "weight": 1.0
     },
     {
@@ -22014,7 +23069,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1654",
+      "source_location": "L1666",
       "weight": 1.0
     },
     {
@@ -22025,7 +23080,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1660",
+      "source_location": "L1672",
       "weight": 1.0
     },
     {
@@ -22036,7 +23091,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1716",
+      "source_location": "L1728",
       "weight": 1.0
     },
     {
@@ -22047,7 +23102,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1791",
+      "source_location": "L1803",
       "weight": 1.0
     },
     {
@@ -22058,7 +23113,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1799",
+      "source_location": "L1811",
       "weight": 1.0
     },
     {
@@ -22069,7 +23124,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1807",
+      "source_location": "L1819",
       "weight": 1.0
     },
     {
@@ -22080,7 +23135,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1817",
+      "source_location": "L1829",
       "weight": 1.0
     },
     {
@@ -22091,7 +23146,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L195",
+      "source_location": "L197",
       "weight": 1.0
     },
     {
@@ -22102,18 +23157,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2171",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals",
-      "target": "app_routes_app_new_arrivals_categoryloadqueue",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L25",
+      "source_location": "L2183",
       "weight": 1.0
     },
     {
@@ -22124,7 +23168,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2544",
+      "source_location": "L2574",
       "weight": 1.0
     },
     {
@@ -22135,12 +23179,12 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2548",
+      "source_location": "L2578",
       "weight": 1.0
     },
     {
       "source": "app_routes_app_new_arrivals",
-      "target": "app_routes_app_new_arrivals_runcategoryqueue",
+      "target": "app_routes_app_new_arrivals_categoryloadqueue",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -22157,7 +23201,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L281",
+      "source_location": "L283",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_routes_app_new_arrivals_runcategoryqueue",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -22168,7 +23223,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L334",
+      "source_location": "L336",
       "weight": 1.0
     },
     {
@@ -22179,7 +23234,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L38",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -22190,7 +23245,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L47",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -22201,7 +23256,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L512",
+      "source_location": "L514",
       "weight": 1.0
     },
     {
@@ -22212,7 +23267,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L514",
+      "source_location": "L516",
       "weight": 1.0
     },
     {
@@ -22223,7 +23278,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L515",
+      "source_location": "L517",
       "weight": 1.0
     },
     {
@@ -22234,7 +23289,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L535",
+      "source_location": "L537",
       "weight": 1.0
     },
     {
@@ -22245,7 +23300,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L541",
+      "source_location": "L543",
       "weight": 1.0
     },
     {
@@ -22256,7 +23311,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L551",
+      "source_location": "L553",
       "weight": 1.0
     },
     {
@@ -22267,7 +23322,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L555",
+      "source_location": "L557",
       "weight": 1.0
     },
     {
@@ -22278,7 +23333,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L561",
+      "source_location": "L563",
       "weight": 1.0
     },
     {
@@ -22289,7 +23344,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L569",
+      "source_location": "L571",
       "weight": 1.0
     },
     {
@@ -22300,18 +23355,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L576",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals",
-      "target": "app_routes_app_new_arrivals_normalizerange",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L580",
+      "source_location": "L578",
       "weight": 1.0
     },
     {
@@ -22322,7 +23366,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L624",
+      "source_location": "L582",
       "weight": 1.0
     },
     {
@@ -22333,7 +23377,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L639",
+      "source_location": "L597",
       "weight": 1.0
     },
     {
@@ -22344,7 +23388,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L659",
+      "source_location": "L617",
       "weight": 1.0
     },
     {
@@ -22355,7 +23399,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L703",
+      "source_location": "L661",
       "weight": 1.0
     },
     {
@@ -22366,7 +23410,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L713",
+      "source_location": "L671",
       "weight": 1.0
     },
     {
@@ -22377,7 +23421,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L748",
+      "source_location": "L706",
       "weight": 1.0
     },
     {
@@ -22388,7 +23432,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L755",
+      "source_location": "L713",
       "weight": 1.0
     },
     {
@@ -22399,7 +23443,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L760",
+      "source_location": "L718",
       "weight": 1.0
     },
     {
@@ -22410,7 +23454,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L770",
+      "source_location": "L728",
       "weight": 1.0
     },
     {
@@ -22421,7 +23465,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L836",
+      "source_location": "L794",
       "weight": 1.0
     },
     {
@@ -22432,7 +23476,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L852",
+      "source_location": "L810",
       "weight": 1.0
     },
     {
@@ -23554,7 +24598,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -23565,7 +24609,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L26",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -23576,7 +24620,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/store-analytics-access.server.js",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -23768,7 +24812,7 @@
     },
     {
       "source": "app_supabase_analytics_server",
-      "target": "app_supabase_analytics_server_deleteexpiredmonthlymetrics",
+      "target": "app_supabase_analytics_server_readsupabasenewarrivalmonths",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -23779,13 +24823,24 @@
     },
     {
       "source": "app_supabase_analytics_server",
+      "target": "app_supabase_analytics_server_deleteexpiredmonthlymetrics",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/supabase-analytics.server.js",
+      "source_location": "L306",
+      "weight": 1.0
+    },
+    {
+      "source": "app_supabase_analytics_server",
       "target": "app_supabase_analytics_server_reconcilesupabaseproductcatalog",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L300",
+      "source_location": "L324",
       "weight": 1.0
     },
     {
@@ -23796,7 +24851,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L312",
+      "source_location": "L336",
       "weight": 1.0
     },
     {
@@ -23807,7 +24862,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L325",
+      "source_location": "L349",
       "weight": 1.0
     },
     {
@@ -23818,7 +24873,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L335",
+      "source_location": "L359",
       "weight": 1.0
     },
     {
@@ -23829,18 +24884,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L345",
-      "weight": 1.0
-    },
-    {
-      "source": "app_supabase_analytics_server",
-      "target": "app_supabase_analytics_server_replacesupabaseproducttags",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L360",
+      "source_location": "L369",
       "weight": 1.0
     },
     {
@@ -23852,6 +24896,17 @@
       "confidence_score": 1.0,
       "source_file": "app/supabase-analytics.server.js",
       "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "app_supabase_analytics_server",
+      "target": "app_supabase_analytics_server_replacesupabaseproducttags",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/supabase-analytics.server.js",
+      "source_location": "L384",
       "weight": 1.0
     },
     {
@@ -24644,6 +25699,17 @@
       "confidence_score": 1.0,
       "source_file": "decision.md",
       "source_location": "L1086",
+      "weight": 1.0
+    },
+    {
+      "source": "decision",
+      "target": "decision_2026_10_08_new_arrival_monthly_saved_data_reads",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "decision.md",
+      "source_location": "L1098",
       "weight": 1.0
     },
     {
@@ -26353,13 +27419,24 @@
     },
     {
       "source": "flow",
+      "target": "flow_new_arrival_monthly_saved_data_flow",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "flow.md",
+      "source_location": "L1002",
+      "weight": 1.0
+    },
+    {
+      "source": "flow",
       "target": "flow_new_arrival_product_count_terminology",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1003",
+      "source_location": "L1015",
       "weight": 1.0
     },
     {
@@ -26370,7 +27447,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1011",
+      "source_location": "L1023",
       "weight": 1.0
     },
     {
@@ -26381,7 +27458,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1021",
+      "source_location": "L1033",
       "weight": 1.0
     },
     {
@@ -26392,7 +27469,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1033",
+      "source_location": "L1045",
       "weight": 1.0
     },
     {
@@ -26403,7 +27480,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1046",
+      "source_location": "L1058",
       "weight": 1.0
     },
     {
@@ -26414,7 +27491,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1058",
+      "source_location": "L1070",
       "weight": 1.0
     },
     {
@@ -26425,7 +27502,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1069",
+      "source_location": "L1081",
       "weight": 1.0
     },
     {
@@ -29614,7 +30691,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L258",
+      "source_location": "L285",
       "weight": 1.0
     },
     {
@@ -29626,7 +30703,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/product-audit-monthly-source.server.js",
-      "source_location": "L296",
+      "source_location": "L323",
       "weight": 1.0
     },
     {
@@ -29638,7 +30715,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1599",
+      "source_location": "L1611",
       "weight": 1.0
     },
     {
@@ -29650,7 +30727,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1523",
+      "source_location": "L1535",
       "weight": 1.0
     },
     {
@@ -29662,7 +30739,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L634",
+      "source_location": "L592",
       "weight": 1.0
     },
     {
@@ -29698,7 +30775,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L301",
+      "source_location": "L325",
       "weight": 1.0
     },
     {
@@ -29715,5 +30792,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "027138f5635f87b2d4cca84da272044bac9dd148"
+  "built_at_commit": "f7a39893afa372c5a809ffbc9eb36d6bdd103cce"
 }

@@ -435,64 +435,67 @@ export function generateNewArrivalReport(
     };
   });
 
-  const typeTotals = new Map();
-  for (const [pid, types] of categoryMap) {
-    for (const month of months) {
-      const sales = productMaps.lookup.get(pid)?.get(month)?.sales || 0;
-      for (const type of types)
-        typeTotals.set(
-          `${type}|${month}`,
-          (typeTotals.get(`${type}|${month}`) || 0) + sales,
-        );
-    }
-  }
-  const details = [];
-  for (const [pid, cohort] of productMaps.launch) {
-    for (const type of categoryMap.get(pid) ||
-      (classification === "tag" ? [] : ["Others"])) {
-      const values = {};
+  let details = null;
+  if (!options.deferDetails) {
+    const typeTotals = new Map();
+    for (const [pid, types] of categoryMap) {
       for (const month of months) {
-        if (month < cohort) {
-          values[month] = null;
-          continue;
-        }
-        const row = productMaps.lookup.get(pid)?.get(month);
-        const sales = row?.sales || 0;
-        const typeTotal = typeTotals.get(`${type}|${month}`) || 0;
-        values[month] = {
-          startingInventory: row?.start || 0,
-          endingInventory: row?.end || 0,
-          sales,
-          landingSessions: row?.landingSessions || 0,
-          orders: row?.orders || 0,
-          conversionRate: row?.landingSessions
-            ? (row.orders || 0) / row.landingSessions
-            : 0,
-          typeSalesRate: typeTotal ? sales / typeTotal : 0,
-          totalSalesRate: monthlyStoreSales[month]
-            ? sales / monthlyStoreSales[month]
-            : 0,
-        };
+        const sales = productMaps.lookup.get(pid)?.get(month)?.sales || 0;
+        for (const type of types)
+          typeTotals.set(
+            `${type}|${month}`,
+            (typeTotals.get(`${type}|${month}`) || 0) + sales,
+          );
       }
-      details.push({
-        cohort,
-        title: productMaps.titles.get(pid) || `Product ${pid}`,
-        productId: pid,
-        productType: type,
-        productUrl: productMaps.urls.get(pid) || "",
-        handle: productMaps.handles.get(pid) || "",
-        imageUrl: productMaps.images.get(pid) || "",
-        values,
-      });
     }
+    details = [];
+    for (const [pid, cohort] of productMaps.launch) {
+      for (const type of categoryMap.get(pid) ||
+        (classification === "tag" ? [] : ["Others"])) {
+        const values = {};
+        for (const month of months) {
+          if (month < cohort) {
+            values[month] = null;
+            continue;
+          }
+          const row = productMaps.lookup.get(pid)?.get(month);
+          const sales = row?.sales || 0;
+          const typeTotal = typeTotals.get(`${type}|${month}`) || 0;
+          values[month] = {
+            startingInventory: row?.start || 0,
+            endingInventory: row?.end || 0,
+            sales,
+            landingSessions: row?.landingSessions || 0,
+            orders: row?.orders || 0,
+            conversionRate: row?.landingSessions
+              ? (row.orders || 0) / row.landingSessions
+              : 0,
+            typeSalesRate: typeTotal ? sales / typeTotal : 0,
+            totalSalesRate: monthlyStoreSales[month]
+              ? sales / monthlyStoreSales[month]
+              : 0,
+          };
+        }
+        details.push({
+          cohort,
+          title: productMaps.titles.get(pid) || `Product ${pid}`,
+          productId: pid,
+          productType: type,
+          productUrl: productMaps.urls.get(pid) || "",
+          handle: productMaps.handles.get(pid) || "",
+          imageUrl: productMaps.images.get(pid) || "",
+          values,
+        });
+      }
+    }
+    details.sort(
+      (a, b) =>
+        a.cohort.localeCompare(b.cohort) ||
+        a.productType.localeCompare(b.productType) ||
+        a.title.localeCompare(b.title) ||
+        a.productId.localeCompare(b.productId),
+    );
   }
-  details.sort(
-    (a, b) =>
-      a.cohort.localeCompare(b.cohort) ||
-      a.productType.localeCompare(b.productType) ||
-      a.title.localeCompare(b.title) ||
-      a.productId.localeCompare(b.productId),
-  );
 
   return {
     months,
