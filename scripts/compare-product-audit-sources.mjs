@@ -15,8 +15,8 @@ function parseEnvironment(source) {
 
 parseEnvironment(await readFile(".env", "utf8"));
 
-const [{ PrismaClient }, { shopifyIdText }] = await Promise.all([
-  import("@prisma/client"),
+const [{ SupabaseSessionStorage }, { shopifyIdText }] = await Promise.all([
+  import("../app/supabase-session-storage.server.js"),
   import("../app/shopify-id.js"),
 ]);
 
@@ -249,13 +249,10 @@ if (!months.length) {
   );
 }
 
-const prisma = new PrismaClient();
-const session = await prisma.session.findFirst({
-  where: { shop: store.shop_domain, isOnline: false },
-  orderBy: { expires: "desc" },
-});
+const sessionStorage = new SupabaseSessionStorage();
+const sessions = await sessionStorage.findSessionsByShop(store.shop_domain);
+const session = sessions.find((candidate) => !candidate.isOnline);
 if (!session?.accessToken) {
-  await prisma.$disconnect();
   throw new Error("No offline Shopify session is available. Open the development app once and retry.");
 }
 let totalProducts = 0;
@@ -318,4 +315,3 @@ if (allDifferences.length) {
   }
   process.exitCode = 2;
 }
-await prisma.$disconnect();

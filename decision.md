@@ -1094,3 +1094,13 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Disable Render automatic deployment. A GitHub commit does not change the live app until a deliberate manual deployment is approved.
 - Keep the GitHub Actions daily-refresh scheduler because Render cron jobs are not part of the free web-service plan. The workflow retries while a sleeping free service wakes up.
 - Render Free is suitable for development and early testing, but its idle sleep can make the first request take about a minute. A paid always-on service is recommended before Shopify review or a larger merchant rollout.
+
+# 2026-10-08 - New Arrival monthly saved-data reads
+
+- New Arrival Analysis uses the same storage-neutral monthly source as Product Audit when the complete visible range and its two-month first-cohort lookback are available under the current cache schema.
+- The two lookback months are used only to carry previously active products into the first visible cohort; they never appear as visible report columns.
+- Saved database reports read the direct store-month Total Sales through the authenticated, store-scoped analytics gateway so NA Sales % keeps its existing Shopify store-total denominator.
+- Month requests fall back as one unit to the existing ShopifyQL flow when the selected start is not the first of a month, coverage is incomplete, the current month is stale, or any saved read fails. Week reports remain on ShopifyQL.
+- Current catalogue title, type, tags, handle and image remain the report classification inputs. Stored historical metadata snapshots remain available for a future explicitly selected historical-classification mode.
+- July through September 2026 saved inputs and the May through June cohort lookback were reconciled against fresh ShopifyQL. There were zero relevant mismatches across 340,272 values. One unattributed May first-inventory date was intentionally absent because unattributed rows do not participate in product, inventory, conversion or cohort calculations.
+- Direct ShopifyQL store Total Sales matched the saved denominator exactly for July, August and September 2026.

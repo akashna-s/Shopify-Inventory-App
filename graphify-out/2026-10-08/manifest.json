@@ -102,9 +102,9 @@
     "semantic_hash": ""
   },
   "app/routes/app.new-arrivals.jsx": {
-    "mtime": 1791435475.900171,
-    "seen": 1791435926.2948494,
-    "ast_hash": "2f3906f8ef93e04ca967a4780ab7d190",
+    "mtime": 1791372425.2390957,
+    "seen": 1791372611.5542793,
+    "ast_hash": "320ae543f9f2b426469544e3650a6608",
     "semantic_hash": ""
   },
   "app/routes/app.products.jsx": {
@@ -198,15 +198,15 @@
     "semantic_hash": ""
   },
   "decision.md": {
-    "mtime": 1791435887.101037,
-    "seen": 1791435926.3053694,
-    "ast_hash": "f9908cc623cf876132b743481536e888",
+    "mtime": 1791372432.8775105,
+    "seen": 1791372611.5761786,
+    "ast_hash": "d7a388bba92bad68f84fd5ce7abae7b6",
     "semantic_hash": ""
   },
   "flow.md": {
-    "mtime": 1791435887.3157806,
-    "seen": 1791435926.3053718,
-    "ast_hash": "a754ef3bd74bee05723f937fa090a3e8",
+    "mtime": 1791372435.6648016,
+    "seen": 1791372611.5761828,
+    "ast_hash": "f336498a5076cd8c91357d005ca318c5",
     "semantic_hash": ""
   },
   "pnpm-workspace.yaml": {
@@ -456,9 +456,9 @@
     "semantic_hash": ""
   },
   "app/product-audit-monthly-source.server.js": {
-    "mtime": 1791435716.3577483,
-    "seen": 1791435926.292386,
-    "ast_hash": "1a2580c0ccb2b35672234f5542eaf570",
+    "mtime": 1791014315.0470538,
+    "seen": 1791014883.9360266,
+    "ast_hash": "4df066660689d8c1ca07e97e1dc383b0",
     "semantic_hash": ""
   },
   "scripts/verify-product-audit-source.mjs": {
@@ -525,18 +525,6 @@
     "mtime": 1791372415.7814536,
     "seen": 1791372611.5765114,
     "ast_hash": "6eee87d7ea6c04f2bd8ced35981ad0cc",
-    "semantic_hash": ""
-  },
-  "app/new-arrival-monthly-source.server.js": {
-    "mtime": 1791435468.2628572,
-    "seen": 1791435926.292382,
-    "ast_hash": "56a803ee1917246c293261ff06342c1b",
-    "semantic_hash": ""
-  },
-  "tests/new-arrival-monthly-source.test.js": {
-    "mtime": 1791435893.4930134,
-    "seen": 1791435926.3018665,
-    "ast_hash": "63bd752f13d8da93979faa7398d75d2b",
     "semantic_hash": ""
   }
 }

@@ -13,6 +13,7 @@ import { getProductCatalog } from "../product-catalog-cache.server";
 import { runWithAnalyticsCache } from "../analytics-cache.server";
 import { runShopifyQL } from "../shopifyql.server";
 import { generateNewArrivalReport } from "../new-arrival-engine.server";
+import { loadNewArrivalMonthlySource } from "../new-arrival-monthly-source.server";
 import DateRangePicker from "../components/DateRangePicker";
 import styles from "../styles/new-arrivals.css?url";
 import dateRangeStyles from "../styles/date-range-picker.css?url";
@@ -874,6 +875,45 @@ export const loader = async ({ request }) => {
       currency: json.data?.shop?.currencyCode || "USD",
       shopUrl: json.data?.shop?.primaryDomain?.url || "",
     }));
+  const shopInfo = await shopPromise;
+  if (range.interval === "month") {
+    const saved = await loadNewArrivalMonthlySource({
+      session,
+      start: range.start,
+      end: range.end,
+      shopInfo,
+    });
+    if (saved) {
+      const report = generateNewArrivalReport(
+        saved.sourceRows,
+        months,
+        saved.monthlyStoreSales,
+        range.classification,
+        {
+          categoryOnly,
+          deferCategories: !categoryOnly && !exportAll,
+          firstCohortProductIds: saved.firstCohortProductIds,
+        },
+      );
+      if (categoryOnly) return { category: report };
+      return {
+        report,
+        currency: saved.currency || shopInfo.currency,
+        range,
+        warnings: [],
+        debug: months.map((month) => ({
+          month,
+          label: "Saved monthly analytics",
+          rows: saved.sourceRows.filter((row) => row.period === month).length,
+          cache: saved.dataSource,
+          attempts: 0,
+          time: 0,
+        })),
+        catalogSource: saved.dataSource,
+        catalogRefreshedAt: saved.refreshedAt,
+      };
+    }
+  }
   const analyticsPromise =
     range.interval === "week"
       ? fetchWeeklyPeriods(admin, session.shop, months, range)
@@ -893,9 +933,8 @@ export const loader = async ({ request }) => {
     session.shop,
     range.start,
   );
-  const [catalog, shopInfo, monthly, firstCohortLookback] = await Promise.all([
+  const [catalog, monthly, firstCohortLookback] = await Promise.all([
     getProductCatalog(admin, session.shop),
-    shopPromise,
     analyticsPromise,
     lookbackPromise,
   ]);

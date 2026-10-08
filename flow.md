@@ -998,6 +998,18 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 2. For the store summary, convert each negative product value to zero and then add the products together.
 3. Save those calculated totals as `non_negative_starting_inventory` and `non_negative_ending_inventory` in `audit_store_month_metrics`.
 4. Use these store fields for validation or future store-level summaries, not as the NA Inventory % denominator.
+
+# New Arrival monthly saved-data flow
+
+1. Authenticate the Shopify store and normalize the requested report range.
+2. Keep Week detail on the existing ShopifyQL path.
+3. For Month detail, require the selected range to begin on the first day of a month.
+4. Extend the saved-data request by two full calendar months before the visible start so first-cohort carryover follows the existing rule.
+5. Use saved data only when every lookback and visible month has exact range coverage and the current cache schema version.
+6. Convert saved product-month facts into the existing New Arrival engine input without changing formulas.
+7. Use lookback activity only to mark products as pre-existing; do not render lookback months in the report.
+8. Read direct store Total Sales through the authenticated store-scoped gateway for the NA Sales % denominator.
+9. If any requirement fails, discard the whole saved attempt and run the existing ShopifyQL report. Never mix saved and live months in one result.
 5. Continue calculating NA Inventory % from product-month rows because its denominator mixes Ending Inventory in a product's launch period with Starting Inventory in later periods.
 
 # New Arrival product-count terminology

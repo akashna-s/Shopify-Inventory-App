@@ -177,6 +177,8 @@ function createReport({
       status: product.status,
       productType: product.productType,
       tags: product.tags,
+      handle: product.handle,
+      imageUrl: product.imageUrl,
       productUrl:
         !isUnattributed && cleanShopUrl && product.handle
           ? `${cleanShopUrl}/products/${product.handle}`
@@ -207,6 +209,8 @@ function createReport({
       status: product.status,
       productType: product.productType,
       tags: product.tags,
+      handle: product.handle,
+      imageUrl: product.imageUrl,
       productUrl:
         cleanShopUrl && product.handle
           ? `${cleanShopUrl}/products/${product.handle}`
@@ -228,6 +232,13 @@ function createReport({
     analyticsErrors: [],
     shopifyqlDebug: null,
     unattributedSales,
+    monthlyStoreSales: Object.fromEntries(
+      storeMetrics.map((metric) => [
+        monthKey(metric.month),
+        (Number(metric.total_sales_minor) || 0) /
+          currencyScale(metric.currency_code || currency),
+      ]),
+    ),
     uniqueOrderTotal: storeMetrics.reduce(
       (sum, metric) => sum + (Number(metric.unique_orders) || 0),
       0,
@@ -239,11 +250,27 @@ function createReport({
 }
 
 async function loadDatabaseMonths(analytics, months, start, end, shopInfo) {
-  const result = await analytics.readProductAuditMonths(
-    `${months[0]}-01`,
-    `${months.at(-1)}-01`,
+  const [result, directStoreMetrics] = await Promise.all([
+    analytics.readProductAuditMonths(
+      `${months[0]}-01`,
+      `${months.at(-1)}-01`,
+    ),
+    analytics.selectStoreMonths({
+      select: "month,total_sales_minor",
+      filters: [
+        ["month", "gte", `${months[0]}-01`],
+        ["month", "lte", `${months.at(-1)}-01`],
+      ],
+      order: "month.asc",
+    }),
+  ]);
+  const directStoreMetricsByMonth = new Map(
+    directStoreMetrics.map((metric) => [monthKey(metric.month), metric]),
   );
-  const storeMetrics = result?.store_metrics || [];
+  const storeMetrics = (result?.store_metrics || []).map((metric) => ({
+    ...metric,
+    ...directStoreMetricsByMonth.get(monthKey(metric.month)),
+  }));
   const coverage = new Map(
     storeMetrics.map((metric) => [
       monthKey(metric.month),
