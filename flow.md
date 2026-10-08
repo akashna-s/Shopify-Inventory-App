@@ -1014,6 +1014,7 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 11. Return the overall matrix and category names first. Fetch Cohort Details only when its tab opens, and reuse the same store/range source in server memory for five minutes.
 12. If any requirement fails, discard the whole saved attempt and run the existing ShopifyQL report. Never mix saved and live months in one result.
 13. Continue calculating NA Inventory % from product-month rows because its denominator mixes Ending Inventory in a product's launch period with Starting Inventory in later periods.
+14. Write one structured server timing entry after each report request, then send one authenticated browser-ready timing entry after the initial report becomes interactive. Match the two entries by request ID without logging merchant or catalogue data.
 
 # New Arrival product-count terminology
 

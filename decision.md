@@ -1113,3 +1113,11 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Defer the large Cohort Details array until the merchant opens that tab. Category matrices and details reuse a five-minute, store-and-range-scoped server memory cache.
 - Benchmark on the 24,282-row default report reduced the Supabase payload from 14.5 MB to 5.3 MB, the saved-data read from about 6.2 seconds to about 4.0 seconds, and the initial report JSON from 2.9 MB to about 0.03 MB.
 - Full generated-report comparison confirmed identical overall matrices, category ordering, cohort details, and 4,003-product count between the compatible and optimized paths.
+
+# 2026-10-08 - New Arrival production performance telemetry
+
+- Emit structured `analytics_performance` entries to Render for each New Arrival server request, covering saved-source loading, report construction, total loader time, response size, and source-row count.
+- Correlate the initial server entry with a second authenticated browser-ready entry through a random request ID. This separates database/report time from transfer, hydration, and browser rendering time.
+- Record only bounded operational metadata: timing, range, interval, request kind, source class, cache status, row count, and response size. Never record store domains, product IDs, titles, tags, handles, access tokens, or query strings.
+- The browser telemetry action does not revalidate the app or New Arrival loaders, so measuring a report can never trigger another report calculation.
+- A duration of five seconds or more is written as a warning so slow production loads are easy to filter in Render logs.

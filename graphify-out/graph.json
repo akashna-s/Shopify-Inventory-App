@@ -10,7 +10,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "supabasesessionstorage",
       "source_file": "app/supabase-session-storage.server.js",
@@ -50,7 +50,7 @@
       "file_type": "code",
       "norm_label": "addanalysissection()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1672"
+      "source_location": "L1742"
     },
     {
       "id": "app_routes_app_new_arrivals_analysissections",
@@ -62,7 +62,7 @@
       "file_type": "code",
       "norm_label": "analysissections()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1562"
+      "source_location": "L1632"
     },
     {
       "id": "app_routes_app_new_arrivals_applyexcelnumberformat",
@@ -74,7 +74,7 @@
       "file_type": "code",
       "norm_label": "applyexcelnumberformat()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1666"
+      "source_location": "L1736"
     },
     {
       "id": "app_routes_app_new_arrivals_cohortlogicdrawer",
@@ -86,7 +86,7 @@
       "file_type": "code",
       "norm_label": "cohortlogicdrawer()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L336"
+      "source_location": "L340"
     },
     {
       "id": "app_routes_app_new_arrivals_csvcell",
@@ -98,7 +98,7 @@
       "file_type": "code",
       "norm_label": "csvcell()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1462"
+      "source_location": "L1532"
     },
     {
       "id": "app_routes_app_new_arrivals_custommetricselector",
@@ -110,7 +110,7 @@
       "file_type": "code",
       "norm_label": "custommetricselector()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L197"
+      "source_location": "L201"
     },
     {
       "id": "app_routes_app_new_arrivals_datestring",
@@ -122,7 +122,7 @@
       "file_type": "code",
       "norm_label": "datestring()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L514"
+      "source_location": "L518"
     },
     {
       "id": "app_routes_app_new_arrivals_detailexportrows",
@@ -134,7 +134,7 @@
       "file_type": "code",
       "norm_label": "detailexportrows()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1494"
+      "source_location": "L1564"
     },
     {
       "id": "app_routes_app_new_arrivals_details",
@@ -146,7 +146,7 @@
       "file_type": "code",
       "norm_label": "details()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1829"
+      "source_location": "L1899"
     },
     {
       "id": "app_routes_app_new_arrivals_display",
@@ -158,7 +158,7 @@
       "file_type": "code",
       "norm_label": "display()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1107"
+      "source_location": "L1177"
     },
     {
       "id": "app_routes_app_new_arrivals_downloadexport",
@@ -170,7 +170,7 @@
       "file_type": "code",
       "norm_label": "downloadexport()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1476"
+      "source_location": "L1546"
     },
     {
       "id": "app_routes_app_new_arrivals_enqueuecategoryload",
@@ -182,7 +182,7 @@
       "file_type": "code",
       "norm_label": "enqueuecategoryload()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L40"
+      "source_location": "L44"
     },
     {
       "id": "app_routes_app_new_arrivals_exportanalysis",
@@ -194,7 +194,7 @@
       "file_type": "code",
       "norm_label": "exportanalysis()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1572"
+      "source_location": "L1642"
     },
     {
       "id": "app_routes_app_new_arrivals_exportcombinedworkbook",
@@ -206,7 +206,7 @@
       "file_type": "code",
       "norm_label": "exportcombinedworkbook()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1728"
+      "source_location": "L1798"
     },
     {
       "id": "app_routes_app_new_arrivals_exportdetails",
@@ -218,7 +218,7 @@
       "file_type": "code",
       "norm_label": "exportdetails()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1511"
+      "source_location": "L1581"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchfirstcohortlookback",
@@ -230,7 +230,7 @@
       "file_type": "code",
       "norm_label": "fetchfirstcohortlookback()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L671"
+      "source_location": "L675"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchperiod",
@@ -242,7 +242,7 @@
       "file_type": "code",
       "norm_label": "fetchperiod()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L617"
+      "source_location": "L621"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchproductsbyids",
@@ -254,7 +254,7 @@
       "file_type": "code",
       "norm_label": "fetchproductsbyids()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L597"
+      "source_location": "L601"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchweekchunk",
@@ -266,7 +266,7 @@
       "file_type": "code",
       "norm_label": "fetchweekchunk()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L728"
+      "source_location": "L732"
     },
     {
       "id": "app_routes_app_new_arrivals_fetchweeklyperiods",
@@ -278,7 +278,7 @@
       "file_type": "code",
       "norm_label": "fetchweeklyperiods()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L794"
+      "source_location": "L798"
     },
     {
       "id": "app_routes_app_new_arrivals_firstcohortlookbackbounds",
@@ -290,7 +290,7 @@
       "file_type": "code",
       "norm_label": "firstcohortlookbackbounds()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L661"
+      "source_location": "L665"
     },
     {
       "id": "app_routes_app_new_arrivals_headers",
@@ -302,7 +302,7 @@
       "file_type": "code",
       "norm_label": "headers()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2578"
+      "source_location": "L2688"
     },
     {
       "id": "app_routes_app_new_arrivals_heatclass",
@@ -314,7 +314,7 @@
       "file_type": "code",
       "norm_label": "heatclass()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1120"
+      "source_location": "L1190"
     },
     {
       "id": "app_routes_app_new_arrivals_lazycategorymatrix",
@@ -326,7 +326,7 @@
       "file_type": "code",
       "norm_label": "lazycategorymatrix()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1374"
+      "source_location": "L1444"
     },
     {
       "id": "app_routes_app_new_arrivals_links",
@@ -338,7 +338,7 @@
       "file_type": "code",
       "norm_label": "links()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2574"
+      "source_location": "L2684"
     },
     {
       "id": "app_routes_app_new_arrivals_loader",
@@ -350,7 +350,7 @@
       "file_type": "code",
       "norm_label": "loader()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L810"
+      "source_location": "L814"
     },
     {
       "id": "app_routes_app_new_arrivals_loadingstate",
@@ -362,7 +362,7 @@
       "file_type": "code",
       "norm_label": "loadingstate()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1236"
+      "source_location": "L1306"
     },
     {
       "id": "app_routes_app_new_arrivals_mapconcurrent",
@@ -374,7 +374,7 @@
       "file_type": "code",
       "norm_label": "mapconcurrent()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L582"
+      "source_location": "L586"
     },
     {
       "id": "app_routes_app_new_arrivals_mapconcurrent_consume",
@@ -386,7 +386,7 @@
       "file_type": "code",
       "norm_label": "consume()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L585"
+      "source_location": "L589"
     },
     {
       "id": "app_routes_app_new_arrivals_matchesproducttitle",
@@ -398,7 +398,7 @@
       "file_type": "code",
       "norm_label": "matchesproducttitle()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1811"
+      "source_location": "L1881"
     },
     {
       "id": "app_routes_app_new_arrivals_matrix",
@@ -410,7 +410,7 @@
       "file_type": "code",
       "norm_label": "matrix()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1248"
+      "source_location": "L1318"
     },
     {
       "id": "app_routes_app_new_arrivals_metrictooltip",
@@ -422,7 +422,7 @@
       "file_type": "code",
       "norm_label": "metrictooltip()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L283"
+      "source_location": "L287"
     },
     {
       "id": "app_routes_app_new_arrivals_metricvalue",
@@ -434,7 +434,7 @@
       "file_type": "code",
       "norm_label": "metricvalue()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1137"
+      "source_location": "L1207"
     },
     {
       "id": "app_routes_app_new_arrivals_monthbounds",
@@ -446,7 +446,7 @@
       "file_type": "code",
       "norm_label": "monthbounds()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L563"
+      "source_location": "L567"
     },
     {
       "id": "app_routes_app_new_arrivals_monthlabel",
@@ -458,7 +458,7 @@
       "file_type": "code",
       "norm_label": "monthlabel()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L517"
+      "source_location": "L521"
     },
     {
       "id": "app_routes_app_new_arrivals_monthsbetween",
@@ -470,7 +470,7 @@
       "file_type": "code",
       "norm_label": "monthsbetween()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L557"
+      "source_location": "L561"
     },
     {
       "id": "app_routes_app_new_arrivals_monthstring",
@@ -482,7 +482,7 @@
       "file_type": "code",
       "norm_label": "monthstring()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L516"
+      "source_location": "L520"
     },
     {
       "id": "app_routes_app_new_arrivals_newarrivalanalysispage",
@@ -494,7 +494,7 @@
       "file_type": "code",
       "norm_label": "newarrivalanalysispage()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2183"
+      "source_location": "L2253"
     },
     {
       "id": "app_routes_app_new_arrivals_normalizeproductsearch",
@@ -506,7 +506,7 @@
       "file_type": "code",
       "norm_label": "normalizeproductsearch()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1803"
+      "source_location": "L1873"
     },
     {
       "id": "app_routes_app_new_arrivals_numberfrom",
@@ -518,7 +518,7 @@
       "file_type": "code",
       "norm_label": "numberfrom()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L578"
+      "source_location": "L582"
     },
     {
       "id": "app_routes_app_new_arrivals_producthandlefromquery",
@@ -530,7 +530,7 @@
       "file_type": "code",
       "norm_label": "producthandlefromquery()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1819"
+      "source_location": "L1889"
     },
     {
       "id": "app_routes_app_new_arrivals_producthovercard",
@@ -542,7 +542,7 @@
       "file_type": "code",
       "norm_label": "producthovercard()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1147"
+      "source_location": "L1217"
     },
     {
       "id": "app_routes_app_new_arrivals_runcategoryqueue",
@@ -554,7 +554,7 @@
       "file_type": "code",
       "norm_label": "runcategoryqueue()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L29"
+      "source_location": "L33"
     },
     {
       "id": "app_routes_app_new_arrivals_shiftmonth",
@@ -566,7 +566,19 @@
       "file_type": "code",
       "norm_label": "shiftmonth()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L553"
+      "source_location": "L557"
+    },
+    {
+      "id": "app_routes_app_new_arrivals_shouldrevalidate",
+      "label": "shouldRevalidate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "app.new-arrivals.jsx",
+      "file_type": "code",
+      "norm_label": "shouldrevalidate()",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L1172"
     },
     {
       "id": "app_routes_app_new_arrivals_sliceweeklyresult",
@@ -578,7 +590,7 @@
       "file_type": "code",
       "norm_label": "sliceweeklyresult()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L718"
+      "source_location": "L722"
     },
     {
       "id": "app_routes_app_new_arrivals_splitintochunks",
@@ -590,7 +602,7 @@
       "file_type": "code",
       "norm_label": "splitintochunks()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L706"
+      "source_location": "L710"
     },
     {
       "id": "app_routes_app_new_arrivals_startofweek",
@@ -602,7 +614,7 @@
       "file_type": "code",
       "norm_label": "startofweek()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L537"
+      "source_location": "L541"
     },
     {
       "id": "app_routes_app_new_arrivals_styleexcelcell",
@@ -614,7 +626,7 @@
       "file_type": "code",
       "norm_label": "styleexcelcell()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1657"
+      "source_location": "L1727"
     },
     {
       "id": "app_routes_app_new_arrivals_weekbounds",
@@ -626,7 +638,7 @@
       "file_type": "code",
       "norm_label": "weekbounds()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L571"
+      "source_location": "L575"
     },
     {
       "id": "app_routes_app_new_arrivals_weekkey",
@@ -638,7 +650,7 @@
       "file_type": "code",
       "norm_label": "weekkey()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L713"
+      "source_location": "L717"
     },
     {
       "id": "app_routes_app_new_arrivals_weeksbetween",
@@ -650,7 +662,7 @@
       "file_type": "code",
       "norm_label": "weeksbetween()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L543"
+      "source_location": "L547"
     },
     {
       "id": "app_routes_app_new_arrivals_xmlescape",
@@ -662,283 +674,7 @@
       "file_type": "code",
       "norm_label": "xmlescape()",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1463"
-    },
-    {
-      "id": "app_shopifyql_server_retryable",
-      "label": "retryable()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "app.new-arrivals.jsx",
-      "file_type": "code",
-      "norm_label": "retryable()",
-      "source_file": "app/shopifyql.server.js",
-      "source_location": "L6"
-    },
-    {
-      "id": "app_shopifyql_server_runshopifyql",
-      "label": "runShopifyQL()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "app.new-arrivals.jsx",
-      "file_type": "code",
-      "norm_label": "runshopifyql()",
-      "source_file": "app/shopifyql.server.js",
-      "source_location": "L8"
-    },
-    {
-      "id": "app_shopifyql_server_wait",
-      "label": "wait()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "app.new-arrivals.jsx",
-      "file_type": "code",
-      "norm_label": "wait()",
-      "source_file": "app/shopifyql.server.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "app_entry_server_handlerequest",
-      "label": "handleRequest()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "handlerequest()",
-      "source_file": "app/entry.server.jsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "app_root_app",
-      "label": "App()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "app/root.jsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "app_routes_app_index_arrow",
-      "label": "Arrow()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "arrow()",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "app_routes_app_index_brandmark",
-      "label": "BrandMark()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "brandmark()",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L11"
-    },
-    {
-      "id": "app_routes_app_index_commandcenter",
-      "label": "CommandCenter()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "commandcenter()",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L24"
-    },
-    {
-      "id": "app_routes_app_index_headers",
-      "label": "headers()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "headers()",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L57"
-    },
-    {
-      "id": "app_routes_app_index_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "app_routes_auth_headers",
-      "label": "headers()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "headers()",
-      "source_file": "app/routes/auth.$.jsx",
-      "source_location": "L10"
-    },
-    {
-      "id": "app_routes_auth_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/auth.$.jsx",
-      "source_location": "L4"
-    },
-    {
-      "id": "app_routes_auth_login_error_server_loginerrormessage",
-      "label": "loginErrorMessage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "loginerrormessage()",
-      "source_file": "app/routes/auth.login/error.server.jsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "app_routes_auth_login_route_action",
-      "label": "action()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "action()",
-      "source_file": "app/routes/auth.login/route.jsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "app_routes_auth_login_route_auth",
-      "label": "Auth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "auth()",
-      "source_file": "app/routes/auth.login/route.jsx",
-      "source_location": "L21"
-    },
-    {
-      "id": "app_routes_auth_login_route_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/auth.login/route.jsx",
-      "source_location": "L7"
-    },
-    {
-      "id": "app_routes_index_route_arrowicon",
-      "label": "ArrowIcon()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "arrowicon()",
-      "source_file": "app/routes/_index/route.jsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "app_routes_index_route_brandmark",
-      "label": "BrandMark()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "brandmark()",
-      "source_file": "app/routes/_index/route.jsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "app_routes_index_route_icon",
-      "label": "Icon()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "icon()",
-      "source_file": "app/routes/_index/route.jsx",
-      "source_location": "L14"
-    },
-    {
-      "id": "app_routes_index_route_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/_index/route.jsx",
-      "source_location": "L8"
-    },
-    {
-      "id": "app_routes_index_route_publiclandingpage",
-      "label": "PublicLandingPage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "publiclandingpage()",
-      "source_file": "app/routes/_index/route.jsx",
-      "source_location": "L24"
-    },
-    {
-      "id": "app_routes_webhooks_app_scopes_update_action",
-      "label": "action()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "action()",
-      "source_file": "app/routes/webhooks.app.scopes_update.jsx",
-      "source_location": "L4"
-    },
-    {
-      "id": "app_routes_webhooks_app_uninstalled_action",
-      "label": "action()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "action()",
-      "source_file": "app/routes/webhooks.app.uninstalled.jsx",
-      "source_location": "L4"
+      "source_location": "L1533"
     },
     {
       "id": "app_supabase_session_storage_server_configuration",
@@ -946,7 +682,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "configuration()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -958,7 +694,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "isodate()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -970,7 +706,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "request()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -982,7 +718,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "rowsession()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -994,7 +730,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "sessionrow()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1006,7 +742,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".constructor()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1018,7 +754,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".deletesession()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1030,7 +766,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".deletesessions()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1042,7 +778,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".findsessionsbyshop()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1054,7 +790,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".isready()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1066,7 +802,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".loadsession()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1078,7 +814,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": ".storesession()",
       "source_file": "app/supabase-session-storage.server.js",
@@ -1258,7 +994,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "bootstrapanalyticsdata()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1270,7 +1006,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "progressstatus()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1282,7 +1018,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "responsejson()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1294,7 +1030,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "runonestep()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1306,7 +1042,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "syncstatus()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1318,7 +1054,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "wait()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1330,7 +1066,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "waitforinteractivereportidle()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1342,7 +1078,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "waitforrunningsync()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1354,7 +1090,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "waitforvisiblereport()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1366,7 +1102,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "deleterecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1378,7 +1114,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "fetchjson()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1390,7 +1126,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "getrecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1402,7 +1138,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "mapconcurrent()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1414,7 +1150,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "consume()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1426,7 +1162,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "opendatabase()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1438,7 +1174,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "putrecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1450,7 +1186,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "readcachedanalyticsmonth()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1462,7 +1198,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "refreshanalyticsbrowsercache()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1474,131 +1210,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "requestresult()",
       "source_file": "app/analytics-browser-cache.client.js",
       "source_location": "L24"
-    },
-    {
-      "id": "app_new_arrival_range_datestring",
-      "label": "dateString()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "datestring()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_new_arrival_range_monthstring",
-      "label": "monthString()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "monthstring()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "app_new_arrival_range_normalizenewarrivalrange",
-      "label": "normalizeNewArrivalRange()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "normalizenewarrivalrange()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L22"
-    },
-    {
-      "id": "app_new_arrival_range_shiftmonth",
-      "label": "shiftMonth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "shiftmonth()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L9"
-    },
-    {
-      "id": "app_new_arrival_range_startofweek",
-      "label": "startOfWeek()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "startofweek()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "app_routes_app_app",
-      "label": "App()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L41"
-    },
-    {
-      "id": "app_routes_app_errorboundary",
-      "label": "ErrorBoundary()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "errorboundary()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L195"
-    },
-    {
-      "id": "app_routes_app_headers",
-      "label": "headers()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "headers()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L199"
-    },
-    {
-      "id": "app_routes_app_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L17"
-    },
-    {
-      "id": "app_routes_app_newarrivalroutepending",
-      "label": "NewArrivalRoutePending()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "newarrivalroutepending()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L143"
     },
     {
       "id": "app_product_audit_monthly_source_server_addsales",
@@ -2254,7 +1870,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "analyticsfilepaths()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2266,7 +1882,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "compressjson()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2278,7 +1894,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "jsonbuffer()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2290,7 +1906,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "monthvalue()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2302,7 +1918,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "parsecompressedjson()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2314,7 +1930,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "pruneanalyticsfilemonths()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2326,7 +1942,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "readanalyticscatalog()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2338,7 +1954,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "readanalyticsmanifest()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2350,7 +1966,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "readanalyticsmonth()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2362,7 +1978,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "removeanalyticsmonths()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2374,7 +1990,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "sha256()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2386,7 +2002,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "writeanalyticscatalog()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2398,7 +2014,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "writeanalyticsmanifest()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2410,7 +2026,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "writeanalyticsmonth()",
       "source_file": "app/analytics-file-cache.server.js",
@@ -2422,7 +2038,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "loader()",
       "source_file": "app/routes/app.analytics-cache.jsx",
@@ -2434,191 +2050,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "publicmanifest()",
       "source_file": "app/routes/app.analytics-cache.jsx",
       "source_location": "L8"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_aggregateunattributedrows",
-      "label": "aggregateUnattributedRows()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "aggregateunattributedrows()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L132"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_buildfilecatalogsnapshot",
-      "label": "buildFileCatalogSnapshot()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "buildfilecatalogsnapshot()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L75"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_buildfilemonthpayload",
-      "label": "buildFileMonthPayload()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "buildfilemonthpayload()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L217"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_currencyscale",
-      "label": "currencyScale()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "currencyscale()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L47"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_emptymanifest",
-      "label": "emptyManifest()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "emptymanifest()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L399"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_fetchmonth",
-      "label": "fetchMonth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "fetchmonth()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L180"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_fetchmonthonce",
-      "label": "fetchMonthOnce()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "fetchmonthonce()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L143"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_historyformonth",
-      "label": "historyForMonth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "historyformonth()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L207"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_mapconcurrent",
-      "label": "mapConcurrent()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "mapconcurrent()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L34"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_mapconcurrent_consume",
-      "label": "consume()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "consume()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L37"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_normalizeproduct",
-      "label": "normalizeProduct()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "normalizeproduct()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L59"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_number",
-      "label": "number()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "number()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L28"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_retryable",
-      "label": "retryable()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "retryable()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L30"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_synclatest18monthstofilecache",
-      "label": "syncLatest18MonthsToFileCache()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "synclatest18monthstofilecache()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L410"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server_wait",
-      "label": "wait()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "wait()",
-      "source_file": "app/shopify-file-cache-sync.server.js",
-      "source_location": "L27"
     },
     {
       "id": "app_supabase_storage_server_analyticsstoragebucket",
@@ -2626,7 +2062,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "analyticsstoragebucket()",
       "source_file": "app/supabase-storage.server.js",
@@ -2638,7 +2074,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "analyticsstoreprefix()",
       "source_file": "app/supabase-storage.server.js",
@@ -2650,7 +2086,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "downloadanalyticsobject()",
       "source_file": "app/supabase-storage.server.js",
@@ -2662,7 +2098,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "downloadanalyticsobjectifpresent()",
       "source_file": "app/supabase-storage.server.js",
@@ -2674,7 +2110,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "removeanalyticsobjects()",
       "source_file": "app/supabase-storage.server.js",
@@ -2686,7 +2122,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "safeobjectpath()",
       "source_file": "app/supabase-storage.server.js",
@@ -2698,7 +2134,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "storageconfig()",
       "source_file": "app/supabase-storage.server.js",
@@ -2710,7 +2146,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "storagerequest()",
       "source_file": "app/supabase-storage.server.js",
@@ -2722,7 +2158,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "uploadanalyticsobject()",
       "source_file": "app/supabase-storage.server.js",
@@ -2734,7 +2170,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "parseenvironment()",
       "source_file": "scripts/verify-analytics-storage.mjs",
@@ -2787,6 +2223,42 @@
       "norm_label": "localhour()",
       "source_file": "app/analytics-daily-refresh.server.js",
       "source_location": "L9"
+    },
+    {
+      "id": "app_inventory_rules_server_finitenumber",
+      "label": "finiteNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "finitenumber()",
+      "source_file": "app/inventory-rules.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_inventory_rules_server_nonnegativeinventory",
+      "label": "nonNegativeInventory()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "nonnegativeinventory()",
+      "source_file": "app/inventory-rules.server.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "app_inventory_rules_server_sumnonnegativeinventory",
+      "label": "sumNonNegativeInventory()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "sumnonnegativeinventory()",
+      "source_file": "app/inventory-rules.server.js",
+      "source_location": "L14"
     },
     {
       "id": "app_landing_session_matcher_server_handlefromlandingpath",
@@ -2871,6 +2343,210 @@
       "norm_label": "loader()",
       "source_file": "app/routes/app.analytics-sync.jsx",
       "source_location": "L9"
+    },
+    {
+      "id": "app_routes_webhooks_products_delete_action",
+      "label": "action()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "action()",
+      "source_file": "app/routes/webhooks.products.delete.jsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_aggregateunattributedrows",
+      "label": "aggregateUnattributedRows()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "aggregateunattributedrows()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L132"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_buildfilecatalogsnapshot",
+      "label": "buildFileCatalogSnapshot()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "buildfilecatalogsnapshot()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L75"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_buildfilemonthpayload",
+      "label": "buildFileMonthPayload()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "buildfilemonthpayload()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L217"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_currencyscale",
+      "label": "currencyScale()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "currencyscale()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L47"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_emptymanifest",
+      "label": "emptyManifest()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "emptymanifest()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L399"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_fetchmonth",
+      "label": "fetchMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "fetchmonth()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L180"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_fetchmonthonce",
+      "label": "fetchMonthOnce()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "fetchmonthonce()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L143"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_historyformonth",
+      "label": "historyForMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "historyformonth()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L207"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_mapconcurrent",
+      "label": "mapConcurrent()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "mapconcurrent()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L34"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_mapconcurrent_consume",
+      "label": "consume()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "consume()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L37"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_normalizeproduct",
+      "label": "normalizeProduct()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "normalizeproduct()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L59"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_number",
+      "label": "number()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "number()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L28"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_retryable",
+      "label": "retryable()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "retryable()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L30"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_synclatest18monthstofilecache",
+      "label": "syncLatest18MonthsToFileCache()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "synclatest18monthstofilecache()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L410"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server_wait",
+      "label": "wait()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "wait()",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L27"
+    },
+    {
+      "id": "app_shopify_id_shopifyidtext",
+      "label": "shopifyIdText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "shopifyidtext()",
+      "source_file": "app/shopify-id.js",
+      "source_location": "L3"
     },
     {
       "id": "app_shopify_supabase_sync_server_aggregateunattributedrows",
@@ -3113,6 +2789,42 @@
       "source_location": "L33"
     },
     {
+      "id": "app_shopifyql_server_retryable",
+      "label": "retryable()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "retryable()",
+      "source_file": "app/shopifyql.server.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "app_shopifyql_server_runshopifyql",
+      "label": "runShopifyQL()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "runshopifyql()",
+      "source_file": "app/shopifyql.server.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "app_shopifyql_server_wait",
+      "label": "wait()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "wait()",
+      "source_file": "app/shopifyql.server.js",
+      "source_location": "L5"
+    },
+    {
       "id": "app_store_calendar_server_calendardateintimezone",
       "label": "calendarDateInTimeZone()",
       "_callable": true,
@@ -3207,18 +2919,6 @@
       "norm_label": "validtimezone()",
       "source_file": "app/store-calendar.server.js",
       "source_location": "L1"
-    },
-    {
-      "id": "app_supabase_analytics_server_issupabaseanalyticsconfigured",
-      "label": "isSupabaseAnalyticsConfigured()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "issupabaseanalyticsconfigured()",
-      "source_file": "app/supabase-analytics.server.js",
-      "source_location": "L58"
     },
     {
       "id": "app_sync_progress_server_addsyncprogress",
@@ -3341,28 +3041,16 @@
       "source_location": "L5"
     },
     {
-      "id": "app_routes_webhooks_products_delete_action",
-      "label": "action()",
+      "id": "app_routes_app_loader",
+      "label": "loader()",
       "_callable": true,
       "_origin": "ast",
       "community": 39,
       "community_name": "createAuthenticatedStoreAnalytics",
       "file_type": "code",
-      "norm_label": "action()",
-      "source_file": "app/routes/webhooks.products.delete.jsx",
-      "source_location": "L5"
-    },
-    {
-      "id": "app_shopify_id_shopifyidtext",
-      "label": "shopifyIdText()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "createAuthenticatedStoreAnalytics",
-      "file_type": "code",
-      "norm_label": "shopifyidtext()",
-      "source_file": "app/shopify-id.js",
-      "source_location": "L3"
+      "norm_label": "loader()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L17"
     },
     {
       "id": "app_shopify_storage_assignment_server_ensureshopifystorestorageassignment",
@@ -3519,6 +3207,18 @@
       "norm_label": "insertsupabaserows()",
       "source_file": "app/supabase-analytics.server.js",
       "source_location": "L143"
+    },
+    {
+      "id": "app_supabase_analytics_server_issupabaseanalyticsconfigured",
+      "label": "isSupabaseAnalyticsConfigured()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "issupabaseanalyticsconfigured()",
+      "source_file": "app/supabase-analytics.server.js",
+      "source_location": "L58"
     },
     {
       "id": "app_supabase_analytics_server_marksupabaseproductdeleted",
@@ -3785,12 +3485,36 @@
       "source_location": "L4"
     },
     {
+      "id": "app_routes_webhooks_app_scopes_update_action",
+      "label": "action()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "action()",
+      "source_file": "app/routes/webhooks.app.scopes_update.jsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "app_routes_webhooks_app_uninstalled_action",
+      "label": "action()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "action()",
+      "source_file": "app/routes/webhooks.app.uninstalled.jsx",
+      "source_location": "L4"
+    },
+    {
       "id": "scripts_run_targeted_analytics_sync_graphql",
       "label": "graphql()",
       "_callable": true,
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
+      "community_name": "shopify.server.js",
       "file_type": "code",
       "norm_label": "graphql()",
       "source_file": "scripts/run-targeted-analytics-sync.mjs",
@@ -3802,7 +3526,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
+      "community_name": "shopify.server.js",
       "file_type": "code",
       "norm_label": "parseenvironment()",
       "source_file": "scripts/run-targeted-analytics-sync.mjs",
@@ -3843,42 +3567,6 @@
       "norm_label": "parseenvironment()",
       "source_file": "scripts/verify-product-audit-source.mjs",
       "source_location": "L3"
-    },
-    {
-      "id": "app_inventory_rules_server_finitenumber",
-      "label": "finiteNumber()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "new-arrival-engine.server.js",
-      "file_type": "code",
-      "norm_label": "finitenumber()",
-      "source_file": "app/inventory-rules.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_inventory_rules_server_nonnegativeinventory",
-      "label": "nonNegativeInventory()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "new-arrival-engine.server.js",
-      "file_type": "code",
-      "norm_label": "nonnegativeinventory()",
-      "source_file": "app/inventory-rules.server.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "app_inventory_rules_server_sumnonnegativeinventory",
-      "label": "sumNonNegativeInventory()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "new-arrival-engine.server.js",
-      "file_type": "code",
-      "norm_label": "sumnonnegativeinventory()",
-      "source_file": "app/inventory-rules.server.js",
-      "source_location": "L14"
     },
     {
       "id": "app_new_arrival_engine_server_aggregateproductmonths",
@@ -4289,6 +3977,438 @@
       "source_location": "L1"
     },
     {
+      "id": "app_analytics_performance_server_allowedtext",
+      "label": "allowedText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowedtext()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L29"
+    },
+    {
+      "id": "app_analytics_performance_server_analyticsresponsebytes",
+      "label": "analyticsResponseBytes()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "analyticsresponsebytes()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L45"
+    },
+    {
+      "id": "app_analytics_performance_server_loganalyticsperformance",
+      "label": "logAnalyticsPerformance()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "loganalyticsperformance()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L83"
+    },
+    {
+      "id": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "label": "normalizeAnalyticsPerformanceEvent()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "normalizeanalyticsperformanceevent()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L49"
+    },
+    {
+      "id": "app_analytics_performance_server_safedate",
+      "label": "safeDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "safedate()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L40"
+    },
+    {
+      "id": "app_analytics_performance_server_safenumber",
+      "label": "safeNumber()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "safenumber()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L34"
+    },
+    {
+      "id": "app_analytics_performance_server_safetext",
+      "label": "safeText()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "safetext()",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L24"
+    },
+    {
+      "id": "app_routes_app_analytics_performance_action",
+      "label": "action()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "action()",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "app_root_app",
+      "label": "App()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "app()",
+      "source_file": "app/root.jsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "app_routes_index_route_arrowicon",
+      "label": "ArrowIcon()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "arrowicon()",
+      "source_file": "app/routes/_index/route.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "app_routes_index_route_brandmark",
+      "label": "BrandMark()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "brandmark()",
+      "source_file": "app/routes/_index/route.jsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "app_routes_index_route_icon",
+      "label": "Icon()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "icon()",
+      "source_file": "app/routes/_index/route.jsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "app_routes_index_route_loader",
+      "label": "loader()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "loader()",
+      "source_file": "app/routes/_index/route.jsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "app_routes_index_route_publiclandingpage",
+      "label": "PublicLandingPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "publiclandingpage()",
+      "source_file": "app/routes/_index/route.jsx",
+      "source_location": "L24"
+    },
+    {
+      "id": "app_new_arrival_range_datestring",
+      "label": "dateString()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "datestring()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_new_arrival_range_monthstring",
+      "label": "monthString()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "monthstring()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "app_new_arrival_range_normalizenewarrivalrange",
+      "label": "normalizeNewArrivalRange()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "normalizenewarrivalrange()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L22"
+    },
+    {
+      "id": "app_new_arrival_range_shiftmonth",
+      "label": "shiftMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "shiftmonth()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "app_new_arrival_range_startofweek",
+      "label": "startOfWeek()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "startofweek()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "app_routes_app_app",
+      "label": "App()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "app()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L44"
+    },
+    {
+      "id": "app_routes_app_errorboundary",
+      "label": "ErrorBoundary()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "errorboundary()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L214"
+    },
+    {
+      "id": "app_routes_app_headers",
+      "label": "headers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "headers()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L218"
+    },
+    {
+      "id": "app_routes_app_newarrivalroutepending",
+      "label": "NewArrivalRoutePending()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "newarrivalroutepending()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L162"
+    },
+    {
+      "id": "app_routes_app_shouldrevalidate",
+      "label": "shouldRevalidate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "shouldrevalidate()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "app_routes_app_index_arrow",
+      "label": "Arrow()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "arrow()",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "app_routes_app_index_brandmark",
+      "label": "BrandMark()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "brandmark()",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "app_routes_app_index_commandcenter",
+      "label": "CommandCenter()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "commandcenter()",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L24"
+    },
+    {
+      "id": "app_routes_app_index_headers",
+      "label": "headers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "headers()",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L57"
+    },
+    {
+      "id": "app_routes_app_index_loader",
+      "label": "loader()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "loader()",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "app_routes_auth_login_error_server_loginerrormessage",
+      "label": "loginErrorMessage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "loginerrormessage()",
+      "source_file": "app/routes/auth.login/error.server.jsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "app_routes_auth_login_route_action",
+      "label": "action()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "action()",
+      "source_file": "app/routes/auth.login/route.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "app_routes_auth_login_route_auth",
+      "label": "Auth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "auth()",
+      "source_file": "app/routes/auth.login/route.jsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "app_routes_auth_login_route_loader",
+      "label": "loader()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "loader()",
+      "source_file": "app/routes/auth.login/route.jsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "app_entry_server_handlerequest",
+      "label": "handleRequest()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 65,
+      "community_name": "entry.server.jsx",
+      "file_type": "code",
+      "norm_label": "handlerequest()",
+      "source_file": "app/entry.server.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "app_routes_auth_headers",
+      "label": "headers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 66,
+      "community_name": "auth.$.jsx",
+      "file_type": "code",
+      "norm_label": "headers()",
+      "source_file": "app/routes/auth.$.jsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "app_routes_auth_loader",
+      "label": "loader()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 66,
+      "community_name": "auth.$.jsx",
+      "file_type": "code",
+      "norm_label": "loader()",
+      "source_file": "app/routes/auth.$.jsx",
+      "source_location": "L4"
+    },
+    {
       "id": "tooling_generate_current_state_prd_badge",
       "label": "badge()",
       "_callable": true,
@@ -4462,7 +4582,7 @@
       "file_type": "code",
       "norm_label": "categoryloadqueue",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L27"
+      "source_location": "L31"
     },
     {
       "id": "app_routes_app_new_arrivals_detail_metrics",
@@ -4473,7 +4593,7 @@
       "file_type": "code",
       "norm_label": "detail_metrics",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L131"
+      "source_location": "L135"
     },
     {
       "id": "app_routes_app_new_arrivals_excel_colors",
@@ -4484,7 +4604,7 @@
       "file_type": "code",
       "norm_label": "excel_colors",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1651"
+      "source_location": "L1721"
     },
     {
       "id": "app_routes_app_new_arrivals_matrix_metrics",
@@ -4495,18 +4615,7 @@
       "file_type": "code",
       "norm_label": "matrix_metrics",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L49"
-    },
-    {
-      "id": "app_shopifyql_server",
-      "label": "shopifyql.server.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "app.new-arrivals.jsx",
-      "file_type": "code",
-      "norm_label": "shopifyql.server.js",
-      "source_file": "app/shopifyql.server.js",
-      "source_location": "L1"
+      "source_location": "L53"
     },
     {
       "id": "ref_exceljs",
@@ -4520,312 +4629,26 @@
       "source_location": "L37"
     },
     {
-      "id": "app_db_server",
-      "label": "db.server.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "db.server.js",
-      "source_file": "app/db.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_entry_server",
-      "label": "entry.server.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "entry.server.jsx",
-      "source_file": "app/entry.server.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_entry_server_streamtimeout",
-      "label": "streamTimeout",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "streamtimeout",
-      "source_file": "app/entry.server.jsx",
-      "source_location": "L11"
-    },
-    {
-      "id": "app_root",
-      "label": "root.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "root.jsx",
-      "source_file": "app/root.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_app_index",
-      "label": "app._index.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "app._index.jsx",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_app_index_reports",
-      "label": "reports",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "reports",
-      "source_file": "app/routes/app._index.jsx",
-      "source_location": "L19"
-    },
-    {
-      "id": "app_routes_auth",
-      "label": "auth.$.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "auth.$.jsx",
-      "source_file": "app/routes/auth.$.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_auth_login_error_server",
-      "label": "error.server.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "error.server.jsx",
-      "source_file": "app/routes/auth.login/error.server.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_auth_login_route",
-      "label": "auth.login/route.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "auth.login/route.jsx",
-      "source_file": "app/routes/auth.login/route.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_index_route",
-      "label": "_index/route.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "_index/route.jsx",
-      "source_file": "app/routes/_index/route.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_webhooks_app_scopes_update",
-      "label": "webhooks.app.scopes_update.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "webhooks.app.scopes_update.jsx",
-      "source_file": "app/routes/webhooks.app.scopes_update.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_webhooks_app_uninstalled",
-      "label": "webhooks.app.uninstalled.jsx",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "webhooks.app.uninstalled.jsx",
-      "source_file": "app/routes/webhooks.app.uninstalled.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_shopify_server",
-      "label": "shopify.server.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "shopify.server.js",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_shopify_server_adddocumentresponseheaders",
-      "label": "addDocumentResponseHeaders",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "adddocumentresponseheaders",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L36"
-    },
-    {
-      "id": "app_shopify_server_apiversion",
-      "label": "apiVersion",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "apiversion",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L35"
-    },
-    {
-      "id": "app_shopify_server_authenticate",
-      "label": "authenticate",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "authenticate",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L37"
-    },
-    {
-      "id": "app_shopify_server_localsessionstorage",
-      "label": "localSessionStorage",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "localsessionstorage",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L11"
-    },
-    {
-      "id": "app_shopify_server_login",
-      "label": "login",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "login",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L39"
-    },
-    {
-      "id": "app_shopify_server_registerwebhooks",
-      "label": "registerWebhooks",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "registerwebhooks",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L40"
-    },
-    {
-      "id": "app_shopify_server_sessionstorage",
-      "label": "sessionStorage",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "sessionstorage",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L41"
-    },
-    {
-      "id": "app_shopify_server_shopify",
-      "label": "shopify",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "shopify",
-      "source_file": "app/shopify.server.js",
-      "source_location": "L17"
-    },
-    {
       "id": "app_supabase_session_storage_server",
       "label": "supabase-session-storage.server.js",
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "code",
       "norm_label": "supabase-session-storage.server.js",
       "source_file": "app/supabase-session-storage.server.js",
       "source_location": "L1"
     },
     {
-      "id": "ref_isbot",
-      "label": "isbot",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "isbot",
-      "source_file": "package.json",
-      "source_location": "L38"
-    },
-    {
-      "id": "ref_prisma_client",
-      "label": "@prisma/client",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "@prisma/client",
-      "source_file": "package.json",
-      "source_location": "L28"
-    },
-    {
-      "id": "ref_react_router",
-      "label": "react-router",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "react-router",
-      "source_file": "package.json",
-      "source_location": "L42"
-    },
-    {
-      "id": "ref_react_router_node",
-      "label": "@react-router/node",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "@react-router/node",
-      "source_file": "package.json",
-      "source_location": "L31"
-    },
-    {
       "id": "ref_shopify_shopify_api",
       "label": "@shopify/shopify-api",
       "_origin": "ast",
       "community": 1,
-      "community_name": "shopify.server.js",
+      "community_name": "supabase-session-storage.server.js",
       "file_type": "concept",
       "norm_label": "@shopify/shopify-api",
       "source_file": "package.json",
       "source_location": "L34"
-    },
-    {
-      "id": "ref_shopify_shopify_app_session_storage_prisma",
-      "label": "@shopify/shopify-app-session-storage-prisma",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "shopify.server.js",
-      "file_type": "concept",
-      "norm_label": "@shopify/shopify-app-session-storage-prisma",
-      "source_file": "package.json",
-      "source_location": "L36"
     },
     {
       "id": "tsconfig",
@@ -6102,7 +5925,7 @@
       "label": "analytics-bootstrap.client.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "analytics-bootstrap.client.js",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -6113,55 +5936,11 @@
       "label": "analytics-browser-cache.client.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "app.jsx",
+      "community_name": "analytics-bootstrap.client.js",
       "file_type": "code",
       "norm_label": "analytics-browser-cache.client.js",
       "source_file": "app/analytics-browser-cache.client.js",
       "source_location": "L1"
-    },
-    {
-      "id": "app_new_arrival_range",
-      "label": "new-arrival-range.js",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "new-arrival-range.js",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_app",
-      "label": "app.jsx",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "app.jsx",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_new_arrival_range_test",
-      "label": "new-arrival-range.test.js",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "code",
-      "norm_label": "new-arrival-range.test.js",
-      "source_file": "tests/new-arrival-range.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "ref_react",
-      "label": "react",
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "app.jsx",
-      "file_type": "concept",
-      "norm_label": "react",
-      "source_file": "package.json",
-      "source_location": "L40"
     },
     {
       "id": "decision_2026_08_12_stale_prisma_client_ko_automatically_replace_karna",
@@ -7602,7 +7381,7 @@
       "label": "analytics-file-cache.server.js",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "analytics-file-cache.server.js",
       "source_file": "app/analytics-file-cache.server.js",
@@ -7613,7 +7392,7 @@
       "label": "analyticsFileSchemaVersion",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "analyticsfileschemaversion",
       "source_file": "app/analytics-file-cache.server.js",
@@ -7624,7 +7403,7 @@
       "label": "gunzipAsync",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "gunzipasync",
       "source_file": "app/analytics-file-cache.server.js",
@@ -7635,7 +7414,7 @@
       "label": "gzipAsync",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "gzipasync",
       "source_file": "app/analytics-file-cache.server.js",
@@ -7646,21 +7425,10 @@
       "label": "app.analytics-cache.jsx",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "app.analytics-cache.jsx",
       "source_file": "app/routes/app.analytics-cache.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_shopify_file_cache_sync_server",
-      "label": "shopify-file-cache-sync.server.js",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "shopify-file-cache-sync.server.js",
-      "source_file": "app/shopify-file-cache-sync.server.js",
       "source_location": "L1"
     },
     {
@@ -7668,7 +7436,7 @@
       "label": "supabase-storage.server.js",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "supabase-storage.server.js",
       "source_file": "app/supabase-storage.server.js",
@@ -7679,7 +7447,7 @@
       "label": "analyticsStorageDefaults",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "analyticsstoragedefaults",
       "source_file": "app/supabase-storage.server.js",
@@ -7690,7 +7458,7 @@
       "label": "verify-analytics-storage.mjs",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "verify-analytics-storage.mjs",
       "source_file": "scripts/verify-analytics-storage.mjs",
@@ -7701,22 +7469,11 @@
       "label": "expected",
       "_origin": "ast",
       "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
+      "community_name": "analytics-file-cache.server.js",
       "file_type": "code",
       "norm_label": "expected",
       "source_file": "scripts/verify-analytics-storage.mjs",
       "source_location": "L27"
-    },
-    {
-      "id": "tests_analytics_file_cache_test",
-      "label": "analytics-file-cache.test.js",
-      "_origin": "ast",
-      "community": 33,
-      "community_name": "shopify-file-cache-sync.server.js",
-      "file_type": "code",
-      "norm_label": "analytics-file-cache.test.js",
-      "source_file": "tests/analytics-file-cache.test.js",
-      "source_location": "L1"
     },
     {
       "id": "decision_2026_08_12_currency_and_inventory_date_semantics",
@@ -7835,6 +7592,17 @@
       "source_location": "L1"
     },
     {
+      "id": "app_inventory_rules_server",
+      "label": "inventory-rules.server.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "inventory-rules.server.js",
+      "source_file": "app/inventory-rules.server.js",
+      "source_location": "L1"
+    },
+    {
       "id": "app_landing_session_matcher_server",
       "label": "landing-session-matcher.server.js",
       "_origin": "ast",
@@ -7868,6 +7636,39 @@
       "source_location": "L1"
     },
     {
+      "id": "app_routes_webhooks_products_delete",
+      "label": "webhooks.products.delete.jsx",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "webhooks.products.delete.jsx",
+      "source_file": "app/routes/webhooks.products.delete.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_file_cache_sync_server",
+      "label": "shopify-file-cache-sync.server.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "shopify-file-cache-sync.server.js",
+      "source_file": "app/shopify-file-cache-sync.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_id",
+      "label": "shopify-id.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "shopify-id.js",
+      "source_file": "app/shopify-id.js",
+      "source_location": "L1"
+    },
+    {
       "id": "app_shopify_server_unauthenticated",
       "label": "unauthenticated",
       "_origin": "ast",
@@ -7887,6 +7688,17 @@
       "file_type": "code",
       "norm_label": "shopify-supabase-sync.server.js",
       "source_file": "app/shopify-supabase-sync.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopifyql_server",
+      "label": "shopifyql.server.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "shopifyql.server.js",
+      "source_file": "app/shopifyql.server.js",
       "source_location": "L1"
     },
     {
@@ -7923,6 +7735,28 @@
       "source_location": "L1"
     },
     {
+      "id": "tests_analytics_file_cache_test",
+      "label": "analytics-file-cache.test.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "analytics-file-cache.test.js",
+      "source_file": "tests/analytics-file-cache.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_inventory_rules_test",
+      "label": "inventory-rules.test.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "inventory-rules.test.js",
+      "source_file": "tests/inventory-rules.test.js",
+      "source_location": "L1"
+    },
+    {
       "id": "tests_landing_session_matcher_test",
       "label": "landing-session-matcher.test.js",
       "_origin": "ast",
@@ -7942,6 +7776,17 @@
       "file_type": "code",
       "norm_label": "resumable-analytics-sync.test.js",
       "source_file": "tests/resumable-analytics-sync.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_shopify_id_test",
+      "label": "shopify-id.test.js",
+      "_origin": "ast",
+      "community": 38,
+      "community_name": "shopify-supabase-sync.server.js",
+      "file_type": "code",
+      "norm_label": "shopify-id.test.js",
+      "source_file": "tests/shopify-id.test.js",
       "source_location": "L1"
     },
     {
@@ -8000,28 +7845,6 @@
       "source_location": "L1"
     },
     {
-      "id": "app_routes_webhooks_products_delete",
-      "label": "webhooks.products.delete.jsx",
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "createAuthenticatedStoreAnalytics",
-      "file_type": "code",
-      "norm_label": "webhooks.products.delete.jsx",
-      "source_file": "app/routes/webhooks.products.delete.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_shopify_id",
-      "label": "shopify-id.js",
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "createAuthenticatedStoreAnalytics",
-      "file_type": "code",
-      "norm_label": "shopify-id.js",
-      "source_file": "app/shopify-id.js",
-      "source_location": "L1"
-    },
-    {
       "id": "app_shopify_storage_assignment_server",
       "label": "shopify-storage-assignment.server.js",
       "_origin": "ast",
@@ -8063,17 +7886,6 @@
       "file_type": "code",
       "norm_label": "analytics-storage-routing.test.js",
       "source_file": "tests/analytics-storage-routing.test.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_shopify_id_test",
-      "label": "shopify-id.test.js",
-      "_origin": "ast",
-      "community": 39,
-      "community_name": "createAuthenticatedStoreAnalytics",
-      "file_type": "code",
-      "norm_label": "shopify-id.test.js",
-      "source_file": "tests/shopify-id.test.js",
       "source_location": "L1"
     },
     {
@@ -9200,11 +9012,121 @@
       "source_location": "L46"
     },
     {
+      "id": "app_db_server",
+      "label": "db.server.js",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "db.server.js",
+      "source_file": "app/db.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_webhooks_app_scopes_update",
+      "label": "webhooks.app.scopes_update.jsx",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "webhooks.app.scopes_update.jsx",
+      "source_file": "app/routes/webhooks.app.scopes_update.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_webhooks_app_uninstalled",
+      "label": "webhooks.app.uninstalled.jsx",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "webhooks.app.uninstalled.jsx",
+      "source_file": "app/routes/webhooks.app.uninstalled.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_server",
+      "label": "shopify.server.js",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "shopify.server.js",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_server_apiversion",
+      "label": "apiVersion",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "apiversion",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L35"
+    },
+    {
+      "id": "app_shopify_server_authenticate",
+      "label": "authenticate",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "authenticate",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L37"
+    },
+    {
+      "id": "app_shopify_server_localsessionstorage",
+      "label": "localSessionStorage",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "localsessionstorage",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "app_shopify_server_registerwebhooks",
+      "label": "registerWebhooks",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "registerwebhooks",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L40"
+    },
+    {
+      "id": "app_shopify_server_sessionstorage",
+      "label": "sessionStorage",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "sessionstorage",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L41"
+    },
+    {
+      "id": "app_shopify_server_shopify",
+      "label": "shopify",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "shopify",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L17"
+    },
+    {
       "id": "scripts_run_targeted_analytics_sync",
       "label": "run-targeted-analytics-sync.mjs",
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
+      "community_name": "shopify.server.js",
       "file_type": "code",
       "norm_label": "run-targeted-analytics-sync.mjs",
       "source_file": "scripts/run-targeted-analytics-sync.mjs",
@@ -9215,7 +9137,7 @@
       "label": "baseUrl",
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
+      "community_name": "shopify.server.js",
       "file_type": "code",
       "norm_label": "baseurl",
       "source_file": "scripts/run-targeted-analytics-sync.mjs",
@@ -9226,44 +9148,33 @@
       "label": "months",
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
+      "community_name": "shopify.server.js",
       "file_type": "code",
       "norm_label": "months",
       "source_file": "scripts/run-targeted-analytics-sync.mjs",
       "source_location": "L24"
     },
     {
-      "id": "vite_config",
-      "label": "vite.config.js",
+      "id": "ref_prisma_client",
+      "label": "@prisma/client",
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
-      "file_type": "code",
-      "norm_label": "vite.config.js",
-      "source_file": "vite.config.js",
-      "source_location": "L1"
+      "community_name": "shopify.server.js",
+      "file_type": "concept",
+      "norm_label": "@prisma/client",
+      "source_file": "package.json",
+      "source_location": "L28"
     },
     {
-      "id": "ref_vite",
-      "label": "vite",
+      "id": "ref_shopify_shopify_app_session_storage_prisma",
+      "label": "@shopify/shopify-app-session-storage-prisma",
       "_origin": "ast",
       "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
+      "community_name": "shopify.server.js",
       "file_type": "concept",
-      "norm_label": "vite",
+      "norm_label": "@shopify/shopify-app-session-storage-prisma",
       "source_file": "package.json",
-      "source_location": "L64"
-    },
-    {
-      "id": "ref_vite_tsconfig_paths",
-      "label": "vite-tsconfig-paths",
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "run-targeted-analytics-sync.mjs",
-      "file_type": "concept",
-      "norm_label": "vite-tsconfig-paths",
-      "source_file": "package.json",
-      "source_location": "L43"
+      "source_location": "L36"
     },
     {
       "id": "app_routes",
@@ -9864,6 +9775,18 @@
       "source_location": "L1098"
     },
     {
+      "id": "decision_2026_10_08_new_arrival_production_performance_telemetry",
+      "label": "2026-10-08 - New Arrival production performance telemetry",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "decision.md",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "2026-10-08 - new arrival production performance telemetry",
+      "source_file": "decision.md",
+      "source_location": "L1117"
+    },
+    {
       "id": "package_engines",
       "label": "engines",
       "_origin": "ast",
@@ -9985,17 +9908,6 @@
       "source_location": "L20"
     },
     {
-      "id": "app_inventory_rules_server",
-      "label": "inventory-rules.server.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "new-arrival-engine.server.js",
-      "file_type": "code",
-      "norm_label": "inventory-rules.server.js",
-      "source_file": "app/inventory-rules.server.js",
-      "source_location": "L1"
-    },
-    {
       "id": "app_new_arrival_engine_server",
       "label": "new-arrival-engine.server.js",
       "_origin": "ast",
@@ -10004,17 +9916,6 @@
       "file_type": "code",
       "norm_label": "new-arrival-engine.server.js",
       "source_file": "app/new-arrival-engine.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "tests_inventory_rules_test",
-      "label": "inventory-rules.test.js",
-      "_origin": "ast",
-      "community": 54,
-      "community_name": "new-arrival-engine.server.js",
-      "file_type": "code",
-      "norm_label": "inventory-rules.test.js",
-      "source_file": "tests/inventory-rules.test.js",
       "source_location": "L1"
     },
     {
@@ -10125,6 +10026,105 @@
       "file_type": "code",
       "norm_label": "render-hosting.test.js",
       "source_file": "tests/render-hosting.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_analytics_performance_server",
+      "label": "analytics-performance.server.js",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "analytics-performance.server.js",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_analytics_performance_server_allowed_cache_statuses",
+      "label": "ALLOWED_CACHE_STATUSES",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowed_cache_statuses",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "app_analytics_performance_server_allowed_intervals",
+      "label": "ALLOWED_INTERVALS",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowed_intervals",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "app_analytics_performance_server_allowed_phases",
+      "label": "ALLOWED_PHASES",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowed_phases",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_analytics_performance_server_allowed_request_kinds",
+      "label": "ALLOWED_REQUEST_KINDS",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowed_request_kinds",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "app_analytics_performance_server_allowed_sources",
+      "label": "ALLOWED_SOURCES",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowed_sources",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "app_analytics_performance_server_allowed_statuses",
+      "label": "ALLOWED_STATUSES",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "allowed_statuses",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "app_routes_app_analytics_performance",
+      "label": "app.analytics-performance.jsx",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "app.analytics-performance.jsx",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_analytics_performance_test",
+      "label": "analytics-performance.test.js",
+      "_origin": "ast",
+      "community": 59,
+      "community_name": "analytics-performance.server.js",
+      "file_type": "code",
+      "norm_label": "analytics-performance.test.js",
+      "source_file": "tests/analytics-performance.test.js",
       "source_location": "L1"
     },
     {
@@ -10473,7 +10473,7 @@
       "node_kind": "heading",
       "norm_label": "analytics storage assignment flow",
       "source_file": "flow.md",
-      "source_location": "L1026"
+      "source_location": "L1027"
     },
     {
       "id": "flow_atomic_tag_refresh",
@@ -10497,7 +10497,7 @@
       "node_kind": "heading",
       "norm_label": "automatic 18-month sync and product audit read flow",
       "source_file": "flow.md",
-      "source_location": "L1048"
+      "source_location": "L1049"
     },
     {
       "id": "flow_automatic_daily_current_month_refresh_flow",
@@ -10509,7 +10509,7 @@
       "node_kind": "heading",
       "norm_label": "automatic daily current-month refresh flow",
       "source_file": "flow.md",
-      "source_location": "L1073"
+      "source_location": "L1074"
     },
     {
       "id": "flow_clear_sync_progress_tracking",
@@ -10533,7 +10533,7 @@
       "node_kind": "heading",
       "norm_label": "file-cache monthly sync and browser cache flow",
       "source_file": "flow.md",
-      "source_location": "L1036"
+      "source_location": "L1037"
     },
     {
       "id": "flow_historical_handle_matching_for_supabase_monthly_sync",
@@ -10605,7 +10605,7 @@
       "node_kind": "heading",
       "norm_label": "new arrival product-count terminology",
       "source_file": "flow.md",
-      "source_location": "L1018"
+      "source_location": "L1019"
     },
     {
       "id": "flow_public_acquisition_and_in_app_activation_flow_2026_08_31",
@@ -10629,7 +10629,7 @@
       "node_kind": "heading",
       "norm_label": "render hosting and persistent shopify-session flow",
       "source_file": "flow.md",
-      "source_location": "L1084"
+      "source_location": "L1085"
     },
     {
       "id": "flow_resumable_analytics_preparation_flow",
@@ -10641,7 +10641,7 @@
       "node_kind": "heading",
       "norm_label": "resumable analytics preparation flow",
       "source_file": "flow.md",
-      "source_location": "L1061"
+      "source_location": "L1062"
     },
     {
       "id": "flow_shopify_id_text_flow",
@@ -10690,6 +10690,237 @@
       "norm_label": "unattributed shopify data flow",
       "source_file": "flow.md",
       "source_location": "L984"
+    },
+    {
+      "id": "app_root",
+      "label": "root.jsx",
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "root.jsx",
+      "source_file": "app/root.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_index_route",
+      "label": "_index/route.jsx",
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "code",
+      "norm_label": "_index/route.jsx",
+      "source_file": "app/routes/_index/route.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_react_router",
+      "label": "react-router",
+      "_origin": "ast",
+      "community": 60,
+      "community_name": "react-router",
+      "file_type": "concept",
+      "norm_label": "react-router",
+      "source_file": "package.json",
+      "source_location": "L42"
+    },
+    {
+      "id": "app_new_arrival_range",
+      "label": "new-arrival-range.js",
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "new-arrival-range.js",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_new_arrival_range_test",
+      "label": "new-arrival-range.test.js",
+      "_origin": "ast",
+      "community": 61,
+      "community_name": "normalizeNewArrivalRange",
+      "file_type": "code",
+      "norm_label": "new-arrival-range.test.js",
+      "source_file": "tests/new-arrival-range.test.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_app",
+      "label": "app.jsx",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "app.jsx",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_react",
+      "label": "react",
+      "_origin": "ast",
+      "community": 62,
+      "community_name": "app.jsx",
+      "file_type": "concept",
+      "norm_label": "react",
+      "source_file": "package.json",
+      "source_location": "L40"
+    },
+    {
+      "id": "app_routes_app_index",
+      "label": "app._index.jsx",
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "app._index.jsx",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_app_index_reports",
+      "label": "reports",
+      "_origin": "ast",
+      "community": 63,
+      "community_name": "app._index.jsx",
+      "file_type": "code",
+      "norm_label": "reports",
+      "source_file": "app/routes/app._index.jsx",
+      "source_location": "L19"
+    },
+    {
+      "id": "app_routes_auth_login_error_server",
+      "label": "error.server.jsx",
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "error.server.jsx",
+      "source_file": "app/routes/auth.login/error.server.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_auth_login_route",
+      "label": "auth.login/route.jsx",
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "auth.login/route.jsx",
+      "source_file": "app/routes/auth.login/route.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_shopify_server_login",
+      "label": "login",
+      "_origin": "ast",
+      "community": 64,
+      "community_name": "auth.login/route.jsx",
+      "file_type": "code",
+      "norm_label": "login",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L39"
+    },
+    {
+      "id": "app_entry_server",
+      "label": "entry.server.jsx",
+      "_origin": "ast",
+      "community": 65,
+      "community_name": "entry.server.jsx",
+      "file_type": "code",
+      "norm_label": "entry.server.jsx",
+      "source_file": "app/entry.server.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_entry_server_streamtimeout",
+      "label": "streamTimeout",
+      "_origin": "ast",
+      "community": 65,
+      "community_name": "entry.server.jsx",
+      "file_type": "code",
+      "norm_label": "streamtimeout",
+      "source_file": "app/entry.server.jsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "app_shopify_server_adddocumentresponseheaders",
+      "label": "addDocumentResponseHeaders",
+      "_origin": "ast",
+      "community": 65,
+      "community_name": "entry.server.jsx",
+      "file_type": "code",
+      "norm_label": "adddocumentresponseheaders",
+      "source_file": "app/shopify.server.js",
+      "source_location": "L36"
+    },
+    {
+      "id": "ref_isbot",
+      "label": "isbot",
+      "_origin": "ast",
+      "community": 65,
+      "community_name": "entry.server.jsx",
+      "file_type": "concept",
+      "norm_label": "isbot",
+      "source_file": "package.json",
+      "source_location": "L38"
+    },
+    {
+      "id": "ref_react_router_node",
+      "label": "@react-router/node",
+      "_origin": "ast",
+      "community": 65,
+      "community_name": "entry.server.jsx",
+      "file_type": "concept",
+      "norm_label": "@react-router/node",
+      "source_file": "package.json",
+      "source_location": "L31"
+    },
+    {
+      "id": "app_routes_auth",
+      "label": "auth.$.jsx",
+      "_origin": "ast",
+      "community": 66,
+      "community_name": "auth.$.jsx",
+      "file_type": "code",
+      "norm_label": "auth.$.jsx",
+      "source_file": "app/routes/auth.$.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "vite_config",
+      "label": "vite.config.js",
+      "_origin": "ast",
+      "community": 67,
+      "community_name": "vite",
+      "file_type": "code",
+      "norm_label": "vite.config.js",
+      "source_file": "vite.config.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "ref_vite",
+      "label": "vite",
+      "_origin": "ast",
+      "community": 67,
+      "community_name": "vite",
+      "file_type": "concept",
+      "norm_label": "vite",
+      "source_file": "package.json",
+      "source_location": "L64"
+    },
+    {
+      "id": "ref_vite_tsconfig_paths",
+      "label": "vite-tsconfig-paths",
+      "_origin": "ast",
+      "community": 67,
+      "community_name": "vite",
+      "file_type": "concept",
+      "norm_label": "vite-tsconfig-paths",
+      "source_file": "package.json",
+      "source_location": "L43"
     },
     {
       "id": "changelog",
@@ -12281,6 +12512,90 @@
       "weight": 1.0
     },
     {
+      "source": "app_analytics_performance_server_allowedtext",
+      "target": "app_analytics_performance_server_safetext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server_loganalyticsperformance",
+      "target": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "target": "app_analytics_performance_server_allowedtext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L53",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "target": "app_analytics_performance_server_safetext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "target": "app_analytics_performance_server_safenumber",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "target": "app_analytics_performance_server_safedate",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L76",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server_safedate",
+      "target": "app_analytics_performance_server_safetext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L41",
+      "weight": 1.0
+    },
+    {
       "source": "app_analytics_storage_routing_server_analyticsdatabasecapacitypolicy",
       "target": "app_analytics_storage_routing_server_positiveinteger",
       "relation": "calls",
@@ -13409,6 +13724,18 @@
       "weight": 1.0
     },
     {
+      "source": "app_routes_app_analytics_performance_action",
+      "target": "app_analytics_performance_server_loganalyticsperformance",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
       "source": "app_routes_app_analytics_storage_action",
       "target": "app_supabase_analytics_server_issupabaseanalyticsconfigured",
       "relation": "calls",
@@ -13501,7 +13828,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L55",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -13513,7 +13840,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.jsx",
-      "source_location": "L200",
+      "source_location": "L219",
       "weight": 1.0
     },
     {
@@ -13561,7 +13888,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1677",
+      "source_location": "L1747",
       "weight": 1.0
     },
     {
@@ -13573,7 +13900,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1687",
+      "source_location": "L1757",
       "weight": 1.0
     },
     {
@@ -13585,7 +13912,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1711",
+      "source_location": "L1781",
       "weight": 1.0
     },
     {
@@ -13597,7 +13924,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1499",
+      "source_location": "L1569",
       "weight": 1.0
     },
     {
@@ -13609,7 +13936,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1504",
+      "source_location": "L1574",
       "weight": 1.0
     },
     {
@@ -13621,7 +13948,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1861",
+      "source_location": "L1931",
       "weight": 1.0
     },
     {
@@ -13633,7 +13960,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1862",
+      "source_location": "L1932",
       "weight": 1.0
     },
     {
@@ -13645,7 +13972,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1870",
+      "source_location": "L1940",
       "weight": 1.0
     },
     {
@@ -13657,7 +13984,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1949",
+      "source_location": "L2019",
       "weight": 1.0
     },
     {
@@ -13669,7 +13996,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2011",
+      "source_location": "L2081",
       "weight": 1.0
     },
     {
@@ -13681,7 +14008,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2128",
+      "source_location": "L2198",
       "weight": 1.0
     },
     {
@@ -13693,7 +14020,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2139",
+      "source_location": "L2209",
       "weight": 1.0
     },
     {
@@ -13705,7 +14032,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L44",
+      "source_location": "L48",
       "weight": 1.0
     },
     {
@@ -13717,7 +14044,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1579",
+      "source_location": "L1649",
       "weight": 1.0
     },
     {
@@ -13729,7 +14056,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1591",
+      "source_location": "L1661",
       "weight": 1.0
     },
     {
@@ -13741,7 +14068,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1634",
+      "source_location": "L1704",
       "weight": 1.0
     },
     {
@@ -13753,7 +14080,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1648",
+      "source_location": "L1718",
       "weight": 1.0
     },
     {
@@ -13765,7 +14092,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1737",
+      "source_location": "L1807",
       "weight": 1.0
     },
     {
@@ -13777,7 +14104,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1738",
+      "source_location": "L1808",
       "weight": 1.0
     },
     {
@@ -13789,7 +14116,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1751",
+      "source_location": "L1821",
       "weight": 1.0
     },
     {
@@ -13801,7 +14128,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1756",
+      "source_location": "L1826",
       "weight": 1.0
     },
     {
@@ -13813,7 +14140,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1786",
+      "source_location": "L1856",
       "weight": 1.0
     },
     {
@@ -13825,7 +14152,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1519",
+      "source_location": "L1589",
       "weight": 1.0
     },
     {
@@ -13837,7 +14164,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1531",
+      "source_location": "L1601",
       "weight": 1.0
     },
     {
@@ -13849,7 +14176,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1549",
+      "source_location": "L1619",
       "weight": 1.0
     },
     {
@@ -13861,7 +14188,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1559",
+      "source_location": "L1629",
       "weight": 1.0
     },
     {
@@ -13873,7 +14200,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L672",
+      "source_location": "L676",
       "weight": 1.0
     },
     {
@@ -13885,7 +14212,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L674",
+      "source_location": "L678",
       "weight": 1.0
     },
     {
@@ -13897,7 +14224,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L679",
+      "source_location": "L683",
       "weight": 1.0
     },
     {
@@ -13909,7 +14236,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L694",
+      "source_location": "L698",
       "weight": 1.0
     },
     {
@@ -13921,7 +14248,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L697",
+      "source_location": "L701",
       "weight": 1.0
     },
     {
@@ -13933,7 +14260,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L628",
+      "source_location": "L632",
       "weight": 1.0
     },
     {
@@ -13945,7 +14272,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L629",
+      "source_location": "L633",
       "weight": 1.0
     },
     {
@@ -13957,7 +14284,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L633",
+      "source_location": "L637",
       "weight": 1.0
     },
     {
@@ -13969,7 +14296,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L638",
+      "source_location": "L642",
       "weight": 1.0
     },
     {
@@ -13981,7 +14308,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L601",
+      "source_location": "L605",
       "weight": 1.0
     },
     {
@@ -13993,7 +14320,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L739",
+      "source_location": "L743",
       "weight": 1.0
     },
     {
@@ -14005,7 +14332,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L742",
+      "source_location": "L746",
       "weight": 1.0
     },
     {
@@ -14017,7 +14344,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L747",
+      "source_location": "L751",
       "weight": 1.0
     },
     {
@@ -14029,7 +14356,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L774",
+      "source_location": "L778",
       "weight": 1.0
     },
     {
@@ -14041,7 +14368,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L787",
+      "source_location": "L791",
       "weight": 1.0
     },
     {
@@ -14053,7 +14380,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L796",
+      "source_location": "L800",
       "weight": 1.0
     },
     {
@@ -14065,7 +14392,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L798",
+      "source_location": "L802",
       "weight": 1.0
     },
     {
@@ -14077,7 +14404,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L666",
+      "source_location": "L670",
       "weight": 1.0
     },
     {
@@ -14089,7 +14416,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L667",
+      "source_location": "L671",
       "weight": 1.0
     },
     {
@@ -14101,7 +14428,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2578",
+      "source_location": "L2688",
       "weight": 1.0
     },
     {
@@ -14113,151 +14440,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1394",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_new_arrival_range_normalizenewarrivalrange",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L813",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_weeksbetween",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L819",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_monthsbetween",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L820",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L823",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_new_arrival_engine_server_generatenewarrivalreport",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L831",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_fetchweeklyperiods",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L890",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_mapconcurrent",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L891",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_fetchperiod",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L892",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_fetchfirstcohortlookback",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L902",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_product_catalog_cache_server_getproductcatalog",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L908",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_shopify_id_shopifyidtext",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L913",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals_loader",
-      "target": "app_routes_app_new_arrivals_fetchproductsbyids",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L931",
+      "source_location": "L1464",
       "weight": 1.0
     },
     {
@@ -14269,7 +14452,175 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L992",
+      "source_location": "L1046",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_new_arrival_range_normalizenewarrivalrange",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L819",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_analytics_performance_server_loganalyticsperformance",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L842",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_analytics_performance_server_analyticsresponsebytes",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L854",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_weeksbetween",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L863",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_monthsbetween",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L864",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_new_arrival_monthly_source_server_loadnewarrivalmonthlysource",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L867",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_new_arrival_engine_server_generatenewarrivalreport",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L875",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_fetchweeklyperiods",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L944",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_mapconcurrent",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L945",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_fetchperiod",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L946",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_fetchfirstcohortlookback",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L956",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_product_catalog_cache_server_getproductcatalog",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L962",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_shopify_id_shopifyidtext",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L967",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals_loader",
+      "target": "app_routes_app_new_arrivals_fetchproductsbyids",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L985",
       "weight": 1.0
     },
     {
@@ -14281,7 +14632,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1812",
+      "source_location": "L1882",
       "weight": 1.0
     },
     {
@@ -14293,7 +14644,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1273",
+      "source_location": "L1343",
       "weight": 1.0
     },
     {
@@ -14305,7 +14656,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1304",
+      "source_location": "L1374",
       "weight": 1.0
     },
     {
@@ -14317,7 +14668,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1144",
+      "source_location": "L1214",
       "weight": 1.0
     },
     {
@@ -14329,7 +14680,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L565",
+      "source_location": "L569",
       "weight": 1.0
     },
     {
@@ -14341,7 +14692,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L559",
+      "source_location": "L563",
       "weight": 1.0
     },
     {
@@ -14353,7 +14704,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L516",
+      "source_location": "L520",
       "weight": 1.0
     },
     {
@@ -14365,7 +14716,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2273",
+      "source_location": "L2383",
       "weight": 1.0
     },
     {
@@ -14377,7 +14728,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2275",
+      "source_location": "L2385",
       "weight": 1.0
     },
     {
@@ -14389,7 +14740,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2324",
+      "source_location": "L2434",
       "weight": 1.0
     },
     {
@@ -14401,7 +14752,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2338",
+      "source_location": "L2448",
       "weight": 1.0
     },
     {
@@ -14413,7 +14764,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2339",
+      "source_location": "L2449",
       "weight": 1.0
     },
     {
@@ -14425,7 +14776,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1823",
+      "source_location": "L1893",
       "weight": 1.0
     },
     {
@@ -14437,7 +14788,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1179",
+      "source_location": "L1249",
       "weight": 1.0
     },
     {
@@ -14449,7 +14800,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L36",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -14461,7 +14812,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L555",
+      "source_location": "L559",
       "weight": 1.0
     },
     {
@@ -14473,7 +14824,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L724",
+      "source_location": "L728",
       "weight": 1.0
     },
     {
@@ -14485,7 +14836,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L541",
+      "source_location": "L545",
       "weight": 1.0
     },
     {
@@ -14497,7 +14848,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L575",
+      "source_location": "L579",
       "weight": 1.0
     },
     {
@@ -14509,7 +14860,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L715",
+      "source_location": "L719",
       "weight": 1.0
     },
     {
@@ -14521,7 +14872,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L545",
+      "source_location": "L549",
       "weight": 1.0
     },
     {
@@ -14533,7 +14884,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L547",
+      "source_location": "L551",
       "weight": 1.0
     },
     {
@@ -17535,7 +17886,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L77",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -17548,7 +17899,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1729",
+      "source_location": "L1799",
       "weight": 1.0
     },
     {
@@ -17937,6 +18288,30 @@
       "weight": 1.0
     },
     {
+      "source": "app_routes_app_analytics_performance",
+      "target": "app_shopify_server_authenticate",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_analytics_performance",
+      "target": "app_analytics_performance_server_loganalyticsperformance",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "app_routes_app_analytics_storage",
       "target": "app_shopify_server_authenticate",
       "relation": "imports",
@@ -18150,6 +18525,30 @@
       "context": "import",
       "source_file": "app/routes/app.new-arrivals.jsx",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_analytics_performance_server_analyticsresponsebytes",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_analytics_performance_server_loganalyticsperformance",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -19485,6 +19884,30 @@
       "weight": 1.0
     },
     {
+      "source": "tests_analytics_performance_test",
+      "target": "app_analytics_performance_server_analyticsresponsebytes",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analytics-performance.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "tests_analytics_performance_test",
+      "target": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analytics-performance.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "tests_analytics_storage_routing_test",
       "target": "app_store_analytics_access_server_createauthenticatedstoreanalytics",
       "relation": "imports",
@@ -20229,6 +20652,30 @@
       "weight": 1.0
     },
     {
+      "source": "app_routes_app_analytics_performance",
+      "target": "app_shopify_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_analytics_performance",
+      "target": "app_analytics_performance_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "app_routes_app_analytics_storage",
       "target": "app_shopify_server",
       "relation": "imports_from",
@@ -20454,6 +20901,18 @@
       "context": "import",
       "source_file": "app/routes/app.new-arrivals.jsx",
       "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_analytics_performance_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -21141,6 +21600,18 @@
       "weight": 1.0
     },
     {
+      "source": "tests_analytics_performance_test",
+      "target": "app_analytics_performance_server",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "tests/analytics-performance.test.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "tests_analytics_storage_routing_test",
       "target": "app_store_analytics_access_server",
       "relation": "imports_from",
@@ -21806,6 +22277,149 @@
       "confidence_score": 1.0,
       "source_file": "app/analytics-file-cache.server.js",
       "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowed_phases",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowed_sources",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowed_cache_statuses",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowed_request_kinds",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_safetext",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowedtext",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_safenumber",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L34",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_safedate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_analyticsresponsebytes",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_normalizeanalyticsperformanceevent",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowed_intervals",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_loganalyticsperformance",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "app_analytics_performance_server",
+      "target": "app_analytics_performance_server_allowed_statuses",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/analytics-performance.server.js",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -22707,7 +23321,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L143",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -22729,7 +23343,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L195",
+      "source_location": "L214",
       "weight": 1.0
     },
     {
@@ -22740,7 +23354,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L199",
+      "source_location": "L218",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app",
+      "target": "app_routes_app_shouldrevalidate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -22751,7 +23376,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.jsx",
-      "source_location": "L41",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -22785,6 +23410,17 @@
       "confidence_score": 1.0,
       "source_file": "app/routes/app.analytics-cache.jsx",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_analytics_performance",
+      "target": "app_routes_app_analytics_performance_action",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.analytics-performance.jsx",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -22888,13 +23524,24 @@
     },
     {
       "source": "app_routes_app_new_arrivals",
+      "target": "app_routes_app_new_arrivals_shouldrevalidate",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L1172",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
       "target": "app_routes_app_new_arrivals_display",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1107",
+      "source_location": "L1177",
       "weight": 1.0
     },
     {
@@ -22905,7 +23552,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1120",
+      "source_location": "L1190",
       "weight": 1.0
     },
     {
@@ -22916,7 +23563,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1137",
+      "source_location": "L1207",
       "weight": 1.0
     },
     {
@@ -22927,7 +23574,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1147",
+      "source_location": "L1217",
       "weight": 1.0
     },
     {
@@ -22938,7 +23585,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1236",
+      "source_location": "L1306",
       "weight": 1.0
     },
     {
@@ -22949,7 +23596,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1248",
+      "source_location": "L1318",
       "weight": 1.0
     },
     {
@@ -22960,7 +23607,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L131",
+      "source_location": "L135",
       "weight": 1.0
     },
     {
@@ -22971,7 +23618,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1374",
+      "source_location": "L1444",
       "weight": 1.0
     },
     {
@@ -22982,7 +23629,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1462",
+      "source_location": "L1532",
       "weight": 1.0
     },
     {
@@ -22993,7 +23640,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1463",
+      "source_location": "L1533",
       "weight": 1.0
     },
     {
@@ -23004,7 +23651,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1476",
+      "source_location": "L1546",
       "weight": 1.0
     },
     {
@@ -23015,7 +23662,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1494",
+      "source_location": "L1564",
       "weight": 1.0
     },
     {
@@ -23026,7 +23673,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1511",
+      "source_location": "L1581",
       "weight": 1.0
     },
     {
@@ -23037,7 +23684,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1562",
+      "source_location": "L1632",
       "weight": 1.0
     },
     {
@@ -23048,7 +23695,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1572",
+      "source_location": "L1642",
       "weight": 1.0
     },
     {
@@ -23059,7 +23706,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1651",
+      "source_location": "L1721",
       "weight": 1.0
     },
     {
@@ -23070,7 +23717,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1657",
+      "source_location": "L1727",
       "weight": 1.0
     },
     {
@@ -23081,7 +23728,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1666",
+      "source_location": "L1736",
       "weight": 1.0
     },
     {
@@ -23092,7 +23739,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1672",
+      "source_location": "L1742",
       "weight": 1.0
     },
     {
@@ -23103,7 +23750,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1728",
+      "source_location": "L1798",
       "weight": 1.0
     },
     {
@@ -23114,7 +23761,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1803",
+      "source_location": "L1873",
       "weight": 1.0
     },
     {
@@ -23125,7 +23772,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1811",
+      "source_location": "L1881",
       "weight": 1.0
     },
     {
@@ -23136,7 +23783,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1819",
+      "source_location": "L1889",
       "weight": 1.0
     },
     {
@@ -23147,7 +23794,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1829",
+      "source_location": "L1899",
       "weight": 1.0
     },
     {
@@ -23158,7 +23805,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L197",
+      "source_location": "L201",
       "weight": 1.0
     },
     {
@@ -23169,7 +23816,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2183",
+      "source_location": "L2253",
       "weight": 1.0
     },
     {
@@ -23180,7 +23827,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2574",
+      "source_location": "L2684",
       "weight": 1.0
     },
     {
@@ -23191,18 +23838,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L2578",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals",
-      "target": "app_routes_app_new_arrivals_categoryloadqueue",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L27",
+      "source_location": "L2688",
       "weight": 1.0
     },
     {
@@ -23213,7 +23849,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L283",
+      "source_location": "L287",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_routes_app_new_arrivals_categoryloadqueue",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -23224,7 +23871,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L29",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -23235,7 +23882,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L336",
+      "source_location": "L340",
       "weight": 1.0
     },
     {
@@ -23246,18 +23893,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L40",
-      "weight": 1.0
-    },
-    {
-      "source": "app_routes_app_new_arrivals",
-      "target": "app_routes_app_new_arrivals_matrix_metrics",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L49",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -23268,7 +23904,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L514",
+      "source_location": "L518",
       "weight": 1.0
     },
     {
@@ -23279,7 +23915,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L516",
+      "source_location": "L520",
       "weight": 1.0
     },
     {
@@ -23290,7 +23926,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L517",
+      "source_location": "L521",
+      "weight": 1.0
+    },
+    {
+      "source": "app_routes_app_new_arrivals",
+      "target": "app_routes_app_new_arrivals_matrix_metrics",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/routes/app.new-arrivals.jsx",
+      "source_location": "L53",
       "weight": 1.0
     },
     {
@@ -23301,7 +23948,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L537",
+      "source_location": "L541",
       "weight": 1.0
     },
     {
@@ -23312,7 +23959,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L543",
+      "source_location": "L547",
       "weight": 1.0
     },
     {
@@ -23323,7 +23970,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L553",
+      "source_location": "L557",
       "weight": 1.0
     },
     {
@@ -23334,7 +23981,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L557",
+      "source_location": "L561",
       "weight": 1.0
     },
     {
@@ -23345,7 +23992,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L563",
+      "source_location": "L567",
       "weight": 1.0
     },
     {
@@ -23356,7 +24003,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L571",
+      "source_location": "L575",
       "weight": 1.0
     },
     {
@@ -23367,7 +24014,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L578",
+      "source_location": "L582",
       "weight": 1.0
     },
     {
@@ -23378,7 +24025,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L582",
+      "source_location": "L586",
       "weight": 1.0
     },
     {
@@ -23389,7 +24036,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L597",
+      "source_location": "L601",
       "weight": 1.0
     },
     {
@@ -23400,7 +24047,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L617",
+      "source_location": "L621",
       "weight": 1.0
     },
     {
@@ -23411,7 +24058,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L661",
+      "source_location": "L665",
       "weight": 1.0
     },
     {
@@ -23422,7 +24069,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L671",
+      "source_location": "L675",
       "weight": 1.0
     },
     {
@@ -23433,7 +24080,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L706",
+      "source_location": "L710",
       "weight": 1.0
     },
     {
@@ -23444,7 +24091,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L713",
+      "source_location": "L717",
       "weight": 1.0
     },
     {
@@ -23455,7 +24102,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L718",
+      "source_location": "L722",
       "weight": 1.0
     },
     {
@@ -23466,7 +24113,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L728",
+      "source_location": "L732",
       "weight": 1.0
     },
     {
@@ -23477,7 +24124,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L794",
+      "source_location": "L798",
       "weight": 1.0
     },
     {
@@ -23488,7 +24135,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L810",
+      "source_location": "L814",
       "weight": 1.0
     },
     {
@@ -25737,6 +26384,17 @@
     },
     {
       "source": "decision",
+      "target": "decision_2026_10_08_new_arrival_production_performance_telemetry",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "decision.md",
+      "source_location": "L1117",
+      "weight": 1.0
+    },
+    {
+      "source": "decision",
       "target": "decision_2026_08_20_new_arrival_analysis_port",
       "relation": "contains",
       "_origin": "ast",
@@ -27459,7 +28117,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1018",
+      "source_location": "L1019",
       "weight": 1.0
     },
     {
@@ -27470,7 +28128,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1026",
+      "source_location": "L1027",
       "weight": 1.0
     },
     {
@@ -27481,7 +28139,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1036",
+      "source_location": "L1037",
       "weight": 1.0
     },
     {
@@ -27492,7 +28150,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1048",
+      "source_location": "L1049",
       "weight": 1.0
     },
     {
@@ -27503,7 +28161,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1061",
+      "source_location": "L1062",
       "weight": 1.0
     },
     {
@@ -27514,7 +28172,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1073",
+      "source_location": "L1074",
       "weight": 1.0
     },
     {
@@ -27525,7 +28183,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "flow.md",
-      "source_location": "L1084",
+      "source_location": "L1085",
       "weight": 1.0
     },
     {
@@ -30738,7 +31396,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1611",
+      "source_location": "L1681",
       "weight": 1.0
     },
     {
@@ -30750,7 +31408,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L1535",
+      "source_location": "L1605",
       "weight": 1.0
     },
     {
@@ -30762,7 +31420,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "app/routes/app.new-arrivals.jsx",
-      "source_location": "L592",
+      "source_location": "L596",
       "weight": 1.0
     },
     {
@@ -30815,5 +31473,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f7a39893afa372c5a809ffbc9eb36d6bdd103cce"
+  "built_at_commit": "50d40d1f86e8114b9159f594656271926841580a"
 }

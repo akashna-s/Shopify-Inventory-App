@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Outlet,
   useFetcher,
@@ -38,12 +38,16 @@ export const loader = async ({ request }) => {
   };
 };
 
+export const shouldRevalidate = ({ formAction, defaultShouldRevalidate }) =>
+  formAction === "/app/analytics-performance" ? false : defaultShouldRevalidate;
+
 export default function App() {
   const { apiKey, storageConfigured, storageAssigned, storageMode } = useLoaderData();
   const storageAssignment = useFetcher();
   const [analyticsBootstrap, setAnalyticsBootstrap] = useState(null);
   const navigation = useNavigation();
   const location = useLocation();
+  const trackedNewArrivalNavigation = useRef("");
   const effectiveStorageMode =
     storageMode || storageAssignment.data?.storageMode || null;
   const pendingPath = navigation.location?.pathname;
@@ -56,6 +60,21 @@ export default function App() {
         `${pendingPath}${navigation.location?.search || ""}`,
       )
     : null;
+
+  useEffect(() => {
+    const destination = navigation.location;
+    if (
+      navigation.state === "idle" ||
+      destination?.pathname !== "/app/new-arrivals"
+    ) {
+      return;
+    }
+    const navigationKey =
+      destination.key || `${destination.pathname}${destination.search || ""}`;
+    if (trackedNewArrivalNavigation.current === navigationKey) return;
+    trackedNewArrivalNavigation.current = navigationKey;
+    window.__newArrivalNavigationStartedAt = performance.now();
+  }, [navigation.location, navigation.state]);
 
   useEffect(() => {
     if (

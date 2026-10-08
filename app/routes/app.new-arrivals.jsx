@@ -19,6 +19,10 @@ import DateRangePicker from "../components/DateRangePicker";
 import styles from "../styles/new-arrivals.css?url";
 import dateRangeStyles from "../styles/date-range-picker.css?url";
 import { shopifyIdText } from "../shopify-id.js";
+import {
+  analyticsResponseBytes,
+  logAnalyticsPerformance,
+} from "../analytics-performance.server.js";
 
 /* Loader data and local table component props are runtime-validated by React Router. */
 /* eslint-disable react/prop-types */
@@ -808,12 +812,52 @@ async function fetchWeeklyPeriods(admin, shop, periods, range) {
 }
 
 export const loader = async ({ request }) => {
+  const loaderStartedAt = performance.now();
+  const requestId = crypto.randomUUID();
   const { admin, session } = await authenticate.admin(request);
   const requestUrl = new URL(request.url);
   const range = normalizeNewArrivalRange(requestUrl);
   const categoryOnly = requestUrl.searchParams.get("categoryOnly") || "";
   const detailsOnly = requestUrl.searchParams.get("detailsOnly") === "1";
   const exportAll = requestUrl.searchParams.get("exportAll") === "1";
+  const requestKind = categoryOnly
+    ? "category"
+    : detailsOnly
+      ? "details"
+      : exportAll
+        ? "export"
+        : "initial";
+  const completeRequest = (payload, metrics = {}) => {
+    const serverDurationMs = Math.round(performance.now() - loaderStartedAt);
+    const performanceTelemetry = {
+      requestId,
+      serverDurationMs,
+      source: metrics.source || "unknown",
+      cacheStatus: metrics.cacheStatus || "unknown",
+    };
+    const responsePayload =
+      requestKind === "initial"
+        ? { ...payload, performanceTelemetry }
+        : payload;
+    logAnalyticsPerformance({
+      phase: "server_loader",
+      status: "ok",
+      requestKind,
+      requestId,
+      source: performanceTelemetry.source,
+      cacheStatus: performanceTelemetry.cacheStatus,
+      interval: range.interval,
+      durationMs: serverDurationMs,
+      serverDurationMs,
+      sourceLoadMs: metrics.sourceLoadMs,
+      reportBuildMs: metrics.reportBuildMs,
+      responseBytes: analyticsResponseBytes(responsePayload),
+      rowCount: metrics.rowCount,
+      start: range.start,
+      end: range.end,
+    });
+    return responsePayload;
+  };
   const months =
     range.interval === "week"
       ? weeksBetween(range.start, range.end)
@@ -840,10 +884,19 @@ export const loader = async ({ request }) => {
           firstCohortProductIds: saved.firstCohortProductIds,
         },
       );
-      if (categoryOnly) return { category: report };
-      if (detailsOnly) return { details: report.details, range };
       const reportElapsedMs = Math.round(performance.now() - reportStartedAt);
-      return {
+      const savedMetrics = {
+        source: saved.dataSource,
+        cacheStatus: saved.cacheStatus || saved.dataSource,
+        sourceLoadMs: sourceElapsedMs,
+        reportBuildMs: reportElapsedMs,
+        rowCount: saved.sourceRows.length,
+      };
+      if (categoryOnly)
+        return completeRequest({ category: report }, savedMetrics);
+      if (detailsOnly)
+        return completeRequest({ details: report.details, range }, savedMetrics);
+      return completeRequest({
         report,
         currency: saved.currency || "USD",
         range,
@@ -867,9 +920,10 @@ export const loader = async ({ request }) => {
           }),
         catalogSource: saved.dataSource,
         catalogRefreshedAt: saved.refreshedAt,
-      };
+      }, savedMetrics);
     }
   }
+  const sourceStartedAt = performance.now();
   const shopInfo = await admin
     .graphql(
       `#graphql
@@ -1079,6 +1133,8 @@ export const loader = async ({ request }) => {
         });
     }
   }
+  const sourceElapsedMs = Math.round(performance.now() - sourceStartedAt);
+  const reportStartedAt = performance.now();
   const report = generateNewArrivalReport(
     sourceRows,
     months,
@@ -1091,9 +1147,18 @@ export const loader = async ({ request }) => {
       firstCohortProductIds: firstCohortLookback.activeProductIds,
     },
   );
-  if (categoryOnly) return { category: report };
-  if (detailsOnly) return { details: report.details, range };
-  return {
+  const reportElapsedMs = Math.round(performance.now() - reportStartedAt);
+  const liveMetrics = {
+    source: "shopifyql",
+    cacheStatus: "live",
+    sourceLoadMs: sourceElapsedMs,
+    reportBuildMs: reportElapsedMs,
+    rowCount: sourceRows.length,
+  };
+  if (categoryOnly) return completeRequest({ category: report }, liveMetrics);
+  if (detailsOnly)
+    return completeRequest({ details: report.details, range }, liveMetrics);
+  return completeRequest({
     report,
     currency: shopInfo.currency,
     range,
@@ -1101,8 +1166,13 @@ export const loader = async ({ request }) => {
     debug,
     catalogSource: catalog.source,
     catalogRefreshedAt: catalog.refreshedAt,
-  };
+  }, liveMetrics);
 };
+
+export const shouldRevalidate = ({ formAction, defaultShouldRevalidate }) =>
+  formAction === "/app/analytics-performance"
+    ? false
+    : defaultShouldRevalidate;
 
 function display(value, type, currency) {
   if (type === "percent") return `${((value || 0) * 100).toFixed(1)}%`;
@@ -2189,9 +2259,12 @@ export default function NewArrivalAnalysisPage() {
     debug,
     catalogSource,
     catalogRefreshedAt,
+    performanceTelemetry,
   } = useLoaderData();
   const navigation = useNavigation();
   const navigate = useNavigate();
+  const performanceFetcher = useFetcher();
+  const loggedPerformanceRequests = useRef(new Set());
   const isNavigating = navigation.state !== "idle";
   useEffect(() => {
     window.__analyticsReportReady = true;
@@ -2201,6 +2274,43 @@ export default function NewArrivalAnalysisPage() {
       window.__analyticsInteractiveReportBusy = false;
     };
   }, [isNavigating]);
+  useEffect(() => {
+    if (
+      isNavigating ||
+      !performanceTelemetry?.requestId ||
+      loggedPerformanceRequests.current.has(performanceTelemetry.requestId)
+    ) {
+      return;
+    }
+    loggedPerformanceRequests.current.add(performanceTelemetry.requestId);
+    const navigationEntry = performance
+      .getEntriesByType("navigation")
+      .find((entry) => entry.entryType === "navigation");
+    const startedAt = Number.isFinite(window.__newArrivalNavigationStartedAt)
+      ? window.__newArrivalNavigationStartedAt
+      : navigationEntry?.startTime || 0;
+    performanceFetcher.submit(
+      {
+        requestId: performanceTelemetry.requestId,
+        durationMs: Math.max(0, Math.round(performance.now() - startedAt)),
+        serverDurationMs: performanceTelemetry.serverDurationMs,
+        source: performanceTelemetry.source,
+        cacheStatus: performanceTelemetry.cacheStatus,
+        interval: range.interval,
+        start: range.start,
+        end: range.end,
+      },
+      { method: "POST", action: "/app/analytics-performance" },
+    );
+    delete window.__newArrivalNavigationStartedAt;
+  }, [
+    isNavigating,
+    performanceFetcher,
+    performanceTelemetry,
+    range.end,
+    range.interval,
+    range.start,
+  ]);
   const [tab, setTab] = useState("analysis");
   const [density, setDensity] = useState("comfortable");
   const [isMetricUpdating, setIsMetricUpdating] = useState(false);
