@@ -9787,18 +9787,6 @@
       "source_location": "L1117"
     },
     {
-      "id": "decision_2026_10_09_render_office_hours_keep_alive",
-      "label": "2026-10-09 - Render office-hours keep-alive",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "decision.md",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "2026-10-09 - render office-hours keep-alive",
-      "source_file": "decision.md",
-      "source_location": "L1125"
-    },
-    {
       "id": "package_engines",
       "label": "engines",
       "_origin": "ast",
@@ -26407,17 +26395,6 @@
     },
     {
       "source": "decision",
-      "target": "decision_2026_10_09_render_office_hours_keep_alive",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "decision.md",
-      "source_location": "L1125",
-      "weight": 1.0
-    },
-    {
-      "source": "decision",
       "target": "decision_2026_08_20_new_arrival_analysis_port",
       "relation": "contains",
       "_origin": "ast",
@@ -31496,5 +31473,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "66c17ca730cc13165fc59d2e26798540299d6782"
+  "built_at_commit": "50d40d1f86e8114b9159f594656271926841580a"
 }

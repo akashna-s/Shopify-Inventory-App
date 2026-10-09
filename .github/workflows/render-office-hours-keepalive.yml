@@ -1,0 +1,24 @@
+name: Render office-hours keep-alive
+
+on:
+  schedule:
+    # Every 10 minutes from 08:00 through 21:50 Asia/Kolkata.
+    - cron: "*/10 8-21 * * *"
+      timezone: "Asia/Kolkata"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: render-office-hours-keepalive
+  cancel-in-progress: true
+
+jobs:
+  ping-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Ping only the Render health endpoint
+        run: >-
+          curl --fail --silent --show-error --max-time 90
+          https://secondlook-bu80.onrender.com/health

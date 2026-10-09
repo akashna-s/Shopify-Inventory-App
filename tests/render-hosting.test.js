@@ -53,3 +53,21 @@ test("daily refresh waits through a Render free-tier cold start", async () => {
   assert.match(workflow, /Waiting for the web service to wake up/);
   assert.match(workflow, /has\("processed"\)/);
 });
+
+test("office-hours keep-alive only pings Render health every ten minutes", async () => {
+  const workflow = await readFile(
+    new URL(
+      "../.github/workflows/render-office-hours-keepalive.yml",
+      import.meta.url,
+    ),
+    "utf8",
+  );
+  assert.match(workflow, /cron: "\*\/10 8-21 \* \* \*"/);
+  assert.match(workflow, /timezone: "Asia\/Kolkata"/);
+  assert.match(workflow, /https:\/\/secondlook-bu80\.onrender\.com\/health/);
+  assert.match(workflow, /timeout-minutes: 2/);
+  assert.match(workflow, /permissions: \{\}/);
+  assert.doesNotMatch(workflow, /api\/analytics-cron/);
+  assert.doesNotMatch(workflow, /Authorization:/);
+  assert.doesNotMatch(workflow, /request POST/);
+});

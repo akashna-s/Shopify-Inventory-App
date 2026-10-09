@@ -1121,3 +1121,9 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - Record only bounded operational metadata: timing, range, interval, request kind, source class, cache status, row count, and response size. Never record store domains, product IDs, titles, tags, handles, access tokens, or query strings.
 - The browser telemetry action does not revalidate the app or New Arrival loaders, so measuring a report can never trigger another report calculation.
 - A duration of five seconds or more is written as a warning so slow production loads are easy to filter in Render logs.
+
+# 2026-10-09 - Render office-hours keep-alive
+
+- During the internal pilot, call only the public `/health` endpoint every ten minutes from 08:00 through 21:50 Asia/Kolkata each day.
+- Keep this lightweight schedule separate from the analytics refresh workflow so it cannot trigger Shopify, Supabase, report calculation, or current-month synchronization work.
+- Allow Render to spin down outside this window. This preserves most of the shared 750-hour allowance and does not attempt to provide a production uptime guarantee.

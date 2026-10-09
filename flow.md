@@ -1092,3 +1092,4 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 6. On the next browser request, webhook, or scheduled refresh, the server wakes and loads the persistent Shopify session from Supabase.
 7. Render checks `/health` to confirm the container is accepting requests; this endpoint does not expose store data or secrets.
 8. GitHub Actions retries the protected daily-refresh endpoint during a cold start, then processes due stores using their persistent offline sessions.
+9. During the internal pilot, a separate GitHub workflow sends one GET request to `/health` every ten minutes from 08:00 through 21:50 Asia/Kolkata. It performs no authentication, analytics refresh, database access, or report calculation.
