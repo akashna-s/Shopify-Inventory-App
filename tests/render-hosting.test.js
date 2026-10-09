@@ -46,11 +46,15 @@ test("daily refresh waits through a Render free-tier cold start", async () => {
     "utf8",
   );
   assert.match(workflow, /wake_attempt/);
-  assert.match(workflow, /warm-render/);
-  assert.match(workflow, /04:55 Asia\/Kolkata/);
+  assert.match(workflow, /04:50/);
   assert.match(workflow, /05:00 Asia\/Kolkata/);
+  assert.match(workflow, /cron: "50 4 \* \* \*"/);
+  assert.match(workflow, /timezone: "Asia\/Kolkata"/);
+  assert.equal((workflow.match(/cron:/g) || []).length, 1);
+  assert.doesNotMatch(workflow, /15 \* \* \* \*/);
   assert.match(workflow, /\.status == "ok"/);
   assert.match(workflow, /Waiting for the web service to wake up/);
+  assert.match(workflow, /refresh_epoch/);
   assert.match(workflow, /has\("processed"\)/);
 });
 

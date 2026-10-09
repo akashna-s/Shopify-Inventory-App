@@ -1073,8 +1073,8 @@ Navigation currently opens `/app/new-arrivals` inside the existing authenticated
 
 # Automatic daily current-month refresh flow
 
-1. At 4:55 AM Asia/Kolkata, GitHub Actions calls the public `/health` endpoint to wake the sleeping Render free service.
-2. At 5:00 AM Asia/Kolkata, GitHub Actions calls the protected analytics cron endpoint. An hourly fallback remains for stores in other timezones and for delayed scheduled runs.
+1. At 4:50 AM Asia/Kolkata, one daily GitHub Actions run calls the public `/health` endpoint to wake the sleeping Render free service.
+2. The same run waits until 5:00 AM Asia/Kolkata when it starts on time, then calls the protected analytics cron endpoint. The former hourly fallback is not used.
 3. The server checks active stores using each store's Shopify timezone and configured refresh hour, defaulting to 5:00 AM.
 4. A store is due only when today's refresh has not completed or its current-month source range does not reach the store's latest completed day.
 5. Each protected call selects one due store, restores its server-side Shopify offline session, and performs a fresh full current-month sync.

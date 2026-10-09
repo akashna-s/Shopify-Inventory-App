@@ -1127,3 +1127,9 @@ A new authenticated embedded-app page is available at `/app/new-arrivals`. It is
 - During the internal pilot, call only the public `/health` endpoint every ten minutes from 08:00 through 21:50 Asia/Kolkata each day.
 - Keep this lightweight schedule separate from the analytics refresh workflow so it cannot trigger Shopify, Supabase, report calculation, or current-month synchronization work.
 - Allow Render to spin down outside this window. This preserves most of the shared 750-hour allowance and does not attempt to provide a production uptime guarantee.
+
+# 2026-10-09 - One daily analytics refresh run
+
+- Replace the hourly timezone fallback and separate warm-up trigger with one GitHub Actions run each day at 04:50 Asia/Kolkata.
+- In that run, wake Render through `/health`, wait until 05:00 Asia/Kolkata when necessary, and then invoke the protected database-refresh endpoint.
+- If GitHub starts the workflow late, refresh immediately after Render becomes healthy instead of waiting until the following day.

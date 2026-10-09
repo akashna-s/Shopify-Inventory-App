@@ -52,9 +52,10 @@ test("deployed daily refresh is secret-protected and processes one due store", a
   assert.match(route, /timingSafeEqual/);
   assert.match(route, /due\[0\]/);
   assert.match(route, /daily_current_month_refresh/);
-  assert.match(workflow, /cron: "25 23 \* \* \*"/);
-  assert.match(workflow, /cron: "30 23 \* \* \*"/);
-  assert.match(workflow, /cron: "15 \* \* \* \*"/);
+  assert.match(workflow, /cron: "50 4 \* \* \*"/);
+  assert.match(workflow, /timezone: "Asia\/Kolkata"/);
+  assert.equal((workflow.match(/cron:/g) || []).length, 1);
+  assert.match(workflow, /refresh_epoch/);
   assert.match(workflow, /health_url=/);
   assert.match(workflow, /ANALYTICS_CRON_SECRET/);
   assert.match(example, /ANALYTICS_DAILY_REFRESH_HOUR=5/);

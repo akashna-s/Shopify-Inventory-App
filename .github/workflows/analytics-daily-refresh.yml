@@ -2,19 +2,15 @@ name: Daily analytics warm-up and refresh
 
 on:
   schedule:
-    # 04:55 Asia/Kolkata: wake Render before the India morning refresh.
-    - cron: "25 23 * * *"
-    # 05:00 Asia/Kolkata: run the India morning refresh.
-    - cron: "30 23 * * *"
-    # Keep checking hourly for stores whose own local 05:00 occurs later.
-    - cron: "15 * * * *"
+    # One daily run: wake Render at 04:50, then refresh at or after 05:00.
+    - cron: "50 4 * * *"
+      timezone: "Asia/Kolkata"
   workflow_dispatch:
 
 jobs:
-  warm-render:
-    if: ${{ github.event_name == 'schedule' && github.event.schedule == '25 23 * * *' }}
+  refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 60
     steps:
       - name: Wake the Render free web service
         env:
@@ -26,7 +22,7 @@ jobs:
           for wake_attempt in $(seq 1 24); do
             if curl --fail --silent --show-error --max-time 90 "$health_url" | jq -e '.status == "ok"' >/dev/null 2>&1; then
               healthy="true"
-              echo "Render is awake and healthy for the 05:00 Asia/Kolkata refresh."
+              echo "Render is awake and healthy."
               break
             fi
             echo "Waiting for the Render service to wake up (attempt $wake_attempt/24)..."
@@ -34,11 +30,19 @@ jobs:
           done
           test "$healthy" = "true"
 
-  refresh:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.schedule != '25 23 * * *' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 50
-    steps:
+      - name: Wait until 05:00 Asia/Kolkata
+        run: |
+          now_epoch=$(date +%s)
+          india_date=$(TZ=Asia/Kolkata date +%F)
+          refresh_epoch=$(TZ=Asia/Kolkata date --date "$india_date 05:00:00" +%s)
+          if [ "$now_epoch" -lt "$refresh_epoch" ]; then
+            wait_seconds=$((refresh_epoch - now_epoch))
+            echo "Waiting $wait_seconds seconds for 05:00 Asia/Kolkata."
+            sleep "$wait_seconds"
+          else
+            echo "05:00 Asia/Kolkata has already passed; refreshing now."
+          fi
+
       - name: Refresh stores whose local morning has started
         env:
           ANALYTICS_CRON_URL: ${{ secrets.ANALYTICS_CRON_URL }}

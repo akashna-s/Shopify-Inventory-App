@@ -1,17 +1,17 @@
-# Graph Report - audit-bot  (2026-10-08)
+# Graph Report - audit-bot  (2026-10-09)
 
 ## Corpus Check
-- 113 files · ~84,112 words
+- 113 files · ~84,330 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 16 file(s) not represented in the graph (top: (none) 7, .css 4, .toml 2)
 
 ## Summary
-- 997 nodes · 1720 edges · 68 communities (51 shown, 17 thin omitted)
+- 998 nodes · 1721 edges · 68 communities (51 shown, 17 thin omitted)
 - Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 12 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `50d40d1f`
+- Built from commit: `66c17ca7`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -132,7 +132,7 @@ Nodes (40): Automatic ShopifyQL range recovery, Bulk failure fallback, Case A: f
 
 ### Community 5 - "decision.md"
 Cohesion: 0.04
-Nodes (48): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+40 more)
+Nodes (49): 2026-08-20 — New Arrival Analysis port, 2026-08-31 — Conversion-focused landing page and command center, 2026-09-11 - Align Product Audit date UX and navigation loading, 2026-09-11 - Calculation dictionary clarity, 2026-09-11 - Calculation drawer section navigation, 2026-09-11 - Chunk Product Audit inventory snapshots, 2026-09-11 - Compact dual-calendar navigation, 2026-09-11 - Prevent Product Audit dimension regrouping freezes (+41 more)
 
 ### Community 6 - "flow.md"
 Cohesion: 0.04
@@ -319,8 +319,8 @@ Cohesion: 0.40
 Nodes (5): handleRequest(), streamTimeout, addDocumentResponseHeaders, isbot, @react-router/node
 
 ## Knowledge Gaps
-- **465 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+460 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 538 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **466 isolated node(s):** `npx`, `@shopify/dev-mcp`, `config`, `npx`, `@shopify/dev-mcp` (+461 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 539 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **17 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -333,7 +333,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Why does `shopifyIdText()` connect `shopify-supabase-sync.server.js` to `app.new-arrivals.jsx`, `app.products.jsx`, `new-arrival-engine.server.js`, `createAuthenticatedStoreAnalytics`?**
   _High betweenness centrality (0.027) - this node is a cross-community bridge._
 - **What connects `npx`, `@shopify/dev-mcp`, `config` to the rest of the system?**
-  _465 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _466 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `app.new-arrivals.jsx` be split into smaller, more focused modules?**
   _Cohesion score 0.06963645673323093 - nodes in this community are weakly interconnected._
 - **Should `app.products.jsx` be split into smaller, more focused modules?**
