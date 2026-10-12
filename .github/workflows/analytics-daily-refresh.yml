@@ -50,13 +50,21 @@ jobs:
         run: |
           test -n "$ANALYTICS_CRON_URL"
           test -n "$ANALYTICS_CRON_SECRET"
+          skip_store_ids=""
+          failure_report=""
           for attempt in $(seq 1 60); do
             response=""
             for wake_attempt in $(seq 1 12); do
+              request_headers=(
+                --header "Authorization: Bearer $ANALYTICS_CRON_SECRET"
+                --header "Accept: application/json"
+              )
+              if [ -n "$skip_store_ids" ]; then
+                request_headers+=(--header "X-Analytics-Skip-Store-Ids: $skip_store_ids")
+              fi
               candidate=$(curl --silent --show-error --max-time 90 \
                 --request POST \
-                --header "Authorization: Bearer $ANALYTICS_CRON_SECRET" \
-                --header "Accept: application/json" \
+                "${request_headers[@]}" \
                 "$ANALYTICS_CRON_URL" || true)
               if echo "$candidate" | jq -e 'type == "object" and has("processed")' >/dev/null 2>&1; then
                 response="$candidate"
@@ -67,10 +75,30 @@ jobs:
             done
             test -n "$response"
             echo "$response"
+            new_failure_ids=$(echo "$response" | jq -r '[.failures[]?.storeId | select(. != null) | tostring] | join(",")')
+            if [ -n "$new_failure_ids" ]; then
+              if [ -n "$skip_store_ids" ]; then
+                skip_store_ids="$skip_store_ids,$new_failure_ids"
+              else
+                skip_store_ids="$new_failure_ids"
+              fi
+            fi
+            new_failure_report=$(echo "$response" | jq -r '[.failures[]? | "\(.shopDomain // "unknown store") [\(.phase)]: \(.error)"] | join("; ")')
+            if [ -n "$new_failure_report" ]; then
+              if [ -n "$failure_report" ]; then
+                failure_report="$failure_report; $new_failure_report"
+              else
+                failure_report="$new_failure_report"
+              fi
+            fi
             processed=$(echo "$response" | jq -r '.processed // false')
             remaining=$(echo "$response" | jq -r '.remainingDue // 0')
-            if [ "$processed" != "true" ] || [ "$remaining" = "0" ]; then
+            if [ "$remaining" = "0" ] || [ "$processed" != "true" ]; then
               break
             fi
             sleep 5
           done
+          if [ -n "$failure_report" ]; then
+            echo "::error title=Analytics refresh needs attention::$failure_report"
+            exit 1
+          fi

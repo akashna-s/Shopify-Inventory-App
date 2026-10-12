@@ -3,6 +3,10 @@ import { timingSafeEqual } from "node:crypto";
 import process from "node:process";
 
 import { dueAnalyticsStores } from "../analytics-daily-refresh.server.js";
+import {
+  dailyRefreshFailure,
+  refreshFirstDueAnalyticsStore,
+} from "../analytics-cron.server.js";
 import { unauthenticated } from "../shopify.server";
 import { syncLatest18MonthsToSupabase } from "../shopify-supabase-sync.server";
 
@@ -16,6 +20,13 @@ function authorized(request) {
     timingSafeEqual(configured, supplied);
 }
 
+function skippedStoreIds(request) {
+  return String(request.headers.get("x-analytics-skip-store-ids") || "")
+    .split(",")
+    .map((value) => value.trim())
+    .filter(Boolean);
+}
+
 export const action = async ({ request }) => {
   if (request.method !== "POST") {
     return Response.json({ error: "Method not allowed." }, { status: 405 });
@@ -24,33 +35,35 @@ export const action = async ({ request }) => {
     return Response.json({ error: "Unauthorized." }, { status: 401 });
   }
 
-  const now = new Date();
-  const due = await dueAnalyticsStores({ now });
-  const store = due[0];
-  if (!store) {
-    return Response.json({ processed: false, remainingDue: 0 });
-  }
-
   try {
-    const { admin, session } = await unauthenticated.admin(store.shop_domain);
-    const result = await syncLatest18MonthsToSupabase(admin, session, {
+    const now = new Date();
+    const due = await dueAnalyticsStores({ now });
+    const outcome = await refreshFirstDueAnalyticsStore({
+      dueStores: due,
       now,
-      months: [store.month],
-      preferCachedCatalog: false,
-      jobType: "daily_current_month_refresh",
+      skippedStoreIds: skippedStoreIds(request),
+      authenticateStore: (store) => unauthenticated.admin(store.shop_domain),
+      syncStore: (store, { admin, session }) =>
+        syncLatest18MonthsToSupabase(admin, session, {
+          now,
+          months: [store.month],
+          preferCachedCatalog: false,
+          jobType: "daily_current_month_refresh",
+        }),
     });
-    return Response.json({
-      processed: true,
-      status: result.status,
-      month: store.month,
-      storageMode: result.storageMode,
-      remainingDue: Math.max(0, due.length - 1),
-    }, { status: result.status === "completed" ? 200 : 207 });
+    const hasFailures = outcome.failures.length > 0;
+    return Response.json(outcome, {
+      status: hasFailures || (outcome.processed && outcome.status !== "completed")
+        ? 207
+        : 200,
+    });
   } catch (error) {
-    console.error("Daily analytics refresh failed:", error.message);
-    return Response.json(
-      { error: error.message || "Daily analytics refresh failed." },
-      { status: error.code === "SYNC_ALREADY_RUNNING" ? 409 : 500 },
-    );
+    const failure = dailyRefreshFailure(null, "store-discovery", error);
+    console.error(`[analytics-daily-refresh] ${JSON.stringify(failure)}`);
+    return Response.json({
+      processed: false,
+      remainingDue: 0,
+      failures: [failure],
+    }, { status: 500 });
   }
 };

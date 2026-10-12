@@ -40,6 +40,24 @@ test("Shopify sessions persist in a service-role-only Supabase table", async () 
   assert.match(shopify, /fallback: localSessionStorage/);
 });
 
+test("Shopify lifecycle webhooks update persistent Supabase state", async () => {
+  const [uninstall, scopes, analytics, migration] = await Promise.all([
+    readFile(new URL("../app/routes/webhooks.app.uninstalled.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/routes/webhooks.app.scopes_update.jsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/supabase-analytics.server.js", import.meta.url), "utf8"),
+    readFile(new URL("../supabase/migrations/202610120001_store_uninstall_lifecycle.sql", import.meta.url), "utf8"),
+  ]);
+  assert.match(uninstall, /sessionStorage\.findSessionsByShop/);
+  assert.match(uninstall, /sessionStorage\.deleteSessions/);
+  assert.match(uninstall, /markSupabaseStoreUninstalled/);
+  assert.doesNotMatch(uninstall, /db\.session/);
+  assert.match(scopes, /sessionStorage\.storeSession/);
+  assert.match(analytics, /rpc\/mark_audit_store_uninstalled/);
+  assert.match(migration, /status = 'uninstalled'/);
+  assert.match(migration, /uninstalled_at = now\(\)/);
+  assert.match(migration, /grant execute.*mark_audit_store_uninstalled/s);
+});
+
 test("daily refresh waits through a Render free-tier cold start", async () => {
   const workflow = await readFile(
     new URL("../.github/workflows/analytics-daily-refresh.yml", import.meta.url),

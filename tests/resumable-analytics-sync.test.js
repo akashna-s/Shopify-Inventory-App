@@ -43,14 +43,15 @@ test("resumable preparation upgrades one legacy month instead of replacing it", 
   assert.match(bootstrap, /while \(!status\.preparation\?\.ready\)/);
 });
 
-test("deployed daily refresh is secret-protected and processes one due store", async () => {
+test("deployed daily refresh is secret-protected and isolates failed stores", async () => {
   const [route, workflow, example] = await Promise.all([
     readFile(new URL("../app/routes/api.analytics-cron.jsx", import.meta.url), "utf8"),
     readFile(new URL("../.github/workflows/analytics-daily-refresh.yml", import.meta.url), "utf8"),
     readFile(new URL("../.env.example", import.meta.url), "utf8"),
   ]);
   assert.match(route, /timingSafeEqual/);
-  assert.match(route, /due\[0\]/);
+  assert.match(route, /refreshFirstDueAnalyticsStore/);
+  assert.match(route, /x-analytics-skip-store-ids/);
   assert.match(route, /daily_current_month_refresh/);
   assert.match(workflow, /cron: "50 4 \* \* \*"/);
   assert.match(workflow, /timezone: "Asia\/Kolkata"/);
@@ -58,5 +59,7 @@ test("deployed daily refresh is secret-protected and processes one due store", a
   assert.match(workflow, /refresh_epoch/);
   assert.match(workflow, /health_url=/);
   assert.match(workflow, /ANALYTICS_CRON_SECRET/);
+  assert.match(workflow, /X-Analytics-Skip-Store-Ids/);
+  assert.match(workflow, /Analytics refresh needs attention/);
   assert.match(example, /ANALYTICS_DAILY_REFRESH_HOUR=5/);
 });

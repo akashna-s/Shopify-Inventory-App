@@ -63,6 +63,13 @@ export async function testSupabaseAnalyticsConnection() {
   return request("audit_stores?select=id&limit=1");
 }
 
+export async function markSupabaseStoreUninstalled(shopDomain) {
+  return request("rpc/mark_audit_store_uninstalled", {
+    method: "POST",
+    body: JSON.stringify({ p_shop_domain: shopDomain }),
+  });
+}
+
 export async function assignSupabaseStoreStorage({
   shopDomain,
   currencyCode,

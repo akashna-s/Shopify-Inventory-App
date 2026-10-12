@@ -132,15 +132,15 @@
     "semantic_hash": ""
   },
   "app/routes/webhooks.app.scopes_update.jsx": {
-    "mtime": 1784724566.4551017,
-    "seen": 1789537268.5140018,
-    "ast_hash": "fa9056954d90e4f70eb45abd532a8649",
+    "mtime": 1791793934.7178035,
+    "seen": 1791797951.7988565,
+    "ast_hash": "18e7ff8f2f0176c5493941f6c0e17574",
     "semantic_hash": ""
   },
   "app/routes/webhooks.app.uninstalled.jsx": {
-    "mtime": 1784724566.4551017,
-    "seen": 1789537268.514005,
-    "ast_hash": "6dc33e05a8816d3392d9b78be6e38832",
+    "mtime": 1791793934.2581332,
+    "seen": 1791797951.7988615,
+    "ast_hash": "37035250e857eec77bc6d029465e766e",
     "semantic_hash": ""
   },
   "app/shopify.server.js": {
@@ -234,9 +234,9 @@
     "semantic_hash": ""
   },
   "app/supabase-analytics.server.js": {
-    "mtime": 1791437679.0321264,
-    "seen": 1791438045.8929749,
-    "ast_hash": "1ce4378b0b91de1615504b755836ec34",
+    "mtime": 1791793839.842031,
+    "seen": 1791797951.803702,
+    "ast_hash": "df4c0f091b6b12c1f2f1dc7c908f03e8",
     "semantic_hash": ""
   },
   "app/inventory-rules.server.js": {
@@ -486,9 +486,9 @@
     "semantic_hash": ""
   },
   "app/routes/api.analytics-cron.jsx": {
-    "mtime": 1791352135.467617,
-    "seen": 1791371176.9171991,
-    "ast_hash": "0953652c68b7dccd79be5ecc7f4774b1",
+    "mtime": 1791793839.1814835,
+    "seen": 1791797951.7918375,
+    "ast_hash": "ed4d1998ea68d78a6ebb68e4f5049f0a",
     "semantic_hash": ""
   },
   "app/routes/health.jsx": {
@@ -504,21 +504,21 @@
     "semantic_hash": ""
   },
   "tests/render-hosting.test.js": {
-    "mtime": 1791529286.5056894,
-    "seen": 1791529393.2705972,
-    "ast_hash": "ea27beb463c2d1db8e980d3b31c934b3",
+    "mtime": 1791793842.382029,
+    "seen": 1791797951.8151913,
+    "ast_hash": "bde2d7d985686fa8c5da513c77760bc2",
     "semantic_hash": ""
   },
   "tests/resumable-analytics-sync.test.js": {
-    "mtime": 1791529351.6363125,
-    "seen": 1791529393.2706025,
-    "ast_hash": "570f3e5a494757b42ae53e3cc1437d4c",
+    "mtime": 1791793841.957337,
+    "seen": 1791797951.8151944,
+    "ast_hash": "70214edb6cd60dc1ca412d89d566dd0a",
     "semantic_hash": ""
   },
   ".github/workflows/analytics-daily-refresh.yml": {
-    "mtime": 1791529285.8701801,
-    "seen": 1791529393.2770834,
-    "ast_hash": "b09d6f21f56e46d452c7c2415b1afb8d",
+    "mtime": 1791793839.4689033,
+    "seen": 1791797951.8193605,
+    "ast_hash": "e356efda0c685d2a438347c0a7f9f66a",
     "semantic_hash": ""
   },
   "render.yaml": {
@@ -573,6 +573,18 @@
     "mtime": 1791527918.917812,
     "seen": 1791528062.2012048,
     "ast_hash": "edbb47035df1eef896bbdf2d1fb109fa",
+    "semantic_hash": ""
+  },
+  "app/analytics-cron.server.js": {
+    "mtime": 1791793838.7183552,
+    "seen": 1791797951.7820868,
+    "ast_hash": "c372221ca4088868139f3855366dd14b",
+    "semantic_hash": ""
+  },
+  "tests/analytics-cron.test.js": {
+    "mtime": 1791793841.499977,
+    "seen": 1791797951.808632,
+    "ast_hash": "63c8beb315ccf19cf0584682615a55e1",
     "semantic_hash": ""
   }
 }
