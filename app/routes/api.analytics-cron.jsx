@@ -9,6 +9,7 @@ import {
 } from "../analytics-cron.server.js";
 import { unauthenticated } from "../shopify.server";
 import { syncLatest18MonthsToSupabase } from "../shopify-supabase-sync.server";
+import { purgeExpiredUninstalledStores } from "../uninstalled-store-retention.server.js";
 
 function authorized(request) {
   const configured = Buffer.from(String(process.env.ANALYTICS_CRON_SECRET || ""));
@@ -37,11 +38,16 @@ export const action = async ({ request }) => {
 
   try {
     const now = new Date();
+    const skipped = skippedStoreIds(request);
+    const retention = await purgeExpiredUninstalledStores({
+      now,
+      skippedStoreIds: skipped,
+    });
     const due = await dueAnalyticsStores({ now });
     const outcome = await refreshFirstDueAnalyticsStore({
       dueStores: due,
       now,
-      skippedStoreIds: skippedStoreIds(request),
+      skippedStoreIds: skipped,
       authenticateStore: (store) => unauthenticated.admin(store.shop_domain),
       syncStore: (store, { admin, session }) =>
         syncLatest18MonthsToSupabase(admin, session, {
@@ -51,8 +57,10 @@ export const action = async ({ request }) => {
           jobType: "daily_current_month_refresh",
         }),
     });
-    const hasFailures = outcome.failures.length > 0;
-    return Response.json(outcome, {
+    const failures = [...retention.failures, ...outcome.failures];
+    const response = { ...outcome, failures, retention };
+    const hasFailures = failures.length > 0;
+    return Response.json(response, {
       status: hasFailures || (outcome.processed && outcome.status !== "completed")
         ? 207
         : 200,

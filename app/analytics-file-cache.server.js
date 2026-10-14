@@ -6,6 +6,7 @@ import {
   analyticsStorePrefix,
   downloadAnalyticsObject,
   downloadAnalyticsObjectIfPresent,
+  listAnalyticsObjects,
   removeAnalyticsObjects,
   uploadAnalyticsObject,
 } from "./supabase-storage.server.js";
@@ -163,6 +164,16 @@ export async function pruneAnalyticsFileMonths(storeId, retainedMonths) {
       (sum, entry) => sum + (Number(entry.productRows) || 0),
       0,
     ),
+  };
+}
+
+export async function removeAnalyticsStoreCache(storeId) {
+  const paths = analyticsFilePaths(storeId);
+  const objectPaths = await listAnalyticsObjects(paths.prefix);
+  await removeAnalyticsObjects(objectPaths);
+  return {
+    storeId: String(storeId),
+    objectsRemoved: objectPaths.length,
   };
 }
 

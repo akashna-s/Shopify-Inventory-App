@@ -234,9 +234,9 @@
     "semantic_hash": ""
   },
   "app/supabase-analytics.server.js": {
-    "mtime": 1791793839.842031,
-    "seen": 1791797951.803702,
-    "ast_hash": "df4c0f091b6b12c1f2f1dc7c908f03e8",
+    "mtime": 1791984215.5062978,
+    "seen": 1791984657.109191,
+    "ast_hash": "27b71dd563a31c8b64d4f3460baa375e",
     "semantic_hash": ""
   },
   "app/inventory-rules.server.js": {
@@ -408,9 +408,9 @@
     "semantic_hash": ""
   },
   "app/analytics-file-cache.server.js": {
-    "mtime": 1791351820.6186318,
-    "seen": 1791371176.9137077,
-    "ast_hash": "66684fee825d312a340a70786ee9dbf5",
+    "mtime": 1791984427.897529,
+    "seen": 1791984657.0946288,
+    "ast_hash": "f1a66c118e5fc1cf6382bb46db10d6fc",
     "semantic_hash": ""
   },
   "app/routes/app.analytics-cache.jsx": {
@@ -426,9 +426,9 @@
     "semantic_hash": ""
   },
   "app/supabase-storage.server.js": {
-    "mtime": 1791012726.8494134,
-    "seen": 1791012876.9982095,
-    "ast_hash": "66718c4db31f4456b94b3562cdf055a1",
+    "mtime": 1791984421.6640522,
+    "seen": 1791984657.1095474,
+    "ast_hash": "0e51f1b4a8509ba52003c7815c796d42",
     "semantic_hash": ""
   },
   "scripts/apply-supabase-migration.mjs": {
@@ -444,9 +444,9 @@
     "semantic_hash": ""
   },
   "tests/analytics-file-cache.test.js": {
-    "mtime": 1791351880.1842139,
-    "seen": 1791371176.9227793,
-    "ast_hash": "45b5fa2180b26eb04e2bbe451689574a",
+    "mtime": 1791984438.613333,
+    "seen": 1791984657.1124506,
+    "ast_hash": "bc951642b76b43a5e6eb364863a25b73",
     "semantic_hash": ""
   },
   "app/analytics-bootstrap.client.js": {
@@ -486,9 +486,9 @@
     "semantic_hash": ""
   },
   "app/routes/api.analytics-cron.jsx": {
-    "mtime": 1791793839.1814835,
-    "seen": 1791797951.7918375,
-    "ast_hash": "ed4d1998ea68d78a6ebb68e4f5049f0a",
+    "mtime": 1791984245.0253744,
+    "seen": 1791984657.1003573,
+    "ast_hash": "6fcac02c2847008a5a82fd88025c7dfb",
     "semantic_hash": ""
   },
   "app/routes/health.jsx": {
@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "tests/render-hosting.test.js": {
-    "mtime": 1791793842.382029,
-    "seen": 1791797951.8151913,
-    "ast_hash": "bde2d7d985686fa8c5da513c77760bc2",
+    "mtime": 1791984278.82382,
+    "seen": 1791984657.1172788,
+    "ast_hash": "029ec755763d3b216ccf7e1970177dbe",
     "semantic_hash": ""
   },
   "tests/resumable-analytics-sync.test.js": {
@@ -522,9 +522,9 @@
     "semantic_hash": ""
   },
   "render.yaml": {
-    "mtime": 1791372415.7814536,
-    "seen": 1791372611.5765114,
-    "ast_hash": "6eee87d7ea6c04f2bd8ced35981ad0cc",
+    "mtime": 1791984250.1766162,
+    "seen": 1791984657.1264246,
+    "ast_hash": "2c20306e7d8fff4e91427bf959e4ffcf",
     "semantic_hash": ""
   },
   "app/new-arrival-monthly-source.server.js": {
@@ -585,6 +585,18 @@
     "mtime": 1791793841.499977,
     "seen": 1791797951.808632,
     "ast_hash": "63c8beb315ccf19cf0584682615a55e1",
+    "semantic_hash": ""
+  },
+  "app/uninstalled-store-retention.server.js": {
+    "mtime": 1791984237.312929,
+    "seen": 1791984657.1098998,
+    "ast_hash": "ebbe634fb476f615f251cf6190b3d2c8",
+    "semantic_hash": ""
+  },
+  "tests/uninstalled-store-retention.test.js": {
+    "mtime": 1791984270.5502377,
+    "seen": 1791984657.1211238,
+    "ast_hash": "81568d5f48b0e330a0f625f4b10244c3",
     "semantic_hash": ""
   }
 }

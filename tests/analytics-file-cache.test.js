@@ -10,6 +10,7 @@ import {
 } from "../app/shopify-file-cache-sync.server.js";
 import {
   analyticsFilePaths,
+  removeAnalyticsStoreCache,
   writeAnalyticsMonth,
 } from "../app/analytics-file-cache.server.js";
 
@@ -114,6 +115,55 @@ test("file paths are store-separated and monthly files upload compressed", async
     assert.match(calls[0].input, /analytics-monthly-cache\/stores\/12\/months\/2026-09\.json\.gz$/);
     assert.equal(calls[0].options.headers.Authorization, "Bearer server-secret");
     assert.equal(calls[0].options.headers["x-upsert"], "true");
+  } finally {
+    global.fetch = originalFetch;
+    if (originalUrl === undefined) delete process.env.SUPABASE_URL;
+    else process.env.SUPABASE_URL = originalUrl;
+    if (originalKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = originalKey;
+  }
+});
+
+test("store cache purge recursively removes every stored object", async () => {
+  const originalFetch = global.fetch;
+  const originalUrl = process.env.SUPABASE_URL;
+  const originalKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  process.env.SUPABASE_URL = "https://example.supabase.co";
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "server-secret";
+  let deleted = [];
+  global.fetch = async (input, options) => {
+    const url = String(input);
+    if (url.includes("/object/list/")) {
+      const { prefix } = JSON.parse(options.body);
+      if (prefix === "stores/12") {
+        return Response.json([
+          { id: "manifest", name: "manifest.json" },
+          { id: "catalog", name: "catalog.json.gz" },
+          { id: null, name: "months" },
+        ]);
+      }
+      if (prefix === "stores/12/months") {
+        return Response.json([
+          { id: "month-1", name: "2026-08.json.gz" },
+          { id: "month-2", name: "2026-09.json.gz" },
+        ]);
+      }
+    }
+    if (options.method === "DELETE") {
+      deleted = JSON.parse(options.body).prefixes;
+      return new Response(null, { status: 200 });
+    }
+    return Response.json([]);
+  };
+  try {
+    const result = await removeAnalyticsStoreCache(12);
+    assert.equal(result.objectsRemoved, 4);
+    assert.deepEqual(deleted, [
+      "stores/12/manifest.json",
+      "stores/12/catalog.json.gz",
+      "stores/12/months/2026-08.json.gz",
+      "stores/12/months/2026-09.json.gz",
+    ]);
   } finally {
     global.fetch = originalFetch;
     if (originalUrl === undefined) delete process.env.SUPABASE_URL;

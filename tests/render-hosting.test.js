@@ -41,11 +41,13 @@ test("Shopify sessions persist in a service-role-only Supabase table", async () 
 });
 
 test("Shopify lifecycle webhooks update persistent Supabase state", async () => {
-  const [uninstall, scopes, analytics, migration] = await Promise.all([
+  const [uninstall, scopes, analytics, migration, retentionMigration, cronRoute] = await Promise.all([
     readFile(new URL("../app/routes/webhooks.app.uninstalled.jsx", import.meta.url), "utf8"),
     readFile(new URL("../app/routes/webhooks.app.scopes_update.jsx", import.meta.url), "utf8"),
     readFile(new URL("../app/supabase-analytics.server.js", import.meta.url), "utf8"),
     readFile(new URL("../supabase/migrations/202610120001_store_uninstall_lifecycle.sql", import.meta.url), "utf8"),
+    readFile(new URL("../supabase/migrations/202610140001_uninstalled_store_retention.sql", import.meta.url), "utf8"),
+    readFile(new URL("../app/routes/api.analytics-cron.jsx", import.meta.url), "utf8"),
   ]);
   assert.match(uninstall, /sessionStorage\.findSessionsByShop/);
   assert.match(uninstall, /sessionStorage\.deleteSessions/);
@@ -56,6 +58,9 @@ test("Shopify lifecycle webhooks update persistent Supabase state", async () => 
   assert.match(migration, /status = 'uninstalled'/);
   assert.match(migration, /uninstalled_at = now\(\)/);
   assert.match(migration, /grant execute.*mark_audit_store_uninstalled/s);
+  assert.match(retentionMigration, /p_retention_days integer default 15/);
+  assert.match(retentionMigration, /delete from public\.audit_stores/);
+  assert.match(cronRoute, /purgeExpiredUninstalledStores/);
 });
 
 test("daily refresh waits through a Render free-tier cold start", async () => {

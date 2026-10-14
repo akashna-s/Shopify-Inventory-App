@@ -15,12 +15,16 @@ function storageConfig() {
   };
 }
 
-function safeObjectPath(path) {
+function normalizedObjectPath(path) {
   const value = String(path || "").replace(/^\/+/, "");
   if (!value || value.includes("..") || value.includes("\\")) {
     throw new Error("A safe analytics storage object path is required.");
   }
-  return value.split("/").map(encodeURIComponent).join("/");
+  return value;
+}
+
+function safeObjectPath(path) {
+  return normalizedObjectPath(path).split("/").map(encodeURIComponent).join("/");
 }
 
 async function storageRequest(path, options = {}) {
@@ -107,6 +111,41 @@ export async function removeAnalyticsObjects(objectPaths) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prefixes: objectPaths.map((path) => String(path)) }),
   });
+}
+
+export async function listAnalyticsObjects(objectPrefix) {
+  const { bucket } = storageConfig();
+  const root = normalizedObjectPath(objectPrefix).replace(/\/$/, "");
+  const objects = [];
+
+  async function visit(prefix) {
+    const pageSize = 1000;
+    for (let offset = 0; ; offset += pageSize) {
+      const response = await storageRequest(
+        `object/list/${encodeURIComponent(bucket)}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prefix,
+            limit: pageSize,
+            offset,
+            sortBy: { column: "name", order: "asc" },
+          }),
+        },
+      );
+      const entries = await response.json();
+      for (const entry of entries) {
+        const path = `${prefix}/${entry.name}`;
+        if (entry.id) objects.push(path);
+        else await visit(path);
+      }
+      if (entries.length < pageSize) break;
+    }
+  }
+
+  await visit(root);
+  return objects;
 }
 
 export const analyticsStorageDefaults = Object.freeze({

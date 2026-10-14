@@ -36,3 +36,5 @@ services:
         sync: false
       - key: ANALYTICS_DAILY_REFRESH_HOUR
         value: "5"
+      - key: UNINSTALLED_STORE_RETENTION_DAYS
+        value: "15"

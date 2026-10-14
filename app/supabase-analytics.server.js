@@ -70,6 +70,23 @@ export async function markSupabaseStoreUninstalled(shopDomain) {
   });
 }
 
+export async function purgeSupabaseStoreIfExpired(storeId, retentionDays = 15) {
+  if (storeId === undefined || storeId === null || storeId === "") {
+    throw new Error("A store ID is required before purging an uninstalled store.");
+  }
+  if (!Number.isInteger(retentionDays) || retentionDays < 1) {
+    throw new Error("Uninstalled-store retention must be a positive whole number of days.");
+  }
+  const result = await request("rpc/purge_audit_store_if_expired", {
+    method: "POST",
+    body: JSON.stringify({
+      p_store_id: storeId,
+      p_retention_days: retentionDays,
+    }),
+  });
+  return Array.isArray(result) ? result[0] || null : result;
+}
+
 export async function assignSupabaseStoreStorage({
   shopDomain,
   currencyCode,
