@@ -504,9 +504,9 @@
     "semantic_hash": ""
   },
   "tests/render-hosting.test.js": {
-    "mtime": 1791984278.82382,
-    "seen": 1791984657.1172788,
-    "ast_hash": "029ec755763d3b216ccf7e1970177dbe",
+    "mtime": 1792145463.7305481,
+    "seen": 1792145629.8913257,
+    "ast_hash": "7a855bbc8e2e4fcb515f067559dad025",
     "semantic_hash": ""
   },
   "tests/resumable-analytics-sync.test.js": {

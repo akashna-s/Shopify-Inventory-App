@@ -5,10 +5,11 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("Render uses a stateless free web service with an unauthenticated health check", async () => {
-  const [blueprint, health, dockerfile, vite] = await Promise.all([
+  const [blueprint, health, dockerfile, dockerignore, vite] = await Promise.all([
     readFile(new URL("../render.yaml", import.meta.url), "utf8"),
     readFile(new URL("../app/routes/health.jsx", import.meta.url), "utf8"),
     readFile(new URL("../Dockerfile", import.meta.url), "utf8"),
+    readFile(new URL("../.dockerignore", import.meta.url), "utf8"),
     readFile(new URL("../vite.config.js", import.meta.url), "utf8"),
   ]);
   assert.match(blueprint, /runtime: docker/);
@@ -21,6 +22,11 @@ test("Render uses a stateless free web service with an unauthenticated health ch
   assert.match(health, /status: "ok"/);
   assert.doesNotMatch(health, /authenticate/);
   assert.match(dockerfile, /ENV HOST=0\.0\.0\.0/);
+  assert.match(dockerfile, /RUN npm run setup && npm run build/);
+  assert.match(dockerfile, /CMD \["npm", "run", "start"\]/);
+  assert.doesNotMatch(dockerfile, /CMD \["npm", "run", "docker-start"\]/);
+  assert.match(dockerignore, /prisma\/\*\.sqlite/);
+  assert.match(dockerignore, /prisma\/\*\.sqlite-journal/);
   assert.match(vite, /\^https\?:\\\/\\\//);
 });
 
