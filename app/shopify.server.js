@@ -5,7 +5,7 @@ import {
   shopifyApp,
 } from "@shopify/shopify-app-react-router/server";
 import { PrismaSessionStorage } from "@shopify/shopify-app-session-storage-prisma";
-import prisma from "./db.server";
+import prisma from "./db.server.js";
 import { SupabaseSessionStorage } from "./supabase-session-storage.server.js";
 
 const localSessionStorage = new PrismaSessionStorage(prisma);

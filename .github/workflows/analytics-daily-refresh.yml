@@ -1,10 +1,8 @@
-name: Daily analytics warm-up and refresh
+name: Manual analytics warm-up and refresh
 
 on:
-  schedule:
-    # One daily run: wake Render at 04:50, then refresh at or after 05:00.
-    - cron: "50 4 * * *"
-      timezone: "Asia/Kolkata"
+  # Production timing is handled by cron-job.org because GitHub schedules can
+  # start late. Keep this workflow as an on-demand recovery option.
   workflow_dispatch:
 
 jobs:
@@ -29,19 +27,6 @@ jobs:
             sleep 10
           done
           test "$healthy" = "true"
-
-      - name: Wait until 05:00 Asia/Kolkata
-        run: |
-          now_epoch=$(date +%s)
-          india_date=$(TZ=Asia/Kolkata date +%F)
-          refresh_epoch=$(TZ=Asia/Kolkata date --date "$india_date 05:00:00" +%s)
-          if [ "$now_epoch" -lt "$refresh_epoch" ]; then
-            wait_seconds=$((refresh_epoch - now_epoch))
-            echo "Waiting $wait_seconds seconds for 05:00 Asia/Kolkata."
-            sleep "$wait_seconds"
-          else
-            echo "05:00 Asia/Kolkata has already passed; refreshing now."
-          fi
 
       - name: Refresh stores whose local morning has started
         env:

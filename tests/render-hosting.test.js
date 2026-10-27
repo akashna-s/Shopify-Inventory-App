@@ -69,22 +69,31 @@ test("Shopify lifecycle webhooks update persistent Supabase state", async () => 
   assert.match(cronRoute, /purgeExpiredUninstalledStores/);
 });
 
-test("daily refresh waits through a Render free-tier cold start", async () => {
+test("daily refresh is a manual fallback that waits through a Render cold start", async () => {
   const workflow = await readFile(
     new URL("../.github/workflows/analytics-daily-refresh.yml", import.meta.url),
     "utf8",
   );
   assert.match(workflow, /wake_attempt/);
-  assert.match(workflow, /04:50/);
-  assert.match(workflow, /05:00 Asia\/Kolkata/);
-  assert.match(workflow, /cron: "50 4 \* \* \*"/);
-  assert.match(workflow, /timezone: "Asia\/Kolkata"/);
-  assert.equal((workflow.match(/cron:/g) || []).length, 1);
-  assert.doesNotMatch(workflow, /15 \* \* \* \*/);
+  assert.match(workflow, /workflow_dispatch/);
+  assert.match(workflow, /cron-job\.org/);
+  assert.doesNotMatch(workflow, /schedule:/);
+  assert.doesNotMatch(workflow, /cron:/);
   assert.match(workflow, /\.status == "ok"/);
   assert.match(workflow, /Waiting for the web service to wake up/);
-  assert.match(workflow, /refresh_epoch/);
   assert.match(workflow, /has\("processed"\)/);
+});
+
+test("product audit source comparison uses the production token refresh path", async () => {
+  const comparison = await readFile(
+    new URL("../scripts/compare-product-audit-sources.mjs", import.meta.url),
+    "utf8",
+  );
+  assert.match(comparison, /import\("\.\.\/app\/shopify\.server\.js"\)/);
+  assert.match(comparison, /unauthenticated\.admin\(store\.shop_domain\)/);
+  assert.match(comparison, /runShopifyQL\(admin,/);
+  assert.doesNotMatch(comparison, /new SupabaseSessionStorage/);
+  assert.doesNotMatch(comparison, /X-Shopify-Access-Token/);
 });
 
 test("office-hours keep-alive only pings Render health every ten minutes", async () => {

@@ -15,9 +15,23 @@ function parseEnvironment(source) {
 
 parseEnvironment(await readFile(".env", "utf8"));
 
-const [{ SupabaseSessionStorage }, { shopifyIdText }] = await Promise.all([
-  import("../app/supabase-session-storage.server.js"),
+const shopifyConfig = await readFile("shopify.app.toml", "utf8");
+const configValue = (key) => shopifyConfig.match(
+  new RegExp(`^${key}\\s*=\\s*"([^"]*)"`, "m"),
+)?.[1];
+process.env.SHOPIFY_API_KEY ||= configValue("client_id");
+process.env.SHOPIFY_APP_URL ||= configValue("application_url");
+process.env.SCOPES ||= configValue("scopes");
+if (!process.env.SHOPIFY_API_SECRET) {
+  throw new Error(
+    "SHOPIFY_API_SECRET is required to refresh the offline Shopify token before comparison. Run with the production app secret in the environment; it is never written to the report.",
+  );
+}
+
+const [{ unauthenticated }, { shopifyIdText }, { runShopifyQL }] = await Promise.all([
+  import("../app/shopify.server.js"),
   import("../app/shopify-id.js"),
+  import("../app/shopifyql.server.js"),
 ]);
 
 const baseUrl = String(process.env.SUPABASE_URL || "").replace(/\/$/, "");
@@ -38,46 +52,6 @@ async function supabase(path, options = {}) {
     throw new Error(`Supabase request failed (${response.status}): ${await response.text()}`);
   }
   return response.json();
-}
-
-const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
-
-async function runShopifyQL(shop, accessToken, query) {
-  const graphql = `
-    query CompareProductAudit($query: String!) {
-      shopifyqlQuery(query: $query) {
-        tableData { columns { name } rows }
-        parseErrors
-      }
-    }
-  `;
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
-    const response = await fetch(`https://${shop}/admin/api/2026-07/graphql.json`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Shopify-Access-Token": accessToken,
-      },
-      body: JSON.stringify({ query: graphql, variables: { query: `${query} LIMIT 100000` } }),
-    });
-    const json = await response.json().catch(() => ({}));
-    const error = json.errors?.[0]?.message || (!response.ok ? `HTTP ${response.status}` : "");
-    if (error && /rate limit|throttl|temporar|timeout|service unavailable|internal server|502|503|504/i.test(error) && attempt < 3) {
-      await wait(900 * 2 ** (attempt - 1));
-      continue;
-    }
-    if (error) return { rows: [], error, truncated: false };
-    const result = json.data?.shopifyqlQuery;
-    if (result?.parseErrors?.length) {
-      return { rows: [], error: result.parseErrors.join("; "), truncated: false };
-    }
-    const columns = result?.tableData?.columns || [];
-    const rows = (result?.tableData?.rows || []).map((row) => Array.isArray(row)
-      ? Object.fromEntries(columns.map((column, index) => [column.name, row[index]]))
-      : row);
-    return { rows, error: null, truncated: rows.length >= 100000 };
-  }
-  return { rows: [], error: "ShopifyQL failed after retries.", truncated: false };
 }
 
 function currencyScale(currency) {
@@ -249,12 +223,7 @@ if (!months.length) {
   );
 }
 
-const sessionStorage = new SupabaseSessionStorage();
-const sessions = await sessionStorage.findSessionsByShop(store.shop_domain);
-const session = sessions.find((candidate) => !candidate.isOnline);
-if (!session?.accessToken) {
-  throw new Error("No offline Shopify session is available. Open the development app once and retry.");
-}
+const { admin } = await unauthenticated.admin(store.shop_domain);
 let totalProducts = 0;
 let totalValues = 0;
 let totalDifferences = 0;
@@ -264,10 +233,10 @@ for (const month of months) {
   const start = `${month}-01`;
   const end = monthEnd(month);
   const [inventory, sales, sessions, orders, report] = await Promise.all([
-    runShopifyQL(store.shop_domain, session.accessToken, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`),
-    runShopifyQL(store.shop_domain, session.accessToken, `FROM sales SHOW orders, quantity_ordered, net_items_sold, reversed_quantity, gross_sales, discounts, gross_sales_reversals, net_sales, shipping_charges, return_fees, taxes, total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`),
-    runShopifyQL(store.shop_domain, session.accessToken, `FROM sessions SHOW sessions, sessions_that_completed_checkout WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`),
-    runShopifyQL(store.shop_domain, session.accessToken, `FROM sales SHOW orders SINCE ${start} UNTIL ${end}`),
+    runShopifyQL(admin, `FROM inventory SHOW starting_inventory_units, ending_inventory_units, first_day_in_inventory GROUP BY product_id SINCE ${start} UNTIL ${end}`),
+    runShopifyQL(admin, `FROM sales SHOW orders, quantity_ordered, net_items_sold, reversed_quantity, gross_sales, discounts, gross_sales_reversals, net_sales, shipping_charges, return_fees, taxes, total_sales GROUP BY product_id SINCE ${start} UNTIL ${end}`),
+    runShopifyQL(admin, `FROM sessions SHOW sessions, sessions_that_completed_checkout WHERE landing_page_type = 'product' GROUP BY landing_page_path SINCE ${start} UNTIL ${end}`),
+    runShopifyQL(admin, `FROM sales SHOW orders SINCE ${start} UNTIL ${end}`),
     supabase("rpc/get_audit_product_month_report", {
       method: "POST",
       body: JSON.stringify({

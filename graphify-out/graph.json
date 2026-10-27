@@ -830,7 +830,19 @@
       "file_type": "code",
       "norm_label": "comparemetricmaps()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L209"
+      "source_location": "L183"
+    },
+    {
+      "id": "scripts_compare_product_audit_sources_configvalue",
+      "label": "configValue()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "compare-product-audit-sources.mjs",
+      "file_type": "code",
+      "norm_label": "configvalue()",
+      "source_file": "scripts/compare-product-audit-sources.mjs",
+      "source_location": "L19"
     },
     {
       "id": "scripts_compare_product_audit_sources_currencyscale",
@@ -842,7 +854,7 @@
       "file_type": "code",
       "norm_label": "currencyscale()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L83"
+      "source_location": "L57"
     },
     {
       "id": "scripts_compare_product_audit_sources_emptymetric",
@@ -854,7 +866,7 @@
       "file_type": "code",
       "norm_label": "emptymetric()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L132"
+      "source_location": "L106"
     },
     {
       "id": "scripts_compare_product_audit_sources_handlefrompath",
@@ -866,7 +878,7 @@
       "file_type": "code",
       "norm_label": "handlefrompath()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L99"
+      "source_location": "L73"
     },
     {
       "id": "scripts_compare_product_audit_sources_mergesourcerows",
@@ -878,7 +890,7 @@
       "file_type": "code",
       "norm_label": "mergesourcerows()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L140"
+      "source_location": "L114"
     },
     {
       "id": "scripts_compare_product_audit_sources_monthend",
@@ -890,7 +902,7 @@
       "file_type": "code",
       "norm_label": "monthend()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L94"
+      "source_location": "L68"
     },
     {
       "id": "scripts_compare_product_audit_sources_normalized",
@@ -902,7 +914,7 @@
       "file_type": "code",
       "norm_label": "normalized()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L203"
+      "source_location": "L177"
     },
     {
       "id": "scripts_compare_product_audit_sources_number",
@@ -914,7 +926,7 @@
       "file_type": "code",
       "norm_label": "number()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L104"
+      "source_location": "L78"
     },
     {
       "id": "scripts_compare_product_audit_sources_parseenvironment",
@@ -929,18 +941,6 @@
       "source_location": "L3"
     },
     {
-      "id": "scripts_compare_product_audit_sources_runshopifyql",
-      "label": "runShopifyQL()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 16,
-      "community_name": "compare-product-audit-sources.mjs",
-      "file_type": "code",
-      "norm_label": "runshopifyql()",
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L45"
-    },
-    {
       "id": "scripts_compare_product_audit_sources_sourcekey",
       "label": "sourceKey()",
       "_callable": true,
@@ -950,7 +950,7 @@
       "file_type": "code",
       "norm_label": "sourcekey()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L136"
+      "source_location": "L110"
     },
     {
       "id": "scripts_compare_product_audit_sources_storedmetrics",
@@ -962,7 +962,7 @@
       "file_type": "code",
       "norm_label": "storedmetrics()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L194"
+      "source_location": "L168"
     },
     {
       "id": "scripts_compare_product_audit_sources_supabase",
@@ -974,19 +974,7 @@
       "file_type": "code",
       "norm_label": "supabase()",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L32"
-    },
-    {
-      "id": "scripts_compare_product_audit_sources_wait",
-      "label": "wait()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 16,
-      "community_name": "compare-product-audit-sources.mjs",
-      "file_type": "code",
-      "norm_label": "wait()",
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L43"
+      "source_location": "L46"
     },
     {
       "id": "app_analytics_bootstrap_client_bootstrapanalyticsdata",
@@ -994,7 +982,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "bootstrapanalyticsdata()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1006,7 +994,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "progressstatus()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1018,7 +1006,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "responsejson()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1030,7 +1018,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "runonestep()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1042,7 +1030,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "syncstatus()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1054,7 +1042,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "wait()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1066,7 +1054,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "waitforinteractivereportidle()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1078,7 +1066,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "waitforrunningsync()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1090,7 +1078,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "waitforvisiblereport()",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -1102,7 +1090,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "deleterecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1114,7 +1102,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "fetchjson()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1126,7 +1114,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "getrecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1138,7 +1126,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "mapconcurrent()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1150,7 +1138,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "consume()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1162,7 +1150,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "opendatabase()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1174,7 +1162,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "putrecord()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1186,7 +1174,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "readcachedanalyticsmonth()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1198,7 +1186,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "refreshanalyticsbrowsercache()",
       "source_file": "app/analytics-browser-cache.client.js",
@@ -1210,119 +1198,143 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "requestresult()",
       "source_file": "app/analytics-browser-cache.client.js",
       "source_location": "L24"
     },
     {
-      "id": "app_components_daterangepicker_asdate",
-      "label": "asDate()",
+      "id": "app_new_arrival_range_datestring",
+      "label": "dateString()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "asdate()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L8"
+      "norm_label": "datestring()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1"
     },
     {
-      "id": "app_components_daterangepicker_calendardays",
-      "label": "calendarDays()",
+      "id": "app_new_arrival_range_monthstring",
+      "label": "monthString()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "calendardays()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L40"
+      "norm_label": "monthstring()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L5"
     },
     {
-      "id": "app_components_daterangepicker_calendarpanel",
-      "label": "CalendarPanel()",
+      "id": "app_new_arrival_range_normalizenewarrivalrange",
+      "label": "normalizeNewArrivalRange()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "calendarpanel()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L51"
+      "norm_label": "normalizenewarrivalrange()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L22"
     },
     {
-      "id": "app_components_daterangepicker_clampmonth",
-      "label": "clampMonth()",
+      "id": "app_new_arrival_range_shiftmonth",
+      "label": "shiftMonth()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "clampmonth()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L33"
-    },
-    {
-      "id": "app_components_daterangepicker_daterangepicker",
-      "label": "DateRangePicker()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
-      "file_type": "code",
-      "norm_label": "daterangepicker()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L191"
-    },
-    {
-      "id": "app_components_daterangepicker_firstofmonth",
-      "label": "firstOfMonth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
-      "file_type": "code",
-      "norm_label": "firstofmonth()",
-      "source_file": "app/components/DateRangePicker.jsx",
+      "norm_label": "shiftmonth()",
+      "source_file": "app/new-arrival-range.js",
       "source_location": "L9"
     },
     {
-      "id": "app_components_daterangepicker_isodate",
-      "label": "isoDate()",
+      "id": "app_new_arrival_range_startofweek",
+      "label": "startOfWeek()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "isodate()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L6"
+      "norm_label": "startofweek()",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L14"
     },
     {
-      "id": "app_components_daterangepicker_readable",
-      "label": "readable()",
+      "id": "app_routes_app_app",
+      "label": "App()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "readable()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L18"
+      "norm_label": "app()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L44"
     },
     {
-      "id": "app_components_daterangepicker_samemonth",
-      "label": "sameMonth()",
+      "id": "app_routes_app_errorboundary",
+      "label": "ErrorBoundary()",
       "_callable": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
+      "community": 17,
+      "community_name": "app.jsx",
       "file_type": "code",
-      "norm_label": "samemonth()",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L26"
+      "norm_label": "errorboundary()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L214"
+    },
+    {
+      "id": "app_routes_app_headers",
+      "label": "headers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "headers()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L218"
+    },
+    {
+      "id": "app_routes_app_loader",
+      "label": "loader()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "loader()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "app_routes_app_newarrivalroutepending",
+      "label": "NewArrivalRoutePending()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "newarrivalroutepending()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L162"
+    },
+    {
+      "id": "app_routes_app_shouldrevalidate",
+      "label": "shouldRevalidate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "shouldrevalidate()",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L41"
     },
     {
       "id": "app_product_audit_monthly_source_server_addsales",
@@ -2489,30 +2501,6 @@
       "source_location": "L9"
     },
     {
-      "id": "app_analytics_storage_routing_server_analyticsdatabasecapacitypolicy",
-      "label": "analyticsDatabaseCapacityPolicy()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "analyticsdatabasecapacitypolicy()",
-      "source_file": "app/analytics-storage-routing.server.js",
-      "source_location": "L20"
-    },
-    {
-      "id": "app_analytics_storage_routing_server_positiveinteger",
-      "label": "positiveInteger()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "positiveinteger()",
-      "source_file": "app/analytics-storage-routing.server.js",
-      "source_location": "L7"
-    },
-    {
       "id": "app_analytics_storage_routing_server_projectedstorestoragebytes",
       "label": "projectedStoreStorageBytes()",
       "_callable": true,
@@ -3113,16 +3101,28 @@
       "source_location": "L33"
     },
     {
-      "id": "tests_analytics_storage_routing_test_withcapacityenvironment",
-      "label": "withCapacityEnvironment()",
+      "id": "app_analytics_storage_routing_server_analyticsdatabasecapacitypolicy",
+      "label": "analyticsDatabaseCapacityPolicy()",
       "_callable": true,
       "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
       "file_type": "code",
-      "norm_label": "withcapacityenvironment()",
-      "source_file": "tests/analytics-storage-routing.test.js",
-      "source_location": "L14"
+      "norm_label": "analyticsdatabasecapacitypolicy()",
+      "source_file": "app/analytics-storage-routing.server.js",
+      "source_location": "L20"
+    },
+    {
+      "id": "app_analytics_storage_routing_server_positiveinteger",
+      "label": "positiveInteger()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "positiveinteger()",
+      "source_file": "app/analytics-storage-routing.server.js",
+      "source_location": "L7"
     },
     {
       "id": "app_landing_session_matcher_server_handlefromlandingpath",
@@ -3521,6 +3521,18 @@
       "source_location": "L49"
     },
     {
+      "id": "tests_analytics_storage_routing_test_withcapacityenvironment",
+      "label": "withCapacityEnvironment()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "withcapacityenvironment()",
+      "source_file": "tests/analytics-storage-routing.test.js",
+      "source_location": "L14"
+    },
+    {
       "id": "tests_store_analytics_access_test_installstoreapi",
       "label": "installStoreApi()",
       "_callable": true,
@@ -3581,6 +3593,114 @@
       "source_location": "L4"
     },
     {
+      "id": "app_components_daterangepicker_asdate",
+      "label": "asDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "asdate()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "app_components_daterangepicker_calendardays",
+      "label": "calendarDays()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "calendardays()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L40"
+    },
+    {
+      "id": "app_components_daterangepicker_calendarpanel",
+      "label": "CalendarPanel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "calendarpanel()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L51"
+    },
+    {
+      "id": "app_components_daterangepicker_clampmonth",
+      "label": "clampMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "clampmonth()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L33"
+    },
+    {
+      "id": "app_components_daterangepicker_daterangepicker",
+      "label": "DateRangePicker()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "daterangepicker()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L191"
+    },
+    {
+      "id": "app_components_daterangepicker_firstofmonth",
+      "label": "firstOfMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "firstofmonth()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "app_components_daterangepicker_isodate",
+      "label": "isoDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "isodate()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "app_components_daterangepicker_readable",
+      "label": "readable()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "readable()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "app_components_daterangepicker_samemonth",
+      "label": "sameMonth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "samemonth()",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L26"
+    },
+    {
       "id": "app_entry_server_handlerequest",
       "label": "handleRequest()",
       "_callable": true,
@@ -3593,66 +3713,6 @@
       "source_location": "L13"
     },
     {
-      "id": "app_new_arrival_range_datestring",
-      "label": "dateString()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "datestring()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_new_arrival_range_monthstring",
-      "label": "monthString()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "monthstring()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "app_new_arrival_range_normalizenewarrivalrange",
-      "label": "normalizeNewArrivalRange()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "normalizenewarrivalrange()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L22"
-    },
-    {
-      "id": "app_new_arrival_range_shiftmonth",
-      "label": "shiftMonth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "shiftmonth()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L9"
-    },
-    {
-      "id": "app_new_arrival_range_startofweek",
-      "label": "startOfWeek()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "startofweek()",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L14"
-    },
-    {
       "id": "app_root_app",
       "label": "App()",
       "_callable": true,
@@ -3663,42 +3723,6 @@
       "norm_label": "app()",
       "source_file": "app/root.jsx",
       "source_location": "L3"
-    },
-    {
-      "id": "app_routes_app_app",
-      "label": "App()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L44"
-    },
-    {
-      "id": "app_routes_app_errorboundary",
-      "label": "ErrorBoundary()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "errorboundary()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L214"
-    },
-    {
-      "id": "app_routes_app_headers",
-      "label": "headers()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "headers()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L218"
     },
     {
       "id": "app_routes_app_index_arrow",
@@ -3759,42 +3783,6 @@
       "norm_label": "loader()",
       "source_file": "app/routes/app._index.jsx",
       "source_location": "L6"
-    },
-    {
-      "id": "app_routes_app_loader",
-      "label": "loader()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "loader()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L17"
-    },
-    {
-      "id": "app_routes_app_newarrivalroutepending",
-      "label": "NewArrivalRoutePending()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "newarrivalroutepending()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L162"
-    },
-    {
-      "id": "app_routes_app_shouldrevalidate",
-      "label": "shouldRevalidate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "shouldrevalidate()",
-      "source_file": "app/routes/app.jsx",
-      "source_location": "L41"
     },
     {
       "id": "app_routes_auth_headers",
@@ -5987,7 +5975,7 @@
       "file_type": "code",
       "norm_label": "alldifferences",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L261"
+      "source_location": "L230"
     },
     {
       "id": "scripts_compare_product_audit_sources_baseurl",
@@ -5998,7 +5986,7 @@
       "file_type": "code",
       "norm_label": "baseurl",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L23"
+      "source_location": "L37"
     },
     {
       "id": "scripts_compare_product_audit_sources_completemonths",
@@ -6009,7 +5997,7 @@
       "file_type": "code",
       "norm_label": "completemonths",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L238"
+      "source_location": "L212"
     },
     {
       "id": "scripts_compare_product_audit_sources_headers",
@@ -6020,7 +6008,7 @@
       "file_type": "code",
       "norm_label": "headers",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L26"
+      "source_location": "L40"
     },
     {
       "id": "scripts_compare_product_audit_sources_metricfields",
@@ -6031,7 +6019,7 @@
       "file_type": "code",
       "norm_label": "metricfields",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L119"
+      "source_location": "L93"
     },
     {
       "id": "scripts_compare_product_audit_sources_moneyfields",
@@ -6042,7 +6030,7 @@
       "file_type": "code",
       "norm_label": "moneyfields",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L108"
+      "source_location": "L82"
     },
     {
       "id": "scripts_compare_product_audit_sources_months",
@@ -6053,7 +6041,7 @@
       "file_type": "code",
       "norm_label": "months",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L244"
+      "source_location": "L218"
     },
     {
       "id": "scripts_compare_product_audit_sources_requestedmonths",
@@ -6064,36 +6052,14 @@
       "file_type": "code",
       "norm_label": "requestedmonths",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L234"
-    },
-    {
-      "id": "scripts_compare_product_audit_sources_session",
-      "label": "session",
-      "_origin": "ast",
-      "community": 16,
-      "community_name": "compare-product-audit-sources.mjs",
-      "file_type": "code",
-      "norm_label": "session",
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L254"
-    },
-    {
-      "id": "scripts_compare_product_audit_sources_sessionstorage",
-      "label": "sessionStorage",
-      "_origin": "ast",
-      "community": 16,
-      "community_name": "compare-product-audit-sources.mjs",
-      "file_type": "code",
-      "norm_label": "sessionstorage",
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L252"
+      "source_location": "L208"
     },
     {
       "id": "app_analytics_bootstrap_client",
       "label": "analytics-bootstrap.client.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "analytics-bootstrap.client.js",
       "source_file": "app/analytics-bootstrap.client.js",
@@ -6104,10 +6070,43 @@
       "label": "analytics-browser-cache.client.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "analytics-bootstrap.client.js",
+      "community_name": "app.jsx",
       "file_type": "code",
       "norm_label": "analytics-browser-cache.client.js",
       "source_file": "app/analytics-browser-cache.client.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_new_arrival_range",
+      "label": "new-arrival-range.js",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "new-arrival-range.js",
+      "source_file": "app/new-arrival-range.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_routes_app",
+      "label": "app.jsx",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "app.jsx",
+      "source_file": "app/routes/app.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_new_arrival_range_test",
+      "label": "new-arrival-range.test.js",
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "app.jsx",
+      "file_type": "code",
+      "norm_label": "new-arrival-range.test.js",
+      "source_file": "tests/new-arrival-range.test.js",
       "source_location": "L1"
     },
     {
@@ -6313,39 +6312,6 @@
       "norm_label": "simple explanation",
       "source_file": "decision.md",
       "source_location": "L162"
-    },
-    {
-      "id": "app_components_daterangepicker",
-      "label": "DateRangePicker.jsx",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
-      "file_type": "code",
-      "norm_label": "daterangepicker.jsx",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_components_daterangepicker_months",
-      "label": "MONTHS",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
-      "file_type": "code",
-      "norm_label": "months",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "app_components_daterangepicker_weekdays",
-      "label": "WEEKDAYS",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "app.products.jsx",
-      "file_type": "code",
-      "norm_label": "weekdays",
-      "source_file": "app/components/DateRangePicker.jsx",
-      "source_location": "L16"
     },
     {
       "id": "app_product_audit_monthly_source_server",
@@ -7793,28 +7759,6 @@
       "source_location": "L1"
     },
     {
-      "id": "app_analytics_storage_routing_server",
-      "label": "analytics-storage-routing.server.js",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "analytics-storage-routing.server.js",
-      "source_file": "app/analytics-storage-routing.server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_analytics_storage_routing_server_analyticsstoragesizing",
-      "label": "analyticsStorageSizing",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "analyticsstoragesizing",
-      "source_file": "app/analytics-storage-routing.server.js",
-      "source_location": "L45"
-    },
-    {
       "id": "app_product_catalog_cache_server",
       "label": "product-catalog-cache.server.js",
       "_origin": "ast",
@@ -7925,17 +7869,6 @@
       "source_location": "L1"
     },
     {
-      "id": "tests_analytics_storage_routing_test",
-      "label": "analytics-storage-routing.test.js",
-      "_origin": "ast",
-      "community": 38,
-      "community_name": "shopify-supabase-sync.server.js",
-      "file_type": "code",
-      "norm_label": "analytics-storage-routing.test.js",
-      "source_file": "tests/analytics-storage-routing.test.js",
-      "source_location": "L1"
-    },
-    {
       "id": "tests_resumable_analytics_sync_test",
       "label": "resumable-analytics-sync.test.js",
       "_origin": "ast",
@@ -7967,6 +7900,28 @@
       "norm_label": "sync-progress.test.js",
       "source_file": "tests/sync-progress.test.js",
       "source_location": "L1"
+    },
+    {
+      "id": "app_analytics_storage_routing_server",
+      "label": "analytics-storage-routing.server.js",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "analytics-storage-routing.server.js",
+      "source_file": "app/analytics-storage-routing.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_analytics_storage_routing_server_analyticsstoragesizing",
+      "label": "analyticsStorageSizing",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "analyticsstoragesizing",
+      "source_file": "app/analytics-storage-routing.server.js",
+      "source_location": "L45"
     },
     {
       "id": "app_landing_session_matcher_server",
@@ -8021,6 +7976,17 @@
       "file_type": "code",
       "norm_label": "supabase-analytics.server.js",
       "source_file": "app/supabase-analytics.server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "tests_analytics_storage_routing_test",
+      "label": "analytics-storage-routing.test.js",
+      "_origin": "ast",
+      "community": 39,
+      "community_name": "createAuthenticatedStoreAnalytics",
+      "file_type": "code",
+      "norm_label": "analytics-storage-routing.test.js",
+      "source_file": "tests/analytics-storage-routing.test.js",
       "source_location": "L1"
     },
     {
@@ -9169,6 +9135,39 @@
       "source_location": "L46"
     },
     {
+      "id": "app_components_daterangepicker",
+      "label": "DateRangePicker.jsx",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "daterangepicker.jsx",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "app_components_daterangepicker_months",
+      "label": "MONTHS",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "months",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "app_components_daterangepicker_weekdays",
+      "label": "WEEKDAYS",
+      "_origin": "ast",
+      "community": 48,
+      "community_name": "shopify.server.js",
+      "file_type": "code",
+      "norm_label": "weekdays",
+      "source_file": "app/components/DateRangePicker.jsx",
+      "source_location": "L16"
+    },
+    {
       "id": "app_entry_server",
       "label": "entry.server.jsx",
       "_origin": "ast",
@@ -9191,17 +9190,6 @@
       "source_location": "L11"
     },
     {
-      "id": "app_new_arrival_range",
-      "label": "new-arrival-range.js",
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "new-arrival-range.js",
-      "source_file": "app/new-arrival-range.js",
-      "source_location": "L1"
-    },
-    {
       "id": "app_root",
       "label": "root.jsx",
       "_origin": "ast",
@@ -9210,17 +9198,6 @@
       "file_type": "code",
       "norm_label": "root.jsx",
       "source_file": "app/root.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "app_routes_app",
-      "label": "app.jsx",
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "app.jsx",
-      "source_file": "app/routes/app.jsx",
       "source_location": "L1"
     },
     {
@@ -9409,17 +9386,6 @@
       "norm_label": "shopify",
       "source_file": "app/shopify.server.js",
       "source_location": "L17"
-    },
-    {
-      "id": "tests_new_arrival_range_test",
-      "label": "new-arrival-range.test.js",
-      "_origin": "ast",
-      "community": 48,
-      "community_name": "shopify.server.js",
-      "file_type": "code",
-      "norm_label": "new-arrival-range.test.js",
-      "source_file": "tests/new-arrival-range.test.js",
-      "source_location": "L1"
     },
     {
       "id": "ref_isbot",
@@ -18166,7 +18132,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L213",
+      "source_location": "L187",
       "weight": 1.0
     },
     {
@@ -18178,7 +18144,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L216",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -18190,7 +18156,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L241",
+      "source_location": "L215",
       "weight": 1.0
     },
     {
@@ -18202,7 +18168,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L143",
+      "source_location": "L117",
       "weight": 1.0
     },
     {
@@ -18214,7 +18180,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L148",
+      "source_location": "L122",
       "weight": 1.0
     },
     {
@@ -18226,7 +18192,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L159",
+      "source_location": "L133",
       "weight": 1.0
     },
     {
@@ -18238,19 +18204,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L181",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources_runshopifyql",
-      "target": "scripts_compare_product_audit_sources_wait",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L66",
+      "source_location": "L155",
       "weight": 1.0
     },
     {
@@ -31251,46 +31205,13 @@
     },
     {
       "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_number",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L104",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_moneyfields",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L108",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_metricfields",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L119",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
       "target": "scripts_compare_product_audit_sources_emptymetric",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L132",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -31301,7 +31222,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L136",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -31312,7 +31233,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L140",
+      "source_location": "L114",
       "weight": 1.0
     },
     {
@@ -31323,7 +31244,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L194",
+      "source_location": "L168",
       "weight": 1.0
     },
     {
@@ -31334,7 +31255,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L203",
+      "source_location": "L177",
       "weight": 1.0
     },
     {
@@ -31345,18 +31266,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L209",
+      "source_location": "L183",
       "weight": 1.0
     },
     {
       "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_baseurl",
+      "target": "scripts_compare_product_audit_sources_configvalue",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L23",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -31367,7 +31288,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L234",
+      "source_location": "L208",
       "weight": 1.0
     },
     {
@@ -31378,7 +31299,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L238",
+      "source_location": "L212",
       "weight": 1.0
     },
     {
@@ -31389,40 +31310,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L244",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_sessionstorage",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L252",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_session",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L254",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_headers",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L26",
+      "source_location": "L218",
       "weight": 1.0
     },
     {
@@ -31433,7 +31321,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L261",
+      "source_location": "L230",
       "weight": 1.0
     },
     {
@@ -31449,35 +31337,35 @@
     },
     {
       "source": "scripts_compare_product_audit_sources",
+      "target": "scripts_compare_product_audit_sources_baseurl",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/compare-product-audit-sources.mjs",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_compare_product_audit_sources",
+      "target": "scripts_compare_product_audit_sources_headers",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/compare-product-audit-sources.mjs",
+      "source_location": "L40",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_compare_product_audit_sources",
       "target": "scripts_compare_product_audit_sources_supabase",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L32",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_wait",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L43",
-      "weight": 1.0
-    },
-    {
-      "source": "scripts_compare_product_audit_sources",
-      "target": "scripts_compare_product_audit_sources_runshopifyql",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L45",
+      "source_location": "L46",
       "weight": 1.0
     },
     {
@@ -31488,7 +31376,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L83",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -31499,7 +31387,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L94",
+      "source_location": "L68",
       "weight": 1.0
     },
     {
@@ -31510,7 +31398,40 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "scripts/compare-product-audit-sources.mjs",
-      "source_location": "L99",
+      "source_location": "L73",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_compare_product_audit_sources",
+      "target": "scripts_compare_product_audit_sources_number",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/compare-product-audit-sources.mjs",
+      "source_location": "L78",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_compare_product_audit_sources",
+      "target": "scripts_compare_product_audit_sources_moneyfields",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/compare-product-audit-sources.mjs",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "scripts_compare_product_audit_sources",
+      "target": "scripts_compare_product_audit_sources_metricfields",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/compare-product-audit-sources.mjs",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -32207,7 +32128,16 @@
     },
     {
       "source": "scripts_compare_product_audit_sources",
-      "target": "app_supabase_session_storage_server",
+      "target": "app_shopify_server",
+      "relation": "dynamic_import",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/compare-product-audit-sources.mjs"
+    },
+    {
+      "source": "scripts_compare_product_audit_sources",
+      "target": "app_shopifyql_server",
       "relation": "dynamic_import",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -32446,5 +32376,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "19fb61414410a74689eb30523077170de6837657"
+  "built_at_commit": "c0c75d2033c7b0927379e3fd326df1e7b29ec831"
 }
