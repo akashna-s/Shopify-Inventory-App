@@ -43,6 +43,7 @@ jobs:
               request_headers=(
                 --header "Authorization: Bearer $ANALYTICS_CRON_SECRET"
                 --header "Accept: application/json"
+                --header "X-Analytics-Force-Refresh: true"
               )
               if [ -n "$skip_store_ids" ]; then
                 request_headers+=(--header "X-Analytics-Skip-Store-Ids: $skip_store_ids")

@@ -28,6 +28,12 @@ function skippedStoreIds(request) {
     .filter(Boolean);
 }
 
+function forceRefreshRequested(request) {
+  return String(request.headers.get("x-analytics-force-refresh") || "")
+    .trim()
+    .toLowerCase() === "true";
+}
+
 export const action = async ({ request }) => {
   if (request.method !== "POST") {
     return Response.json({ error: "Method not allowed." }, { status: 405 });
@@ -39,11 +45,12 @@ export const action = async ({ request }) => {
   try {
     const now = new Date();
     const skipped = skippedStoreIds(request);
+    const force = forceRefreshRequested(request);
     const retention = await purgeExpiredUninstalledStores({
       now,
       skippedStoreIds: skipped,
     });
-    const due = await dueAnalyticsStores({ now });
+    const due = await dueAnalyticsStores({ now, force });
     const outcome = await refreshFirstDueAnalyticsStore({
       dueStores: due,
       now,

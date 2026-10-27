@@ -32,7 +32,7 @@ export function dailyRefreshDue({
   return !refreshedToday || sourceRangeEnd !== expectedEnd;
 }
 
-export async function dueAnalyticsStores({ now = new Date() } = {}) {
+export async function dueAnalyticsStores({ now = new Date(), force = false } = {}) {
   const configuredHour = Number(process.env.ANALYTICS_DAILY_REFRESH_HOUR);
   const refreshHour = Math.min(
     23,
@@ -47,6 +47,10 @@ export async function dueAnalyticsStores({ now = new Date() } = {}) {
   for (const store of stores) {
     const timeZone = normalizeIanaTimeZone(store.iana_timezone);
     const month = latestCompletedDate(now, timeZone).slice(0, 7);
+    if (force) {
+      due.push({ ...store, month });
+      continue;
+    }
     let current = {};
     if (store.storage_mode === "database") {
       const rows = await selectSupabaseRows("audit_store_month_metrics", {

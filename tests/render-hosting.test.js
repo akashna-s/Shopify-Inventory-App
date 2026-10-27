@@ -82,6 +82,7 @@ test("daily refresh is a manual fallback that waits through a Render cold start"
   assert.match(workflow, /\.status == "ok"/);
   assert.match(workflow, /Waiting for the web service to wake up/);
   assert.match(workflow, /has\("processed"\)/);
+  assert.match(workflow, /X-Analytics-Force-Refresh: true/);
 });
 
 test("product audit source comparison uses the production token refresh path", async () => {

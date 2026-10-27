@@ -52,6 +52,7 @@ test("manual daily refresh fallback is secret-protected and isolates failed stor
   assert.match(route, /timingSafeEqual/);
   assert.match(route, /refreshFirstDueAnalyticsStore/);
   assert.match(route, /x-analytics-skip-store-ids/);
+  assert.match(route, /x-analytics-force-refresh/);
   assert.match(route, /daily_current_month_refresh/);
   assert.match(workflow, /workflow_dispatch/);
   assert.match(workflow, /cron-job\.org/);
@@ -60,6 +61,7 @@ test("manual daily refresh fallback is secret-protected and isolates failed stor
   assert.match(workflow, /health_url=/);
   assert.match(workflow, /ANALYTICS_CRON_SECRET/);
   assert.match(workflow, /X-Analytics-Skip-Store-Ids/);
+  assert.match(workflow, /X-Analytics-Force-Refresh: true/);
   assert.match(workflow, /Analytics refresh needs attention/);
   assert.match(example, /ANALYTICS_DAILY_REFRESH_HOUR=5/);
 });
